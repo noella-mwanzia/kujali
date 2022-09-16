@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@kujali/finance/planning/budgets": [
+        "libs/finance/planning/budgets/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
