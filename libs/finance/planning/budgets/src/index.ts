@@ -1,1 +1,1 @@
-export * from './lib/finance-planning-budgets';
+export * from './lib/budget.interface';
