@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "finance-planning-budgets-main": "libs/finance/planning/budgets/main",
     "kujali": "apps/kujali",
     "kujali-e2e": "apps/kujali-e2e"
   }
