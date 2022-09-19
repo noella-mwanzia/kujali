@@ -11,6 +11,7 @@
     "@app/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
     "@app/model/finance/planning/time": "libs/model/finance/planning/time",
     "@app/state/user": "libs/state/user",
+    "app-features-auth-login": "libs/app/features/auth/login",
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
