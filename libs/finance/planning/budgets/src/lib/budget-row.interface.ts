@@ -1,8 +1,8 @@
-import { BudgetRowType } from "./budget-row-type.type";
+import { BudgetRowType } from "./types/budget-row-type.type";
 import { AmountPerYear } from "./cells/amount-per-year.interface";
 
 /**
- * A single row in the budget. 
+ * A single row in the budget, casted over a single year.
  */
 export interface BudgetRow
 {

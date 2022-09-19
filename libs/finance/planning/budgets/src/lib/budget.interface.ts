@@ -1,7 +1,10 @@
 import { IObject } from "@iote/bricks";
+
+import { BudgetStatus } from "./types/budget-status.enum";
 import { BudgetHeader } from "./budget-header.interface";
 
-export interface Budget extends IObject {
+export interface Budget extends IObject 
+{
   name: string;
 
   status: BudgetStatus;
@@ -22,5 +25,3 @@ export interface Budget extends IObject {
   /** Duration in months */
   duration: number;
 }
-
-export type BudgetStatus = 'in-use' | 'open' | 'archived' | 'deleted';
