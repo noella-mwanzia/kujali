@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kujali/finance/planning/budget-defaults": [
+        "libs/finance/planning/budget-defaults/src/index.ts"
+      ],
       "@kujali/finance/planning/budgets": [
         "libs/finance/planning/budgets/src/index.ts"
       ]
