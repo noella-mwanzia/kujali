@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/app/features/auth/login/src",
+  "sourceRoot": "libs/features/auth/login/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/app/features/auth/login"],
+      "outputs": ["coverage/libs/features/auth/login"],
       "options": {
-        "jestConfig": "libs/app/features/auth/login/jest.config.ts",
+        "jestConfig": "libs/features/auth/login/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,8 +15,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/app/features/auth/login/**/*.ts",
-          "libs/app/features/auth/login/**/*.html"
+          "libs/features/auth/login/**/*.ts",
+          "libs/features/auth/login/**/*.html"
         ]
       }
     }

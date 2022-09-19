@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@app/app/features/auth/login": [
-        "libs/app/features/auth/login/src/index.ts"
+      "@app/features/auth/login": [
+        "libs/features/auth/login/src/index.ts"
       ],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"

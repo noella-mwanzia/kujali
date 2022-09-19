@@ -14,12 +14,12 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'auth',
-    loadChildren: () => import('@app/features/app/auth/login').then(m => m.AuthModule),
+    loadChildren: () => import('@features/app/auth/login').then(m => m.AuthModule),
   },
 
   // {
   //   path: 'home',
-  //   loadChildren: () => import('@app/features/convs-mgr/home').then(m => m.ConvsMgrHomeModule),
+  //   loadChildren: () => import('@features/convs-mgr/home').then(m => m.ConvsMgrHomeModule),
   //   canActivate: [IsLoggedInGuard]
   // },
 
