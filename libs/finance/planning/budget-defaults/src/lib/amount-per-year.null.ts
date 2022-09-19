@@ -1,8 +1,7 @@
 import { AmountPerYear } from "@kujali/finance/planning/budgets";
+import { TimeTableGenerator } from "@kujali/finance/planning/time";
 
 import { NULL_AMOUNT_PER_MONTH } from "./amount-per-month.null";
-
-import { TimeTableGenerator } from "../../time/time-table.generator";
 
 /**
  * Default AmountPerYear. Set on initialisation of a budget. 
