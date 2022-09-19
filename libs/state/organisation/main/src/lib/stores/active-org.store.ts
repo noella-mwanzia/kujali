@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { Organisation } from '@app/model/organisation';
 import { OrgStore } from './organisation.store';
 
 @Injectable()
-export class ActiveOrgStore extends Store<Organisation>
+export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
 {
   protected store = 'active-org-store';
   private _activeOrg : string;
@@ -38,31 +38,31 @@ export class ActiveOrgStore extends Store<Organisation>
         this._activeOrg = orgId;
         this.set(org, 'UPDATE - FROM DB || ROUTE');
       }
-
-      // const orgId = this._getRoute(route);
-
-      // if(orgId !== '__noop__')
-      // {
-      //   const org = orgs.find(o => o.id === orgId);
-
-      //   if(org && this._activeOrg !== orgId)
-      //   {
-      //     this._activeOrg = orgId;
-      //     this.set(org, 'UPDATE - FROM DB || ROUTE');
-      //   }
-      // }
-
     });
   }
 
-  // private _getRoute(route: NavigationEnd) : string
-  // {
-  //   const elements = route.url.split('/');
-  //   const propId = elements.length >= 3 ? elements[2] : '__noop__';
-
-  //   return propId;
-  // }
-
   override get = () => super.get().pipe(filter(val => val != null));
   
+  ngOnDestroy = () => this._sbS.unsubscribe();
 }
+
+// private _getRoute(route: NavigationEnd) : string
+// {
+//   const elements = route.url.split('/');
+//   const propId = elements.length >= 3 ? elements[2] : '__noop__';
+
+//   return propId;
+// }
+
+// const orgId = this._getRoute(route);
+
+// if(orgId !== '__noop__')
+// {
+//   const org = orgs.find(o => o.id === orgId);
+
+//   if(org && this._activeOrg !== orgId)
+//   {
+//     this._activeOrg = orgId;
+//     this.set(org, 'UPDATE - FROM DB || ROUTE');
+//   }
+// }

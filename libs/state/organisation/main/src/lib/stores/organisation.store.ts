@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { User } from '@iote/bricks';
 import { Repository, DataService } from '@ngfi/angular';
@@ -10,13 +10,13 @@ import { Logger } from '@iote/bricks-angular';
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { UserStore } from '@app/state/user';
-import { iTalUser  } from '@app/model/user';
+import { KuUser  } from '@app/model/common/user';
 
 import { Organisation } from '@app/model/organisation';
 import { of } from 'rxjs';
 
 @Injectable()
-export class OrgStore extends DataStore<Organisation>
+export class OrgStore extends DataStore<Organisation> implements OnDestroy
 {
   protected store = 'org-store';
   protected _activeRepo: Repository<Organisation>;
@@ -37,8 +37,8 @@ export class OrgStore extends DataStore<Organisation>
     this._activeRepo = _repoFac.getRepo<Organisation>('orgs');
 
     const data$ = _userService.getUser()
-                              .pipe(tap((user: iTalUser | null) => this._activeUser = user as User),
-                                    switchMap((user: iTalUser | null) => 
+                              .pipe(tap((user: KuUser | null) => this._activeUser = user as User),
+                                    switchMap((user: KuUser | null) => 
                                         user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
                                     
                                     // If no organisations are set, set to the default org which is of uid
@@ -51,7 +51,7 @@ export class OrgStore extends DataStore<Organisation>
     });
   }
 
-  private _getDomain(user: iTalUser): Query
+  private _getDomain(user: KuUser): Query
   {
     let q = new Query();
 
@@ -96,5 +96,9 @@ export class OrgStore extends DataStore<Organisation>
   __getOneRegardless(orgId: string)
   {
     return this._activeRepo.getDocumentById(orgId);
+  }
+
+  ngOnDestroy() {
+    this._sbS.unsubscribe();
   }
 }
