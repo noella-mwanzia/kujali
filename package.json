@@ -23,6 +23,7 @@
     "@iote/bricks": "^2.0.0",
     "@iote/bricks-angular": "^2.0.5",
     "@iote/cqrs": "^2.0.0",
+    "@ngfi/angular": "^2.0.0",
     "@ngfi/firestore-qbuilder": "^2.0.0",
     "@nrwl/angular": "^14.7.5",
     "@nrwl/node": "^14.7.5",
