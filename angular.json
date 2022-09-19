@@ -3,14 +3,15 @@
   "version": 2,
   "projects": {
     "@app/elements/base/authorisation": "libs/elements/base/authorisation",
+    "@app/model/common/config": "libs/model/common/config",
+    "@app/model/common/user": "libs/model/common/user",
     "@app/model/finance/planning/budget-calculation": "libs/model/finance/planning/budget-calculation",
     "@app/model/finance/planning/budget-defaults": "libs/model/finance/planning/budget-defaults",
     "@app/model/finance/planning/budget-items": "libs/model/finance/planning/budget-items",
-    "@app/model/finance/planning/time": "libs/model/finance/planning/time",
-    "kujali": "apps/kujali",
     "@app/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
-    "@app/model/common/config": "libs/model/common/config",
-    "@app/model/common/user": "libs/model/common/user",
-    "@app/state/user": "libs/state/user"
+    "@app/model/finance/planning/time": "libs/model/finance/planning/time",
+    "@app/state/user": "libs/state/user",
+    "elements-base-configuration": "libs/elements/base/configuration",
+    "kujali": "apps/kujali"
   }
 }

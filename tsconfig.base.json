@@ -18,6 +18,9 @@
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
+      "@app/elements/base/configuration": [
+        "libs/elements/base/configuration/src/index.ts"
+      ],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/finance/planning/budget-calculation": [
