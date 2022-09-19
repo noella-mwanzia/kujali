@@ -8,3 +8,6 @@ export * from './lib/budget.interface';
 export * from './lib/budget-row.interface';
 export * from './lib/budget-header.interface';
 export * from './lib/budget-row-months.interface';
+
+export * from './lib/budget-result.interface';
+export * from './lib/budget-result-year.interface';
