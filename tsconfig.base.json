@@ -49,9 +49,10 @@
       "@app/model/finance/planning/time": [
         "libs/model/finance/planning/time/src/index.ts"
       ],
-      "@app/state/organisation": [
-        "libs/state/organisation/main/src/index.ts"
+      "@app/model/organisation": [
+        "libs/model/organisation/main/src/index.ts"
       ],
+      "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/src/index.ts"]
     }
   },
