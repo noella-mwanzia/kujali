@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kujali/elements/base/authorisation": [
+        "libs/elements/base/authorisation/src/index.ts"
+      ],
       "@kujali/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@kujali/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@kujali/model/finance/planning/budget-calculation": [

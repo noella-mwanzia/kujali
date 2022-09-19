@@ -1,3 +1,6 @@
 import { Roles } from '@iote/bricks';
 
-export interface KuUserRoles extends Roles { }
+export interface KuUserRoles extends Roles 
+{ 
+  admin: boolean;
+}
