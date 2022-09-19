@@ -1,4 +1,4 @@
-import { BudgetRowType } from "./types/budget-row-type.type";
+import { BudgetRowType } from "./types/budget-row-type.enum";
 import { AmountPerYear } from "./cells/amount-per-year.interface";
 
 /**
