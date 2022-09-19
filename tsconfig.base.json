@@ -15,20 +15,20 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@kujali/finance/planning/budget-calculation": [
-        "libs/finance/planning/budget-calculation/src/index.ts"
+      "@kujali/model/finance/planning/budget-calculation": [
+        "libs/model/finance/planning/budget-calculation/src/index.ts"
       ],
-      "@kujali/finance/planning/budget-defaults": [
-        "libs/finance/planning/budget-defaults/src/index.ts"
+      "@kujali/model/finance/planning/budget-defaults": [
+        "libs/model/finance/planning/budget-defaults/src/index.ts"
       ],
-      "@kujali/finance/planning/budget-items": [
-        "libs/finance/planning/budget-items/src/index.ts"
+      "@kujali/model/finance/planning/budget-items": [
+        "libs/model/finance/planning/budget-items/src/index.ts"
       ],
-      "@kujali/finance/planning/budgets": [
-        "libs/finance/planning/budgets/src/index.ts"
+      "@kujali/model/finance/planning/budgets": [
+        "libs/model/finance/planning/budgets/src/index.ts"
       ],
-      "@kujali/finance/planning/time": [
-        "libs/finance/planning/time/src/index.ts"
+      "@kujali/model/finance/planning/time": [
+        "libs/model/finance/planning/time/src/index.ts"
       ]
     }
   },
