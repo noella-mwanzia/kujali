@@ -20,6 +20,9 @@
       ],
       "@kujali/finance/planning/budgets": [
         "libs/finance/planning/budgets/src/index.ts"
+      ],
+      "@kujali/finance/planning/time": [
+        "libs/finance/planning/time/src/index.ts"
       ]
     }
   },
