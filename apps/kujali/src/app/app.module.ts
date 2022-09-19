@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -20,14 +21,12 @@ import { DateConfigurationModule } from '@app/elements/base/date-time';
 import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 import { UserStateModule } from '@app/state/user';
-// import { OrgStateModule } from '@app/state/organisation';
-
+import { OrgStateModule } from '@app/state/organisation';
 
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,7 +54,7 @@ import { HttpClientModule } from '@angular/common/http';
     // AppConfigModule.forRoot(),
 
     // DataModule.forRoot(),
-    // OrgStateModule.forRoot(),
+    OrgStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),

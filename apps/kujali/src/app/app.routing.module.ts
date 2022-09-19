@@ -17,11 +17,11 @@ export const APP_ROUTES: Route[] = [
     loadChildren: () => import('@app/features/auth/login').then(m => m.AuthModule),
   },
 
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('@features/convs-mgr/home').then(m => m.ConvsMgrHomeModule),
-  //   canActivate: [IsLoggedInGuard]
-  // },
+  {
+    path: 'home',
+    loadChildren: () => import('@app/features/dashboard/main').then(m => m.DashboardModule),
+    canActivate: [IsLoggedInGuard]
+  },
 
 ];
 

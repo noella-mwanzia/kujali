@@ -16,9 +16,10 @@
     "@app/model/finance/planning/budget-items": "libs/model/finance/planning/budget-items",
     "@app/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
     "@app/model/finance/planning/time": "libs/model/finance/planning/time",
+    "@app/model/organisation": "libs/model/organisation/main",
     "@app/state/organisation": "libs/state/organisation/main",
     "@app/state/user": "libs/state/user",
-    "kujali": "apps/kujali",
-    "@app/model/organisation": "libs/model/organisation/main"
+    "features-dashboard-main": "libs/features/dashboard/main",
+    "kujali": "apps/kujali"
   }
 }
