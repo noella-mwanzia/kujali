@@ -14,7 +14,7 @@ import { User } from '@iote/bricks';
 })
 export class ForgotPasswordModalComponent
 {
-  userList: User[];
+  userList: User[] = [];
 
   changePasswordForm: FormGroup = this._fb.group({
     email: ['', [Validators.required, Validators.email]]
@@ -39,13 +39,8 @@ export class ForgotPasswordModalComponent
   {
     const email = this.changePasswordForm.get('email')?.value;
     this._authservice.resetPassword( email );
+    
     this.exitModal()
-    // if(this.ifEmailExists(email))
-    // {
-    // }
-    // else{
-    //   alert('No user found registered with this email.')
-    // }
   }
 
   exitModal = () => this._dialogRef.close();

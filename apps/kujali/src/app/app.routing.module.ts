@@ -14,7 +14,7 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'auth',
-    loadChildren: () => import('@features/app/auth/login').then(m => m.AuthModule),
+    loadChildren: () => import('@app/features/auth/login').then(m => m.AuthModule),
   },
 
   // {

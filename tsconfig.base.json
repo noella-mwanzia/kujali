@@ -1,5 +1,8 @@
 {
   "compileOnSave": false,
+  "angularCompilerOptions": {
+    "strictPropertyInitialization": false
+  },
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,

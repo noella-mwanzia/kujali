@@ -8,7 +8,7 @@ import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@i
 import { UserStateModule } from '@app/state/user';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { iTalPageModule } from '@app/elements/layout/page';
+import { iTalPageModule } from '@app/elements/layout/page';
 
 import { LoginComponent }            from './components/login/login.component';
 import { RegisterComponent }         from './components/register/register.component';
@@ -26,7 +26,7 @@ import { AuthRouterModule }  from './auth-router.module';
             FormsModule, ReactiveFormsModule,
             UserStateModule,
 
-            // iTalPageModule,
+            iTalPageModule,
 
             AuthRouterModule],
 
