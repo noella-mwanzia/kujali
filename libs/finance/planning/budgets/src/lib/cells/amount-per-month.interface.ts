@@ -18,7 +18,7 @@ export interface AmountPerMonth
   isOccurenceStart?: boolean;
 
   /** FK to the budget occurence */
-  occurenceId: string;
+  occurenceId?: string;
 
   // Reference variable for ease of updating the budget.
   // occurence?: TransactionOccurence;

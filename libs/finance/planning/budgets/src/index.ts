@@ -11,3 +11,4 @@ export * from './lib/budget-row-months.interface';
 
 export * from './lib/budget-result.interface';
 export * from './lib/budget-result-year.interface';
+export * from './lib/rendered-budget.interface';

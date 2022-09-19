@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "finance-planning-budget-calculation": "libs/finance/planning/budget-calculation",
     "finance-planning-budget-defaults": "libs/finance/planning/budget-defaults",
     "finance-planning-budget-items": "libs/finance/planning/budget-items",
     "finance-planning-time": "libs/finance/planning/time",
