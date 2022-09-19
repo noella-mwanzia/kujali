@@ -1,1 +1,2 @@
-export * from './lib/finance-planning-time';
+export * from './lib/time-table.generator';
+export * from './lib/time.consts';
