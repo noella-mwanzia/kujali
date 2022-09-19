@@ -1,5 +1,5 @@
 import { IObject } from "@iote/bricks";
-import { BudgetRow } from "@kujali/model/finance/planning/budgets";
+import { BudgetRow } from "@app/model/finance/planning/budgets";
 
 import { PlannedTransactionStub } from "./planned-transaction-stub.interface";
 

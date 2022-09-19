@@ -1,4 +1,4 @@
-import { BudgetRow } from "@kujali/model/finance/planning/budgets";
+import { BudgetRow } from "@app/model/finance/planning/budgets";
 
 /** 
  * Hierarchical Grouping of Budgets.

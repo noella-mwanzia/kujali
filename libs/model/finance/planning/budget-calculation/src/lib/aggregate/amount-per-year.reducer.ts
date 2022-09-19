@@ -1,8 +1,8 @@
 import { map as ___map, sum as ___sum } from 'lodash';
 
-import { MONTHS } from '@kujali/model/finance/planning/time';
-import { AmountPerMonth, AmountPerYear } from "@kujali/model/finance/planning/budgets";
-import { NULL_AMOUNT_PER_MONTH } from '@kujali/model/finance/planning/budget-defaults';
+import { MONTHS } from '@app/model/finance/planning/time';
+import { AmountPerMonth, AmountPerYear } from "@app/model/finance/planning/budgets";
+import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
 
 /** 
  * Algorithm that can merge two Budget Lines together by adding up their amounts.

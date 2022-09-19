@@ -1,4 +1,4 @@
-import { AmountPerMonth } from "@kujali/model/finance/planning/budgets";
+import { AmountPerMonth } from "@app/model/finance/planning/budgets";
 
 /** 
  * Default AmountPerMonth. Set on initialisation of a budget. 

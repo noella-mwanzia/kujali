@@ -1,6 +1,6 @@
 import { sum as ___sum, flatmap as ___flatmap } from 'lodash';
-import { Budget, BudgetHeader, BudgetRow } from "@kujali/model/finance/planning/budgets";
-import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@kujali/model/finance/planning/budget-defaults";
+import { Budget, BudgetHeader, BudgetRow } from "@app/model/finance/planning/budgets";
+import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
 
 import { BudgetGroup } from "../model-stubs/budget-group.interface";
 

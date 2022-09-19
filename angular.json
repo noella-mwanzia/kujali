@@ -2,16 +2,15 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "elements-base-authorisation": "libs/elements/base/authorisation",
-    "finance-planning-budget-calculation": "libs/model/finance/planning/budget-calculation",
-    "finance-planning-budget-defaults": "libs/model/finance/planning/budget-defaults",
-    "finance-planning-budget-items": "libs/model/finance/planning/budget-items",
-    "finance-planning-time": "libs/model/finance/planning/time",
+    "@app/elements/base/authorisation": "libs/elements/base/authorisation",
+    "@app/model/finance/planning/budget-calculation": "libs/model/finance/planning/budget-calculation",
+    "@app/model/finance/planning/budget-defaults": "libs/model/finance/planning/budget-defaults",
+    "@app/model/finance/planning/budget-items": "libs/model/finance/planning/budget-items",
+    "@app/model/finance/planning/time": "libs/model/finance/planning/time",
     "kujali": "apps/kujali",
-    "kujali-e2e": "apps/kujali-e2e",
-    "kujali/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
-    "model-common-config": "libs/model/common/config",
-    "model-common-user": "libs/model/common/user",
-    "state-user": "libs/state/user"
+    "@app/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
+    "@app/model/common/config": "libs/model/common/config",
+    "@app/model/common/user": "libs/model/common/user",
+    "@app/state/user": "libs/state/user"
   }
 }

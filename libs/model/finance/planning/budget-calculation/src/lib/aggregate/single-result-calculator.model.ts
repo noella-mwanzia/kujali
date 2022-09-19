@@ -1,4 +1,4 @@
-import { BudgetHeader, BudgetRowType } from "@kujali/model/finance/planning/budgets";
+import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budgets";
 
 import { BudgetGroup } from "../model-stubs/budget-group.interface";
 import { AmountPerYearReducer } from "./amount-per-year.reducer";

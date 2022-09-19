@@ -1,7 +1,7 @@
 import { map as ___map, reduce as ___reduce, orderBy as ___orderBy, groupBy as ___groupBy } from 'lodash';
 
-import { Budget, BudgetRowType } from "@kujali/model/finance/planning/budgets";
-import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@kujali/model/finance/planning/budget-defaults';
+import { Budget, BudgetRowType } from "@app/model/finance/planning/budgets";
+import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@app/model/finance/planning/budget-defaults';
 
 import { BudgetGroup } from "../model-stubs/budget-group.interface";
 import { BudgetLine } from "../model-stubs/budget-line.interface";

@@ -1,6 +1,6 @@
 
 
-import { Budget, RenderedBudget } from "@kujali/model/finance/planning/budgets";
+import { Budget, RenderedBudget } from "@app/model/finance/planning/budgets";
 
 import { BudgetGroup } from "../model-stubs/budget-group.interface";
 import { RecordsToTable, RecordToHeader } from "./table-render-tools.functions";

@@ -1,5 +1,5 @@
-import { AmountPerYear } from "@kujali/model/finance/planning/budgets";
-import { TimeTableGenerator } from "@kujali/model/finance/planning/time";
+import { AmountPerYear } from "@app/model/finance/planning/budgets";
+import { TimeTableGenerator } from "@app/model/finance/planning/time";
 
 import { NULL_AMOUNT_PER_MONTH } from "./amount-per-month.null";
 
