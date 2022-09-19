@@ -12,6 +12,7 @@
     "@app/model/finance/planning/time": "libs/model/finance/planning/time",
     "@app/state/user": "libs/state/user",
     "elements-base-configuration": "libs/elements/base/configuration",
+    "elements-base-date-time": "libs/elements/base/date-time",
     "kujali": "apps/kujali"
   }
 }
