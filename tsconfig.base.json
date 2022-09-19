@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@kujali/model/common/config": ["libs/model/common/config/src/index.ts"],
+      "@kujali/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@kujali/model/finance/planning/budget-calculation": [
         "libs/model/finance/planning/budget-calculation/src/index.ts"
       ],
