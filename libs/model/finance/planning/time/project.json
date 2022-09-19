@@ -1,20 +1,20 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/model/finance/planning/time/src",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/finance/model/planning/time/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/model/finance/planning/time/**/*.ts"]
+        "lintFilePatterns": ["libs/finance/model/planning/time/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/finance/planning/time"],
+      "outputs": ["coverage/libs/finance/model/planning/time"],
       "options": {
-        "jestConfig": "libs/model/finance/planning/time/jest.config.ts",
+        "jestConfig": "libs/finance/model/planning/time/jest.config.ts",
         "passWithNoTests": true
       }
     }

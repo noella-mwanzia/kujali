@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'finance-planning-budget-calculation',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -13,5 +13,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
-    '../../../../coverage/libs/model/finance/planning/budget-calculation',
+    '../../../../../coverage/libs/finance/model/planning/budget-calculation',
 };

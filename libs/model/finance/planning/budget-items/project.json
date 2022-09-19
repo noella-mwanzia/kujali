@@ -1,20 +1,20 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/model/finance/planning/budget-items/src",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/finance/model/planning/budget-items/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/model/finance/planning/budget-items/**/*.ts"]
+        "lintFilePatterns": ["libs/finance/model/planning/budget-items/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/finance/planning/budget-items"],
+      "outputs": ["coverage/libs/finance/model/planning/budget-items"],
       "options": {
-        "jestConfig": "libs/model/finance/planning/budget-items/jest.config.ts",
+        "jestConfig": "libs/finance/model/planning/budget-items/jest.config.ts",
         "passWithNoTests": true
       }
     }

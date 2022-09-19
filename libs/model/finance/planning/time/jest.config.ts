@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'finance-planning-time',
-  preset: '../../../../jest.preset.js',
+  preset: '../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/model/finance/planning/time',
+  coverageDirectory: '../../../../../coverage/libs/finance/model/planning/time',
 };
