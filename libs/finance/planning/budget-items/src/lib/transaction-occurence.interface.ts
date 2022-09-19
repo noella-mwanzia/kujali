@@ -1,5 +1,7 @@
-import { IObject } from "ngfire-shared";
-import { Frequency } from "./frequency.interface";
+
+import { IObject } from "@iote/bricks";
+
+import { BudgetItemFrequency } from "./types/frequency.interface";
 import { ValueIncreaseConfig } from "./value-increase-config.interface";
 
 /**
@@ -20,7 +22,7 @@ export interface TransactionOccurence extends IObject
   fromMonth: number;
 
   /** Occurence frequency type. */
-  frequency: Frequency;
+  frequency: BudgetItemFrequency;
   /** If frequency is a timed interval i.e. every 6 months, every 2 years, .. */
   xTimesInterval: number;
 

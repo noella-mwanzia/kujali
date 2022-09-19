@@ -1,1 +1,0 @@
-export type Frequency = 'once' | 'quarterly' | 'yearly' | 'every-x-times' | 'all-times' | 'never';
