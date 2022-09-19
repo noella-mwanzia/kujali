@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@app/features/auth/login": [
-        "libs/features/auth/login/src/index.ts"
-      ],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -34,6 +31,7 @@
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
+      "@app/features/auth/login": ["libs/features/auth/login/src/index.ts"],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/finance/planning/budget-calculation": [
@@ -50,6 +48,9 @@
       ],
       "@app/model/finance/planning/time": [
         "libs/model/finance/planning/time/src/index.ts"
+      ],
+      "@app/state/organisation": [
+        "libs/state/organisation/main/src/index.ts"
       ],
       "@app/state/user": ["libs/state/user/src/index.ts"]
     }

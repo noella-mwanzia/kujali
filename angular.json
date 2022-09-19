@@ -11,12 +11,13 @@
     "@app/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
     "@app/model/finance/planning/time": "libs/model/finance/planning/time",
     "@app/state/user": "libs/state/user",
-    "app-features-auth-login": "libs/features/auth/login",
-    "elements-base-configuration": "libs/elements/base/configuration",
-    "elements-base-date-time": "libs/elements/base/date-time",
-    "elements-base-firebase": "libs/elements/base/firebase",
-    "elements-layout-page": "libs/elements/layout/page",
-    "elements-layout-user-menu": "libs/elements/layout/user-menu",
-    "kujali": "apps/kujali"
+    "@app/features/auth/login": "libs/features/auth/login",
+    "@app/elements/base/configuration": "libs/elements/base/configuration",
+    "@app/elements/base/date-time": "libs/elements/base/date-time",
+    "@app/elements/base/firebase": "libs/elements/base/firebase",
+    "@app/elements/layout/page": "libs/elements/layout/page",
+    "@app/elements/layout/user-menu": "libs/elements/layout/user-menu",
+    "kujali": "apps/kujali",
+    "@app/state/organisation": "libs/state/organisation/main"
   }
 }
