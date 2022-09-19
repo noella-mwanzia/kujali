@@ -31,7 +31,8 @@
       ],
       "@kujali/model/finance/planning/time": [
         "libs/model/finance/planning/time/src/index.ts"
-      ]
+      ],
+      "@kujali/state/user": ["libs/state/user/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

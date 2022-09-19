@@ -10,6 +10,7 @@
     "kujali-e2e": "apps/kujali-e2e",
     "kujali/model/finance/planning/budgets": "libs/model/finance/planning/budgets",
     "model-common-config": "libs/model/common/config",
-    "model-common-user": "libs/model/common/user"
+    "model-common-user": "libs/model/common/user",
+    "state-user": "libs/state/user"
   }
 }
