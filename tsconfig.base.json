@@ -30,6 +30,10 @@
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],
+      "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
+      "@app/elements/layout/user-menu": [
+        "libs/elements/layout/user-menu/src/index.ts"
+      ],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/finance/planning/budget-calculation": [
