@@ -1,0 +1,29 @@
+<div *ngIf="count === 0" class="table-header">{{ record.budget.name }}</div>
+
+<div fxLayout="row"
+     [ngClass]="getRowClass()"
+     [ngStyle]="{ 'padding-left': calcIndent() + 'px' }">
+    
+    <div class="record-name">{{ record.budget.name }}</div>
+
+    <div class="record-parents" *ngIf="record.budget.overrideList && record.budget.overrideList.length > 0">
+      Inherits from: {{ record.budget.overrideNameList.join(', ') }}
+    </div>
+
+    <div class="budget-btn-container" style="float: right; text-align: right">
+      <button [routerLink]="[record.budget.id]"   *ngIf="access('view')">            {{ 'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco }}</button>
+      <button [routerLink]="[record.budget.id]"   *ngIf="access('edit')">            {{ 'BUDGET.VIEW-RECORD.ACTIONS.EDIT' | transloco }}</button>
+      <button (click)="openShareBudgetDialog(record.budget)">                        {{ 'BUDGET.VIEW-RECORD.ACTIONS.SHARE' | transloco }}</button>
+      <button (click)="openCloneBudgetDialog(record.budget)" *ngIf="access('clone')">{{ 'BUDGET.VIEW-RECORD.ACTIONS.CLONE' | transloco }}</button>
+    </div>
+
+    <!-- Will only be true on parent since does not get cascaded down below. -->
+    <div *ngIf="canPromote" class="budget-btn-container" style="float: right; text-align: right">
+      <button class="btn-promote" (click)="promote()">{{ 'BUDGET.VIEW-RECORD.PROMOTE' | transloco }}</button>
+    </div>
+</div>
+
+<app-display-budget-record *ngFor="let child of record.children"
+                           [record]="child" 
+                           [count]="count + 1">
+</app-display-budget-record>
