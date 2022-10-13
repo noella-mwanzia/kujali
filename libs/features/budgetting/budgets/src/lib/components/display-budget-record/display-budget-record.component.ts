@@ -9,7 +9,7 @@ import { ShareBudgetModalComponent }  from '../share-budget-modal/share-budget-m
 @Component({
   selector: 'app-display-budget-record',
   templateUrl: './display-budget-record.component.html',
-  styleUrls: ['./display-budget-record.component.scss', '../globalStyles.scss']
+  styleUrls: ['./display-budget-record.component.scss', '../budget-view-styles.scss']
 })
 /** 
  * Single row of the budget table. 
