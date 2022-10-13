@@ -1,0 +1,25 @@
+.overview-section {
+    margin-bottom: 25px;
+}
+
+.overview-section-title {
+    font-weight: bold;
+    background: #bbb;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+app-display-budget-record 
+{
+    display: block;
+    clear: both;
+    
+    padding: 10px 20px;
+
+    margin-bottom: 15px;
+
+    background-color: white;
+}
+
+button { max-width: 150px; }

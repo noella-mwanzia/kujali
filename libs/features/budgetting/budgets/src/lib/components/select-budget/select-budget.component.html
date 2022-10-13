@@ -1,0 +1,59 @@
+<app-page>
+
+  <app-navbar>
+    <!-- <app-user-menu></app-user-menu> -->
+  </app-navbar>
+
+  <div fxLayout="column" class="container">
+
+    <div class="page-heading">
+      <h1 class="mat-display-1">{{ 'FINANCE.BUDGET-SELECT.TITLE' | transloco }}</h1>
+      <h2 class="mat-h2">{{ 'FINANCE.BUDGET-SELECT.SUBTITLE' | transloco }}</h2>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="20"></div>
+      <div fxFlex="60">
+        <div *ngIf="overview$ | async as overview; else loading" fxLayout="column">
+          <!-- Active Budgets -->
+          <div class="overview-section">
+            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ACTIVE-BUDGETS' | transloco }}</div>
+            <app-display-budget-record *ngFor="let record of overview.inUse"             
+                                        [record]="record" class="mat-elevation-z8">
+            </app-display-budget-record>
+          </div>
+
+          <!-- My Budgets -->
+          <div class="overview-section">
+            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.MY-BUDGETS' | transloco }}</div>
+
+            <div class="my-budget" *ngFor="let record of overview.underConstruction">
+              <app-display-budget-record [record]="record" [canPromote]="canPromote(record)" 
+                                        (onPromote)="setActive(record)"
+                                        class="mat-elevation-z8">
+              </app-display-budget-record>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center">
+              <button (click)="openDialog(false)" mat-raised-button color="accent">
+                {{ 'FINANCE.BUDGET-SELECT.CREATE-NEW' | transloco }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Archived Budgets -->
+          <div class="overview-section">
+            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ARCHIVED-BUDGETS' | transloco }}</div>
+            <app-display-budget-record *ngFor="let record of overview.archived"         
+                                        [record]="record" class="mat-elevation-z8">
+            </app-display-budget-record>
+          </div>
+        </div>
+        <ng-template #loading><app-spinner></app-spinner></ng-template>
+      </div>
+      <div fxFlex="20"></div>
+    </div>
+
+  </div>
+
+</app-page>

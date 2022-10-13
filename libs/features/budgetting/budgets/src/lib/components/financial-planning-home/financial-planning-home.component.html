@@ -1,0 +1,46 @@
+<app-page>
+
+  <app-navbar>
+    <!-- @TODO -->
+    <!-- <app-user-menu></app-user-menu> -->
+  </app-navbar>
+
+  <div fxLayout="column" class="container">
+
+    <div class="page-heading">
+      <h1 class="mat-display-1">{{ 'FINANCE.MAIN.TITLE' | transloco }}</h1>
+      <h2 class="mat-h2">{{ 'FINANCE.MAIN.SUBTITLE' | transloco }}</h2>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+          
+      <app-action-tile  [routerLink]="['/finance', 'budget-explorer', 'budgets']"
+
+                        [label]="'FINANCE.MAIN.ACTIONS.VIEW-BUDGETS' | transloco" icon="fas fa-pen-alt" color="#5758BB"
+                        fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      </app-action-tile>
+
+      <app-action-tile  [routerLink]="['/finance', 'transaction-types', 'cost']"
+
+                        [label]="'FINANCE.MAIN.ACTIONS.COST-TYPES' | transloco" icon="fas fa-cog" color="#b71c1c"
+                        fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      </app-action-tile>
+
+      <app-action-tile  [routerLink]="['/finance', 'transaction-types', 'income']"
+
+                        [label]="'FINANCE.MAIN.ACTIONS.INCOME-TYPES' | transloco" icon="fas fa-cog" color="#33691e"
+                        fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      </app-action-tile>
+
+      <!-- Assigning budgets functionality has been moved to the select/create budget screen -->
+      <!-- <app-action-tile  [routerLink]="['/finance', 'user-budget-config']"
+
+                        label="User Budget Config" icon="fas fa-cog" color="#9a12b3"
+                        fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25">
+      </app-action-tile> -->
+
+    </div>
+
+  </div>
+
+</app-page>

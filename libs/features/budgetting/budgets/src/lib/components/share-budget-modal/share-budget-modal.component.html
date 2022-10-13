@@ -1,0 +1,23 @@
+<div fxLayout="row" class="top">
+  <div fxFlex="50" class="title">{{ 'FINANCE.BUDGET-SHARE.MODAL-TITLE' | transloco }}</div>
+  <div fxFlex="50" class="close-ic" fxLayoutAlign="end center"><i class="fas fa-times" (click)="closeModal()"></i></div>
+</div>
+
+<!-- List of users employees to check off -->
+<div *ngIf="uId && users; else loading">
+
+  <div class="user-item" fxLayout="row" *ngFor="let user of omitCurrentUser(users)">
+    <div fxFlex="50">{{ user.displayName }}</div>
+    <div fxFlex="50" fxLayoutAlign="end"><mat-checkbox [checked]="checkBudgetOwnership(user)" (change)="assignBudgetToUser($event.checked, user)"></mat-checkbox></div>
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
+
+<div class="footer">
+  <button *ngIf="!saving" mat-raised-button class="action-btn" [disabled]="editableUserIds.length === 0" (click)="saveChanges()">{{ 'FINANCE.BUDGET-SHARE.SAVE' | transloco }}</button>
+  <button *ngIf="saving" mat-raised-button [disabled]="true">{{ 'FINANCE.BUDGET-SHARE.SAVING' | transloco }}</button>
+</div>

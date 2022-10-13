@@ -15,8 +15,6 @@ import { FinancialPlanningHomeComponent } from './components/financial-planning-
 import { SelectBudgetComponent } from './components/select-budget/select-budget.component';
 import { CreateBudgetModalComponent } from './components/create-budget-modal/create-budget-modal.component';
 
-import { BudgetService } from './services/budget.service';
-import { BudgetsOverviewService } from './services/budgets-overview.service';
 import { DisplayBudgetRecordComponent } from './components/display-budget-record/display-budget-record.component';
 import { ShareBudgetModalComponent } from './components/share-budget-modal/share-budget-modal.component';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -40,7 +38,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
   entryComponents: [CreateBudgetModalComponent, ShareBudgetModalComponent],
 
-  providers: [BudgetService, BudgetsOverviewService],
+  providers: [],
   
   exports: [FinancialPlanningHomeComponent],
 
