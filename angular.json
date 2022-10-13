@@ -19,7 +19,9 @@
     "@app/model/organisation": "libs/model/organisation/main",
     "@app/state/organisation": "libs/state/organisation/main",
     "@app/state/user": "libs/state/user",
-    "features-dashboard-main": "libs/features/dashboard/main",
+    "@state/finance/budgetting/budgets": "libs/state/finance/budgetting/budgets",
+    "@app/features/budgetting/budgets": "libs/features/budgetting/budgets",
+    "@app/features/dashboard/main": "libs/features/dashboard/main",
     "kujali": "apps/kujali"
   }
 }
