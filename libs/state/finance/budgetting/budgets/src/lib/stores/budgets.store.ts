@@ -5,7 +5,7 @@ import { map, switchMap, tap } from "rxjs/operators";
 
 import { Logger } from "@iote/bricks-angular";
 import { Query } from "@ngfi/firestore-qbuilder";
-import { DataService } from "@ngfi/angular";
+import { DataService, Repository } from "@ngfi/angular";
 import { DataStore } from "@ngfi/state";
 
 import { Budget } from "@app/model/finance/planning/budgets";
@@ -13,7 +13,10 @@ import { ActiveOrgStore } from "@app/state/organisation";
 
 @Injectable()
 export class BudgetsStore extends DataStore<Budget>
-{ 
+{
+  protected _activeRepo!: Repository<Budget>;
+  protected store!: string; 
+
   constructor(org$$: ActiveOrgStore,
               dataService: DataService,
               _logger: Logger)
@@ -31,6 +34,14 @@ export class BudgetsStore extends DataStore<Budget>
         this.set(budgets, 'FROM DB');
       });
   }
+
+  /** 
+   * @returns {Observable<Budget[]>} 
+   *    - All budgets a user has access too (non-hierachrical representation) 
+   *       
+   * @note - For a hierarchical representation. @see {OrgBudgetsStore}                           
+   */
+  override get = () => super.get();
   
 
   // add(budget: Budget): Observable<Budget>

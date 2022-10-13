@@ -1,10 +1,19 @@
 import { Injectable } from "@angular/core";
 
+import { filter } from "rxjs";
+import { flatMap as ___flatMap, includes as ___includes } from 'lodash';
+
 import { Store } from "@iote/state";
 
-import { BudgetsStore } from './budgets.store';
 import { Budget, BudgetRecord, BudgetStatus, OrgBudgetsOverview } from "@app/model/finance/planning/budgets";
 
+import { BudgetsStore } from './budgets.store';
+
+/**
+ * Stores a hierarchical overview of all budgets of an organisation.
+ * 
+ * Store @type {OrgBudgetsOverview}
+ */
 @Injectable()
 export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
 {
@@ -22,7 +31,22 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
     });
   }
 
+   /**
+   * Returns an aggregate of all the user budgets. 
+   * 
+   * @returns {OrgBudgetsOverview} - A hierarchically sound budget structure created by linking the parent 
+   *                                      and child budgets into a tree structure. 
+   */
+  override get = () => super.get().pipe(filter(bs => !!bs))
 
+  /**
+   * Aggregates all the user budgets. 
+   * Creates a hierarchically sound budget structure by linking the parent 
+   *  and child budgets into a tree structure.
+   * 
+   * @param budgets - The list of all the budgets a user has access too.
+   * @returns {OrgBudgetsOverview} - A hierarchical overview of all budgets.
+   */
   private _createBudgetsOverview(budgets: Budget[]): OrgBudgetsOverview
   {
     if (budgets.length == 0)
@@ -44,15 +68,19 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
     }
   }
 
+  /**
+   * Constructs a budget-overview-tree from the roots down.
+   */
   private _createRootTree(filtered: Budget[], all: Budget[]): BudgetRecord[]
   {
-    const roots = filtered.filter(f => ! _(all).flatMap(a => a.childrenList).includes(f.id));
+    const roots = filtered.filter(f => ! ___flatMap(all, a => a.childrenList).includes(f.id));
 
-    const mightBeChildren = all.filter(a => ! _.includes(roots.map(r => r.id), a.id));
+    const mightBeChildren = all.filter(a => ! ___includes(roots.map(r => r.id), a.id));
 
     return roots.map(root => this._findChildren(root, mightBeChildren));
   }
 
+  /** Returns child budgets of a current iterated budget. */
   private _findChildren(current: Budget, availableNodes: Budget[], parentStatus?: BudgetStatus): BudgetRecord
   {
     // If status is not in use but parent status is locked -> Lock child as well
@@ -62,7 +90,7 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
     const childNodes = availableNodes.filter(node => current.childrenList.includes(node.id as string));
     // Do not allow recursive budgets nor budgets inheriting their aunts/sisters.
     const childNodePossibleChildren = availableNodes.filter(n => n.id != current.id
-                                                                    && !_.includes(current.childrenList, n.id));
+                                                                    && !___includes(current.childrenList, n.id));
     
     return {
       budget: current,
