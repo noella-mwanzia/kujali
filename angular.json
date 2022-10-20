@@ -9,6 +9,8 @@
     "@app/elements/layout/page": "libs/elements/layout/page",
     "@app/elements/layout/user-menu": "libs/elements/layout/user-menu",
     "@app/features/auth/login": "libs/features/auth/login",
+    "@app/features/budgetting/budgets": "libs/features/budgetting/budgets",
+    "@app/features/dashboard/main": "libs/features/dashboard/main",
     "@app/model/common/config": "libs/model/common/config",
     "@app/model/common/user": "libs/model/common/user",
     "@app/model/finance/planning/budget-calculation": "libs/model/finance/planning/budget-calculation",
@@ -20,8 +22,7 @@
     "@app/state/organisation": "libs/state/organisation/main",
     "@app/state/user": "libs/state/user",
     "@state/finance/budgetting/budgets": "libs/state/finance/budgetting/budgets",
-    "@app/features/budgetting/budgets": "libs/features/budgetting/budgets",
-    "@app/features/dashboard/main": "libs/features/dashboard/main",
+    "features-budgetting-budget-explorer": "libs/features/budgetting/budget-explorer",
     "kujali": "apps/kujali"
   }
 }

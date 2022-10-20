@@ -1,7 +1,3 @@
 # features-budgetting-budgets
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test features-budgetting-budgets` to execute the unit tests.
+This module is responsible for visualising budget hierarchies and statusses, and for navigating to budget exploration.
