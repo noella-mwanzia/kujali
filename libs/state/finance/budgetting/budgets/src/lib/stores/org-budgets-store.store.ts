@@ -73,7 +73,7 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
    */
   private _createRootTree(filtered: Budget[], all: Budget[]): BudgetRecord[]
   {
-    const roots = filtered.filter(f => ! ___flatMap(all, a => a.childrenList).includes(f.id));
+    const roots = filtered.filter(f => ! ___flatMap(all, a => a.childrenList).includes(f.id as string));
 
     const mightBeChildren = all.filter(a => ! ___includes(roots.map(r => r.id), a.id));
 
