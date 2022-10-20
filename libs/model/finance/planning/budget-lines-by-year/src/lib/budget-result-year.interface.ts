@@ -1,4 +1,4 @@
-import { BudgetResult, BudgetRow } from "@app/model/finance/planning/budget-lines";
+import { BudgetResult } from "@app/model/finance/planning/budget-lines";
 import { BudgetRowYear } from "./budget-row-year.interface";
 
 /**
