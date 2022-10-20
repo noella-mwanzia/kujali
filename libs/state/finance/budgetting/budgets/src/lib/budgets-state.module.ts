@@ -4,13 +4,16 @@ import { RouterModule } from '@angular/router';
 
 import { BudgetsStore } from './stores/budgets.store';
 import { OrgBudgetsStore } from './stores/org-budgets-store.store';
+import { BudgetResultQuery } from './queries/budget-result.service';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule
   ],
-  providers: []
+  providers: [
+    BudgetResultQuery
+  ]
 })
 export class BudgetsStateModule 
 { 
