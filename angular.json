@@ -10,6 +10,7 @@
     "@app/elements/layout/user-menu": "libs/elements/layout/user-menu",
     "@app/features/auth/login": "libs/features/auth/login",
     "@app/features/budgetting/budgets": "libs/features/budgetting/budgets",
+    "@features/budgetting/budget-explorer": "libs/features/budgetting/budget-explorer",
     "@app/features/dashboard/main": "libs/features/dashboard/main",
     "@app/model/common/config": "libs/model/common/config",
     "@app/model/common/user": "libs/model/common/user",
@@ -22,7 +23,7 @@
     "@app/state/organisation": "libs/state/organisation/main",
     "@app/state/user": "libs/state/user",
     "@state/finance/budgetting/budgets": "libs/state/finance/budgetting/budgets",
-    "features-budgetting-budget-explorer": "libs/features/budgetting/budget-explorer",
+    "@state/finance/budgetting/budget-detail": "libs/state/finance/budgetting/budget-detail",
     "kujali": "apps/kujali"
   }
 }
