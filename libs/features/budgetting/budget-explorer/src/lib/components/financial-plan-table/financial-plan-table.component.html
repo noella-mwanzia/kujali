@@ -1,0 +1,99 @@
+<!-- Upon database transaction, highlight transaction in progress to the user. -->
+<div *ngIf="savingTransactions"
+      class="transaction-update" fxLayoutAlign="end center">
+  Calculating {{ savingTransactions }} updates <app-spinner [diameter]="20"></app-spinner>
+</div>
+
+<!-- The table with data -->
+<table [dataSource]="dataSource" 
+       mat-table #table class="mat-elevation-z8">
+
+  <!-- First Header, The Pricing Category -->
+  <ng-container matColumnDef="transactionCat">
+  
+    <th mat-header-cell *matHeaderCellDef class="header start-header">Category</th>
+    <td mat-cell *matCellDef="let cell" class="cell"> {{ getCategory(cell) }} </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell">Total: </td>
+  
+  </ng-container>
+
+  <!-- Second Header, The Pricing Name -->
+  <ng-container matColumnDef="transactionType">
+
+    <th mat-header-cell *matHeaderCellDef class="header start-header">Name</th>
+    <td mat-cell *matCellDef="let cell" class="start-cell"> 
+      {{ getName(cell) }}
+    </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell"></td>
+
+  </ng-container>
+
+  <!-- Month Columns -->
+  <ng-container [matColumnDef]="column.slug" *ngFor="let column of monthColumns">
+    
+    <th mat-header-cell *matHeaderCellDef class="header"> 
+      {{ column.slug }}
+      <span *ngIf="allowAdd" (click)="openPlanTransactionModal(column)" class="create-cost-btn">
+        <i class="fas fa-plus-circle"></i>
+      </span>
+    </th>
+    
+    <td mat-cell *matCellDef="let cell" 
+                 class="cell amount-cell"
+                 [ngClass]="getClassesCell(cell, column)"
+                 (click)="openCellModal(cell, column)"> 
+      {{ getAmount(cell, column) }} 
+    </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals" [ngClass]="getClassesM(column)">
+      {{ getTotalAmountM(column) }}
+    </td>
+
+  </ng-container>
+
+  <!-- Total Column -->
+  <ng-container matColumnDef="total">
+
+    <th mat-header-cell *matHeaderCellDef class="header end-header"> Total</th>
+    <td mat-cell *matCellDef="let cell" [ngClass]="getClassesTotal(cell)"> {{ getTotal(cell) }} 
+    </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals" [ngClass]="getClassesTotalY(column)">{{ getTotalAmountY(column) }}</td>
+
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="action">
+
+    <th mat-header-cell *matHeaderCellDef class="header end-header"></th>
+    <td mat-cell *matCellDef="let cell" style="text-align: center;">
+      <span (click)="deleteTransaction(cell.transaction)" class="delete-icon" *ngIf="!cell.isHeader"><i class="far fa-trash-alt"></i></span>
+    </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals"></td>
+
+  </ng-container>
+
+<!-- 
+  Expanded Content Column - The detail row is made up of this one column
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let cell" colspan="4" class="expanded-cell"
+      [ngClass]="{ 'expanded': cell.priceDef === expandedEl }">
+      <app-price-table-detail [pricing]="cell"></app-price-table-detail>
+    </td>
+  </ng-container> -->
+
+  <!-- Table def-->
+  <tr mat-header-row *matHeaderRowDef="columns" 
+      [ngClass]="{'red-top': classId=='cost', 
+                  'yellow-top': classId=='result',
+                  'green-top': classId=='income'}">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: columns;" [ngClass]="getClassesRow(row)"></tr>
+  <tr mat-footer-row *matFooterRowDef="columns" class="footer-row"></tr>
+<!--   
+  <tr mat-row *matRowDef="let row; columns: displayedCols;" class="element-row"
+    [class.expanded]="row.priceDef === expandedEl">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+    [@detailExpand]="row.priceDef === expandedEl ? 'expanded' : 'collapsed'" class="expanded-row"
+    [ngClass]="{ 'expanded': row.priceDef === expandedEl}">
+  </tr> -->
+</table>

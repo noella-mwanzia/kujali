@@ -1,0 +1,13 @@
+<div class="slider-holder">
+  <!-- <ng5-slider *ngIf="isLoaded"
+              [(value)]="sliderMinValue" [(highValue)]="sliderMaxValue" 
+              (valueChange)="rangeChange()" (highValueChange)="rangeChange()" 
+              [options]="sliderOptions">
+  </ng5-slider> -->
+</div>
+
+<brick-burn-chart *ngIf="isLoaded"
+                  [lineData]="balanceLineDisplay"
+                  [groupData]="resultsBlocksDisplay"
+                  [labels]="labelsDisplay">
+</brick-burn-chart>

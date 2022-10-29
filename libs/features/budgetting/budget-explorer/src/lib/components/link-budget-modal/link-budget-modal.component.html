@@ -1,0 +1,31 @@
+<!-- The form is going to go here -->
+<div style="text-align: right"><span (click)="onNoClick()" class="close-modal-btn"><i class="far fa-times-circle"></i>
+    Close</span></div>
+
+<form #form="ngForm" (ngSubmit)="linkBudget(form.value)" fxLayout="column">
+
+  <h4 class="mat-title type-title">Choose Budget to Link to {{ budget.name }}</h4>
+
+  <div class="sm-divider"></div>
+
+  <div *ngIf="optionsAvailable; else noOptions">
+    <mat-form-field class="budget-selector">
+      <mat-select name="selectedBudget" [(ngModel)]="selectedBudget" placeholder="Budget" required>
+        <mat-option *ngFor="let budget of possibleChilds" [value]="budget">
+          {{ budget.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <ng-template #noOptions><div *ngIf="loading; else noOp"><app-spinner></app-spinner></div></ng-template>
+    <ng-template #noOp>No child budgets available.</ng-template>
+
+    <div class="sm-divider"></div>
+  </div>
+  <button type="submit" [disabled]="loading || !optionsAvailable || form.invalid" class="btn-submit" mat-raised-button color="primary">
+    Link Budget
+  </button>
+
+</form>
+
+<br />

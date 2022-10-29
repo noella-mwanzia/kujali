@@ -6,7 +6,7 @@ import { cloneDeep as ___cloneDeep, range as ___range } from 'lodash';
 import { Logger } from '@iote/bricks-angular';
 
 import { MONTHS, TimeTableGenerator, YEARS } from '@app/model/finance/planning/time';
-import { Budget, BudgetHeader, BudgetStatus } from '@app/model/finance/planning/budgets';
+import { Budget, BudgetStatus } from '@app/model/finance/planning/budgets';
 
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
 

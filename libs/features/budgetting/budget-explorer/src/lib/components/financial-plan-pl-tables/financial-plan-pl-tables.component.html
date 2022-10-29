@@ -1,0 +1,26 @@
+<app-year-focus [title]="'Balance'" (navigateYearPressed)="onPressNavigateYear($event)">
+
+  <app-financial-plan-result-table [budget$]="budget$" [year$]="year$"></app-financial-plan-result-table>
+
+</app-year-focus>
+
+<!-- Cost Sheet -->
+<app-year-focus [title]="'Costs'" (navigateYearPressed)="onPressNavigateYear($event)">
+
+    <app-financial-plan-table #costTable 
+                              [classId]="'cost'" [type]="'cost'" 
+                              [year]="year$ | async"
+                              [dataSource]="costDataSource" [total]="costTotal | async">
+    </app-financial-plan-table>
+
+</app-year-focus>
+
+<!-- Income Sheet -->
+<app-year-focus [title]="'Income'" (navigateYearPressed)="onPressNavigateYear($event)">
+
+  <app-financial-plan-table [classId]="'income'" [type]="'income'" 
+                            [year]="year$ | async"
+                            [dataSource]="incomeDataSource" [total]="incomeTotal | async">
+  </app-financial-plan-table>
+
+</app-year-focus>

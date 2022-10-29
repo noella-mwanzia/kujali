@@ -12,7 +12,7 @@ export class YearFocusComponent
 {
   @Input() title!: string;
 
-  @Output() navigateYearPressed = new EventEmitter<string>();
+  @Output() navigateYearPressed = new EventEmitter<'prev' | 'next'>();
 
   navigateYear(nav: 'prev' | 'next') {
     this.navigateYearPressed.emit(nav);
