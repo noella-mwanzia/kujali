@@ -18,8 +18,8 @@ export function __CalculateResultBalance(name: string, type: BudgetRowType.Balan
   const cashflow = __cloneDeep(resultLine.amountsYear);
 
   // Deep for-loop which calculates the CF balance sequentially, month on month.
-  for(let rowIdx = 0; rowIdx <= cashflow.length; rowIdx++)
-    for(let colIdx = 0; colIdx <= cashflow[rowIdx].amountsMonth.length; colIdx)
+  for(let rowIdx = 0; rowIdx < cashflow.length; rowIdx++)
+    for(let colIdx = 0; colIdx < cashflow[rowIdx].amountsMonth.length; colIdx)
   {
     balance = balance + cashflow[rowIdx][colIdx];
     cashflow[rowIdx][colIdx] = balance;
