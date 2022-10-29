@@ -13,7 +13,7 @@ import { __CalculateResultBalance } from "./calculate-result-balance.function";
  * 
  * Basically creates a 2D representation of the budget.
  */
-export function __RenderBudget(b: Budget, children: RenderedChildBudget[], budgetLines: AggregatedBudget) : RenderedBudget
+export function ___RenderBudget(b: Budget, children: RenderedChildBudget[], budgetLines: AggregatedBudget) : RenderedBudget
 {
   const renderedBudget = ___cloneDeep(b) as RenderedBudget;
 
