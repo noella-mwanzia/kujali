@@ -6,7 +6,9 @@
 export enum BudgetRowType 
 {
   /** A configurable and assignable budget line. */
-  Line = 1,
+  CostLine = -1,
+  /** A configurable and assignable budget line. */
+  IncomeLine = 1,
   
   /** A budget category. Aggregates a set of lines. */
   Category = 2,

@@ -1,3 +1,5 @@
+import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
+
 /**
  * A model-representation of a budget row.
  */
@@ -19,7 +21,7 @@ export interface PlannedTransactionStub
   transactionCategoryId: string;
   transactionCategoryName: string;
   transactionCategoryOrder: number;
-  transactionCategoryType: string;
+  transactionCategoryType: BudgetRowType;
 
   budgetId: string;
 }

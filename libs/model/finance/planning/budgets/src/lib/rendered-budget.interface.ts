@@ -8,6 +8,7 @@ import { BudgetHeader, BudgetRow } from "@app/model/finance/planning/budget-line
 export interface RenderedBudget
 {
   budgetId: string;
+  orgId: string;
 
   name: string;
 

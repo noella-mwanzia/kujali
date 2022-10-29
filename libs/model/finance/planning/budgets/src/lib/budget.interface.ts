@@ -14,6 +14,9 @@ export interface Budget extends IObject
 {
   name: string;
 
+  /** FK to organisation */
+  orgId: string;
+
   status: BudgetStatus;
 
   /** Latest balance - For updating purposes. */
