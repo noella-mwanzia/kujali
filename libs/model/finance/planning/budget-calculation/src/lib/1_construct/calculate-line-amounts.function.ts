@@ -2,7 +2,7 @@ import { sortBy as ___sortBy, cloneDeep as ___cloneDeep } from 'lodash';
 
 import { Budget } from "@app/model/finance/planning/budgets";
 
-import { TransactionOccurence } from "@app/model/finance/planning/budget-items";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 import { AmountPerYear, BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
@@ -19,7 +19,7 @@ import { __CalculateAmountForMonth } from './calculate-month-amounts.function';
  * 
  * For original design (2018) - @see https://gitlab.com/elewa/elewa-portal/-/blob/43c86d549a1dc53a8f9caedfde8e48390de92adc/src/modules/management/modules/financial-plan-explorer/service/base-calculation/pl-amount-calculator.service.ts
  */
-export function __CalculateLineAmounts(budget: Budget, occs: TransactionOccurence[]) : BudgetLineRow
+export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) : BudgetLineRow
 {
   // Get the template from which to calculate the amounts.
   const valueTemplate = NULL_AMOUNT_BY_YEAR_AND_MONTH(budget.startYear, budget.duration);
@@ -32,7 +32,7 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionOccurenc
 }
 
 /** Algorithm responsible for calculating the value of each column in the whole budget line (accross all its years) */
-function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionOccurence[])
+function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan[])
 {
   const orderedPlans = ___sortBy(plans, ['fromYear', 'fromMonth']);
 
@@ -54,7 +54,7 @@ function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionOccu
 }
 
 /** Converts the first occurence of all transaciton occurences into a budget line. */
-function _templateToLine(template: TransactionOccurence, plans: TransactionOccurence[], values: AmountPerYear[]): BudgetLineRow
+function _templateToLine(template: TransactionPlan, plans: TransactionPlan[], values: AmountPerYear[]): BudgetLineRow
 {
   return {
     id: template.lineId,

@@ -5,7 +5,7 @@ import { BudgetItemFrequency } from "./types/frequency.interface";
 import { ValueIncreaseConfig } from "./value-increase-config.interface";
 
 /**
- * Transaction occurence.
+ * Transaction plan.
  *  
  * A budget is structured along 
  *  1. budget areas (header, cost, income),
@@ -13,9 +13,9 @@ import { ValueIncreaseConfig } from "./value-increase-config.interface";
  *  3. then lines (office rent, tea, ...)
  * 
  * These lines can be edited by a user by clicking on the line and configuring how the cost of that line should behave.
- * This configuration we call a TransactionOccurence and is modelled by this interface.
+ * Each change accross the whole budget is what we call a TransactionPlan and is modelled by this interface.
  */
-export interface TransactionOccurence extends IObject
+export interface TransactionPlan extends IObject
 {
   /** Organisation ID */
   orgId: string;

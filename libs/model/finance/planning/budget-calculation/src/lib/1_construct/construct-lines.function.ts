@@ -1,7 +1,7 @@
 import { groupBy as ___groupBy } from 'lodash';
 
 import { Budget } from '@app/model/finance/planning/budgets';
-import { TransactionOccurence } from "@app/model/finance/planning/budget-items";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 import { BudgetLineRow } from "@app/model/finance/planning/budget-rendering";
 import { __CalculateLineAmounts } from './calculate-line-amounts.function';
@@ -15,9 +15,9 @@ import { __CalculateLineAmounts } from './calculate-line-amounts.function';
  * We then push them through here to convert them into budget lines which can eventually be counted up and aggregated to full blown
  *  budgets.
  * 
- * @param {TransactionOccurence[]} occurences - The planned transactions the user inputted on the budget. 
+ * @param {TransactionPlan[]} occurences - The planned transactions the user inputted on the budget. 
  */
-export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems: TransactionOccurence[]) : BudgetLineRow[]
+export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems: TransactionPlan[]) : BudgetLineRow[]
 {
   const occurencesByLine = ___groupBy(plannedItems, 'transactionId');
 
