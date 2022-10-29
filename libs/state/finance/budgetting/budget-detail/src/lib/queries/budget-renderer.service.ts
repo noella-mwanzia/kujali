@@ -17,14 +17,18 @@ import { ___RenderBudget } from "@app/model/finance/planning/budget-calculation"
  * @note Should only be imported by BudgetExplorerQuery!
  */
 @Injectable()
-export class BudgetRendererQuery
+export class BudgetRendererService
 {
-  private _budgetLines!: Repository<BudgetLine>;
-
   constructor(private _db: DataService)
   { }
 
-  getRenderedBudget(budget: Budget): Observable<RenderedBudget>
+  /**
+   * Renders a budget by transforming the budget details into a fully calculated 2D array.
+   * 
+   * @param {Budget} budget - The budget to render
+   * @returns {RenderedBudget}
+   */
+  render(budget: Budget): Observable<RenderedBudget>
   {
     const repo = this._db.getRepo<BudgetLine>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
 

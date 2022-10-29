@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { map, switchMap, take } from 'rxjs/operators';
 
-import { Observable, combineLatest } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { KuUser } from '@app/model/common/user';
+import { Organisation } from '@app/model/organisation';
 
 import { Budget } from '@app/model/finance/planning/budgets';
 
@@ -10,99 +11,50 @@ import { UserStore } from '@app/state/user';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { BudgetsStore }   from '@app/state/finance/budgetting/budgets';
 
-/** Route stub which equals the 2nd param of the budget sub-routes */
-const BUDGET_ROUTE_TOKEN = 'budgets';
+import { BudgetRendererService } from './budget-renderer.service';
 
 /** 
- * Determines active budget 
- *  - Depends on 3rd URL param e.g. domain.com/budgets/{budgetId} 
+ * A query which can render budgets for the budget explorer and other potential pages.
  * 
- * Only to be used in budget editor!
+ *  - Depends on budgetId URL param e.g. domain.com/budgets/{budgetId} 
  */
 @Injectable()
 export class BudgetExplorerActiveBudgetQuery
 {
   protected store = 'active-budget-store';
 
-  // Caching params to avoid duplicate streams
-  private _activeOrg!    : string;
-  private _activeBudget! : string;
-  private _budgetCache$! : Observable<Budget> | null;
+  private _user!: KuUser;
+  // Organisation ID - Needed to resolve budget path.
+  private _activeOrg!    : Organisation;
 
-  // Query dependencies
-  private _budgets$!        : Observable<Budget[]>;
-  /** Prerequisites for constructing budgets -> @type [OrganisationId, PageName, BudgetId] */
-  private _budgetDetailsQ$! : Observable<[string, string, string]>;
-
-  constructor(_org$$: ActiveOrgStore,
-              _budgets$$: BudgetsStore,
-              _user$$: UserStore,
-              _router: Router)
+  constructor(_user$$: UserStore,
+              _org$$: ActiveOrgStore,
+              _router: Router,
+              
+              private _budgets$$: BudgetsStore,
+              private _renderer: BudgetRendererService)
   {
-    const org$ = _org$$.get();
-    this._budgets$ = _budgets$$.get();
-
-    const route$ = _router.events.pipe(filter((ev: Event) => ev instanceof NavigationEnd),
-                                        map(ev => ev as NavigationEnd));
-   
-    this._budgetDetailsQ$ =
-      combineLatest([org$, route$])
-        .pipe(map(([o, r]) => [o.id as string, this._getPageFromRoute(r), this._getBudgetIdFromRoute(r)]));
+    // Keep track of user and org in the background. 
+    _user$$.getUser().subscribe(u => this._user = u);
+    _org$$.get().subscribe(o => this._activeOrg = o);
   }
 
   /** 
    * Gets the budget to render for the budget-viewer/-editor page 
    *    
+   * @param budgetId - ID of the budget to render
    * @warning - Only use for budget explorer page or it's children. 
    */
-  get()
+  // TODO(ian): A seperate query needs to monitor edit status and locking of editing of budgets. 
+  //            So no two users edit the same budget at the same time else they might override each other.
+  get(budgetId: string)
   {
-    return this._budgetDetailsQ$
-      .pipe(take(1),
-            tap(([oId, page, bId]) => this._validate(oId, page, bId)),
-            switchMap(() => {
-              // If active has not yet been retrieved or was invalidated, construct the active-budget query
-              if(!this._budgetCache$)
-                this._budgetCache$ = this._budgets$.pipe(map(bs => bs.find(b => b.id === this._activeBudget) as Budget));
-
-              return this._budgetCache$ as Observable<Budget>;
-            }));
-  }
-  
-  /** Validates the budget request. */
-  private _validate(oId: string, page: string, bId: string)
-  {
-    if(oId !== this._activeOrg || bId !== this._activeBudget)
-    {
-      // Invalidate cache when budget changes. This means that between the past and current navigation to budget explorer, 
-      //    the user changed routes.
-      this._budgetCache$ = null;
-      this._activeOrg = oId;
-      this._activeBudget = bId;
-    }
-
-    if(page !== BUDGET_ROUTE_TOKEN)
-      throw new Error(`Unauthorized. Requesting budget from explorer service while not on the budget explorer page.`)
-
-    return true;
-  }
-
-  /** Slice page ID */
-  private _getPageFromRoute = (r: NavigationEnd) => this._getRouteSegment(r, 2);
-  /** Slice budget ID */
-  private _getBudgetIdFromRoute = (r: NavigationEnd) => this._getRouteSegment(r, 2);
-
-  /**
-   * Slices a route segment out of the total route.
-   * 
-   * @param r       - Route to slice from
-   * @param segment - Route segment to slice (n+1)
-   */
-  private _getRouteSegment(r: NavigationEnd, segment: number) : '__noop__' | string
-  {
-    const elements = r.url.split('/');
-    const sliced = elements.length >= segment ? elements[segment-1] : '__noop__';
-
-    return sliced;
+    return this._budgets$$.get()
+            // If budgets$$ resolves, we can be sure that orgId and user are set as well.
+      .pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget),
+            
+            take(1),
+            // Render the budget explorer, i.e. load all the budget lines and structure them for visualisation.
+            switchMap(b => this._renderer.render(b)));
   }
 }

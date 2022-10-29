@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { orderBy as ___orderBy } from 'lodash';
-import { map, switchMap, tap } from "rxjs/operators";
+import { filter, map, switchMap, tap } from "rxjs/operators";
 
 import { Logger } from "@iote/bricks-angular";
 import { Query } from "@ngfi/firestore-qbuilder";
@@ -41,7 +41,7 @@ export class BudgetsStore extends DataStore<Budget>
    *       
    * @note - For a hierarchical representation. @see {OrgBudgetsStore}                           
    */
-  override get = () => super.get();
+  override get = () => super.get().pipe(filter(bs => !!bs));
   
 
   // add(budget: Budget): Observable<Budget>
