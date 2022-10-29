@@ -32,6 +32,11 @@ export class BudgetResultQuery
         .subscribe(o => this._activeOrg = o.id as string);
   }
 
+  /**
+   * @arg {Budget} - The budget for which to get the result calculation.
+   * @returns {BudgetResult} The budget-result header which determines the result and balance of a budget.
+   *                         Used by both own as parent budgets to aggregate and visualize results.
+   */
   getBudgetResult(budget: Budget): Observable<BudgetResult>
   {
     return this._db.getRepo<BudgetResult>(`orgs/${this._activeOrg}/budgets/${budget.id}/header`)
