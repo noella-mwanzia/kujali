@@ -1,7 +1,7 @@
 import { sum as ___sum, flatMap as ___flatmap } from 'lodash';
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { BudgetHeader, BudgetRow } from '@app/model/finance/planning/budget-lines';
+import { BudgetHeader, BudgetRow, BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
 
 import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
@@ -21,7 +21,7 @@ export function __RenderLinesGroup(record: BudgetGroup | BudgetRow, budget: Budg
 
     const childRows = ___flatmap(castGroup.children, record => __RenderLinesGroup(record, budget)); 
 
-    return (record.type == 'costTotal' || record.type == 'incomeTotal')
+    return (record.type == BudgetRowType.IncomeTotal || record.type == BudgetRowType.CostTotal)
               ? childRows // Income or Cost Totals are already captured in seperate headers.
               : [__RecordToHeader(castGroup, budget)].concat(childRows);
   }

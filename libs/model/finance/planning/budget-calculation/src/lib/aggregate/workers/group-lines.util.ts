@@ -6,7 +6,7 @@ import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@app/model/finance/planning/budge
 import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { BudgetGroup, BudgetLine } from '@app/model/finance/planning/budget-rendering';
 
-import { __MergeBudgetLinesOfTwoLines } from './amount-per-year.reducer';
+import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';
 
 /**
  * Algorithm which can hierarchically structure budget lines into groups.

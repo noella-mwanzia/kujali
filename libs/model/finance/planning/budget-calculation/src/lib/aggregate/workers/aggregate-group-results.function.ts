@@ -1,7 +1,7 @@
 import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budget-lines";
 import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
 
-import { __MergeBudgetLinesOfTwoGroupResults } from "./amount-per-year.reducer";
+import { __MergeBudgetLinesOfTwoGroupResults } from "./merge-lines.util";
 
 /** 
  * Algorithm that can calculate balances/cashflows of a budget by reducing BudgetGroups.

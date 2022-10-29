@@ -1,11 +1,9 @@
-import { capitalize as ___capitalize } from 'lodash';
-
 import { Budget } from '@app/model/finance/planning/budgets';
 import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { BudgetGroup, BudgetLine } from '@app/model/finance/planning/budget-rendering';
-import { __GroupBudgetLines } from './budget-type-aggregator.model';
-import { __CalculateBalanceOfGroups } from './single-result-calculator.model';
 
+import { __GroupBudgetLines } from './workers/group-lines.util';
+import { __CalculateBalanceOfGroups } from './workers/aggregate-group-results.function';
 
 /**
  * Structures Budget Lines into an actual budget.
@@ -13,7 +11,7 @@ import { __CalculateBalanceOfGroups } from './single-result-calculator.model';
  * 
  * @param lines Unstructured Budget Lines belong to the budget to render.
  */
-export function __AggregateBudget(budget: Budget, lines: BudgetLine[], type: BudgetRowType.CostLine| BudgetRowType.IncomeLine): BudgetGroup
+export function __GroupBudgetLinesByType(budget: Budget, lines: BudgetLine[], type: BudgetRowType.CostLine| BudgetRowType.IncomeLine): BudgetGroup
 {
   return _groupByType(budget, lines, type);
 }

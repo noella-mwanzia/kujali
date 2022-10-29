@@ -1,9 +1,11 @@
 
 
 import { Budget, RenderedBudget } from "@app/model/finance/planning/budgets";
-import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
+import { BudgetLine } from "@app/model/finance/planning/budget-rendering";
 
-import { __RenderLinesGroup, __RecordToHeader } from './aggregate/render-groups.functions';
+import { __RenderLinesGroup, __RecordToHeader } from './render-groups.functions';
+import { __GroupBudgetLinesByType } from "./aggregate/group-lines-by-type";
+import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
 
 /**
  * Transforms the aggregated budget into a table consumable by the front ends budget explorer,
@@ -11,8 +13,11 @@ import { __RenderLinesGroup, __RecordToHeader } from './aggregate/render-groups.
  * 
  * Basically creates a 2D representation of the budget.
  */
-export function ___RenderBudget(budget: Budget, costs: BudgetGroup, income: BudgetGroup) : RenderedBudget
+export function ___RenderBudget(budget: Budget, lines: BudgetLine[]) : RenderedBudget
 {
+  const costs  = __GroupBudgetLinesByType(budget, lines, BudgetRowType.CostLine);
+  const income = __GroupBudgetLinesByType(budget, lines, BudgetRowType.IncomeLine);
+
   return {
     budgetId: <string> budget.id,
     orgId: budget.id,
