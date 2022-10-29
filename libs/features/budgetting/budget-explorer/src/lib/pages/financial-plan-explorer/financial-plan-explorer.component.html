@@ -1,22 +1,22 @@
-<app-page [loading]="loading" [loadingText]="'Please hold as we load the budget..'">
+<app-page [loading]="loading"> <!-- [loadingText]="'Please hold as we load the budget..'"> -->
 
   <app-navbar>
-    <app-user-menu></app-user-menu>
+    <!-- <app-user-menu></app-user-menu> -->
   </app-navbar>
 
   <div fxLayout="column" class="container">
 
-    <div class="page-heading" *ngIf="budget">
-      <h1 class="mat-display-1">{{ budget.name }}</h1> <i>Role: <span class="budget-status">{{ translateStatus(budget.status) }}</span></i>
+    <div class="page-heading" *ngIf="state$ | async as state">
+      <h1 class="mat-display-1">{{ state.budget.name }}</h1> <i>Role: <span class="budget-status">TODO<!--{{ translateStats(budget.status) }}--></span></i>
     </div>
 
-    <app-year-focus (navigateYearPressed)="navigateYear($event)">
+    <!-- <app-year-focus (navigateYearPressed)="navigateYear($event)">
 
       <app-financial-plan-burn-chart [year$]="yearObserver$"
                                      [budget$]="budget$">
       </app-financial-plan-burn-chart>
   
-    </app-year-focus>
+    </app-year-focus> -->
 
     <div class="year-title" fxLayout="row" fxLayoutAlign="center">
       <mat-form-field class="year-selector">
@@ -31,10 +31,10 @@
     <div class="container" fxLayout="column wrap" fxLayoutAlign="start">
 
       <!-- Budget Table Viz -->
-      <app-financial-plan-pl-tables [year$]="yearObserver$"
+      <!-- <app-financial-plan-pl-tables [year$]="yearObserver$"
                                     [budget$]="budget$"
                                     (navigateYearPressed)="navigateYear($event)">
-      </app-financial-plan-pl-tables>
+      </app-financial-plan-pl-tables> -->
 
     </div>
 

@@ -84,6 +84,8 @@ export class FinancialExplorerStateService
     this._budgetSubscr =
       this._budget$$.get(budgetId)
           .subscribe(b => this._initialise(b));
+
+    return this.get();
   }
 
   /**
@@ -98,6 +100,7 @@ export class FinancialExplorerStateService
     this._state = _DEFAULT_FINANCIAL_EXPLORER_STATE();
     this._state.budget = b;
     this._state.year = _FIRST_YEAR_OF_BUDGET(b); 
+    
     this._state.loaded = true;
 
     this._triggerUpdate();

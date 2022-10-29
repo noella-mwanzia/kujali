@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import {} from 'lodash';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, Observable, Subscription, take } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { Budget } from '@app/model/finance/planning/budgets';
-import { BudgetExplorerActiveBudgetQuery } from '@app/state/finance/budgetting/budget-detail';
-import { FinancialExplorerStateService } from '../../state-local/f-explorer.state.service';
+import { FinancialExplorerStateService } from '../../local-state/f-explorer.state.service';
+import { FinancialExplorerState } from '../../local-model/f-explorer.state.model';
 
 /**
  * This page visualises the Budget Explorer, which is the core feature of this application.
@@ -18,91 +18,96 @@ import { FinancialExplorerStateService } from '../../state-local/f-explorer.stat
   templateUrl: './financial-plan-explorer.component.html',
   styleUrls: ['./financial-plan-explorer.component.scss']
 })
-export class FinancialPlanExplorerPageComponent
+export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
 {
-  // private _yearIndex = 0;
-  // private _yearIndexSubject = new BehaviorSubject<Number>(0);
-
- 
-  /** Supported years */
-  years = [];
+  private _subscr = new Subscription();
 
   budgetId!: string;
-  budget$!: Observable<Budget>;
-  budget!: Budget;
+  state$!: Observable<FinancialExplorerState>;
+
+  startYear!: number;
+  year!     : number;
+  years!    : number[];
 
   minValue = 0;
   maxValue = 1;
 
   loading = true;
 
-  constructor(_budget$$: BudgetExplorerActiveBudgetQuery,
-              private _state$$: FinancialExplorerStateService,
+  constructor(private _state$$: FinancialExplorerStateService,
+              private _route: ActivatedRoute,
               private _logger: Logger)
-  { 
-    this.budget$ = _budget$$.get();
-    
-    // Load in a new state
-    _state$$.init(this.budget$);
-  }
+  { }
 
   ngOnInit() 
   {
-    this.yearObserver$ = this._yearSubject.asObservable();
+    const routeParams = this._route.snapshot.paramMap;
+    const bId = routeParams.get('budgetId');
 
-      this.budget$ = this._budgetService.getBudget(params.budgetId);
-      this.budget$.subscribe(b => {
-        this.budget = b;
-        
-        this.years = _.range(b.startYear, b.startYear + b.duration);
-        this.setYear(new Date().getFullYear() >= b.startYear ? new Date().getFullYear() : b.startYear);
-        this.loading = false;
+    if(!bId) {
+      alert('Component cannot load as no budget-id has been passed through the route. Please contact support.');
+      throw new Error('FPE-L1');
+    }
+
+    this.state$ = this._state$$.init(bId).pipe(filter(st => st.loaded));
+
+    this._subscr = 
+      this.state$.subscribe(st => {
+        this.year = st.year;
       });
-    });
+
+    this._subscr = // Only on load (ref take 1)
+      this.state$.pipe(take(1))
+        .subscribe(st => {
+          this.startYear = st.year;
+          this.years = st.years; // TODO: Can be nice to have the ability to add years. In this case the other subscr must set years.
+        });
   }
 
-  navigateYear(nav)
+  /** Prev/Next-style navigation by year */
+  navigateYear(nav: 'prev' | 'next')
   {  
-    if (nav === 'prev' && this.year > this.budget.startYear) {
+    if (nav === 'prev' && this.year > this.startYear) {
       this.year--;
-      this.minValue = this.year % this.budget.startYear;
+      this.minValue = this.year % this.startYear;
       this.maxValue = this.minValue + 1;
     }
     else if (nav === 'next' && this.year < this.years[this.years.length - 1]) {
       this.year++;
-      this.minValue = this.year % this.budget.startYear;
+      this.minValue = this.year % this.startYear;
       this.maxValue = this.minValue + 1;
     }
     else
       this._logger.log(() => "The year you are trying to navigate to does not exist!");
 
-    // Emit change in year.
     this.setYear(this.year);
   }
 
-  setYear(year) {
+  setYear(year: number) {
+    // Emit change in year.
     this.year = year;
-    this._yearSubject.next(year);
+    this._state$$.setYear(this.year);
   }
 
-  translateStatus(status: BudgetStatus) {
-    switch (status) {
-      case 'in-use':
-        return 'Active';
+  // translateStatus(status: BudgetStatus) {
+  //   switch (status) {
+  //     case 'in-use':
+  //       return 'Active';
 
-      case 'open':
-        return 'Design';
+  //     case 'open':
+  //       return 'Design';
 
-      case 'archived':
-        return 'No Longer in Use';
+  //     case 'archived':
+  //       return 'No Longer in Use';
 
-      case 'deleted':
-        return 'Deleted';
+  //     case 'deleted':
+  //       return 'Deleted';
 
-      default:
-        break;
-    }
-  }
+  //     default:
+  //       break;
+  //   }
+  // }
+  ngOnDestroy = () => this._subscr.unsubscribe();
 }
 
 

@@ -13,6 +13,8 @@ export interface FinancialExplorerState
 {
   /** Active year to focus on */
   year: number;
+  /** Range of years available to the budget */
+  years: number[];
   /** The rendered budget we are editing. */
   budget: RenderedBudget;
 
@@ -25,14 +27,14 @@ export const _DEFAULT_FINANCIAL_EXPLORER_STATE = () => ({
   budget: <unknown> null as RenderedBudget,
 
   loaded: false
-})
+}) as FinancialExplorerState;
 
-/** Set the page view to the first financial year */
-export function _FIRST_YEAR_OF_BUDGET(budget: RenderedBudget): number 
+/** 
+ * Set the page view to the first financial year. 
+ * 
+ * We start on today's year if a history of years is added. This makes viewing budgets easier especially over platform usage of n years.
+*/
+export function _FIRST_YEAR_OF_BUDGET(b: RenderedBudget): number 
 {
-  // Get the financial years from the budget header rows as we are sure those are set.
-  if(!budget.costTotals || budget.costTotals.amountsYear.length === 0)
-    throw new Error('FES02 - Cannot visualize budget table as the budget has no financial years.');
-
-  return budget.costTotals.amountsYear[0].year;
+  return (new Date().getFullYear() >= b.startYear ? new Date().getFullYear() : b.startYear);
 }
