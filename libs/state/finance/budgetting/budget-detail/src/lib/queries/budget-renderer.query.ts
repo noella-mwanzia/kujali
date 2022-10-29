@@ -17,7 +17,7 @@ import { ___RenderBudget } from "@app/model/finance/planning/budget-calculation"
  * @note Should only be imported by BudgetExplorerQuery!
  */
 @Injectable()
-export class BudgetRendererService
+export class BudgetRendererQuery
 {
   private _budgetLines!: Repository<BudgetLine>;
 

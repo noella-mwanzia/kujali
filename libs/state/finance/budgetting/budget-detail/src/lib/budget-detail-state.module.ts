@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { BudgetExplorerActiveBudgetQuery } from './queries/budget-explorer-active-budget.query';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
-import { BudgetRendererService } from './queries/budget-renderer.service';
+
+import { BudgetRendererQuery } from './queries/budget-renderer.query';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { BudgetRendererService } from './queries/budget-renderer.service';
 
   providers:[
     BudgetExplorerActiveBudgetQuery,
-    BudgetRendererService
+    BudgetRendererQuery
   ]
 })
 /** 
