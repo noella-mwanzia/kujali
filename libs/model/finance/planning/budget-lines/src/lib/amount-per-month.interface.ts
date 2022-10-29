@@ -1,4 +1,4 @@
-// import { TransactionOccurence } from "../../../transactions/transaction-occurence.interface";
+import { TransactionOccurence } from '@app/model/finance/planning/budget-items';
 
 /**
  * Instance of a single month as per the budget.
@@ -22,4 +22,14 @@ export interface AmountPerMonth
 
   // Reference variable for ease of updating the budget.
   // occurence?: TransactionOccurence;
+}
+
+/**
+ * Instance of a single month as per the budget produced by calculation.
+ * 
+ * @note - Only @see {AmountPerMonth} should be stored if persistent storage is desired of this value !
+ */
+export interface CalculatedAmountPerMonth extends AmountPerMonth
+{
+  plan?: TransactionOccurence;
 }

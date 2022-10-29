@@ -38,21 +38,31 @@ export interface TransactionOccurence extends IObject
   /** If frequency is a timed interval i.e. every 6 months, every 2 years, .. */
   xTimesInterval: number;
 
+  /**
+   * The king occurence is the first transaction occurence that was created for a given line. It births all the other transaction occurences.
+   * @note There has to be a king and there can only be one king occurence per budget line.
+   * @note The occurence which is the king cannot be deleted, instead it's values are set to 0 for amount and for unit
+  */
+  king: boolean;
   /** FK to the parent transaction object. */
-  transactionId: string;
-  transactionName: string;
-  /** Depending on category type (= cost | income), baseTypeMultiplier will determine actual value. */
-  baseTypeMultiplier: 1 | -1;
+  lineId: string;
+  /** Name of the budget line. */
+  lineName: string;
+  /** 
+   * Depending on category type (= cost [-1] | income [1]), mode will determine actual value. 
+   * Mode is determined by the category type (second order grouping i.e. cost vs income)
+  */
+  mode: 1 | -1;
 
-  transactionTypeId: string;
-  transactionTypeName: string;
-
-  transactionCategoryId: string;
-  transactionCategoryName: string;
-  transactionCategoryOrder: number;
-  transactionCategoryType: string;
+  /** FK to the transaction type (first order grouping) */
+  trTypeId: string;
+  /** FK to the transaction type category (second order grouping) */
+  trCatId: string;
 
   /** Increase Settings */
   hasIncrease?: boolean;
-  increaseConfig: ValueIncreaseConfig;
+  /** Increase config for amount field */
+  amntIncrConfig?: ValueIncreaseConfig;
+  /** Increase config for unit field. */
+  unitIncrConfig?: ValueIncreaseConfig;
 }

@@ -7,17 +7,11 @@ import { BudgetItemFrequency } from "./types/frequency.interface";
  */
 export interface ValueIncreaseConfig 
 {
-  amountIncreaseConfig: false | 'value' | 'percentage';
-  amountIncreaseFrequency: BudgetItemFrequency;
-  /* Amount Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase */
-  amountIncreaseRate: number;
+  incrStyle: false | 'value' | 'percentage';
+  incrFreq: BudgetItemFrequency;
+  /* Amount Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase.
+     Unit Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase. */
+  incrRate: number;
   /** If frequency is 'every-x-times', how many times? */
-  xTimesAmountIncreaseInterval?: number;
-
-  unitIncreaseConfig: false | 'value' | 'percentage';
-  unitIncreaseFrequency: BudgetItemFrequency;
-  /* Unit Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase */
-  unitIncreaseRate: number;
-  /** If frequency is 'every-x-times', how many times? */
-  xTimesUnitIncreaseInterval?: number;
+  interval?: number;
 }

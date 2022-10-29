@@ -1,8 +1,6 @@
 import { BudgetRow } from "@app/model/finance/planning/budget-lines";
-import { BudgetLineConfiguration } from "./planned-transaction-stub.interface";
 
 import { TransactionOccurence } from "@app/model/finance/planning/budget-items";
-
 
 /**
  * Entry in the budget. 
@@ -15,8 +13,16 @@ import { TransactionOccurence } from "@app/model/finance/planning/budget-items";
  */
 export interface BudgetLineRow extends BudgetRow 
 {
-  categoryId: string;
-  config: BudgetLineConfiguration;
+  id: string; 
 
+  /** Line type (first order grouping) */
+  trTypeId: string;
+  /** Line category (second order grouping) */
+  categoryId: string;
+
+  /** Reference to the king transaction occurence, after which this line is modelled. */
+  config: TransactionOccurence;
+
+  /** Collection of all transaction occurences on the line */
   plans: TransactionOccurence[];
 }
