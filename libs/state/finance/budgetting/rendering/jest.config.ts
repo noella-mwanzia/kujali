@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'state-finance-budgetting-budget-detail',
+  displayName: 'state-finance-budgetting-budget-rendering',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../coverage/libs/state/finance/budgetting/budget-detail',
+    '../../../../../coverage/libs/state/finance/budgetting/budget-rendering',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
