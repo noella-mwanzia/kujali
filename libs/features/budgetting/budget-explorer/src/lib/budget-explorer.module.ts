@@ -14,6 +14,8 @@ import { iTalPageModule } from '@app/elements/layout/page';
 
 import { BudgetExplorerRouter } from './budget-explorer-router';
 
+import { YearFocusComponent } from './components/year-focus/year-focus.component';
+
 import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explorer/financial-plan-explorer.component';
 
 @NgModule({
@@ -32,12 +34,14 @@ import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explo
     FinancialPlanExplorerPageComponent,
   ],
 
-  declarations: [FinancialPlanExplorerPageComponent, 
-                 
+  declarations: [
+    FinancialPlanExplorerPageComponent, 
+             
+    YearFocusComponent
     // FinancialPlanBurnChartComponent,  
     
     // FinancialPlanPlTablesComponent, FinancialPlanResultTableComponent,
-    // YearFocusComponent, FinancialPlanTableComponent, PlTableContextMenuComponent,
+    // , FinancialPlanTableComponent, PlTableContextMenuComponent,
      
     // LinkBudgetModalComponent]
   ]
