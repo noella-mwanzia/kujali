@@ -109,5 +109,5 @@ function _emptyFor(year: number): AmountPerYear {
 
 /** Create a skeleton for the financial year months within a year */
 function _emptyMonths(): AmountPerMonth[] {
-  return <AmountPerMonth[]> MONTHS.map(() => { return NULL_AMOUNT_PER_MONTH });
+  return <AmountPerMonth[]> MONTHS.map(() => { return NULL_AMOUNT_PER_MONTH() });
 }

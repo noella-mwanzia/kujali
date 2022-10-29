@@ -1,5 +1,5 @@
-import { AmountPerYear } from "@app/model/finance/planning/budgets";
 import { TimeTableGenerator } from "@app/model/finance/planning/time";
+import { AmountPerYear } from "@app/model/finance/planning/budget-lines";
 
 import { NULL_AMOUNT_PER_MONTH } from "./amount-per-month.null";
 
@@ -17,7 +17,7 @@ export function NULL_AMOUNT_BY_YEAR_AND_MONTH(startYear: number, duration: numbe
               .getTimeFrameSkeleton(startYear, duration)
               .map(y => ({ 
                 year: y.year,
-                amountsMonth: y.months.map(m => NULL_AMOUNT_PER_MONTH),
+                amountsMonth: y.months.map(() => NULL_AMOUNT_PER_MONTH()),
                 total: 0
               }));
 }
