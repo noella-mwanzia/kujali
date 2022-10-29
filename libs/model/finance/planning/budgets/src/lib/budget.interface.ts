@@ -19,9 +19,6 @@ export interface Budget extends IObject
 
   status: BudgetStatus;
 
-  /** Latest balance - For updating purposes. */
-  result: BudgetHeader;
-
   /** Override list can be compared to breadcrumbs, leading up to the earliest budget. Each level up with less priority.
    *    The later in the chain (the later in fact being this budget), the more it overrides the older. */
   overrideList: string[];

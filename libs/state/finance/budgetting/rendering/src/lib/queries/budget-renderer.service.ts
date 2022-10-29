@@ -4,7 +4,7 @@ import { DataService } from "@ngfi/angular";
 import { Observable } from "rxjs";
 import { map, take } from "rxjs/operators";
 
-import { Budget, RenderedBudget } from "@app/model/finance/planning/budgets";
+import { Budget } from "@app/model/finance/planning/budgets";
 import { BudgetLine } from "@app/model/finance/planning/budget-rendering";
 import { ___RenderBudget } from "@app/model/finance/planning/budget-calculation";
 

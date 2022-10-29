@@ -1,11 +1,11 @@
 import { cloneDeep as ___cloneDeep, range as ___range } from "lodash";
 
-import { Budget, RenderedBudget } from "@app/model/finance/planning/budgets";
-import { BudgetLine } from "@app/model/finance/planning/budget-rendering";
-
-import { __RenderLinesGroup, __RecordToHeader } from './render-groups.functions';
-import { __GroupBudgetLinesByType } from "./aggregate/group-lines-by-type";
+import { Budget } from "@app/model/finance/planning/budgets";
 import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { AggregatedBudget, RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
+
+import { __MergeBudgetLinesOfNHeaders } from "./aggregate/workers/merge-lines.util";
+import { __CalculateResultBalance } from "./aggregate/calculate-result-balance.function";
 
 /**
  * Transforms the aggregated budget into a table consumable by the front ends budget explorer,
@@ -13,23 +13,31 @@ import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
  * 
  * Basically creates a 2D representation of the budget.
  */
-export function ___RenderBudget(b: Budget, lines: BudgetLine[]) : RenderedBudget
+export function __RenderBudget(b: Budget, children: RenderedChildBudget[], budgetLines: AggregatedBudget) : RenderedBudget
 {
   const renderedBudget = ___cloneDeep(b) as RenderedBudget;
 
-  // Budget specific const and income streams
-  const costs  = __GroupBudgetLinesByType(b, lines, BudgetRowType.CostLine);
-  const income = __GroupBudgetLinesByType(b, lines, BudgetRowType.IncomeLine);
+  renderedBudget.income       = budgetLines.income;
+  renderedBudget.incomeTotals = budgetLines.incomeTotals;
 
-  renderedBudget.costs      = __RenderLinesGroup(costs, b);
-  renderedBudget.costTotals = __RecordToHeader(costs, b);
-
-  renderedBudget.income       = __RenderLinesGroup(income, b);
-  renderedBudget.incomeTotals = __RecordToHeader(income, b);
+  renderedBudget.costs      = budgetLines.costs;
+  renderedBudget.costTotals = budgetLines.costTotals;
   
   // Budget scoping
-
   renderedBudget.years =  ___range(b.startYear, b.startYear + b.duration);
+
+  // Result calculation
+  renderedBudget.children = children;
+
+  // Result calculation
+   
+  const resultLines = [renderedBudget.incomeTotals, renderedBudget.costTotals].concat(children.map(c => c.header));
+
+  renderedBudget.result = __MergeBudgetLinesOfNHeaders('BUDGETS.HEADERS.RESULT', 
+                                                       BudgetRowType.Result, renderedBudget.startYear, renderedBudget.duration, 
+                                                       resultLines);
+  renderedBudget.balance = __CalculateResultBalance('BUDGETS.HEADERS.BALANCE', BudgetRowType.Balance,
+                                                    renderedBudget, renderedBudget.result);
 
   return renderedBudget;
 }

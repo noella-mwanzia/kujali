@@ -1,13 +1,14 @@
 import { BudgetHeader, BudgetRow } from "@app/model/finance/planning/budget-lines";
-import { Budget } from "./budget.interface";
 
 /**
- * A budget which has been rendered by the budget-calculator.
+ * A budget which has been aggregated and structured by the budget-calculator.
  * 
  * - Contains all calculated values of the budget.
  * - Represented as a 2D array of budget rows and results
+ * 
+ * @note - Only used in the calculator
  */
-export interface RenderedBudget extends Budget
+export interface AggregatedBudget
 {
   /** Cost lines of the budget */
   costs: BudgetRow[];
@@ -18,7 +19,4 @@ export interface RenderedBudget extends Budget
   income: BudgetRow[];
   /** Income total - Budget header on top of income categories */
   incomeTotals: BudgetHeader;
-
-  /** Years over which the budget ranges */
-  years: number[];
 }

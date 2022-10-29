@@ -1,9 +1,9 @@
-import { map as ___map, sum as ___sum } from 'lodash';
+import { map as ___map, sum as ___sum, reduce as ___reduce } from 'lodash';
 
 import { MONTHS } from '@app/model/finance/planning/time';
 
-import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
-import { AmountPerMonth, AmountPerYear } from '@app/model/finance/planning/budget-lines';
+import { NULL_AMOUNT_PER_MONTH, NULL_BUDGET_HEADER } from '@app/model/finance/planning/budget-defaults';
+import { AmountPerMonth, AmountPerYear, BudgetRow, BudgetRowType } from '@app/model/finance/planning/budget-lines';
 
 
 /**
@@ -13,6 +13,32 @@ import { AmountPerMonth, AmountPerYear } from '@app/model/finance/planning/budge
 export function __MergeBudgetLinesOfTwoGroupResults(target: AmountPerYear[], source: AmountPerYear[]) : AmountPerYear[]
 {
   return __MergeBudgetLinesOfTwoLines(target, source);
+}
+
+/**
+ * Util for merging rendered header-rows together.
+ * 
+ * @param name - Header name to produce
+ * @param type - Header type to produce
+ * @param startYear - Start year of the budget
+ * @param duration  - n years to take.
+ * @param headersToMerge - The headers to merge to produce this line.
+ * 
+ * @returns {BudgetRow} - Rendered budget row
+ */
+export function __MergeBudgetLinesOfNHeaders(name: string, type: BudgetRowType, year: number, duration: number, headersToMerge: BudgetRow[]) 
+{
+  //  The template row after which to model everything except the . This functionality
+  const template = NULL_BUDGET_HEADER(name, type, year, duration);
+
+  return ___reduce(
+    headersToMerge, 
+    ((template, currH) => {
+      const mrgdAmounts = __MergeBudgetLinesOfTwoLines(template.amountsYear, currH.amountsYear);
+      template.amountsYear = mrgdAmounts;
+      return template;
+    }), 
+    template);
 }
 
 /** 
