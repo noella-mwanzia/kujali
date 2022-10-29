@@ -24,7 +24,7 @@
     "@features/budgetting/budget-explorer": "libs/features/budgetting/budget-explorer",
     "@model/finance/planning/budget-lines": "libs/model/finance/planning/budget-lines",
     "@model/finance/planning/budget-lines/by-year": "libs/model/finance/planning/budget-lines-by-year",
-    "@state/finance/budgetting/budget-detail": "libs/state/finance/budgetting/budget-detail",
+    "@state/finance/budgetting/budget-rendering": "libs/state/finance/budgetting/budget-rendering",
     "@state/finance/budgetting/budgets": "libs/state/finance/budgetting/budgets",
     "kujali": "apps/kujali",
     "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering",

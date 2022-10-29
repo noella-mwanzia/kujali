@@ -21,4 +21,4 @@ import { BudgetExplorerActiveBudgetQuery } from './queries/budget-explorer-activ
  * This module exports the state which allows inspection of the internals of budgets,
  *    specifically the budget lines and budget calculations such as headers etc.
  */
-export class BudgetDetailStateModule {}
+export class BudgetRenderingStateModule {}
