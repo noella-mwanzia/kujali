@@ -34,15 +34,14 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionOccurenc
 /** Algorithm responsible for calculating the value of each column in the whole budget line (accross all its years) */
 function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionOccurence[])
 {
-  const lineAmnts = ___cloneDeep(line);
   const orderedPlans = ___sortBy(plans, ['fromYear', 'fromMonth']);
 
   // Deep for-loop which iterates and calculates the values of each month.
 
   // 1. Iterate the years
-  for(let yearIdx = 0; yearIdx < lineAmnts.length; yearIdx++)
+  for(let yearIdx = 0; yearIdx < line.length; yearIdx++)
   {
-    const year = lineAmnts[yearIdx];
+    const year = line[yearIdx];
 
     // 2. Iterate the months of each year
     for(let monthIdx = 0; monthIdx < year.amountsMonth.length; monthIdx++)
@@ -51,7 +50,7 @@ function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionOccu
     }
   }
 
-  return lineAmnts;
+  return line;
 }
 
 /** Converts the first occurence of all transaciton occurences into a budget line. */

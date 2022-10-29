@@ -18,7 +18,7 @@ export function __GroupBudgetLinesByType(budget: Budget, lines: BudgetLineRow[],
 
   function _groupByType(budget: Budget, lines: BudgetLineRow[], type: BudgetRowType): BudgetGroup
   {
-    const relevantLines = lines.filter(entry => entry.config.transactionCategoryType === type);
+    const relevantLines = lines.filter(entry => entry.type === type);
     const typeCategories = __GroupBudgetLines(budget, BudgetRowType.Category, relevantLines, false);
 
     return __CalculateBalanceOfGroups(typeCategories, type, _getLineName(type));
