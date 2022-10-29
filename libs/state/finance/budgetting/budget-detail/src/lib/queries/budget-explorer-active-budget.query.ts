@@ -8,8 +8,7 @@ import { Budget } from '@app/model/finance/planning/budgets';
 
 import { UserStore } from '@app/state/user';
 import { ActiveOrgStore } from '@app/state/organisation';
-
-import { BudgetsStore } from '../stores/budgets.store';
+import { BudgetsStore }   from '@app/state/finance/budgetting/budgets';
 
 /** Route stub which equals the 2nd param of the budget sub-routes */
 const BUDGET_ROUTE_TOKEN = 'budgets';
@@ -18,7 +17,7 @@ const BUDGET_ROUTE_TOKEN = 'budgets';
  * Determines active budget 
  *  - Depends on 3rd URL param e.g. domain.com/budgets/{budgetId} 
  * 
- * Only used in budget editor!
+ * Only to be used in budget editor!
  */
 @Injectable()
 export class BudgetExplorerActiveBudgetQuery

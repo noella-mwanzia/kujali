@@ -4,7 +4,9 @@ import { RouterModule } from '@angular/router';
 
 import { BudgetsStore } from './stores/budgets.store';
 import { OrgBudgetsStore } from './stores/org-budgets-store.store';
-import { BudgetResultQuery } from './queries/budget-result.service';
+
+import { BudgetResultQuery } from './queries/budget-result.query';
+import { BudgetExplorerActiveBudgetQuery } from './queries/budget-explorer-active-budget.query';
 
 @NgModule({
   imports: [
@@ -12,6 +14,7 @@ import { BudgetResultQuery } from './queries/budget-result.service';
     RouterModule
   ],
   providers: [
+    BudgetExplorerActiveBudgetQuery,
     BudgetResultQuery
   ]
 })

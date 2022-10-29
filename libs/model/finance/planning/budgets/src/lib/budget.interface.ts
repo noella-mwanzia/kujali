@@ -1,8 +1,15 @@
 import { IObject } from "@iote/bricks";
 
-import { BudgetStatus } from "./types/budget-status.enum";
-import { BudgetHeader } from "./budget-header.interface";
+import { BudgetHeader } from "@app/model/finance/planning/budget-lines";
 
+import { BudgetStatus } from "./types/budget-status.enum";
+
+/**
+ * The @interface {Budget} is a key model within our application.
+ * 
+ * Budgets allow discovery and finalization of business plans for the organisation,
+ *    from which then the accounts can be reconciled.
+ */
 export interface Budget extends IObject 
 {
   name: string;
