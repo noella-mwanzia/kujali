@@ -1,4 +1,4 @@
-
+import { cloneDeep as ___cloneDeep, range as ___range } from "lodash";
 
 import { Budget, RenderedBudget } from "@app/model/finance/planning/budgets";
 import { BudgetLine } from "@app/model/finance/planning/budget-rendering";
@@ -13,21 +13,23 @@ import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
  * 
  * Basically creates a 2D representation of the budget.
  */
-export function ___RenderBudget(budget: Budget, lines: BudgetLine[]) : RenderedBudget
+export function ___RenderBudget(b: Budget, lines: BudgetLine[]) : RenderedBudget
 {
-  const costs  = __GroupBudgetLinesByType(budget, lines, BudgetRowType.CostLine);
-  const income = __GroupBudgetLinesByType(budget, lines, BudgetRowType.IncomeLine);
+  const renderedBudget = ___cloneDeep(b) as RenderedBudget;
 
-  return {
-    budgetId: <string> budget.id,
-    orgId: budget.id,
+  // Budget specific const and income streams
+  const costs  = __GroupBudgetLinesByType(b, lines, BudgetRowType.CostLine);
+  const income = __GroupBudgetLinesByType(b, lines, BudgetRowType.IncomeLine);
 
-    name: budget.name,
+  renderedBudget.costs      = __RenderLinesGroup(costs, b);
+  renderedBudget.costTotals = __RecordToHeader(costs, b);
 
-    costs: __RenderLinesGroup(costs, budget),
-    costTotals: __RecordToHeader(costs, budget),
+  renderedBudget.income       = __RenderLinesGroup(income, b);
+  renderedBudget.incomeTotals = __RecordToHeader(income, b);
+  
+  // Budget scoping
 
-    income: __RenderLinesGroup(income, budget),
-    incomeTotals: __RecordToHeader(income, budget)
-  };
+  renderedBudget.years =  ___range(b.startYear, b.startYear + b.duration);
+
+  return renderedBudget;
 }
