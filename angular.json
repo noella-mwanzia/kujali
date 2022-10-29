@@ -26,6 +26,7 @@
     "@model/finance/planning/budget-lines/by-year": "libs/model/finance/planning/budget-lines-by-year",
     "@state/finance/budgetting/budget-detail": "libs/state/finance/budgetting/budget-detail",
     "@state/finance/budgetting/budgets": "libs/state/finance/budgetting/budgets",
-    "kujali": "apps/kujali"
+    "kujali": "apps/kujali",
+    "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering"
   }
 }

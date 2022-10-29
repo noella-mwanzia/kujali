@@ -1,4 +1,4 @@
-import { BudgetRow } from "@app/model/finance/planning/budgets";
+import { BudgetRow } from "@app/model/finance/planning/budget-lines";
 
 /** 
  * Hierarchical Grouping of Budgets.

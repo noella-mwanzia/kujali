@@ -1,6 +1,6 @@
 import { IObject } from "@iote/bricks";
-import { BudgetRow } from "@app/model/finance/planning/budgets";
 
+import { BudgetRow } from "@app/model/finance/planning/budget-lines";
 import { PlannedTransactionStub } from "./planned-transaction-stub.interface";
 
 /**

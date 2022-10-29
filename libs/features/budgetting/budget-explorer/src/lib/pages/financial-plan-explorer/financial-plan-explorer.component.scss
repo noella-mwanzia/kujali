@@ -1,0 +1,40 @@
+app-yearly-pl-table {
+  width: 100%;
+}
+
+.budget-status {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.year-selector {
+  width: 100px;
+}
+
+.navigate-year-btn {
+  height: 100%;
+  background: #efefef;
+  color: black;
+  box-shadow: none !important;
+}
+
+.center-items {
+  margin: auto; 
+  text-align: center
+}
+
+
+.year-title {
+  padding: 20px 0 0 0;
+  text-decoration: underline;
+}
+
+mat-select {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mr-10px {
+  margin-right: 10px;
+}

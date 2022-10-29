@@ -1,5 +1,4 @@
-import { BudgetHeader } from "./budget-header.interface";
-import { BudgetRow } from "./budget-row.interface";
+import { BudgetHeader, BudgetRow } from "@app/model/finance/planning/budget-lines";
 
 /**
  * A budget which has been rendered by the budget-calculator.

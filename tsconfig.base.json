@@ -61,6 +61,9 @@
       "@app/model/finance/planning/budget-lines-by-year": [
         "libs/model/finance/planning/budget-lines-by-year/src/index.ts"
       ],
+      "@app/model/finance/planning/budget-rendering": [
+        "libs/model/finance/planning/budget-rendering/src/index.ts"
+      ],
       "@app/model/finance/planning/budgets": [
         "libs/model/finance/planning/budgets/src/index.ts"
       ],
