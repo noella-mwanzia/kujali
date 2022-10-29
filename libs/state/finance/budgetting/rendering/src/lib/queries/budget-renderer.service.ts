@@ -1,19 +1,24 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "@ngfi/angular";
 
-import { Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
+import { map, Observable } from "rxjs";
+
+import { Query } from "@ngfi/firestore-qbuilder";
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { BudgetLineRow, RenderedBudget } from "@app/model/finance/planning/budget-rendering";
-import { __RenderBudget } from "@app/model/finance/planning/budget-calculation";
+import { AggregatedBudget, RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
+
+import { BudgetResult } from "@app/model/finance/planning/budget-lines";
+
+import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, ___RenderBudget } from "@app/model/finance/planning/budget-calculation";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 /**
  * This service is responsible for rendering budgets by counting up their 
  *  internal lines with their results.
  * 
- * @note This service is used for single use on page load of the budget explorer.
- * @note Should only be imported by BudgetExplorerQuery!
+ * @note This service should be called whenever budget state changes (plans, children, overrides, ...) added
+ *          to properly calculate the budget.
  */
 @Injectable()
 export class BudgetRendererService
@@ -24,24 +29,51 @@ export class BudgetRendererService
   /**
    * Renders a budget by transforming the budget details into a fully calculated 2D array.
    * 
-   * @param {Budget} budget - The budget to render
+   * @param {Budget} budget     - The budget to render.
+   * @param {TransactionPlan[]} - All plans the user has for the budget.
    * @returns {RenderedBudget}
    */
-  // render(budget: Budget): Observable<RenderedBudget>
-  // {
-  //   const repo = this._db.getRepo<BudgetLineRow>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
+  render(budget: Budget, children: RenderedChildBudget[], plans: TransactionPlan[]): RenderedBudget
+  {
+    const lines = ___PlannedTransactionsToBudgetLines(budget, plans);
+ 
+    const localBudget = ___CalculateLocalBudget(budget, lines);
 
-  //   // TODO(jrosseel): Add back override functionality
-  //   // const bases = ___concat(budget.overrideList, budget.id);
+    return ___RenderBudget(budget, children, localBudget);
+  }
+
+    // const repo = this._db.getRepo<BudgetLineRow>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
+
+    // TODO(jrosseel): Add back override functionality
+    // const bases = ___concat(budget.overrideList, budget.id);
     
-  //   // return combineLatest(
-  //   //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
-  //   //        )
-  //   return repo.getDocuments()
-  //          .pipe(take(1),
-  //                 //map((budgetLines: BudgetLineRow[][]) => this._filterOverrides(budgetLines)),
-  //                map(relevantLines => ___RenderBudget(budget, relevantLines)));
-  // }
+    // return combineLatest(
+    //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
+    //        )
+    // return repo.getDocuments()
+    //        .pipe(take(1),
+    //               //map((budgetLines: BudgetLineRow[][]) => this._filterOverrides(budgetLines)),
+    //              map(relevantLines => ___RenderBudget(budget, relevantLines)));
+
+  /**
+   * Method which gets budget children from a list of children as configured on the budget.
+   * 
+   * @param b - Budget which contains the childrenList
+   * @returns List of rendered children, which can be interpreted by the parent budget.
+   */
+  public getBudgetChildren$(b: Budget): Observable<RenderedChildBudget[]>
+  {
+    const childBudgetQ = new Query().where('id', 'in', b.childrenList);
+
+    return this._db.getRepo<BudgetResult>(`orgs/${b.orgId}/budgets`)
+                   .getDocuments(childBudgetQ)
+      .pipe(
+        map(chBs => chBs.map(chB => ({
+          id: chB.id as string,
+          name: chB.name,
+          header: chB.balance
+        }))));
+  }
 
   // TODO(jrosseel): Add back override functionality
   // private _filterOverrides(linesPerBudget: BudgetLineRow[][]): BudgetLineRow[]

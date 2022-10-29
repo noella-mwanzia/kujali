@@ -5,6 +5,7 @@ import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
 import { BudgetRendererService } from './queries/budget-renderer.service';
 import { BudgetExplorerActiveBudgetQuery } from './queries/budget-explorer-active-budget.query';
+import { BudgetLinesQuery } from './queries/budget-lines.query';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { BudgetExplorerActiveBudgetQuery } from './queries/budget-explorer-activ
 
   providers:[
     BudgetExplorerActiveBudgetQuery,
+    BudgetLinesQuery,
     BudgetRendererService
   ]
 })

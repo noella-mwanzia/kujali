@@ -2,11 +2,9 @@ import { Injectable } from "@angular/core";
 import { DataService } from "@ngfi/angular";
 
 import { Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { BudgetLineRow, RenderedBudget } from "@app/model/finance/planning/budget-rendering";
-import { __RenderBudget } from "@app/model/finance/planning/budget-calculation";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 /**
  * This service is responsible for rendering budgets by counting up their 
@@ -16,7 +14,7 @@ import { __RenderBudget } from "@app/model/finance/planning/budget-calculation";
  * @note Should only be imported by BudgetExplorerQuery!
  */
 @Injectable()
-export class BudgetLinesQuery
+export class BudgetPlansQuery
 {
   constructor(private _db: DataService)
   { }
@@ -27,9 +25,9 @@ export class BudgetLinesQuery
    * @param {Budget} budget - The budget to render
    * @returns {RenderedBudget}
    */
-  get(budget: Budget): Observable<BudgetLineRow[]>
+  getPlans(budget: Budget): Observable<TransactionPlan[]>
   {
-    const repo = this._db.getRepo<BudgetLineRow>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
+    const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
 
     // TODO(jrosseel): Add back override functionality
     // const bases = ___concat(budget.overrideList, budget.id);

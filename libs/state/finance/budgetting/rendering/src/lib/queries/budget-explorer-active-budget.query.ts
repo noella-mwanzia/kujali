@@ -51,10 +51,6 @@ export class BudgetExplorerActiveBudgetQuery
   {
     return this._budgets$$.get()
             // If budgets$$ resolves, we can be sure that orgId and user are set as well.
-      .pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget),
-            
-            take(1),
-            // Render the budget explorer, i.e. load all the budget lines and structure them for visualisation.
-            switchMap(b => this._renderer.render(b)));
+      .pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget));
   }
 }
