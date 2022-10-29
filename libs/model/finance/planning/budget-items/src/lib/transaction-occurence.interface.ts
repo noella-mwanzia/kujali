@@ -6,11 +6,23 @@ import { ValueIncreaseConfig } from "./value-increase-config.interface";
 
 /**
  * Transaction occurence.
+ *  
+ * A budget is structured along 
+ *  1. budget areas (header, cost, income),
+ *  2. then categories (office costs, ...),
+ *  3. then lines (office rent, tea, ...)
  * 
- * Needs to be used as part of a list. Later transactions override earlier ones.
+ * These lines can be edited by a user by clicking on the line and configuring how the cost of that line should behave.
+ * This configuration we call a TransactionOccurence and is modelled by this interface.
  */
 export interface TransactionOccurence extends IObject
 {
+  /** Organisation ID */
+  orgId: string;
+  /** Financial Plan Id.
+   *  Child plans can override transaction occurences and will always have first priority. */
+  budgetId: string;
+
   /** Amount for this occurence. */
   amount: number;
   /** Times this occurence transacts (per occurance). */
@@ -26,11 +38,7 @@ export interface TransactionOccurence extends IObject
   /** If frequency is a timed interval i.e. every 6 months, every 2 years, .. */
   xTimesInterval: number;
 
-  /** Financial Plan Id.
-   *  Child plans can override transaction occurences and will always have first priority. */
-  budgetId: string;
-
-  /** Id to the parent transaction object. */
+  /** FK to the parent transaction object. */
   transactionId: string;
   transactionName: string;
   /** Depending on category type (= cost | income), baseTypeMultiplier will determine actual value. */

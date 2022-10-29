@@ -1,7 +1,9 @@
 import { BudgetItemFrequency } from "./types/frequency.interface";
 
 /** 
- * Increase config of a value in the forecast system. 
+ * A user can configure how a transaction should be increased over time.
+ * 
+ * This configuration is described by the ValueIncreaseConfig element.
  */
 export interface ValueIncreaseConfig 
 {

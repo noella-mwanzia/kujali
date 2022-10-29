@@ -3,7 +3,7 @@ import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
 /**
  * A model-representation of a budget row.
  */
-export interface PlannedTransactionStub
+export interface BudgetLineConfiguration
 {
   id: string;
   name: string;
@@ -24,4 +24,5 @@ export interface PlannedTransactionStub
   transactionCategoryType: BudgetRowType;
 
   budgetId: string;
+  orgId: string;
 }

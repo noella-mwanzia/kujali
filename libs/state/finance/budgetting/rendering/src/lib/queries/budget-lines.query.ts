@@ -16,32 +16,29 @@ import { __RenderBudget } from "@app/model/finance/planning/budget-calculation";
  * @note Should only be imported by BudgetExplorerQuery!
  */
 @Injectable()
-export class BudgetRendererService
+export class BudgetLinesQuery
 {
   constructor(private _db: DataService)
   { }
 
   /**
-   * Renders a budget by transforming the budget details into a fully calculated 2D array.
+   * Gets all the budget lines beloning to a budget.
    * 
    * @param {Budget} budget - The budget to render
    * @returns {RenderedBudget}
    */
-  // render(budget: Budget): Observable<RenderedBudget>
-  // {
-  //   const repo = this._db.getRepo<BudgetLineRow>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
+  get(budget: Budget): Observable<BudgetLineRow[]>
+  {
+    const repo = this._db.getRepo<BudgetLineRow>(`orgs/${budget.orgId}/budgets/${budget.id}/lines`);
 
-  //   // TODO(jrosseel): Add back override functionality
-  //   // const bases = ___concat(budget.overrideList, budget.id);
+    // TODO(jrosseel): Add back override functionality
+    // const bases = ___concat(budget.overrideList, budget.id);
     
-  //   // return combineLatest(
-  //   //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
-  //   //        )
-  //   return repo.getDocuments()
-  //          .pipe(take(1),
-  //                 //map((budgetLines: BudgetLineRow[][]) => this._filterOverrides(budgetLines)),
-  //                map(relevantLines => ___RenderBudget(budget, relevantLines)));
-  // }
+    // return combineLatest(
+    //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
+    //        )
+    return repo.getDocuments();
+  }
 
   // TODO(jrosseel): Add back override functionality
   // private _filterOverrides(linesPerBudget: BudgetLineRow[][]): BudgetLineRow[]

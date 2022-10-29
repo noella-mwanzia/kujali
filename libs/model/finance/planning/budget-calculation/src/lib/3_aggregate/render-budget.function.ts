@@ -4,8 +4,8 @@ import { Budget } from "@app/model/finance/planning/budgets";
 import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
 import { AggregatedBudget, RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
-import { __MergeBudgetLinesOfNHeaders } from "./aggregate/workers/merge-lines.util";
-import { __CalculateResultBalance } from "./aggregate/calculate-result-balance.function";
+import { __MergeBudgetLinesOfNHeaders } from "../utils/merge-lines.util";
+import { __CalculateResultBalance } from "./calculate-result-balance.function";
 
 /**
  * Transforms the aggregated budget into a table consumable by the front ends budget explorer,

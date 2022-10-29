@@ -4,7 +4,7 @@ import { Budget } from "@app/model/finance/planning/budgets";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@app/model/finance/planning/budget-defaults';
 
 import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
-import { BudgetGroup, BudgetLine } from '@app/model/finance/planning/budget-rendering';
+import { BudgetGroup, BudgetLineRow } from '@app/model/finance/planning/budget-rendering';
 
 import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';
 
@@ -17,7 +17,7 @@ import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';
  * @name: name of the new group
  * @param linesToGroup A collection of budget lines that belong together in one of the highest categories: Income, Cost, Equity, ...
  */
-export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToGroup: BudgetLine[], name: string | false): BudgetGroup[]
+export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToGroup: BudgetLineRow[], name: string | false): BudgetGroup[]
 {
   const groupedAndOrdered = ___groupBy(___orderBy(linesToGroup, e => e.transaction.name),
                                       e => e.transaction.transactionCategoryId);
@@ -28,7 +28,7 @@ export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToG
   return ___map(groups, group => _structureFromGroups(budget, type, group[1], name));
 }
 
-  function _structureFromGroups(budget: Budget, type: BudgetRowType, entriesInGroup: BudgetLine[], name: string | false): BudgetGroup
+  function _structureFromGroups(budget: Budget, type: BudgetRowType, entriesInGroup: BudgetLineRow[], name: string | false): BudgetGroup
   {
     const amountByYearGroup = ___reduce(___map(entriesInGroup, entry => entry.amountsYear),
                                       (prev, curr) => __MergeBudgetLinesOfTwoLines(prev, curr));
