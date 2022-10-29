@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
+import { DataService } from '@ngfi/angular';
 import { Router } from '@angular/router';
-import { map, switchMap, take } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { KuUser } from '@app/model/common/user';
 import { Organisation } from '@app/model/organisation';
 
 import { Budget } from '@app/model/finance/planning/budgets';
+import { BudgetResult } from '@app/model/finance/planning/budget-lines';
 
 import { UserStore } from '@app/state/user';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { BudgetsStore }   from '@app/state/finance/budgetting/budgets';
-
-import { BudgetRendererService } from './budget-renderer.service';
+import { RenderedChildBudget } from '@app/model/finance/planning/budget-rendering';
 
 /** 
  * A query which can render budgets for the budget explorer and other potential pages.
@@ -19,7 +24,7 @@ import { BudgetRendererService } from './budget-renderer.service';
  *  - Depends on budgetId URL param e.g. domain.com/budgets/{budgetId} 
  */
 @Injectable()
-export class BudgetExplorerActiveBudgetQuery
+export class BudgetQuery
 {
   protected store = 'active-budget-store';
 
@@ -32,7 +37,7 @@ export class BudgetExplorerActiveBudgetQuery
               _router: Router,
               
               private _budgets$$: BudgetsStore,
-              private _renderer: BudgetRendererService)
+              private _db: DataService)
   {
     // Keep track of user and org in the background. 
     _user$$.getUser().subscribe(u => this._user = u);
@@ -53,4 +58,44 @@ export class BudgetExplorerActiveBudgetQuery
             // If budgets$$ resolves, we can be sure that orgId and user are set as well.
       .pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget));
   }
+
+  /**
+   * Method which gets budget children from a list of children as configured on the budget.
+   * 
+   * @param b - Budget which contains the childrenList
+   * @returns List of rendered children, which can be interpreted by the parent budget.
+   */
+   public getBudgetChildren$(b: Budget): Observable<RenderedChildBudget[]>
+   {
+     const childBudgetQ = new Query().where('id', 'in', b.childrenList);
+ 
+     return this._toChildBudget$(childBudgetQ);
+   }
+
+   /**
+    * Get a rendered child budget by ID.
+    */
+   public getBudgetChildHeader(id: string) : Observable<RenderedChildBudget>
+   {
+    const childBudgetQ = new Query().where('id', '==', id);
+ 
+     return this._toChildBudget$(childBudgetQ)  
+                .pipe(map(ch => ch.length > 0 ? ch[0] 
+                                              : <unknown> null as RenderedChildBudget));
+   }
+
+   private _toChildBudget$(childBudgetQ: Query)
+   {
+    return this._db.getRepo<BudgetResult>(`orgs/${this._activeOrg.id}/budgets`)
+        .getDocuments(childBudgetQ)
+        .pipe(
+          map(chBs => chBs.map(chB => 
+          ({
+            id: chB.id as string,
+            name: chB.name,
+            header: chB.balance
+          }) as RenderedChildBudget)),
+          // Block longlasting subscriptions
+          take(1));
+   }
 }

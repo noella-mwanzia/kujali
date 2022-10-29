@@ -9,7 +9,7 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 
 import { UserStateModule } from '@app/state/user';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
-import { BudgetExplorerActiveBudgetQuery } from '@app/state/finance/budgetting/rendering';
+import { BudgetRenderingStateModule } from '@app/state/finance/budgetting/rendering';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
@@ -29,7 +29,7 @@ import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explo
     iTalPageModule,
 
     BudgetExplorerRouter,
-    BudgetsStateModule, BudgetExplorerActiveBudgetQuery],
+    BudgetsStateModule, BudgetRenderingStateModule],
 
   providers: [
     FinancialPlanExplorerPageComponent,

@@ -10,4 +10,6 @@ export interface BudgetRowYear extends BudgetRow
 {
   year: number;
   amountsMonth: AmountPerMonth[];
+
+  totalYear: number;
 }

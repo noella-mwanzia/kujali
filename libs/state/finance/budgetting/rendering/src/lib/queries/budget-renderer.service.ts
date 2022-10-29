@@ -1,17 +1,10 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "@ngfi/angular";
-
-import { map, Observable } from "rxjs";
-
-import { Query } from "@ngfi/firestore-qbuilder";
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { AggregatedBudget, RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
-
-import { BudgetResult } from "@app/model/finance/planning/budget-lines";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
+import { RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
 import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, ___RenderBudget } from "@app/model/finance/planning/budget-calculation";
-import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 /**
  * This service is responsible for rendering budgets by counting up their 
@@ -23,9 +16,6 @@ import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 @Injectable()
 export class BudgetRendererService
 {
-  constructor(private _db: DataService)
-  { }
-
   /**
    * Renders a budget by transforming the budget details into a fully calculated 2D array.
    * 
@@ -54,26 +44,6 @@ export class BudgetRendererService
     //        .pipe(take(1),
     //               //map((budgetLines: BudgetLineRow[][]) => this._filterOverrides(budgetLines)),
     //              map(relevantLines => ___RenderBudget(budget, relevantLines)));
-
-  /**
-   * Method which gets budget children from a list of children as configured on the budget.
-   * 
-   * @param b - Budget which contains the childrenList
-   * @returns List of rendered children, which can be interpreted by the parent budget.
-   */
-  public getBudgetChildren$(b: Budget): Observable<RenderedChildBudget[]>
-  {
-    const childBudgetQ = new Query().where('id', 'in', b.childrenList);
-
-    return this._db.getRepo<BudgetResult>(`orgs/${b.orgId}/budgets`)
-                   .getDocuments(childBudgetQ)
-      .pipe(
-        map(chBs => chBs.map(chB => ({
-          id: chB.id as string,
-          name: chB.name,
-          header: chB.balance
-        }))));
-  }
 
   // TODO(jrosseel): Add back override functionality
   // private _filterOverrides(linesPerBudget: BudgetLineRow[][]): BudgetLineRow[]
