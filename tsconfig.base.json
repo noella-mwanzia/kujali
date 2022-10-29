@@ -71,8 +71,8 @@
         "libs/model/finance/planning/time/src/index.ts"
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
-      "@app/state/finance/budgetting/budget-rendering": [
-        "libs/state/finance/budgetting/budget-rendering/src/index.ts"
+      "@app/state/finance/budgetting/rendering": [
+        "libs/state/finance/budgetting/rendering/src/index.ts"
       ],
       "@app/state/finance/budgetting/budgets": [
         "libs/state/finance/budgetting/budgets/src/index.ts"

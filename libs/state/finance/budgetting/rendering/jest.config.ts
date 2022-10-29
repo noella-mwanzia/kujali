@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../coverage/libs/state/finance/budgetting/budget-rendering',
+    '../../../../../coverage/libs/state/finance/budgetting/rendering',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

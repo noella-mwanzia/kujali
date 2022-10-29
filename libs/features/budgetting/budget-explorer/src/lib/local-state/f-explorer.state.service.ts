@@ -5,7 +5,7 @@ import { BehaviorSubject, filter, Subscription } from "rxjs";
 import { Logger } from "@iote/bricks-angular";
 
 import { RenderedBudget } from "@app/model/finance/planning/budgets";
-import { BudgetExplorerActiveBudgetQuery } from "@app/state/finance/budgetting/budget-detail";
+import { BudgetExplorerActiveBudgetQuery } from "@app/state/finance/budgetting/rendering";
 
 import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET } from "../local-model/f-explorer.state.model";
 
