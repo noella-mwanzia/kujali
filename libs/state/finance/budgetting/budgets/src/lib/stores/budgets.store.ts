@@ -8,12 +8,15 @@ import { Query } from "@ngfi/firestore-qbuilder";
 import { DataService, Repository } from "@ngfi/angular";
 import { DataStore } from "@ngfi/state";
 
+import { Organisation } from "@app/model/organisation";
 import { Budget } from "@app/model/finance/planning/budgets";
+
 import { ActiveOrgStore } from "@app/state/organisation";
 
 @Injectable()
 export class BudgetsStore extends DataStore<Budget>
 {
+  private _org!: Organisation;
   protected _activeRepo!: Repository<Budget>;
   protected store!: string; 
 
@@ -25,6 +28,7 @@ export class BudgetsStore extends DataStore<Budget>
 
     org$$.get()
       .pipe(
+        tap(o => this._org = o),
         tap(o => this._activeRepo = dataService.getRepo<Budget>(`orgs/${o.id}/budgets`)),
         switchMap(
           () => this._activeRepo.getDocuments(new Query())),
@@ -42,6 +46,13 @@ export class BudgetsStore extends DataStore<Budget>
    * @note - For a hierarchical representation. @see {OrgBudgetsStore}                           
    */
   override get = () => super.get().pipe(filter(bs => !!bs));
+
+  override add(budget: Budget)
+  {
+    budget.orgId = this._org.id as string;
+
+    return super.add(budget);
+  }
   
 
   // add(budget: Budget): Observable<Budget>

@@ -7,6 +7,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { MONTHS, TimeTableGenerator, YEARS } from '@app/model/finance/planning/time';
 import { Budget, BudgetStatus } from '@app/model/finance/planning/budgets';
+import { BudgetHeader } from '@app/model/finance/planning/budget-lines';
 
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
 
@@ -82,7 +83,7 @@ export class CreateBudgetModalComponent implements OnInit
       overrideNameList.push(this.childBudget.name);
     }
 
-    const budget = <Budget>{
+    const budget = <Budget><unknown>{
       name: this.budgetName,
       startYear: this.startYear,
       startMonth: 0,
