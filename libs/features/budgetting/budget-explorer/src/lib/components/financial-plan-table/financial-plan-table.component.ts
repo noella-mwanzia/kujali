@@ -32,12 +32,11 @@ export class FinancialPlanTableComponent implements OnInit
   /** Budget ID to which this table is linked */
   budgetId!: string;
 
-  @Input() year!: number;
   @Input() type!: BudgetRowType;
   
-  total$! : Observable<BudgetHeaderYear>;
+  @Input() total$! : Observable<BudgetHeaderYear>;
   total!  : BudgetHeaderYear;
-  rows$!  : Observable<BudgetRowYear[]>;
+  @Input() rows$!  : Observable<BudgetRowYear[]>;
 
   /** Class ID. Is aligned to type of table  */
   @Input() classId!: 'cost' | 'income' | 'result'; 

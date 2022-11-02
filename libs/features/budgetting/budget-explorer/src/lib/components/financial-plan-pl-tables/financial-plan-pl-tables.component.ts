@@ -3,9 +3,10 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
+import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
 
 @Component({
   selector: 'app-financial-plan-pl-tables',
@@ -15,7 +16,9 @@ import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/bud
 export class FinancialPlanPlTablesComponent implements OnInit
 {
   @Input() state$!: Observable<FinancialExplorerState>;
-  year$!: Observable<number>;
+  
+  costType   = BudgetRowType.CostLine;
+  incomeType = BudgetRowType.IncomeLine;
 
   @Output() navigateYearPressed = new EventEmitter<'prev' | 'next'>();
   

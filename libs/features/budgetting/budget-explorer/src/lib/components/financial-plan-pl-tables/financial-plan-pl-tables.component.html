@@ -8,9 +8,8 @@
 <app-year-focus [title]="'Costs'" (navigateYearPressed)="onPressNavigateYear($event)">
 
     <app-financial-plan-table #costTable 
-                              [classId]="'cost'" [type]="'cost'" 
-                              [year]="year$ | async"
-                              [dataSource]="costDataSource" [total]="costTotal | async">
+                              classId="cost" [type]="costType" 
+                              [rows$]="costDataSource$" [total$]="costTotal$">
     </app-financial-plan-table>
 
 </app-year-focus>
@@ -18,9 +17,8 @@
 <!-- Income Sheet -->
 <app-year-focus [title]="'Income'" (navigateYearPressed)="onPressNavigateYear($event)">
 
-  <app-financial-plan-table [classId]="'income'" [type]="'income'" 
-                            [year]="year$ | async"
-                            [dataSource]="incomeDataSource" [total]="incomeTotal | async">
+  <app-financial-plan-table classId="income" [type]="incomeType"
+                            [rows$]="incomeDataSource$" [total$]="incomeTotal$">
   </app-financial-plan-table>
 
 </app-year-focus>
