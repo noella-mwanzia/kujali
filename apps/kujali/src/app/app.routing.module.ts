@@ -23,6 +23,11 @@ export const APP_ROUTES: Route[] = [
     canActivate: [IsLoggedInGuard]
   },
 
+  {
+    path: 'budgets',
+    loadChildren: () => import('@app/features/budgetting/budgets').then(m => m.FinancialPlanningModule),
+    canActivate: [IsLoggedInGuard]
+  },
 ];
 
 
