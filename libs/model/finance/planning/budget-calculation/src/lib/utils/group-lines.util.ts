@@ -19,10 +19,12 @@ import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';
  */
 export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToGroup: BudgetLineRow[], name: string | false): BudgetGroup[]
 {
+  // TODO: Line type names
   const groupedAndOrdered = ___groupBy(___orderBy(linesToGroup, e => e.trTypeId),
                                       e => e.trTypeId);
 
   let groups = Object.entries(groupedAndOrdered);
+  // TODO: Category names
   groups = ___orderBy(groups, (group) => group[1][0].categoryId);
 
   return ___map(groups, group => _structureFromGroups(budget, type, group[1], name));
