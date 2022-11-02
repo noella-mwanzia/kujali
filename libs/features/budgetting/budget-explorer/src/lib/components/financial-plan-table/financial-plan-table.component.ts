@@ -1,106 +1,202 @@
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 
-import * as _ from 'lodash';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
-import { PlanTransactionModal } from '../../../transaction-planner/components/plan-transaction-modal/plan-transaction-modal.component';
+// import { PlanTransactionModal } from '../../../transaction-planner/components/plan-transaction-modal/plan-transaction-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CellTransactionOccurrenceModal } from '../../../transaction-planner/components/cell-tr-occurrence-modal/cell-tr-occurrence-modal.component';
+import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
+import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 
-import { PlanTransactionService } from '../../../transaction-planner/services/plan-transaction.service';
-import { BudgetRowMonths } from '../../model/budget-row-months.interface';
+import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
+import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
-import { MONTHS, YEARS, NULL_AMOUNT_PER_MONTH } from '@elewa/portal-shared';
-
-
-const _EMPTY_CELL_DATA = (month, year, type) => ({ monthFrom: month, yearFrom: year, type: type, amount: 0, units: 0, update: true });
+// import { CellTransactionOccurrenceModal } from '../../../transaction-planner/components/cell-tr-occurrence-modal/cell-tr-occurrence-modal.component';
 
 @Component({
   selector: 'app-financial-plan-table',
   styleUrls: ['financial-plan-table.component.scss'],
   templateUrl: 'financial-plan-table.component.html',
 })
-export class FinancialPlanTableComponent
+export class FinancialPlanTableComponent implements OnInit
 {
-  constructor(public dialog: MatDialog, 
-              private _activateRoute: ActivatedRoute, 
-              private _plannedTransactionService: PlanTransactionService) 
-  { }
+  subscr!: Subscription;
 
+  /** Months (view always represents a year) */
   monthColumns = MONTHS;
+  /** Years (TODO: Determine dynamically) */
   years: Array<number> = YEARS; 
-  // Listing of the columns to render
-  columns: string[];
+  /* Listing of the columns to render */
+  columns!: string[];
 
-  budgetId;
+  /** Budget ID to which this table is linked */
+  budgetId!: string;
 
-  @Input() year: number;
-  @Input() type: string;
-  @Input() dataSource: Observable<BudgetRowMonths[]>;
-  @Input() total: BudgetRowMonths;
+  @Input() year!: number;
+  @Input() type!: BudgetRowType;
+  
+  total$! : Observable<BudgetHeaderYear>;
+  total!  : BudgetHeaderYear;
+  rows$!  : Observable<BudgetRowYear[]>;
 
-  @Input() classId: string; 
+  /** Class ID. Is aligned to type of table  */
+  @Input() classId!: 'cost' | 'income' | 'result'; 
 
   @Input() allowAdd = true;
   @Input() nameField = true;
 
-  savingTransactions : number = 0;
+  constructor(public dialog: MatDialog)
+              // private _plannedTransactionService: PlanTransactionService) 
+  { }
 
   ngOnInit()
   {
-   this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
-                                    .concat(_.map(MONTHS, (m) => m.slug))
+    // Initialise columns
+    this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
+                                     .concat(MONTHS.map((m) => m.slug))
                                     .concat('total').concat('action');
-    
-    this._activateRoute.params.subscribe(param => this.budgetId = param.budgetId);
+    // Unpack total as we need it for small aggregated visualisations.
+    this.subscr = 
+      this.total$.subscribe(total => {
+        this.total = total;
+      });
   }
 
-  // -- Render Table
-  
-  getCategory(cell) {
-    return (cell.isHeader || cell.type == 'childResult')
-              ? cell.name
-              : cell.type;
+  //
+  // -- SECTION TABLE STRUCTURE & VISUALISATIONS
+  //
+
+  /** Get the category name (for higher-level roles) */
+  getCategory(row: BudgetRowYear) {
+    return (row.isHeader || row.type == 'childResult')
+              ? row.name
+              : row.type;
   }
 
-  getName(cell) {
-    return !cell.isHeader ? cell.name
-                          : '';
+  /** Get name if applicable (only for non-typed rows) */
+  getName(row: BudgetRowYear) {
+    return !row.isHeader ? row.name : '';
   }
 
-  getAmount(cell: BudgetRowMonths, column) 
+  /** Get cell amount */
+  getAmount(cell: BudgetRowYear, column: Month) 
   {         
     return this._formatPrice(Math.abs(this._getCellValue(cell, column).amount));
   }
 
-  getTotalAmountM(column)
+  /** Aggregate the total of a budget line (count all row amounts together). */
+  getTotalAmountM(column: Month)
   {
     return this._formatPrice(Math.abs(this._getCellValueForTotal(column).amount));
   }
 
-  getTotal(cell: BudgetRowMonths)
+  /** Calculate the total of a column */
+  getTableTotalAmount()
   {
     try {
-      return this._formatPrice(cell.total);
-    }
-    catch(e) { return 0; }
-  }
-
-  getTotalAmountY()
-  {
-    try {
-      return this.total ? this._formatPrice(Math.abs(this.total.total))
+      return this.total ? this._formatPrice(Math.abs(this.total.total as number))
                         : '0';
     }
     catch(e) { return 0; }
   }
 
-  // -- CSS
+  /** Calculate the total of a row. */
+  getRowTotal(row: BudgetRowYear)
+  {
+    try {
+      return this._formatPrice(row.total as number);
+    }
+    catch(e) { return 0; }
+  }
 
-  getClassesCell(row: BudgetRowMonths, col)
+  //
+  // -- SECTION CELL VALUE CALCULATIONS
+  //
+
+  /**  */
+  private _getCellValueForTotal(column: Month) {
+    try {
+      return this.total.amountsMonth[column.month - 1];
+    }
+    catch(e) { return NULL_AMOUNT_PER_MONTH() }
+  }
+
+  /**  */
+  private _getCellValue(row: BudgetRowYear, column: Month)
+  {
+    try {
+      return row.amountsMonth[column.month - 1];
+    }
+    catch (e) { return NULL_AMOUNT_PER_MONTH(); }
+  }
+
+  /** Format a price to an easy readable number */
+  private _formatPrice(price: number) {
+    return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  // -- Create and Update Rows
+
+  // openPlanTransactionModal(m : any): void
+  // {
+  //   this.dialog.open(PlanTransactionModal, {
+  //     data: { month: m.month, year: this.year, type: this.type, budgetId: this.budgetId }
+  //   })
+  //   .afterClosed()
+  //   .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+  // }
+
+  // openCellModal(cell: BudgetRowMonths, column)
+  // {
+  //   const amount = this._getCellValue(cell, column);
+
+  //   const data = (cell && !cell.isHeader) ? ({
+  //                   monthFrom: column.month,
+  //                   yearFrom: this.year,
+  //                   type: this.type,
+  //                   amount: amount.baseAmount,
+  //                   units: amount.units,
+  //                   update: amount.isOccurenceStart,
+  //                   // transaction: cell.transaction, 
+
+  //                   budgetId: this.budgetId, 
+  //                   occurence: cell.amountsMonth[column.month - 1].occurence 
+  //                 })
+  //                 : _EMPTY_CELL_DATA(column.month, this.year, this.type);
+
+  //   this.dialog.open(CellTransactionOccurrenceModal, { data })
+  //              .afterClosed()
+  //              .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+  // }
+
+
+  /** Counter for when transactions are being saved. */
+  // private _addCounterSaving(transaction: Observable<any>) 
+  // {
+  //   this.savingTransactions++;
+
+  //   transaction.pipe(take(1))
+  //               .subscribe(_ => {
+  //                 if (this.savingTransactions && this.savingTransactions > 0)
+  //                   this.savingTransactions--;
+  //               });
+  // }
+
+  // deleteTransaction(transaction) {
+  //   let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
+
+  //   if(isConfirmed) {
+  //     this._plannedTransactionService.deletePlannedTransaction(transaction); 
+  //   }
+  // }
+
+
+  //
+  // -- SECTION CSS
+  //
+
+  /** Get class for the row visualisation. */
+  getClassesCell(row: BudgetRowYear, col: Month)
   {
     const classes = [];
     const value = this._getCellValue(row, col);
@@ -115,107 +211,40 @@ export class FinancialPlanTableComponent
     return classes;
   }
 
-  getClassesM(col)
+  /** Get classes for a single cell */
+  getClassesM(column: Month)
   {
-    return this._getClassesTotal(this._getCellValueForTotal(col).amount);
+    return this._getClassesTotal(this._getCellValueForTotal(column).amount);
   }
 
-  getClassesRow(row) {
+  /** Get classes for a row */
+  getClassesRow(row: BudgetRowYear) {
     return (row.isHeader) ? ['header-row'] : [];
   }
 
-  getClassesTotal(cell)
+  /** Get classes for a row total */
+  getRowTotalClasses(row: BudgetRowYear)
   {
     try {
-      const value = this.total;
-      return this._getClassesTotal(value);
+      const value = row.total;
+      return this._getClassesTotal(value as number);
     }
     catch(e) { return ''; }
   }
 
-  getClassesTotalY() {
+  /** Get classes for a column total */
+  getTableTotalClasses() {
     try {
-      return this.total ? this._getClassesTotal(this.total) : '';
+      return this.total ? this._getClassesTotal(this.total.total as number) : '';
     }
     catch(e) { return ''; }
   }
   
-  private _getClassesTotal(value) { return (value == 0) ? ('zero') : (value > 0 ? 'positive' : 'negative'); }
-
-  // -- Get Cell Values
-
-  private _getCellValueForTotal(column: any) {
-    try {
-      return this.total.amountsMonth[column.month - 1];
-    }
-    catch(e) { return NULL_AMOUNT_PER_MONTH() }
+  /** 
+   * Get classes for a budget total cell 
+   */
+  private _getClassesTotal(value: number) 
+  { 
+    return (value == 0) ? ('zero') : (value > 0 ? 'positive' : 'negative');
   }
-
-  private _getCellValue(row: BudgetRowMonths, column: any)
-  {
-    try {
-      return row.amountsMonth[column.month - 1];
-    }
-    catch (e) { return NULL_AMOUNT_PER_MONTH(); }
-  }
-
-  private _formatPrice(price) {
-    return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
-  // -- Create and Update Rows
-
-  openPlanTransactionModal(m : any): void
-  {
-    this.dialog.open(PlanTransactionModal, {
-      data: { month: m.month, year: this.year, type: this.type, budgetId: this.budgetId }
-    })
-    .afterClosed()
-    .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
-  }
-
-  openCellModal(cell: BudgetRowMonths, column)
-  {
-    const amount = this._getCellValue(cell, column);
-
-    const data = (cell && !cell.isHeader) ? ({
-                    monthFrom: column.month,
-                    yearFrom: this.year,
-                    type: this.type,
-                    amount: amount.baseAmount,
-                    units: amount.units,
-                    update: amount.isOccurenceStart,
-                    // transaction: cell.transaction, 
-
-                    budgetId: this.budgetId, 
-                    occurence: cell.amountsMonth[column.month - 1].occurence 
-                  })
-                  : _EMPTY_CELL_DATA(column.month, this.year, this.type);
-
-    this.dialog.open(CellTransactionOccurrenceModal, { data })
-               .afterClosed()
-               .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
-  }
-
-
-  /** Counter for when transactions are being saved. */
-  private _addCounterSaving(transaction: Observable<any>) 
-  {
-    this.savingTransactions++;
-
-    transaction.pipe(take(1))
-                .subscribe(_ => {
-                  if (this.savingTransactions && this.savingTransactions > 0)
-                    this.savingTransactions--;
-                });
-  }
-
-  deleteTransaction(transaction) {
-    let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
-
-    if(isConfirmed) {
-      this._plannedTransactionService.deletePlannedTransaction(transaction); 
-    }
-  }
-
 }

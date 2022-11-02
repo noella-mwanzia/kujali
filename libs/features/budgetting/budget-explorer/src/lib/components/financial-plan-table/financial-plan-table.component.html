@@ -1,26 +1,26 @@
 <!-- Upon database transaction, highlight transaction in progress to the user. -->
-<div *ngIf="savingTransactions"
+<!-- <div *ngIf="savingTransactions"
       class="transaction-update" fxLayoutAlign="end center">
   Calculating {{ savingTransactions }} updates <app-spinner [diameter]="20"></app-spinner>
-</div>
+</div> -->
 
 <!-- The table with data -->
-<table [dataSource]="dataSource" 
+<table [dataSource]="rows$" 
        mat-table #table class="mat-elevation-z8">
 
   <!-- First Header, The Pricing Category -->
   <ng-container matColumnDef="transactionCat">
   
-    <th mat-header-cell *matHeaderCellDef class="header start-header">Category</th>
+    <th mat-header-cell *matHeaderCellDef class="header start-header">{{ "PL.TABLE.CAT-HEADER.TITLE" | transloco }}</th>
     <td mat-cell *matCellDef="let cell" class="cell"> {{ getCategory(cell) }} </td>
-    <td mat-footer-cell *matFooterCellDef class="footer-cell">Total: </td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell">{{ "PL.TABLE.CAT-HEADER.TOTAL" | transloco }}: </td>
   
   </ng-container>
 
   <!-- Second Header, The Pricing Name -->
   <ng-container matColumnDef="transactionType">
 
-    <th mat-header-cell *matHeaderCellDef class="header start-header">Name</th>
+    <th mat-header-cell *matHeaderCellDef class="header start-header">{{ "PL.TABLE.TYPE-HEADER" | transloco }}</th>
     <td mat-cell *matCellDef="let cell" class="start-cell"> 
       {{ getName(cell) }}
     </td>
@@ -28,20 +28,19 @@
 
   </ng-container>
 
-  <!-- Month Columns -->
+  <!-- Values per month -->
   <ng-container [matColumnDef]="column.slug" *ngFor="let column of monthColumns">
     
     <th mat-header-cell *matHeaderCellDef class="header"> 
-      {{ column.slug }}
-      <span *ngIf="allowAdd" (click)="openPlanTransactionModal(column)" class="create-cost-btn">
+      {{ column.name }}
+      <span *ngIf="allowAdd" class="create-cost-btn"> <!-- (click)="openPlanTransactionModal(column)"  -->
         <i class="fas fa-plus-circle"></i>
       </span>
     </th>
     
     <td mat-cell *matCellDef="let cell" 
                  class="cell amount-cell"
-                 [ngClass]="getClassesCell(cell, column)"
-                 (click)="openCellModal(cell, column)"> 
+                 [ngClass]="getClassesCell(cell, column)"> <!-- (click)="openCellModal(cell, column)" --> 
       {{ getAmount(cell, column) }} 
     </td>
     <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals" [ngClass]="getClassesM(column)">
@@ -54,9 +53,9 @@
   <ng-container matColumnDef="total">
 
     <th mat-header-cell *matHeaderCellDef class="header end-header"> Total</th>
-    <td mat-cell *matCellDef="let cell" [ngClass]="getClassesTotal(cell)"> {{ getTotal(cell) }} 
+    <td mat-cell *matCellDef="let row" [ngClass]="getRowTotalClasses(row)"> {{ getRowTotal(row) }} 
     </td>
-    <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals" [ngClass]="getClassesTotalY(column)">{{ getTotalAmountY(column) }}</td>
+    <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals" [ngClass]="getTableTotalClasses()">{{ getTableTotalAmount() }}</td>
 
   </ng-container>
 
@@ -65,7 +64,7 @@
 
     <th mat-header-cell *matHeaderCellDef class="header end-header"></th>
     <td mat-cell *matCellDef="let cell" style="text-align: center;">
-      <span (click)="deleteTransaction(cell.transaction)" class="delete-icon" *ngIf="!cell.isHeader"><i class="far fa-trash-alt"></i></span>
+      <!-- <span (click)="deleteTransaction(cell.transaction)" class="delete-icon" *ngIf="!cell.isHeader"><i class="far fa-trash-alt"></i></span> -->
     </td>
     <td mat-footer-cell *matFooterCellDef class="footer-cell footer-cell-totals"></td>
 
@@ -82,9 +81,8 @@
 
   <!-- Table def-->
   <tr mat-header-row *matHeaderRowDef="columns" 
-      [ngClass]="{'red-top': classId=='cost', 
-                  'yellow-top': classId=='result',
-                  'green-top': classId=='income'}">
+      [ngClass]="{'red-top': classId==='cost', 'yellow-top': classId==='result',
+                  'green-top': classId==='income'}">
   </tr>
   <tr mat-row *matRowDef="let row; columns: columns;" [ngClass]="getClassesRow(row)"></tr>
   <tr mat-footer-row *matFooterRowDef="columns" class="footer-row"></tr>

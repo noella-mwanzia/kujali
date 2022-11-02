@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter} from '@angular/core';
-import { AmountPerYear, BudgetRow } from '@app/model/finance/planning/budget-lines';
+import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, filter } from 'rxjs/operators';
-import { FinancialExplorerState } from '../../local-model/f-explorer.state.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { FinancialExplorerState } from '../../local-model/f-explorer.state.model
   templateUrl: './financial-plan-pl-tables.component.html',
   styleUrls: ['./financial-plan-pl-tables.component.scss']
 })
-export class FinancialPlanPlTablesComponent
+export class FinancialPlanPlTablesComponent implements OnInit
 {
   @Input() state$!: Observable<FinancialExplorerState>;
   year$!: Observable<number>;
@@ -19,30 +20,23 @@ export class FinancialPlanPlTablesComponent
   @Output() navigateYearPressed = new EventEmitter<'prev' | 'next'>();
   
   // Data Sources
-  costDataSource: Observable<BudgetRow>;
-  costTotal: Observable<AmountPerYear>;
-  incomeDataSource: Observable<BudgetRow>;
-  incomeTotal: Observable<AmountPerYear>;
+  costDataSource$!  : Observable<BudgetRowYear[]>;
+  costTotal$!       : Observable<BudgetHeaderYear>;
+  incomeDataSource$!: Observable<BudgetRowYear[]>;
+  incomeTotal$!     : Observable<BudgetHeaderYear>;
   // Data Sources End
 
-
-  constructor(private _RenderedBudgetService: RenderedBudgetService,
-              private _tableForYearService: TableForYearService)
-  { }
-
   ngOnInit()
-  {
-    const plan$ = combineLatest(this.year$,
-                                this.budget$.pipe(switchMap(budget => this._RenderedBudgetService.getRenderedBudget(budget)),
-                                                  filter(r => r != null)));
+  {  
+    const state$ = this.state$; // state$ is configured to only fire on events where state.isLoaded
     
-    this.costDataSource =   plan$.pipe(map(([y, table]) => this._tableForYearService.getTableForYear(y, table.costs)));
-    this.costTotal =        plan$.pipe(map(([y, table]) => this._tableForYearService.getTotalForYear(y, table.costTotals)));
-    this.incomeDataSource = plan$.pipe(map(([y, table]) => this._tableForYearService.getTableForYear(y, table.income)));
-    this.incomeTotal =      plan$.pipe(map(([y, table]) => this._tableForYearService.getTotalForYear(y, table.incomeTotals)));
+    this.costDataSource$   = state$.pipe(map((state) => state.scopedCosts));
+    this.costTotal$        = state$.pipe(map((state) => state.scopedCostTotals));
+    this.incomeDataSource$ = state$.pipe(map((state) => state.scopedIncome));
+    this.incomeTotal$      = state$.pipe(map((state) => state.scopedIncomeTotals));
   }
 
-  onPressNavigateYear($event)
+  onPressNavigateYear($event: 'prev' | 'next')
   {
     this.navigateYearPressed.emit($event);
   }

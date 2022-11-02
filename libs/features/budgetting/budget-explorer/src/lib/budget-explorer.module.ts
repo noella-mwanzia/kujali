@@ -17,6 +17,9 @@ import { BudgetExplorerRouter } from './budget-explorer-router';
 
 import { YearFocusComponent } from './components/year-focus/year-focus.component';
 
+import { FinancialPlanPlTablesComponent } from './components/financial-plan-pl-tables/financial-plan-pl-tables.component';
+import { FinancialPlanTableComponent }    from './components/financial-plan-table/financial-plan-table.component';
+
 import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explorer/financial-plan-explorer.component';
 
 @NgModule({
@@ -38,7 +41,9 @@ import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explo
   declarations: [
     FinancialPlanExplorerPageComponent, 
              
-    YearFocusComponent
+    YearFocusComponent,
+    FinancialPlanPlTablesComponent,
+    FinancialPlanTableComponent 
     // FinancialPlanBurnChartComponent,  
     
     // FinancialPlanPlTablesComponent, FinancialPlanResultTableComponent,

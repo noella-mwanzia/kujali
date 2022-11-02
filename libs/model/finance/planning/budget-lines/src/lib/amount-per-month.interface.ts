@@ -1,4 +1,4 @@
-import { TransactionOccurence } from '@app/model/finance/planning/budget-items';
+import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 
 /**
  * Instance of a single month as per the budget.
@@ -31,5 +31,5 @@ export interface AmountPerMonth
  */
 export interface CalculatedAmountPerMonth extends AmountPerMonth
 {
-  plan?: TransactionOccurence;
+  plan?: TransactionPlan;
 }

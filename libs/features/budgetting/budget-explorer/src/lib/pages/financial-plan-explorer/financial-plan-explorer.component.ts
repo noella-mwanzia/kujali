@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import {} from 'lodash';
-import { filter, Observable, Subscription, take } from 'rxjs';
+import { filter, map, Observable, Subscription, take } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { FinancialExplorerStateService, FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
 
 
 /**
@@ -24,6 +25,7 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
 
   budgetId!: string;
   state$!: Observable<FinancialExplorerState>;
+  budget$!: Observable<RenderedBudget>;
 
   startYear!: number;
   year!     : number;
@@ -50,6 +52,7 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
     }
 
     this.state$ = this._state$$.init(bId).pipe(filter(st => st.loaded));
+    this.budget$ = this.state$.pipe(map(s => s.budget));
 
     this._subscr = 
       this.state$.subscribe(st => {
