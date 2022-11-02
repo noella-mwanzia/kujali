@@ -19,11 +19,11 @@ import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';
  */
 export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToGroup: BudgetLineRow[], name: string | false): BudgetGroup[]
 {
-  const groupedAndOrdered = ___groupBy(___orderBy(linesToGroup, e => e.transaction.name),
-                                      e => e.transaction.transactionCategoryId);
+  const groupedAndOrdered = ___groupBy(___orderBy(linesToGroup, e => e.trTypeId),
+                                      e => e.trTypeId);
 
   let groups = Object.entries(groupedAndOrdered);
-  groups = ___orderBy(groups, (group) => group[1][0].transaction.transactionCategoryOrder);
+  groups = ___orderBy(groups, (group) => group[1][0].categoryId);
 
   return ___map(groups, group => _structureFromGroups(budget, type, group[1], name));
 }
@@ -35,7 +35,7 @@ export function __GroupBudgetLines(budget: Budget, type: BudgetRowType, linesToG
     return {
       isGroup: true,
 
-      name: name ? name : entriesInGroup[0].transaction.transactionCategoryName,
+      name: name ? name : entriesInGroup[0].categoryId,
       type,
 
       amountsYear: amountByYearGroup ? amountByYearGroup : NULL_AMOUNT_BY_YEAR_AND_MONTH(budget.startYear, budget.duration),

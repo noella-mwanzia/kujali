@@ -1,4 +1,5 @@
-import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budgets";
+
+import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budget-lines";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "./amount-per-year.null";
 
 /**

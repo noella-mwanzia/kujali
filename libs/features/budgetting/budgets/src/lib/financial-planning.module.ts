@@ -18,18 +18,21 @@ import { CreateBudgetModalComponent } from './components/create-budget-modal/cre
 import { DisplayBudgetRecordComponent } from './components/display-budget-record/display-budget-record.component';
 import { ShareBudgetModalComponent } from './components/share-budget-modal/share-budget-modal.component';
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { BudgetRouter } from './budget-router';
 
 /**
  * Financial-Planning module. Contains financial planning creation and forecasting.
  */
 @NgModule({
-  imports: [CommonModule, MaterialBricksModule, MaterialDesignModule, FlexLayoutModule,
-            RouterModule, FormsModule,// CustomFormsModule,
-            
-            // TransactionTypeManagementModule, FinancialPlanExplorerModule,
-            
-            MultiLangModule,
-            iTalPageModule
+  imports: [
+    CommonModule, MaterialBricksModule, MaterialDesignModule, FlexLayoutModule,
+    RouterModule, FormsModule,// CustomFormsModule,
+    
+    // TransactionTypeManagementModule, FinancialPlanExplorerModule,
+    
+    MultiLangModule, iTalPageModule,
+
+    BudgetRouter            
             // UserModule
   ],
 

@@ -5,6 +5,7 @@ import { AggregatedBudget } from '../aggregated-budget.interface';
  */
 export const NULL_RENDERED_BUDGET : () => AggregatedBudget 
 = () => (
-    { budgetId: 'loading', orgId: 'loading' , 
+   <unknown>{ 
+        budgetId: 'loading', orgId: 'loading' , 
         name: 'loading', costs: [], income: [], costTotals: null, incomeTotals: null }
     ) as AggregatedBudget;

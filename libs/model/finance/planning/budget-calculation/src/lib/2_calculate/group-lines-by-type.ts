@@ -31,4 +31,5 @@ export function __GroupBudgetLinesByType(budget: Budget, lines: BudgetLineRow[],
       case BudgetRowType.CostLine   : return 'BUDGETTING.LINES.COST'; 
       case BudgetRowType.IncomeLine : return 'BUDGETTING.LINES.INCOME';
     }
+    return '';
   }

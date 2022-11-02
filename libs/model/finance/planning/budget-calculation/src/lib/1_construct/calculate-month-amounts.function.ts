@@ -1,6 +1,6 @@
 import { maxBy as ___maxBy } from 'lodash';
 
-import { BudgetItemFrequency, TransactionOccurence, ValueIncreaseConfig } from "@app/model/finance/planning/budget-items";
+import { BudgetItemFrequency, TransactionPlan, ValueIncreaseConfig } from "@app/model/finance/planning/budget-items";
 
 import { NULL_AMOUNT_PER_MONTH } from "@app/model/finance/planning/budget-defaults";
 import { AmountPerMonth, CalculatedAmountPerMonth } from "@app/model/finance/planning/budget-lines";
@@ -17,7 +17,7 @@ import { AmountPerMonth, CalculatedAmountPerMonth } from "@app/model/finance/pla
  * 
  * @returns {AmountPerMonth} - Value of the month.
  */
-export function __CalculateAmountForMonth(y: number, m: number, orderedPlans: TransactionOccurence[]) : AmountPerMonth
+export function __CalculateAmountForMonth(y: number, m: number, orderedPlans: TransactionPlan[]) : AmountPerMonth
 {
   // 1. Select the plan relevant to the month and year.
   const plan = _selectMostRelevantPlan(y, m, orderedPlans);
@@ -28,7 +28,7 @@ export function __CalculateAmountForMonth(y: number, m: number, orderedPlans: Tr
               : NULL_AMOUNT_PER_MONTH();
 } 
 
-function _selectMostRelevantPlan(y: number, m: number, orderedPlans: TransactionOccurence[])
+function _selectMostRelevantPlan(y: number, m: number, orderedPlans: TransactionPlan[])
 {
   // 1. Only look at plans earlier than or on the same month as today.
   const relevantPlans = orderedPlans
@@ -48,7 +48,7 @@ function _selectMostRelevantPlan(y: number, m: number, orderedPlans: Transaction
 /**
  * Calculates value of plan for a given year and month.
  */
- function _calculateAmountForMonth(y: number, m: number, plan: TransactionOccurence): CalculatedAmountPerMonth
+ function _calculateAmountForMonth(y: number, m: number, plan: TransactionPlan): CalculatedAmountPerMonth
  {
     // Check if we need to calculate at this step.
     const payNow = _planHasAmountOnMonth(y, m, plan);
@@ -76,7 +76,7 @@ function _selectMostRelevantPlan(y: number, m: number, orderedPlans: Transaction
  }
 
 /** Checks if the plan produces a value on a given month. */
-function _planHasAmountOnMonth(y: number, m: number, plan: TransactionOccurence) 
+function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan) 
 {
   switch (plan.frequency)
   {
@@ -90,7 +90,7 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionOccurence)
 }
 
   /** Calculates the transaction value. */
-  function _getPlanAmount(y: number, m: number, plan: TransactionOccurence)
+  function _getPlanAmount(y: number, m: number, plan: TransactionPlan)
   {
     if(!plan.hasIncrease)
       return plan.amount;
@@ -99,7 +99,7 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionOccurence)
   }
 
   /** Calculates the unit value. */
-  function _getPlanUnits(y: number, m: number, plan: TransactionOccurence)
+  function _getPlanUnits(y: number, m: number, plan: TransactionPlan)
   {
     if(!plan.hasIncrease)
       return plan.units;
@@ -108,8 +108,11 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionOccurence)
   }
 
   /** Applies increase rate calculations on the value. */
-  function _calculateTransactionValueWithIncrease(y: number, m: number, plan: TransactionOccurence, amount: number, increase: ValueIncreaseConfig, isUnits = false)
+  function _calculateTransactionValueWithIncrease(y: number, m: number, plan: TransactionPlan, amount: number, increase?: ValueIncreaseConfig, isUnits = false)
   {
+    if(!increase)
+      return amount;
+
     const increasedAm = amount * Math.pow(1 + increase.incrRate / 100, _getFrequencyCount(y, m, plan, increase.incrFreq, increase.interval));
 
     // Units cannot have floating values
@@ -117,28 +120,29 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionOccurence)
                    : increasedAm;
   }
 
-  function _getFrequencyCount(y: number, m: number, plan: TransactionOccurence, incrFreq: BudgetItemFrequency, interval: number)
+  function _getFrequencyCount(y: number, m: number, plan: TransactionPlan, incrFreq?: BudgetItemFrequency, interval?: number)
   {
-    switch (incrFreq) 
-    {
-      case BudgetItemFrequency.Monthly:     return _monthsAgo(plan.fromYear, plan.fromMonth, y, m);
-      case BudgetItemFrequency.Quarterly:   return _monthsAgo(plan.fromYear, plan.fromMonth, y, m) / 3;
-      case BudgetItemFrequency.EveryXTimes: return _monthsAgo(y, m, plan.fromYear, plan.fromMonth) / interval;
-      case BudgetItemFrequency.Year:        return _yearsAgo(plan.fromYear, y);
-    }
+    if(incrFreq)
+      switch (incrFreq) 
+      {
+        case BudgetItemFrequency.Monthly:     return _monthsAgo(plan.fromYear, plan.fromMonth, y, m);
+        case BudgetItemFrequency.Quarterly:   return _monthsAgo(plan.fromYear, plan.fromMonth, y, m) / 3;
+        case BudgetItemFrequency.EveryXTimes: return _monthsAgo(y, m, plan.fromYear, plan.fromMonth) / (interval as number);
+        case BudgetItemFrequency.Year:        return _yearsAgo(plan.fromYear, y);
+      }
 
     return 0;
   }
 
-    const _monthsAgo = (y1, m1, y2, m2) => ((y2 - y1) * 12) + (m2 - m1);
-    const _yearsAgo  = (y1, y2) => y2 - y1;
+    const _monthsAgo = (y1: number, m1: number, y2: number, m2: number) => ((y2 - y1) * 12) + (m2 - m1);
+    const _yearsAgo  = (y1: number, y2: number) => y2 - y1;
 
 //
 // - MISC
 //
 
 /** Checks if this month is the occurenceStart of a given plan */
-function _isOccurenceStart(year: number, month: number, plan: TransactionOccurence) 
+function _isOccurenceStart(year: number, month: number, plan: TransactionPlan) 
 {
   return plan.fromYear == year && plan.fromMonth == month;
 }

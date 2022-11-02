@@ -1,4 +1,4 @@
-import { sortBy as ___sortBy, cloneDeep as ___cloneDeep } from 'lodash';
+import { sortBy as ___sortBy } from 'lodash';
 
 import { Budget } from "@app/model/finance/planning/budgets";
 
@@ -27,6 +27,8 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
 
   // Use first occurence created as template for the line configuration (category, ...)
   const lineTemplate = occs.find(o => o.king);
+  if(!lineTemplate)
+    throw new Error('Line has no king/main template plan');
 
   return _templateToLine(lineTemplate, occs, values);
 }

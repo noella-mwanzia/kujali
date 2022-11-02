@@ -76,6 +76,6 @@ export function ___CreateGraphLabels(timeSkeleton: AmountPerYear[]): string[]
     }
   }
   
-  function _selectColor(i) {
+  function _selectColor(i: number) {
     return COLOR_RANGES[i % COLOR_RANGES.length];
   }

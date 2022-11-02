@@ -21,8 +21,8 @@ export function __CalculateResultBalance(name: string, type: BudgetRowType.Balan
   for(let rowIdx = 0; rowIdx < cashflow.length; rowIdx++)
     for(let colIdx = 0; colIdx < cashflow[rowIdx].amountsMonth.length; colIdx)
   {
-    balance = balance + cashflow[rowIdx][colIdx];
-    cashflow[rowIdx][colIdx] = balance;
+    balance = balance + cashflow[rowIdx].amountsMonth[colIdx].amount;
+    cashflow[rowIdx].amountsMonth[colIdx].amount = balance;
   }
 
   return {

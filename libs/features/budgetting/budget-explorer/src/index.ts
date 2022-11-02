@@ -1,1 +1,1 @@
-export * from './lib/features-budgetting-budget-explorer.module';
+export * from './lib/budget-explorer.module';
