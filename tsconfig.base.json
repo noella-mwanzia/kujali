@@ -38,6 +38,9 @@
       "@app/features/budgetting/budget-explorer": [
         "libs/features/budgetting/budget-explorer/src/index.ts"
       ],
+      "@app/features/budgetting/budget-explorer-burnchart": [
+        "libs/features/budgetting/budget-explorer-burnchart/src/index.ts"
+      ],
       "@app/features/budgetting/budgets": [
         "libs/features/budgetting/budgets/src/index.ts"
       ],
@@ -71,11 +74,11 @@
         "libs/model/finance/planning/time/src/index.ts"
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
-      "@app/state/finance/budgetting/rendering": [
-        "libs/state/finance/budgetting/rendering/src/index.ts"
-      ],
       "@app/state/finance/budgetting/budgets": [
         "libs/state/finance/budgetting/budgets/src/index.ts"
+      ],
+      "@app/state/finance/budgetting/rendering": [
+        "libs/state/finance/budgetting/rendering/src/index.ts"
       ],
       "@app/state/finance/budgetting/results": [
         "libs/state/finance/budgetting/results/src/index.ts"

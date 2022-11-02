@@ -12,6 +12,7 @@ import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 import { BudgetRenderingStateModule } from '@app/state/finance/budgetting/rendering';
 
 import { iTalPageModule } from '@app/elements/layout/page';
+import { BudgetExplorerBurnchartModule } from '@app/features/budgetting/budget-explorer-burnchart';
 
 import { BudgetExplorerRouter } from './budget-explorer-router';
 
@@ -31,8 +32,9 @@ import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explo
 
     iTalPageModule,
 
+    BudgetExplorerBurnchartModule, BudgetsStateModule,
     BudgetExplorerRouter,
-    BudgetsStateModule, BudgetRenderingStateModule],
+    BudgetRenderingStateModule],
 
   providers: [
     FinancialPlanExplorerPageComponent,

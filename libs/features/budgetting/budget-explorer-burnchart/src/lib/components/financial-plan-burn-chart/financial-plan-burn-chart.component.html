@@ -6,8 +6,8 @@
   </ng5-slider> -->
 </div>
 
-<brick-burn-chart *ngIf="isLoaded"
-                  [lineData]="balanceLineDisplay"
-                  [groupData]="resultsBlocksDisplay"
-                  [labels]="labelsDisplay">
-</brick-burn-chart>
+<app-burn-chart *ngIf="isLoaded"
+                [lineData]="balanceLineDisplay"
+                [groupData]="resultsBlocksDisplay"
+                [labels]="labelsDisplay">
+</app-burn-chart>
