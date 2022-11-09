@@ -6,13 +6,13 @@
       <h1 class="mat-display-1">{{ state.budget.name }}</h1> <i>Role: <span class="budget-status">TODO<!--{{ translateStats(budget.status) }}--></span></i>
     </div>
 
-    <app-year-focus (navigateYearPressed)="navigateYear($event)">
+    <!-- TODO: Restate chart -->
+    <!-- <app-year-focus (navigateYearPressed)="navigateYear($event)">
 
-      <!-- <app-financial-plan-burn-chart [year$]="yearObserver$"
-                                     [budget$]="budget$">
-      </app-financial-plan-burn-chart> -->
+      <app-financial-plan-burn-chart [state$]="state$">
+      </app-financial-plan-burn-chart>
   
-    </app-year-focus> 
+    </app-year-focus>  -->
 
     <div class="year-title" fxLayout="row" fxLayoutAlign="center">
       <mat-form-field class="year-selector">

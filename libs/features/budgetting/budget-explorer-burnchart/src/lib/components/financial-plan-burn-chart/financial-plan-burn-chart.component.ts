@@ -10,7 +10,7 @@ import { MONTHS } from '@app/model/finance/planning/time';
 import { Budget } from '@app/model/finance/planning/budgets';
 import { RenderedBudget, ___CreateGraphBalanceLine, ___CreateGraphBlocks, ___CreateGraphLabels } from '@app/model/finance/planning/budget-rendering';
 
-import { BudgetResultYear } from '@app/model/finance/planning/budget-lines-by-year';
+import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
 
 @Component({
   selector: 'app-financial-plan-burn-chart',
@@ -19,8 +19,10 @@ import { BudgetResultYear } from '@app/model/finance/planning/budget-lines-by-ye
 })
 export class FinancialPlanBurnChartComponent implements OnInit
 {
-  @Input() budget$!: Observable<RenderedBudget>;
-  @Input() year$!  : Observable<number>;
+  @Input() state$! : Observable<FinancialExplorerState>;
+
+  budget$!: Observable<RenderedBudget>;
+  year$!  : Observable<number>;
 
   MIN_YEAR = 0;
   MAX_YEAR = 5;
@@ -30,8 +32,6 @@ export class FinancialPlanBurnChartComponent implements OnInit
   sliderValues$$ : BehaviorSubject<{ min: number, max: number }> = new BehaviorSubject(null as any);
   sliderValues$  = this.sliderValues$$.asObservable().pipe(filter(s => s != null));
   sliderOptions!: any; //: Options = {};
-
-  resultTable$!: Observable<BudgetResultYear>;
 
   balanceLine$!: Observable<number[]>;
   balanceLineDisplay!: number[];
@@ -46,13 +46,16 @@ export class FinancialPlanBurnChartComponent implements OnInit
 
   ngOnInit()
   {
+    this.budget$ = this.state$.pipe(map(st => st.budget));
+    this.year$   = this.state$.pipe(map(st => st.year));
+   
     // Kick off slider init by setting range values
     this.budget$.subscribe(budget => this._initSliderRange(budget));
-    
+
     // Mold the graph data to be displayable on graph
-    this.balanceLine$  = this.resultTable$.pipe(map(rT => ___CreateGraphBalanceLine(rT.yearBalance)));
-    this.resultBlocks$ = this.resultTable$.pipe(map(rT => ___CreateGraphBlocks(rT)));
-    this.labels$       = this.resultTable$.pipe(map(rT => ___CreateGraphLabels(rT.balance.amountsYear)));
+    this.balanceLine$  = this.state$.pipe(map(rT => ___CreateGraphBalanceLine(rT.scopedBalance)));
+    this.resultBlocks$ = this.state$.pipe(map(rT => ___CreateGraphBlocks(rT)));
+    this.labels$       = this.state$.pipe(map(rT => ___CreateGraphLabels(rT.budget.balance.amountsYear)));
     
     // Filter the correct range of graph values based on slider settings.
     combineLatest([this.balanceLine$, this.sliderValues$])

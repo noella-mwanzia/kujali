@@ -1,7 +1,9 @@
 import { MONTHS } from "@app/model/finance/planning/time";
 
 import { AmountPerYear, BudgetRowType } from "@app/model/finance/planning/budget-lines";
-import { BudgetResultYear, BudgetRowYear } from "@app/model/finance/planning/budget-lines-by-year";
+import { BudgetRowYear } from "@app/model/finance/planning/budget-lines-by-year";
+
+import { FinancialExplorerState } from "@app/state/finance/budgetting/rendering";
 
 const COLOR_RANGES = ['#7986cb', '#3f51b5', '#666ad1', '#001970', '#536dfe', '#26c6da', '#0097a7'];
 
@@ -19,14 +21,14 @@ export function ___CreateGraphBalanceLine(balance: BudgetRowYear)
               .reduce((prev, curr) => prev.concat(curr));
   }
  
-export function ___CreateGraphBlocks(result: BudgetResultYear) 
+export function ___CreateGraphBlocks(result: FinancialExplorerState) 
 {
   return [
-    _toGraphBlock(result.yearResult, 0),
-    _toGraphBlock(result.yearCostTotals, 1, true),
-    _toGraphBlock(result.yearIncomeTotals, 2)
+    _toGraphBlock(result.scopedResult, 0),
+    _toGraphBlock(result.scopedCostTotals, 1, true),
+    _toGraphBlock(result.scopedIncomeTotals, 2)
   ]
-  .concat(result.yearChildResults.map((chr, i2) => _toGraphBlock(chr, 3 + i2, false, true)));
+  .concat(result.scopedChildBudgets.map((chr, i2) => _toGraphBlock(chr, 3 + i2, false, true)));
 }
 
   function _toGraphBlock(row: BudgetRowYear, i: number, absolute?: boolean, hidden?: boolean)
