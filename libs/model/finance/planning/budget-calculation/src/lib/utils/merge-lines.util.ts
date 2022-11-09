@@ -34,7 +34,7 @@ export function __MergeBudgetLinesOfNHeaders(name: string, type: BudgetRowType, 
   return ___reduce(
     headersToMerge, 
     ((template, currH) => {
-      const mrgdAmounts = __MergeBudgetLinesOfTwoLines(template.amountsYear, currH.amountsYear);
+      const mrgdAmounts = __MergeBudgetLinesOfTwoLines(template.amountsYear, currH?.amountsYear ?? []);
       template.amountsYear = mrgdAmounts;
       return template;
     }), 
@@ -49,9 +49,12 @@ export function __MergeBudgetLinesOfTwoLines(target: AmountPerYear[], source: Am
 {
   const resultTable: AmountPerYear[] = [];
 
+  if(!source)
+    return target;
+
   if (target)
   {
-    if    (target.length > source.length) source = _syncYears(target, source);
+    if      (target.length > source.length) source = _syncYears(target, source);
     else if (source.length > target.length) target = _syncYears(source, target);
 
     for (let i = 0; i < target.length; i++) {

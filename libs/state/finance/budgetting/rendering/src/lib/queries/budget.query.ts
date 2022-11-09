@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from '@ngfi/angular';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -65,12 +65,16 @@ export class BudgetQuery
    * @param b - Budget which contains the childrenList
    * @returns List of rendered children, which can be interpreted by the parent budget.
    */
-   public getBudgetChildren$(b: Budget): Observable<RenderedChildBudget[]>
-   {
-     const childBudgetQ = new Query().where('id', 'in', b.childrenList);
+  public getBudgetChildren$(b: Budget): Observable<RenderedChildBudget[]>
+  {
+    if(!b.childrenList || b.childrenList.length === 0)
+      return of([]);
+
+    // If there are children, load them
+    const budgetQ = new Query().where('id', 'in', b.childrenList);
  
-     return this._toChildBudget$(childBudgetQ);
-   }
+    return this._toChildBudget$(budgetQ);
+  }
 
    /**
     * Get a rendered child budget by ID.

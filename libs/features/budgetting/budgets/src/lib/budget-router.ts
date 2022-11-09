@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { FinancialPlanningHomeComponent } from './components/financial-planning-home/financial-planning-home.component';
+import { SelectBudgetPageComponent } from './pages/select-budget/select-budget.component';
 
 const BUDGET_EXPL_ROUTES: Route[] = [
   {
     path: '',
-    component: FinancialPlanningHomeComponent
+    component: SelectBudgetPageComponent
   },
   {
     path: ':budgetId',

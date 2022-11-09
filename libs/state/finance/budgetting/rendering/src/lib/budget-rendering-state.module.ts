@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
 import { BudgetQuery } from './queries/budget.query';
-import { BudgetRendererService } from './queries/budget-renderer.service';
+import { BudgetPlansQuery } from './queries/budget-lines.query';
 
+import { BudgetRendererService } from './queries/budget-renderer.service';
 import { FinancialExplorerStateService } from './budget-explorer-state.service';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FinancialExplorerStateService } from './budget-explorer-state.service';
 
   providers:[
     BudgetQuery,
+    BudgetPlansQuery,
 
     BudgetRendererService,
 

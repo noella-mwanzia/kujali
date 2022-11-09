@@ -10,15 +10,14 @@ import { iTalPageModule } from '@app/elements/layout/page';
 // import { TransactionTypeManagementModule } from '../transaction-type-management/transaction-type-management.module';
 // import { FinancialPlanExplorerModule } from '../financial-plan-explorer/financial-plan-explorer.module';
 
-import { FinancialPlanningHomeComponent } from './components/financial-planning-home/financial-planning-home.component';
-
-import { SelectBudgetComponent } from './components/select-budget/select-budget.component';
 import { CreateBudgetModalComponent } from './components/create-budget-modal/create-budget-modal.component';
 
 import { DisplayBudgetRecordComponent } from './components/display-budget-record/display-budget-record.component';
 import { ShareBudgetModalComponent } from './components/share-budget-modal/share-budget-modal.component';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { BudgetRouter } from './budget-router';
+import { SelectBudgetPageComponent } from './pages/select-budget/select-budget.component';
+import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
 /**
  * Financial-Planning module. Contains financial planning creation and forecasting.
@@ -26,24 +25,20 @@ import { BudgetRouter } from './budget-router';
 @NgModule({
   imports: [
     CommonModule, MaterialBricksModule, MaterialDesignModule, FlexLayoutModule,
-    RouterModule, FormsModule,// CustomFormsModule,
-    
-    // TransactionTypeManagementModule, FinancialPlanExplorerModule,
-    
+    RouterModule, FormsModule,
     MultiLangModule, iTalPageModule,
 
-    BudgetRouter            
-            // UserModule
+    BudgetsStateModule,
+
+    BudgetRouter
   ],
 
-  declarations: [FinancialPlanningHomeComponent, SelectBudgetComponent, DisplayBudgetRecordComponent, 
-                 CreateBudgetModalComponent, ShareBudgetModalComponent],
+  declarations: [DisplayBudgetRecordComponent, 
+                 CreateBudgetModalComponent, ShareBudgetModalComponent,
+                
+                 SelectBudgetPageComponent],
 
   entryComponents: [CreateBudgetModalComponent, ShareBudgetModalComponent],
-
-  providers: [],
-  
-  exports: [FinancialPlanningHomeComponent],
 
 })
 export class FinancialPlanningModule { }

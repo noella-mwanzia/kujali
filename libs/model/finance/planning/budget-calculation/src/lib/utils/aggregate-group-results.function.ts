@@ -20,7 +20,7 @@ export function __CalculateBalanceOfGroups(budgetGroups: (BudgetGroup | BudgetHe
 {
   const amountByYearAndMonth = budgetGroups
                                   .map(t => t.amountsYear)
-                                  .reduce((prev, curr) => __MergeBudgetLinesOfTwoGroupResults(prev, curr));
+                                  .reduce((prev, curr) => __MergeBudgetLinesOfTwoGroupResults(prev, curr), []);
   
   return {
     name: totalName,

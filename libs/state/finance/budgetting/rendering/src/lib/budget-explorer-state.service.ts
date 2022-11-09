@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, switchMap, take, tap } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, take, tap } from "rxjs";
 
 import { Logger } from "@iote/bricks-angular";
 
@@ -63,7 +63,8 @@ export class FinancialExplorerStateService
 
   /** Return the active explorer state. */
   public get = () => this._state$$.asObservable()
-          .pipe(tap(s => __ScopeStateToYear(s)),
+          .pipe(filter(s => s.loaded),
+                tap(s => __ScopeStateToYear(s)),
                 filter(s => !!s));
 
   /** Triggers an update to the state, meaning something changed in  */

@@ -9,16 +9,16 @@ import { Logger } from '@iote/bricks-angular';
 import { Budget, BudgetRecord, BudgetStatus, OrgBudgetsOverview } from '@app/model/finance/planning/budgets';
 import { BudgetsStore, OrgBudgetsStore } from '@app/state/finance/budgetting/budgets';
 
-import { CreateBudgetModalComponent } from '../create-budget-modal/create-budget-modal.component';
+import { CreateBudgetModalComponent } from '../../components/create-budget-modal/create-budget-modal.component';
 
 @Component({
   selector: 'app-select-budget',
   templateUrl: './select-budget.component.html',
   styleUrls: ['./select-budget.component.scss', 
-              '../budget-view-styles.scss']
+              '../../components/budget-view-styles.scss']
 })
 /** List of all active budgets on the system. */
-export class SelectBudgetComponent implements OnInit
+export class SelectBudgetPageComponent implements OnInit
 {
   /** Overview which contains all budgets of an organisation */
   overview$!: Observable<OrgBudgetsOverview>;
