@@ -1,9 +1,5 @@
 <app-page [loading]="loading"> <!-- [loadingText]="'Please hold as we load the budget..'"> -->
 
-  <app-navbar>
-    <!-- <app-user-menu></app-user-menu> -->
-  </app-navbar>
-
   <div fxLayout="column" class="container">
 
     <div class="page-heading" *ngIf="state$ | async as state">
