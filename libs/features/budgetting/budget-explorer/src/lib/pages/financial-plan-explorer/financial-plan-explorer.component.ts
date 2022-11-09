@@ -25,7 +25,10 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
 
   budgetId!: string;
   state$!: Observable<FinancialExplorerState>;
+
+  year$!  : Observable<number>;
   budget$!: Observable<RenderedBudget>;
+
 
   startYear!: number;
   year!     : number;
@@ -53,6 +56,7 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
 
     this.state$ = this._state$$.init(bId).pipe(filter(st => st.loaded));
     this.budget$ = this.state$.pipe(map(s => s.budget));
+    this.year$   = this.state$.pipe(map(st => st.year));
 
     this._subscr = 
       this.state$.subscribe(st => {
