@@ -1,6 +1,8 @@
+import { uniqueId as ___uniqueId } from "lodash";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
+
 
 /**
  * This class manages plans and, by extension, budget lines of the active budget explorer state.
@@ -34,11 +36,26 @@ export class TransactionPlannerManager
    */
   add(plan: TransactionPlan)
   {
+    plan.id = ___uniqueId();
     // 1. Validate! We can't add a second king
     if(this._active.find(p => p.trTypeId === plan.trTypeId && p.king && plan.king))
       throw new Error('There cannot be two king (template) transaction plans of the same line');
 
     this._active.push(plan);
+    this._refresh();
+  }
+
+  /**
+   * Update a transaction plan on the master (rendered) budget.
+   */
+  update(plan: TransactionPlan)
+  {
+    // Remove
+    const without = this._active.filter(pl => pl.id !== plan.id);
+    // Now add back the new version
+    without.push(plan);
+    this._active = without;
+    
     this._refresh();
   }
 

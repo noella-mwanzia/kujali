@@ -12,7 +12,8 @@ import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 import { BudgetRenderingStateModule } from '@app/state/finance/budgetting/rendering';
 
 import { iTalPageModule } from '@app/elements/layout/page';
-import { BudgetExplorerBurnchartModule } from '@app/features/budgetting/budget-explorer-burnchart';
+
+import { PlanTransactionModalComponent } from './modals/plan-tr/plan-transaction-modal.component';
 
 @NgModule({
   imports: [
@@ -23,11 +24,11 @@ import { BudgetExplorerBurnchartModule } from '@app/features/budgetting/budget-e
 
     iTalPageModule,
 
-    BudgetExplorerBurnchartModule, BudgetsStateModule,
+    BudgetsStateModule,
     BudgetRenderingStateModule
   ],  
   declarations: [
-    
+    PlanTransactionModalComponent
   ]
 })
 /** 

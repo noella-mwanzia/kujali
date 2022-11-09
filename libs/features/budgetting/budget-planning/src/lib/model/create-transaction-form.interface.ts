@@ -1,5 +1,5 @@
-import { TransactionType } from "../../transaction-type-management/model/transaction-type.interface";
-import { Frequency } from "./frequency.type";
+import { TransactionType } from "@app/model/finance/planning/budget-grouping";
+import { BudgetItemFrequency } from "@app/model/finance/planning/budget-items";
 
 export interface CreateTransactionForm
 {
@@ -23,7 +23,7 @@ export interface CreateTransactionForm
   monthFrom: { name: 'string', month: number, slug: 'string' },
 
   /** Occurence frequency type. */
-  frequency: Frequency;
+  frequency: BudgetItemFrequency;
   /** If frequency is a timed interval i.e. every 6 months, every 2 years, .. */
   xTimesInterval: number;
 
@@ -44,14 +44,14 @@ export interface CreateTransactionForm
   /** Increase Settings */
   hasIncrease?: boolean;
   amountIncreaseConfig: false | 'value' | 'percentage';
-  amountIncreaseFrequency: Frequency;
+  amountIncreaseFrequency: BudgetItemFrequency;
   /* Amount Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase */
   amountIncreaseRate: number;
   /** If frequency is 'every-x-times', how many times? */
   xTimesAmountIncreaseInterval?: number;
 
   unitIncreaseConfig: false | 'value' | 'percentage';
-  unitIncreaseFrequency: Frequency;
+  unitIncreaseFrequency: BudgetItemFrequency;
   /* Unit Increase Rate -> if amountIncrease = fixed, full number, if = percentage, percentual increase */
   unitIncreaseRate: number;
   /** If frequency is 'every-x-times', how many times? */

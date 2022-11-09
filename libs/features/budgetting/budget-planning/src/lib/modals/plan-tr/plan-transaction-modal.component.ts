@@ -1,54 +1,66 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, Inject } from '@angular/core';
+import { Component, ViewChild, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgForm } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import * as _ from 'lodash';
 
-import { PlannedTransaction } from '../../model/planned-transaction.interface';
-import { GroupedTransactionType } from '../../../transaction-type-management/model/grouped-transaction-type.interface';
+import { TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
-import { PlanTransactionService } from '../../services/plan-transaction.service';
-import { TransactionType } from '../../../transaction-type-management/model/transaction-type.interface';
-import { TransactionTypeService } from '../../../transaction-type-management/services/transactions-types.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CostTypesStore } from '@app/state/finance/cost-types';
+
+import { PlanTrInput } from './plan-tr-input.interface';
+import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
+import { CreateTransactionForm } from '../../model/create-transaction-form.interface';
+
 
 @Component({
   selector: 'app-plan-transaction',
-  templateUrl: './plan-transaction.component.html',
-  styleUrls: ['../transaction-planner-form.style.scss', './plan-transaction.component.scss'],
+  templateUrl: './plan-transaction-modal.component.html',
+  styleUrls: ['../../shared/transaction-planner-form.style.scss', './plan-transaction-modal.component.scss'],
 })
-export class PlanTransactionComponent implements OnInit
+export class PlanTransactionModalComponent // implements OnInit
 {
-  @ViewChild('form', { static: true }) form: NgForm;
+  @ViewChild('form', { static: true }) form!: NgForm;
 
-  model: PlannedTransaction;
+  model!: TransactionPlan;
+  title: string;
+  lblAction: string;
+  lblType: string;
 
-  type!: 'cost' | 'income';
+  /** Master type of the planned transaction */
+  type!: BudgetRowType.CostLine | BudgetRowType.IncomeLine;
+  isCreate!: boolean;
 
   monthFrom!: number;
   yearFrom!: number;
 
   budgetId!: string;
 
-  categories: Observable<GroupedTransactionType[]>;
-  selectedCategory: GroupedTransactionType;
-  selectedType: TransactionType;
+  categories!: Observable<LoadedTransactionTypeCategory[]>;
+  selectedCategory!: LoadedTransactionTypeCategory;
+  selectedType!    : LoadedTransactionType;
 
   amount = 0;
-  units = 1; 
+  units  = 1; 
 
-  constructor(private _transactionTypeService: TransactionTypeService,
-              private _planTransactionService: PlanTransactionService,
-              public dialogRef: MatDialogRef<PlanTransactionModalComponent>, 
-              @Inject(MAT_DIALOG_DATA) public data: any) 
-  { }
+  constructor(private _costTypes$$: CostTypesStore,
+              private _fYExplorer$$: FinancialExplorerStateService,
+              private _dialog: MatDialogRef<PlanTransactionModalComponent>, 
+              
+              @Inject(MAT_DIALOG_DATA) data: PlanTrInput) 
+  {
+    this.type = data.type;
+    this.categories = this._costTypes$$.getOfType(this.type); 
 
-  ngOnInit() {
-    this.categories = this._transactionTypeService.getTransactionCategoryTypes(this.type); 
-  }
- 
-  exitModal() {
-    this.exitModalEvent.emit(false);
+    this.isCreate = !!data.tr;
+    this.lblAction = this.isCreate ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
+                                   : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
+
+    this.title  = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.TITLE-COST' 
+                                                       : 'PL-EXPLORER.TRPLANNER.TITLE-INCOME';
+    this.lblType = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.COST-TYPE' 
+                                                        : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
   }
 
   validateName() {
@@ -57,19 +69,26 @@ export class PlanTransactionComponent implements OnInit
     return ! (value.selectedCategory && value.selectedType && value.name);
   }
 
-  saveTransaction(transaction)
+  saveTransaction(form: CreateTransactionForm)
   {
-    if(!transaction.hasIncrease) {
-      transaction.hasIncrease = false; 
+    if(!form.hasIncrease) {
+      form.hasIncrease = false; 
     }
 
-    transaction.budgetId = this.budgetId
+    //
+    // TODO(Ian): Fix subforms and convert form to PlannedTransaction
+    //
+
+    form.budgetId = this.budgetId;
     
-    const planner = this._planTransactionService.planTransaction(transaction);
-    this.closeModal(planner);
+    // Process the changes and recalculate the budget
+    this.isCreate ? this._fYExplorer$$.addTransaction(transaction)
+                  : this._fYExplorer$$.updateTransaction(transaction);
+
+    this.exitModal();
   }
 
+  onNoClick = () => this.exitModal();
 
-  onNoClick = () => this.dialogRef.close();
-  closeModal = (transactions: Observable<any>) => this.dialogRef.close(transactions); 
+  exitModal  = () => this._dialog.close();
 }

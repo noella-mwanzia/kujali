@@ -4,12 +4,11 @@ import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, 
 
 import { Logger } from "@iote/bricks-angular";
 
-import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
-import { _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "./model/f-explorer.state.model";
-
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 import { RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
+
+import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "@app/model/finance/planning/budget-rendering-state";
 
 import { BudgetQuery } from "./queries/budget.query";
 import { BudgetPlansQuery } from "./queries/budget-lines.query";
@@ -18,7 +17,6 @@ import { BudgetRendererService } from "./queries/budget-renderer.service";
 import { ChildBudgetManager } from "./model/child-budget-manager.model";
 import { TransactionPlannerManager } from "./model/transaction-planner-manager";
 import { __ScopeStateToYear } from "./model/scope-table-to-year.function";
-
 
 /**
  * This model manages the financial year explorer state.
@@ -78,6 +76,16 @@ export class FinancialExplorerStateService
   public setYear(year: number) {
     this._state.year = year;
     this._triggerUpdate();
+  }
+
+  public addTransaction(tr: TransactionPlan)
+  {
+    this._budgetPlan$$.add(tr);
+  }
+
+  public updateTransaction(tr: TransactionPlan)
+  {
+    this._budgetPlan$$.update(tr);
   }
 
   //

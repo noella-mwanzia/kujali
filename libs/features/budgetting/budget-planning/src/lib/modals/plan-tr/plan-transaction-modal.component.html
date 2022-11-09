@@ -1,8 +1,87 @@
-<app-plan-transaction (exitModalEvent)="closeModal($event)" 
-                      (closeModalEvent)='closeModal($event)' 
-                      [type]="data.type"
-                      [budgetId]="data.budgetId"
-                      [monthFrom]="data.month"
-                      [yearFrom]="data.year">
-                    
-</app-plan-transaction>
+<div style="text-align: right"><span (click)="exitModal()" class="close-modal-btn"><i class="far fa-times-circle"></i> {{ 'MODAL.CLOSE' | transloco }}</span></div>
+
+<form #form="ngForm" (ngSubmit)="saveTransaction(form.value)" fxLayout="column">
+
+  <div fxLayout="row">
+    <h2 class="mat-title modal-title">{{ lblAction | transloco }} <span class="type-title">{{ lblType | transloco }}</span></h2> 
+    <div style="flex: 1;"></div>
+    <button type="submit" class="btn-submit"  
+            class="btn-submit" fxLayoutAlign="end" mat-raised-button color="accent" 
+            [disabled]="!form.valid || model.amount <= 0">
+      {{ lblAction }} {{ lblType | transloco }}
+    </button>
+  </div>
+  <hr class="title-line" />
+
+
+  <div fxLayout="row" class="form-body">
+    
+    <mat-horizontal-stepper [linear]="true" #stepper fxFlex="100">
+
+      <mat-step [stepControl]="fgLineConfig" #fgLineConfig="ngModelGroup" ngModelGroup="lineConfig" [hasError]="!fgLineConfig.valid">
+        <ng-template matStepLabel>{{ title | transloco }}</ng-template>
+        <app-plan-transaction-name [categoryType]="type"></app-plan-transaction-name>
+
+        <button matStepperNext class="btn-modal" mat-raised-button color="primary" type="button"
+                [disabled]="!form.value.selectedCat || !form.value.selectedType || !form.value.name">
+          Next
+        </button>
+      </mat-step>
+
+      <mat-step [stepControl]="fgBase" #fgBase="ngModelGroup" ngModelGroup="base" [hasError]="!fgBase.valid">
+        <ng-template matStepLabel>Initial Value</ng-template>
+
+        <div class="form-section" fxLayout="column">
+          <h4 class="mat-title type-title">Set Amount</h4>
+          <app-plan-transaction-value-base-amount [amount]="amount" type="amount" viewType="Amount"></app-plan-transaction-value-base-amount>
+        </div>
+
+        <div class="form-section" fxLayout="column">
+          <h4 class="mat-title type-title">Set Units</h4>
+          <app-plan-transaction-value-base-amount [units]="units" type="units" viewType="Units"></app-plan-transaction-value-base-amount>
+        </div>
+
+        <div fxLayout="row" fxFlex="100">
+          <div fxFlex="100">
+            <button matStepperNext class="btn-modal" mat-raised-button color="primary" [disabled]="!(form.value.amount > 0 && form.value.units > 0)"  type="button">Next</button>
+            <button matStepperPrevious class="btn-modal" mat-button>Previous</button>
+          </div>
+        </div>
+
+      </mat-step>
+
+      <mat-step [stepControl]="fgOccurence" #fgOccurence="ngModelGroup" ngModelGroup="occurence" [hasError]="!fgOccurence.valid">
+        <ng-template matStepLabel>Transaction Time</ng-template>
+
+        <app-plan-transaction-occurence [type]="type" 
+                                        [yearFrom]="yearFrom" 
+                                        [monthFromPassed]="monthFrom">
+        </app-plan-transaction-occurence>
+
+        <div fxLayout="row" fxFlex="100">
+          <div fxFlex="100">
+            <button matStepperNext class="btn-modal" mat-raised-button color="primary"
+                    [disabled]="!form.valid || (form.valid && (!form.value.yearFrom  || !form.value.monthFrom || !form.value.frequency)) || (form.valid && form.value.frequency == 'once')" type="button">
+                  Next
+            </button>
+            <button matStepperPrevious class="btn-modal" mat-button>Previous</button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step *ngIf="form.value.frequency != null && form.value.frequency != 'once'" 
+                [stepControl]="fgIncrease" #fgIncrease="ngModelGroup" ngModelGroup="increase" [hasError]="!fgIncrease.valid">
+        <ng-template matStepLabel>Increase</ng-template>
+
+        <app-plan-transaction-increase [type]="type" [frequency]="form.value.frequency"></app-plan-transaction-increase>
+
+      </mat-step>
+
+    </mat-horizontal-stepper>
+  
+
+  </div> 
+
+  
+
+</form>
