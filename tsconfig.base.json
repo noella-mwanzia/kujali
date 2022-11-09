@@ -92,6 +92,9 @@
       "@app/state/finance/budgetting/results": [
         "libs/state/finance/budgetting/results/src/index.ts"
       ],
+      "@app/state/finance/cost-types": [
+        "libs/state/finance/cost-types/src/index.ts"
+      ],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/src/index.ts"]
     }
