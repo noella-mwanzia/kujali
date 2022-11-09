@@ -1,7 +1,7 @@
 import { sum as ___sum, flatMap as ___flatmap } from 'lodash';
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { BudgetHeader, BudgetRow, BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRow, BudgetRowType } from '@app/model/finance/planning/budget-lines';
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
 
 import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
@@ -37,7 +37,7 @@ export function __RenderLinesGroup(record: BudgetGroup | BudgetRow, budget: Budg
  * 
  * @returns - The BudgetGroup aggregate row
  */
-export function __RecordToHeader(record: BudgetGroup, budget: Budget): BudgetHeader
+export function __RecordToHeader(record: BudgetGroup, budget: Budget): BudgetRow
 {
   const rc = _recordToRow(record, budget);
   rc.isHeader = true;

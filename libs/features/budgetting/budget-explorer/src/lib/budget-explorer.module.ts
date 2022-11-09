@@ -22,6 +22,8 @@ import { FinancialPlanPlTablesComponent } from './components/financial-plan-pl-t
 import { FinancialPlanTableComponent }    from './components/financial-plan-table/financial-plan-table.component';
 
 import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explorer/financial-plan-explorer.component';
+import { FinancialPlanResultTableComponent } from './components/financial-plan-result-table/financial-plan-result-table.component';
+import { LinkBudgetModalComponent } from './components/link-budget-modal/link-budget-modal.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,10 @@ import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explo
              
     YearFocusComponent,
     FinancialPlanPlTablesComponent,
-    FinancialPlanTableComponent 
+    FinancialPlanTableComponent,
+
+    FinancialPlanResultTableComponent,
+    LinkBudgetModalComponent
     // FinancialPlanBurnChartComponent,  
     
     // FinancialPlanPlTablesComponent, FinancialPlanResultTableComponent,

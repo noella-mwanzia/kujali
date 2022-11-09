@@ -7,7 +7,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { MONTHS, TimeTableGenerator, YEARS } from '@app/model/finance/planning/time';
 import { Budget, BudgetStatus } from '@app/model/finance/planning/budgets';
-import { BudgetHeader } from '@app/model/finance/planning/budget-lines';
+import { BudgetRow } from '@app/model/finance/planning/budget-lines';
 
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
 
@@ -107,7 +107,7 @@ export class CreateBudgetModalComponent implements OnInit
   }
 
   /** Generates a default result header for the budget. */
-  private _emptyBalance(): BudgetHeader 
+  private _emptyBalance(): BudgetRow 
   {
     const amountsYear = new TimeTableGenerator()
       .getTimeFrameSkeleton(this.startYear, this.duration)

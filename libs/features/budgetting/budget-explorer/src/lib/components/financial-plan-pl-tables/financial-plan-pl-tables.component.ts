@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
-import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
+import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
 import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
 
@@ -24,9 +24,9 @@ export class FinancialPlanPlTablesComponent implements OnInit
   
   // Data Sources
   costDataSource$!  : Observable<BudgetRowYear[]>;
-  costTotal$!       : Observable<BudgetHeaderYear>;
+  costTotal$!       : Observable<BudgetRowYear>;
   incomeDataSource$!: Observable<BudgetRowYear[]>;
-  incomeTotal$!     : Observable<BudgetHeaderYear>;
+  incomeTotal$!     : Observable<BudgetRowYear>;
   // Data Sources End
 
   ngOnInit()

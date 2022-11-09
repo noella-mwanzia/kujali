@@ -1,9 +1,0 @@
-import { BudgetRow } from "./budget-row.interface";
-
-/**
- * Budget header row. A line which is an aggregate of other lines in the budget.
- * 
- * Scoped to whole budget.
- */
-export interface BudgetHeader extends BudgetRow 
-{ }

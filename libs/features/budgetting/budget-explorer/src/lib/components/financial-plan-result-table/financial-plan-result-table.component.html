@@ -11,10 +11,9 @@
 
 <!-- Balance Table -->
 <app-financial-plan-table  
-      [classId]="'result'"
-      [type]="'result'" 
-      [dataSource]="balanceTable$" 
-      [total]="balance$ | async"
+      classId="result"
+      [type]="tableType" 
+      [rows$]="balanceTable$" 
+      [total$]="balance$"
       [allowAdd]="false" [nameField]="false">
-</app-financial-plan-table >
-  
+</app-financial-plan-table>

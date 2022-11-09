@@ -1,5 +1,5 @@
 
-import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRow, BudgetRowType } from "@app/model/finance/planning/budget-lines";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "./amount-per-year.null";
 
 /**
@@ -11,7 +11,7 @@ import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "./amount-per-year.null";
  * @param duration  - Number of years to generate.
  * @returns A populated table header.
  */
-export function NULL_BUDGET_HEADER(name: string, type: BudgetRowType, startYear: number, duration: number): BudgetHeader
+export function NULL_BUDGET_HEADER(name: string, type: BudgetRowType, startYear: number, duration: number): BudgetRow
 {
   return {
     isHeader: true,

@@ -1,4 +1,4 @@
-import { BudgetHeader, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRow, BudgetRowType } from "@app/model/finance/planning/budget-lines";
 import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
 
 import { __MergeBudgetLinesOfTwoGroupResults } from "./merge-lines.util";
@@ -16,7 +16,7 @@ import { __MergeBudgetLinesOfTwoGroupResults } from "./merge-lines.util";
  * 
  * @note - If this is used to calculate a complete budget balance, parent budgets need to be notified. The balance becomes a child result line in the parents.
  */
-export function __CalculateBalanceOfGroups(budgetGroups: (BudgetGroup | BudgetHeader)[], type: BudgetRowType, totalName: string): BudgetGroup
+export function __CalculateBalanceOfGroups(budgetGroups: (BudgetGroup | BudgetRow)[], type: BudgetRowType, totalName: string): BudgetGroup
 {
   const amountByYearAndMonth = budgetGroups
                                   .map(t => t.amountsYear)

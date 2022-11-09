@@ -4,7 +4,7 @@ import { Budget } from "@app/model/finance/planning/budgets";
 import { AmountPerYear } from '@app/model/finance/planning/budget-lines';
 import { RenderedBudget } from "@app/model/finance/planning/budget-rendering";
 
-import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
+import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
 /**
  * This model manages the financial year explorer state.
@@ -25,15 +25,15 @@ export interface FinancialExplorerState
   /** Scoped costs  (to year)*/
   scopedCosts: BudgetRowYear[];
   /** Scoped Income results (to year) */
-  scopedIncomeTotals: BudgetHeaderYear;
+  scopedIncomeTotals: BudgetRowYear;
   /** Scoped cost results (to year) */
-  scopedCostTotals: BudgetHeaderYear;
+  scopedCostTotals: BudgetRowYear;
   /** Scoped child budgets (to year) */
   scopedChildBudgets: BudgetRowYear[];
   /** Result scoped to year */
-  scopedResult: BudgetHeaderYear;
+  scopedResult: BudgetRowYear;
   /** Balance scoped to year */
-  scopedBalance: BudgetHeaderYear;
+  scopedBalance: BudgetRowYear;
 
   /** Range of years available to the budget */
   years: number[];

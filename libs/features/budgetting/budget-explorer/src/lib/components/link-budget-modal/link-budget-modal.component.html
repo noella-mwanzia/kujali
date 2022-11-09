@@ -8,7 +8,7 @@
 
   <div class="sm-divider"></div>
 
-  <div *ngIf="optionsAvailable; else noOptions">
+  <!-- <div *ngIf="optionsAvailable; else noOptionsAvailable">
     <mat-form-field class="budget-selector">
       <mat-select name="selectedBudget" [(ngModel)]="selectedBudget" placeholder="Budget" required>
         <mat-option *ngFor="let budget of possibleChilds" [value]="budget">
@@ -17,11 +17,11 @@
       </mat-select>
     </mat-form-field>
     
-    <ng-template #noOptions><div *ngIf="loading; else noOp"><app-spinner></app-spinner></div></ng-template>
-    <ng-template #noOp>No child budgets available.</ng-template>
+    <ng-template #noOptionsAvailable><div *ngIf="loading; else noOp"><app-spinner></app-spinner></div></ng-template>
+    <ng-template #noOp>No child budgets available.</ng-template> -->
 
     <div class="sm-divider"></div>
-  </div>
+  <!-- </div> -->
   <button type="submit" [disabled]="loading || !optionsAvailable || form.invalid" class="btn-submit" mat-raised-button color="primary">
     Link Budget
   </button>

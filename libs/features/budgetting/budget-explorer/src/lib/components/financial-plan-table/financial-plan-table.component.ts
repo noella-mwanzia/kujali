@@ -9,7 +9,7 @@ import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
-import { BudgetHeaderYear, BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
+import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
 // import { CellTransactionOccurrenceModal } from '../../../transaction-planner/components/cell-tr-occurrence-modal/cell-tr-occurrence-modal.component';
 
@@ -34,8 +34,8 @@ export class FinancialPlanTableComponent implements OnInit
 
   @Input() type!: BudgetRowType;
   
-  @Input() total$! : Observable<BudgetHeaderYear>;
-  total!  : BudgetHeaderYear;
+  @Input() total$! : Observable<BudgetRowYear>;
+  total!  : BudgetRowYear;
   @Input() rows$!  : Observable<BudgetRowYear[]>;
 
   /** Class ID. Is aligned to type of table  */

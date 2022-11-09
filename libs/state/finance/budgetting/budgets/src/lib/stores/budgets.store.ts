@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { orderBy as ___orderBy } from 'lodash';
+import { orderBy as ___orderBy, includes as ___includes } from 'lodash';
 import { filter, map, switchMap, tap } from "rxjs/operators";
 
 import { Logger } from "@iote/bricks-angular";
@@ -53,7 +53,19 @@ export class BudgetsStore extends DataStore<Budget>
 
     return super.add(budget);
   }
-  
+
+  /** 
+   * Child budgets that can still be added to the budget. 
+   * 
+   *  TODO: Deep search for loops within large budget hierarchies. Needs recursive pattern
+   */
+  getChildBudgetsAddable(budget: Budget)
+  {
+    return this.get()
+        .pipe(map(budgets => budgets.filter(b => budget.id != b.id
+                                                      && ! ___includes(budget.childrenList, b.id)
+                                                      && ! ___includes(budget.overrideList, b.id))));
+  }
 
   // add(budget: Budget): Observable<Budget>
   // {
@@ -119,16 +131,7 @@ export class BudgetsStore extends DataStore<Budget>
   //     throw "The user profile could not be found";
   // }
 
-  // /** Child budgets that can still be added to the budget. 
-  //   *   Inefficient algo due to no NOT_IN SQL syntax in firebase.
-  //   */
-  // getChildBudgetsAddable(budget: Budget)
-  // {
-  //   return this._budgetRepo.getDocuments()
-  //                          .pipe(map(budgets => _.filter(budgets, b => budget.id != b.id
-  //                                                                       && ! _.includes(budget.childrenList, b.id)
-  //                                                                       && ! _.includes(budget.overrideList, b.id))));
-  // }
+  
 
   // updateBudget(budget: Budget) {
   //   return this._budgetRepo.update(budget);
