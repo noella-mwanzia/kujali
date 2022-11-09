@@ -31,6 +31,20 @@ export class TransactionPlannerManager
     return this._plans$;
   }
 
+  find(lineId: string, year: number, month: number)
+  {
+    const plansInLine = this._active.filter(ac => ac.lineId === lineId);
+    if(plansInLine.length === 0)
+      return { mode: 'not_found' };
+    
+    const toEdit = plansInLine.find(p => p.fromYear === year && p.fromMonth === month);
+    
+    // Check if user wants to edit existing transction occurence.
+    return toEdit ? { mode: 'edit', plan: toEdit }
+    // If not, user wants a template and to create a new occurence
+                  : { mode: 'create', plan: plansInLine[0] };
+  }
+
   /**
    * Add a transaction plan to the master (rendered) budget.
    */

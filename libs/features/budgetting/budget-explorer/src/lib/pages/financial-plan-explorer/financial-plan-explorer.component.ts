@@ -6,10 +6,10 @@ import { filter, map, Observable, Subscription, take } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { FinancialExplorerState } from '@app/model/finance/budgetting/budget-rendering-state';
-import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
+import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
+import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 
 /**
  * This page visualises the Budget Explorer, which is the core feature of this application.

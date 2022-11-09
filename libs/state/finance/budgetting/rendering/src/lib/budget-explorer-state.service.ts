@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, 
 import { Logger } from "@iote/bricks-angular";
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { TransactionPlan } from "@app/model/finance/planning/budget-items";
+import { LoadedPlanTrInput, PlanTrInput, TransactionPlan } from "@app/model/finance/planning/budget-items";
 import { RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
 import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "@app/model/finance/planning/budget-rendering-state";
@@ -78,15 +78,32 @@ export class FinancialExplorerStateService
     this._triggerUpdate();
   }
 
-  public addTransaction(tr: TransactionPlan)
+  // Transaction planner
+  /** Load in the transaction planner data, so we can edit/create the transaction plan. */
+  public loadTransactionPlannerData(tr: PlanTrInput) : LoadedPlanTrInput
   {
-    this._budgetPlan$$.add(tr);
+    const cmd = <unknown> tr as LoadedPlanTrInput;
+    cmd.year = this._state.year;
+
+    if(tr.lineId)
+    {
+      const plan = this._budgetPlan$$.find(tr.lineId, cmd.year, cmd.month);
+      if(plan.mode === 'not_found')
+        throw new Error('Line to edit somehow disappeared?');
+      
+      // Use the month to check if user clicked a transaction he/she wants to edit,
+      //    or if the user wants to add a complete new line
+      cmd.trMode = plan.mode as 'create' | 'edit';
+      cmd.tr = plan.plan;
+    }
+
+    return cmd;
   }
 
-  public updateTransaction(tr: TransactionPlan)
-  {
-    this._budgetPlan$$.update(tr);
-  }
+  /** Store a new transaction on the planner */
+  public addTransaction = (tr: TransactionPlan)    => this._budgetPlan$$.add(tr);
+  /** Update an existing transaction on the planner */
+  public updateTransaction = (tr: TransactionPlan) => this._budgetPlan$$.update(tr);
 
   //
   // SECTION - PERSIST STATE

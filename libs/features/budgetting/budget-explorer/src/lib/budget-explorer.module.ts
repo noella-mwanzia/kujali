@@ -12,18 +12,20 @@ import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 import { BudgetRenderingStateModule } from '@app/state/finance/budgetting/rendering';
 
 import { iTalPageModule } from '@app/elements/layout/page';
+
+import { BudgetPlanningFeatureModule } from '@app/features/budgetting/budget-planning';
 import { BudgetExplorerBurnchartModule } from '@app/features/budgetting/budget-explorer-burnchart';
 
 import { BudgetExplorerRouter } from './budget-explorer-router';
 
 import { YearFocusComponent } from './components/year-focus/year-focus.component';
 
-import { FinancialPlanPlTablesComponent } from './components/financial-plan-pl-tables/financial-plan-pl-tables.component';
-import { FinancialPlanTableComponent }    from './components/financial-plan-table/financial-plan-table.component';
+import { FinancialPlanPlTablesComponent }    from './components/financial-plan-pl-tables/financial-plan-pl-tables.component';
+import { FinancialPlanTableComponent }       from './components/financial-plan-table/financial-plan-table.component';
+import { FinancialPlanResultTableComponent } from './components/financial-plan-result-table/financial-plan-result-table.component';
+import { LinkBudgetModalComponent }          from './components/link-budget-modal/link-budget-modal.component';
 
 import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explorer/financial-plan-explorer.component';
-import { FinancialPlanResultTableComponent } from './components/financial-plan-result-table/financial-plan-result-table.component';
-import { LinkBudgetModalComponent } from './components/link-budget-modal/link-budget-modal.component';
 
 @NgModule({
   imports: [
@@ -35,8 +37,10 @@ import { LinkBudgetModalComponent } from './components/link-budget-modal/link-bu
     iTalPageModule,
 
     BudgetExplorerBurnchartModule, BudgetsStateModule,
+    BudgetPlanningFeatureModule,
+
     BudgetExplorerRouter,
-    BudgetRenderingStateModule],
+    BudgetRenderingStateModule,],
 
   providers: [
     FinancialPlanExplorerPageComponent,

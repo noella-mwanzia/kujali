@@ -29,6 +29,9 @@ import { PlanTransactionModalComponent } from './modals/plan-tr/plan-transaction
   ],  
   declarations: [
     PlanTransactionModalComponent
+  ],
+  exports: [
+    PlanTransactionModalComponent
   ]
 })
 /** 

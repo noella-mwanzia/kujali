@@ -2,14 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 
-// import { PlanTransactionModal } from '../../../transaction-planner/components/plan-transaction-modal/plan-transaction-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
-import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
 
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
+
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+
+import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
 
 // import { CellTransactionOccurrenceModal } from '../../../transaction-planner/components/cell-tr-occurrence-modal/cell-tr-occurrence-modal.component';
 
@@ -136,14 +138,15 @@ export class FinancialPlanTableComponent implements OnInit
 
   // -- Create and Update Rows
 
-  // openPlanTransactionModal(m : any): void
-  // {
-  //   this.dialog.open(PlanTransactionModal, {
-  //     data: { month: m.month, year: this.year, type: this.type, budgetId: this.budgetId }
-  //   })
-  //   .afterClosed()
-  //   .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
-  // }
+  openPlanTransactionModal(m : any): void
+  {
+    this.dialog.open(PlanTransactionModalComponent, 
+    {
+      data: { month: m.month, type: this.type, budgetId: this.budgetId }
+    })
+    .afterClosed()
+    .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+  }
 
   // openCellModal(cell: BudgetRowMonths, column)
   // {
