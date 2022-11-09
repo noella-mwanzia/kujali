@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'state-finance-planning-cost-types',
-  preset: '../../../../../jest.preset.js',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../coverage/libs/state/finance/cost-types',
+    '../../../../coverage/libs/state/finance/cost-types',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

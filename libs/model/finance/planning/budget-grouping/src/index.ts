@@ -7,3 +7,6 @@ export * from './lib/transaction-type.interface';
 
 // Group selection
 export * from './lib/select-transaction-type-model';
+
+// DEFAULT TYPES
+export * from './lib/db-seeds/cost-types-seed.const';

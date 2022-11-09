@@ -1,4 +1,5 @@
 import { TransactionTypeCategory } from "./transaction-type-category.interface";
+import { TransactionType } from "./transaction-type.interface";
 
 /**
  * Loaded transaction-type category.
@@ -15,7 +16,7 @@ import { TransactionTypeCategory } from "./transaction-type-category.interface";
  * 
  * Used as template-object for the selection of a category and type on the budget cost planner.
  */
-export interface LoadedTransactionType 
+export interface LoadedTransactionType extends TransactionType
 {
   /** Category to which this transaction belongs */
   category: TransactionTypeCategory;

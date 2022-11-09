@@ -22,6 +22,7 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
+import { CostTypesStateModule } from '@app/state/finance/cost-types';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
 import { environment } from '../environments/environment';
@@ -57,6 +58,7 @@ import { AppRoutingModule } from './app.routing.module';
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
     BudgetsStateModule.forRoot(),
+    CostTypesStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),
