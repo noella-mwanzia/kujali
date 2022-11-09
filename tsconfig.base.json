@@ -41,6 +41,9 @@
       "@app/features/budgetting/budget-explorer-burnchart": [
         "libs/features/budgetting/budget-explorer-burnchart/src/index.ts"
       ],
+      "@app/features/budgetting/budget-planning": [
+        "libs/features/budgetting/budget-planning/src/index.ts"
+      ],
       "@app/features/budgetting/budgets": [
         "libs/features/budgetting/budgets/src/index.ts"
       ],
@@ -55,6 +58,9 @@
       "@app/model/finance/planning/budget-defaults": [
         "libs/model/finance/planning/budget-defaults/src/index.ts"
       ],
+      "@app/model/finance/planning/budget-grouping": [
+        "libs/model/finance/planning/budget-grouping/src/index.ts"
+      ],
       "@app/model/finance/planning/budget-items": [
         "libs/model/finance/planning/budget-items/src/index.ts"
       ],
@@ -66,6 +72,9 @@
       ],
       "@app/model/finance/planning/budget-rendering": [
         "libs/model/finance/planning/budget-rendering/src/index.ts"
+      ],
+      "@app/model/finance/planning/budget-rendering-state": [
+        "libs/model/finance/planning/budget-rendering-state/src/index.ts"
       ],
       "@app/model/finance/planning/budgets": [
         "libs/model/finance/planning/budgets/src/index.ts"

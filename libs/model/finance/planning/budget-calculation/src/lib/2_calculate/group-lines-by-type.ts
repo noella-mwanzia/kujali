@@ -1,5 +1,5 @@
 import { Budget } from '@app/model/finance/planning/budgets';
-import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { BudgetGroup, BudgetLineRow } from '@app/model/finance/planning/budget-rendering';
 
 import { __GroupBudgetLines } from '../utils/group-lines.util';

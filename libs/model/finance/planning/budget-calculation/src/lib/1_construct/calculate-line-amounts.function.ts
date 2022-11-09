@@ -4,7 +4,7 @@ import { Budget } from "@app/model/finance/planning/budgets";
 
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
-import { AmountPerYear, BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { AmountPerYear, BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
 
 import { BudgetLineRow } from '@app/model/finance/planning/budget-rendering';

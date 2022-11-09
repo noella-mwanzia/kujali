@@ -1,0 +1,46 @@
+form {
+  min-width: 900px;
+  padding: 20px;
+}
+
+.title-line {
+  border: none;
+  border-top: 1px solid #ddd;
+  width: 100%;
+
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 15px;
+}
+  .btn-modal {
+    margin-left: 15px;
+    float: right;
+  }
+
+  .btn-submit-grey {
+    background: rgba(0,0,0,.12);
+    color: rgba(0,0,0,.26);
+  }
+
+  .close-modal-btn {
+    color: rgba(0,0,0,.54); 
+    cursor: pointer; 
+  }
+
+form {
+  min-width: 780px;
+  margin-left: auto; margin-right: auto;
+}
+
+/** Special selector to go inside of child components - Only use for third-party libraries in very special cases!! */
+::ng-deep .mat-horizontal-stepper-header,
+::ng-deep .mat-horizontal-content-container 
+{
+  padding: 0 !important;
+}
+
+.btn-submit {
+  margin-top: 0;
+}

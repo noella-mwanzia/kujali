@@ -1,0 +1,75 @@
+<form #form="ngForm" (ngSubmit)="saveTransactionOccurence(form.value, isUpdate)">
+    
+    <div style="text-align: right"><span (click)="closeModal()" class="close-modal-btn"><i class="far fa-times-circle"></i> Close</span></div>
+
+    <div>{{ oldOcc.transactionCategoryName }} - {{ oldOcc.transactionTypeName }}: {{ oldOcc.transactionName }}</div>
+
+    <div fxLayout="row">
+      <div flex="60" fxLayout="column" class="side-column">
+
+        <div class="form-section" fxLayout="column">
+          <h4 class="mat-title type-title">{{ type }} Amount</h4>
+
+          <app-plan-transaction-value-base-amount [amount]="amount" type="amount" viewType="Amount"></app-plan-transaction-value-base-amount>
+
+          <div style="height: 15px"></div>
+
+          <app-plan-transaction-value-base-amount [units]="units" type="units" viewType="Units"></app-plan-transaction-value-base-amount>
+        </div>
+
+      </div>
+
+      <div flex="40" class="form-body">
+
+        <mat-horizontal-stepper [linear]="true" #stepper fxFlex="100">
+        
+          <mat-step [stepControl]="freqConfig" #freqConfigF="ngModelGroup" ngModelGroup="freqConfig"
+            [hasError]="!freqConfigF.valid">
+            <ng-template matStepLabel>Date & Frequency</ng-template>
+           
+            <app-plan-transaction-occurence [type]="type"
+                                            [yearFrom]="yearFrom"
+                                            [monthFromPassed]="monthFrom"
+                                            [frequency]="frequency">
+            </app-plan-transaction-occurence>
+
+            <button matStepperNext class="btn-modal" mat-raised-button color="primary" type="button">
+              Next
+            </button>
+          </mat-step>
+        
+          <mat-step [stepControl]="incrConfig" #incrConfigF="ngModelGroup" ngModelGroup="increase"
+            *ngIf="frequency !== 'once' && frequency !== 'never'" [hasError]="!incrConfigF.valid">
+            <ng-template matStepLabel>Increase</ng-template>
+        
+            <div *ngIf="oldOcc && oldOcc.hasIncrease; else noPastIncrease">
+              <app-plan-transaction-increase [type]="type" 
+                                            [frequency]="frequency"
+                                            [hasIncrease]="oldOcc.hasIncrease"
+
+                                            [amountIncreaseConfig]="oldOcc.increaseConfig.amountIncreaseConfig"
+                                            [amountIncreaseFrequency]="oldOcc.increaseConfig.amountIncreaseFrequency"
+                                            [amountIncreaseRate]="oldOcc.increaseConfig.amountIncreaseRate"
+                                            [xTimesAmountIncreaseInterval]="oldOcc.increaseConfig.xTimesAmountIncreaseInterval"
+
+                                            [unitIncreaseConfig]="oldOcc.increaseConfig.unitIncreaseConfig"
+                                            [unitIncreaseFrequency]="oldOcc.increaseConfig.unitIncreaseFrequency"
+                                            [unitIncreaseRate]="oldOcc.increaseConfig.unitIncreaseRate"
+                                            [xTimesUnitIncreaseInterval]="oldOcc.increaseConfig.xTimesUnitIncreaseInterval">
+              </app-plan-transaction-increase>
+            </div>
+            <ng-template #noPastIncrease>
+              <app-plan-transaction-increase [type]="type" [frequency]="frequency"></app-plan-transaction-increase>
+            </ng-template>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+      </div>
+    </div>
+    <!-- The submit button -->
+    <button [disabled]="!form.valid"
+            type="submit" class="btn-submit" mat-raised-button color="primary">
+        {{ isUpdate ? 'Update' : 'Create' }} {{ type }}
+    </button>
+</form>
+<!-- End of the sub-from -->

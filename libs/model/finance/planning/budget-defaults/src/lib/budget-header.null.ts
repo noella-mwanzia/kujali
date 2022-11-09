@@ -1,5 +1,6 @@
 
-import { BudgetRow, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRow } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "./amount-per-year.null";
 
 /**

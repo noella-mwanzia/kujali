@@ -1,0 +1,59 @@
+<div class="form-section-body" fxLayout="column">
+  <i>
+    Derivative Strategy - Select a "{{ viewType }}"-configuration to derive from.
+    Used for several scenario's i.e. you need to have a food budget for each employee in category x.
+    Or you need to buy computers on the first start of each employee.
+  </i>
+</div>
+
+TODO
+
+<!-- 
+<div class="form-section-body" fxLayout="column">
+  <mat-form-field>
+    <mat-label class="type-title">Base {{ viewType }}</mat-label>
+    <input matInput type="number" required [min]="0" [(ngModel)]="amount" name="amount" #amountF="ngModel">
+    <mat-error *ngIf="amountF.errors">Base units is invalid. Value is required and needs to be a positive amount
+      (&gt; 0).</mat-error>
+  </mat-form-field>
+</div>
+
+<mat-form-field>
+  <mat-label class="type-title">Base Amount</mat-label>
+  <input matInput type="number" required [min]="0" [(ngModel)]="amount" name="amount" #amountF="ngModel">
+  <mat-error *ngIf="amountF.errors">Base Amount is invalid. Value is required and needs to be a positive amount
+    (&gt; 0).</mat-error>
+  <span *ngIf="type == 'amount'" matPrefix>KES &nbsp;</span>
+  <span *ngIf="type == 'amount'" matSuffix>.00</span>
+</mat-form-field> -->
+
+
+<!-- Amount / Unit type config -->
+<!-- <div class="form-section" fxLayout="column">
+  <h4 class="mat-title type-title">Set Evolution</h4>
+
+  <div class="form-section-body" fxLayout="column">
+
+    <div class="form-field form-field-toggle">
+      <mat-slide-toggle color="primary" [(ngModel)]="hasIncrease" name="hasIncrease" #hasIncreaseF="ngModel">
+        Increases over time
+      </mat-slide-toggle>
+    </div>
+
+    <div class="form-field">
+      <mat-radio-group name="incFrequency" #frequencyF="ngModel" [(ngModel)]="incFrequency" fxLayout="row wrap">
+
+        <mat-radio-button *ngFor="let freq of frequencies" [value]="freq.value">{{ freq.label }}</mat-radio-button>
+
+      </mat-radio-group>
+    </div>
+
+    <mat-form-field *ngIf="isIncrease" class="unit-increase">
+      <mat-label>Increase Rate</mat-label>
+      <input matInput type="number" required [min]="-1000" [max]="1000" name="increaseRate" [(ngModel)]="increaseR"
+        #increaseRateF="ngModel" />
+      <span matSuffix>%</span>
+    </mat-form-field>
+
+  </div>
+</div> -->

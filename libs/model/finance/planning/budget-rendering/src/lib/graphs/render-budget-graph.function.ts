@@ -1,9 +1,11 @@
 import { MONTHS } from "@app/model/finance/planning/time";
 
-import { AmountPerYear, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
+import { AmountPerYear } from "@app/model/finance/planning/budget-lines";
 import { BudgetRowYear } from "@app/model/finance/planning/budget-lines-by-year";
 
-import { FinancialExplorerState } from "@app/state/finance/budgetting/rendering";
+import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
 
 const COLOR_RANGES = ['#7986cb', '#3f51b5', '#666ad1', '#001970', '#536dfe', '#26c6da', '#0097a7'];
 

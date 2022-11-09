@@ -3,7 +3,7 @@ import { map as ___map, reduce as ___reduce, orderBy as ___orderBy, groupBy as _
 import { Budget } from "@app/model/finance/planning/budgets";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@app/model/finance/planning/budget-defaults';
 
-import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { BudgetGroup, BudgetLineRow } from '@app/model/finance/planning/budget-rendering';
 
 import { __MergeBudgetLinesOfTwoLines } from './merge-lines.util';

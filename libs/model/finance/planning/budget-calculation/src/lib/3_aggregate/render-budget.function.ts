@@ -1,7 +1,7 @@
 import { cloneDeep as ___cloneDeep, range as ___range } from "lodash";
 
 import { Budget } from "@app/model/finance/planning/budgets";
-import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { AggregatedBudget, RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
 import { __MergeBudgetLinesOfNHeaders } from "../utils/merge-lines.util";

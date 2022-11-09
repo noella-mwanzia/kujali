@@ -1,0 +1,136 @@
+<div fxLayout="column">
+
+  <div fxLayout="row">
+    <div fxFlex="60">Transaction Occurs: <b>{{ frequency }}</b></div>
+
+    <div fxFlex="40" class="form-field form-field-toggle">
+      <mat-slide-toggle color="primary" 
+                        [disabled]="frequency == null || frequency == 'once'"
+                        [(ngModel)]="hasIncrease" name="hasIncrease" #hasIncreaseF="ngModel">
+        Value varies over time
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+  <div *ngIf="hasIncrease" >
+
+    <!-- Amount Increase -->
+    <div class="form-section" fxLayout="column">
+      <h4 class="mat-title type-title">Amount Increase</h4>
+    
+      <div class="form-section-body" fxLayout="column">
+        <div class="form-section-sub">
+          <div class="form-section-sub-title">Increase Time</div>
+
+          <div class="form-field increase-select">
+            <mat-radio-group name="amountIncreaseFrequency" #amountIncreaseFrequencyF="ngModel" [(ngModel)]="amountIncreaseFrequency" fxLayout="row wrap">
+              <mat-radio-button [value]="'never'" name="unitIncreaseFrequency">No increase</mat-radio-button>
+              <mat-radio-button [value]="'all-times'"     name="amountIncreaseFrequency">Each Occurance</mat-radio-button>
+              <mat-radio-button [value]="'every-x-times'" name="amountIncreaseFrequency">Every X Occurences</mat-radio-button>
+              <mat-radio-button [value]="'yearly'"        name="amountIncreaseFrequency">Yearly</mat-radio-button>
+              <mat-radio-button [value]="'quarterly'"     name="amountIncreaseFrequency">Quarterly</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div fxLayout="row" *ngIf="amountIncreaseFrequency == 'every-x-times'">
+            <div  class="increase-rate-label">Increase per:</div>
+            <mat-form-field fxFlex="80">
+              <mat-label>Number of occurences before increase</mat-label>
+              <input matInput type="number" required [min]="0" [(ngModel)]="xTimesAmountIncreaseInterval" name="xTimesAmountIncreaseInterval" #xTimesAmountIncreaseIntervalF="ngModel">
+              <mat-error *ngIf="xTimesAmountIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-section-sub" *ngIf="amountIncreaseFrequency != 'never'">
+          <div class="form-section-sub-title">Increase Rate</div>
+          <div fxLayout="row">
+            <div fxFlex="50" class="form-field increase-select">
+              <mat-radio-group name="amountIncreaseConfig" #amountIncreaseconfigF="ngModel" [(ngModel)]="amountIncreaseConfig" fxLayout="row wrap">
+                <mat-radio-button [value]="'value'"      name="amountIncreaseConfig">Fixed Amount</mat-radio-button>
+                <mat-radio-button [value]="'percentage'" name="amountIncreaseConfig">Percentage</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div fxFlex="50">
+              <mat-form-field *ngIf="amountIncreaseConfig == 'percentage'" class="value-increase-number">
+                <mat-label>Amount Increase Rate</mat-label>
+                <input matInput type="number" required [min]="-1000" [max]="1000" name="amountIncreaseRate"
+                  [(ngModel)]="amountIncreaseRate" #amountIncreaseRateF="ngModel" />
+                <span matSuffix>%</span>
+                <mat-hint>Rate at which the value increases for each configured increase moment.</mat-hint>
+              </mat-form-field>
+              
+              <mat-form-field class="" *ngIf="amountIncreaseConfig != 'percentage'" class="value-increase-number">
+                <mat-label>Amount Increase Value</mat-label>
+                <input matInput type="number" required [min]="-1000" [max]="1000" name="amountIncreaseRate"
+                  [(ngModel)]="amountIncreaseRate" #increaseRateF="ngModel" />
+                <mat-hint>Decimal value with which the value increases for each configured increase moment.</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div>
+
+    <!-- Unit Increase -->
+    <div class="form-section" fxLayout="column">
+      <h4 class="mat-title type-title">Unit Increase</h4>
+    
+      <div class="form-section-body" fxLayout="column">
+        <div class="form-section-sub">
+          <div class="form-section-sub-title">Increase Time</div>
+          <div class="form-field increase-select">
+            <mat-radio-group name="unitIncreaseFrequency" #unitIcreaseFrequencyF="ngModel"
+              [(ngModel)]="unitIncreaseFrequency" fxLayout="row wrap">
+              <mat-radio-button [value]="'never'" name="unitIncreaseFrequency">No increase</mat-radio-button>
+              <mat-radio-button [value]="'all-times'" name="unitIncreaseFrequency">Each Occurance</mat-radio-button>
+              <mat-radio-button [value]="'every-x-times'" name="unitIncreaseFrequency">Every X Occurences
+              </mat-radio-button>
+              <mat-radio-button [value]="'yearly'" name="unitIncreaseFrequency">Yearly</mat-radio-button>
+              <mat-radio-button [value]="'quarterly'" name="unitIncreaseFrequency">Quarterly</mat-radio-button>
+            </mat-radio-group>
+          </div>
+    
+          <div fxLayout="row" *ngIf="unitIncreaseFrequency == 'every-x-times'">
+            <div class="increase-rate-label">Increase per: </div>
+            <mat-form-field>
+              <mat-label>Number of occurences before increase</mat-label>
+              <input matInput type="number" required [min]="0" [(ngModel)]="xTimesUnitIncreaseInterval"
+                name="xTimesUnitIncreaseInterval" #xTimesUnitIncreaseIntervalF="ngModel">
+              <mat-error *ngIf="xTimesUnitIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error>
+            </mat-form-field>
+          </div>
+         
+        </div>
+    
+        <div class="form-section-sub" *ngIf="unitIncreaseFrequency != 'never'">
+          <div class="form-section-sub-title">Increase Rate</div>
+          <div fxLayout="row">
+            <div fxFlex="50" class="form-field increase-select">
+              <mat-radio-group name="unitIncreaseConfig" #unitIncreaseconfigF="ngModel"
+                [(ngModel)]="unitIncreaseConfig" fxLayout="row wrap">
+                <mat-radio-button [value]="'value'" name="unitIncreaseConfig">Fixed Amount</mat-radio-button>
+                <mat-radio-button [value]="'percentage'" name="unitIncreaseConfig">Percentage</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div fxFlex="50">
+              <mat-form-field *ngIf="unitIncreaseConfig == 'percentage'" class="value-increase-number">
+                <mat-label>Unit Increase Rate</mat-label>
+                <input matInput type="number" required [min]="-1000" [max]="1000" name="unitIncreaseRate"
+                  [(ngModel)]="unitIncreaseRate" #unitIncreaseRateF="ngModel" />
+                <span matSuffix>%</span>
+                <mat-hint>Rate at which the value increases for each configured increase moment.</mat-hint>
+              </mat-form-field>
+    
+              <mat-form-field *ngIf="unitIncreaseConfig != 'percentage'" class="value-increase-number">
+                <mat-label>Unit Increase Value</mat-label>
+                <input matInput type="number" required name="unitIncreaseRate"
+                  [(ngModel)]="unitIncreaseRate" #increaseRateF="ngModel" />
+                <mat-hint>Decimal value with which the value increases for each configured increase moment.</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

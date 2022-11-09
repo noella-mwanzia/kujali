@@ -3,10 +3,10 @@ import { Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
-import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { FinancialExplorerState } from '@app/model/finance/budgetting/budget-rendering-state';
 
 @Component({
   selector: 'app-financial-plan-pl-tables',

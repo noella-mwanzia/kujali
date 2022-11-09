@@ -1,5 +1,5 @@
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { AmountPerYear } from "./amount-per-year.interface";
-import { BudgetRowType } from "./budget-row-type.enum";
 
 /**
  * A single row in the budget.

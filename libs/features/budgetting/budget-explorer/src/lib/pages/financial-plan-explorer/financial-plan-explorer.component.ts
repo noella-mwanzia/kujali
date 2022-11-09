@@ -6,7 +6,8 @@ import { filter, map, Observable, Subscription, take } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { FinancialExplorerStateService, FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { FinancialExplorerState } from '@app/model/finance/budgetting/budget-rendering-state';
+import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
 
 

@@ -1,6 +1,7 @@
 import { cloneDeep as __cloneDeep } from "lodash";
 
-import { BudgetRow, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRow } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { RenderedBudget } from "@app/model/finance/planning/budget-rendering";
 
 /**

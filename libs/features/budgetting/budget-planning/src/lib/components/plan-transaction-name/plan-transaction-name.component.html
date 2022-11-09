@@ -1,0 +1,37 @@
+<div class="form-section" fxLayout="column">
+  <h4 class="mat-title type-title">{{ viewType }} Category</h4>
+
+  <div class="form-section-body" fxLayout="column">
+    <mat-form-field>
+      <mat-select [(ngModel)]="selectedCategory" name="selectedCat" #selectedCatF="ngModel"
+        placeholder="Category of {{ viewType }}" required>
+        <mat-option *ngFor="let gCategory of categories | async" [value]="gCategory">
+          {{ gCategory.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="selectedCategory">
+      <mat-select [(ngModel)]="type" name="type" #selectedTypeF="ngModel" [placeholder]="viewType + ' Type'"
+        required>
+        <mat-option *ngFor="let gType of selectedCategory.types" [value]="gType">
+          {{ gType.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="form-section" fxLayout="column">
+  <h4 class="mat-title type-title">{{ viewType }} Name</h4>
+
+  <div class="form-section-body" fxLayout="column">
+    <mat-form-field fxFlex="100">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" required [(ngModel)]="name" name="name" #nameF="ngModel" />
+
+      <mat-hint>Transaction name is a description. Do not use people names, specific service providers, ...</mat-hint>
+    </mat-form-field>
+  </div>
+</div>

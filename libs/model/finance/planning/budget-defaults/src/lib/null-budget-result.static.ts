@@ -1,5 +1,6 @@
 
-import { BudgetResult, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetResult } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { NULL_BUDGET_HEADER } from "./budget-header.null";
 
 /**

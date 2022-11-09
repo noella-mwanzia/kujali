@@ -1,7 +1,7 @@
 import { Budget } from "@app/model/finance/planning/budgets";
 import { AggregatedBudget, BudgetLineRow } from "@app/model/finance/planning/budget-rendering";
 
-import { BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 
 import { __GroupBudgetLinesByType } from "./group-lines-by-type";
 import { __RecordToHeader, __RenderLinesGroup } from "./render-groups.functions";

@@ -2,9 +2,10 @@ import { map as ___map, sum as ___sum, reduce as ___reduce } from 'lodash';
 
 import { MONTHS } from '@app/model/finance/planning/time';
 
-import { NULL_AMOUNT_PER_MONTH, NULL_BUDGET_HEADER } from '@app/model/finance/planning/budget-defaults';
-import { AmountPerMonth, AmountPerYear, BudgetRow, BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+import { AmountPerMonth, AmountPerYear, BudgetRow } from '@app/model/finance/planning/budget-lines';
 
+import { NULL_AMOUNT_PER_MONTH, NULL_BUDGET_HEADER } from '@app/model/finance/planning/budget-defaults';
 
 /**
  * Algorithm that can merge two Budget Groups together by adding up their amounts.

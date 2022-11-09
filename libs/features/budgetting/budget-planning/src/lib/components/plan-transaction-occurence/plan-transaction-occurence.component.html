@@ -1,0 +1,50 @@
+
+<div class="form-section">
+  <h4 class="mat-title type-title">Transaction or Start Date</h4>
+
+  <div class="form-section-body" fxLayout="row"> 
+
+    <mat-form-field class="left-field">
+      <mat-select [(ngModel)]="yearFrom" name="yearFrom" #selectedYearFromF="ngModel"
+                  placeholder="From (Year)" required>
+        <mat-option *ngFor="let year of years" [value]="year">
+          {{ year }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select [(ngModel)]="monthFrom" name="monthFrom" #selectedMonthFromF="ngModel"
+                  placeholder="From (Month)" required>
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{ month.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="form-section">
+  <h4 class="mat-title type-title">{{ type }} Frequency & Occurence</h4>
+
+  <div class="form-section-body" fxLayout="column">
+    <div class="form-field">
+
+      <mat-radio-group name="frequency" #frequencyF="ngModel" [(ngModel)]="frequency"
+                      fxLayout="row wrap">
+        <mat-radio-button [value]="'once'"      name="frequency">Once</mat-radio-button>
+        <mat-radio-button [value]="'all-times'" name="frequency">Monthly / Each Time</mat-radio-button>
+        <mat-radio-button [value]="'quarterly'" name="frequency">Quarterly</mat-radio-button>
+        <mat-radio-button [value]="'yearly'"    name="frequency">Yearly</mat-radio-button>
+        <mat-radio-button [value]="'every-x-times'" name="frequency">X-Months</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-form-field *ngIf="frequency == 'every-x-times'">
+      <mat-label>Occurance rate</mat-label>
+      <input matInput type="number" required [min]="0" [(ngModel)]="xTimesInterval" name="xTimesInterval" #intervalF="ngModel">
+      <mat-error *ngIf="intervalF.errors">When x-months is selected, this value is required.</mat-error>
+    </mat-form-field>
+  </div>
+</div>

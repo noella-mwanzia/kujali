@@ -1,0 +1,12 @@
+<!-- Amount / Unit type config -->
+<div class="form-section" fxLayout="column">
+  <h4 class="mat-title type-title">
+    Set {{ type }} 
+    <mat-slide-toggle (click)="toggleAmountConfig()" class="base-rule-toggle type-title">Derrived {{ type }}</mat-slide-toggle>
+  </h4>
+
+  <app-plan-transaction-value-base-amount *ngIf="!derivative"></app-plan-transaction-value-base-amount>
+  
+  <app-plan-transaction-value-derivative  *ngIf="derivative"></app-plan-transaction-value-derivative>
+
+</div>

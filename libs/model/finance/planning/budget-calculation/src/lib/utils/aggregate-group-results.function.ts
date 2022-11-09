@@ -1,4 +1,5 @@
-import { BudgetRow, BudgetRowType } from "@app/model/finance/planning/budget-lines";
+import { BudgetRow } from "@app/model/finance/planning/budget-lines";
+import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { BudgetGroup } from "@app/model/finance/planning/budget-rendering";
 
 import { __MergeBudgetLinesOfTwoGroupResults } from "./merge-lines.util";

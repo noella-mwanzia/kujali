@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BudgetRowType } from '@app/model/finance/planning/budget-lines';
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 
-import { FinancialExplorerState } from '@app/state/finance/budgetting/rendering';
+import { FinancialExplorerState } from '@app/model/finance/budgetting/budget-rendering-state';
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';

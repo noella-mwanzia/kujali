@@ -4,7 +4,8 @@ import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, 
 
 import { Logger } from "@iote/bricks-angular";
 
-import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "./model/f-explorer.state.model";
+import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
+import { _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "./model/f-explorer.state.model";
 
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
