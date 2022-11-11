@@ -111,7 +111,7 @@ export class CreateBudgetModalComponent implements OnInit
   {
     const amountsYear = new TimeTableGenerator()
       .getTimeFrameSkeleton(this.startYear, this.duration)
-      .map((y) => {
+      .map((y: any) => {
         return {
           year: y.year,
           total: 0,

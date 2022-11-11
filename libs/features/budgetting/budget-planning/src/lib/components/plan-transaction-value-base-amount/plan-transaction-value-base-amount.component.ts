@@ -15,8 +15,8 @@ export class PlanTransactionValueBaseAmountComponent
   @Input() amount: number = 0;
   @Input() units: number = 1;
 
-  @Input() type: 'amount' | 'units';
-  @Input() viewType: string;
+  @Input() type!: 'amount' | 'units';
+  @Input() viewType!: string;
   
   constructor() { }
 

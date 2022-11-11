@@ -28,7 +28,8 @@ export class PlanTransactionModalComponent // implements OnInit
   lblType: string;
 
   /** Master type of the planned transaction */
-  type!: BudgetRowType.CostLine | BudgetRowType.IncomeLine;
+  // type!: BudgetRowType.CostLine | BudgetRowType.IncomeLine;
+  type!: any;
   
   /** Mode 1 : A new line is being created through this modal. */
   isNewLine!: boolean;
@@ -98,8 +99,8 @@ export class PlanTransactionModalComponent // implements OnInit
     // form.budgetId = this.budgetId;
     
     // Process the changes and recalculate the budget. 
-    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaction)
-                                      : this._fYExplorer$$.updateTransaction(transaction);
+    // (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaction)
+    //                                   : this._fYExplorer$$.updateTransaction(transaction);
 
     this.exitModal();
   }

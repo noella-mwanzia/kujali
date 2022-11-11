@@ -15,7 +15,7 @@ export function NULL_AMOUNT_BY_YEAR_AND_MONTH(startYear: number, duration: numbe
 {
   return new TimeTableGenerator()
               .getTimeFrameSkeleton(startYear, duration)
-              .map(y => ({ 
+              .map((y: any) => ({ 
                 year: y.year,
                 amountsMonth: y.months.map(() => NULL_AMOUNT_PER_MONTH()),
                 total: 0

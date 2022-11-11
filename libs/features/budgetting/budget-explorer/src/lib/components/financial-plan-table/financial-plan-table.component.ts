@@ -145,7 +145,7 @@ export class FinancialPlanTableComponent implements OnInit
       data: { month: m.month, type: this.type, budgetId: this.budgetId }
     })
     .afterClosed()
-    .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+    // .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
   }
 
   // openCellModal(cell: BudgetRowMonths, column)
@@ -200,7 +200,7 @@ export class FinancialPlanTableComponent implements OnInit
   /** Get class for the row visualisation. */
   getClassesCell(row: BudgetRowYear, col: Month)
   {
-    const classes = [];
+    const classes: string[] = [];
     const value = this._getCellValue(row, col);
 
     if (row.isHeader || row.type == 'childResult')

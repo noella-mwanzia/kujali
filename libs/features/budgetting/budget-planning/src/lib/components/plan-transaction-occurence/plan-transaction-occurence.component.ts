@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 
-import { Frequency } from '../../model/frequency.type';
+// import { Frequency } from '../../model/frequency.type';
 
-import { YEARS, MONTHS } from '@elewa/portal-shared';
+// import { YEARS, MONTHS } from '@elewa/portal-shared';
+import { YEARS, MONTHS } from '@app/model/finance/planning/time';
 
 @Component({
   selector: 'app-plan-transaction-occurence',
@@ -13,20 +14,22 @@ import { YEARS, MONTHS } from '@elewa/portal-shared';
 })
 export class PlanTransactionOccurenceComponent implements OnInit {
 
-  @Input() type: 'cost' | 'income';
+  @Input() type!: 'cost' | 'income';
 
   years  = YEARS;
   months = MONTHS;
 
   @Input() yearFrom = 2020;
-  @Input() monthFromPassed: number;
+  @Input() monthFromPassed!: number;
   @Input() monthFrom = this.months[0];
-  @Input() frequency: Frequency = 'once'; 
+  @Input() frequency: any = 'once'; 
 
+  xTimesInterval: any;
+  
   constructor() { }
 
   ngOnInit() {
-    if (this.monthFromPassed)
+    if (this.monthFromPassed) {}
       this.monthFrom = this.months[this.monthFromPassed - 1];
   }
 

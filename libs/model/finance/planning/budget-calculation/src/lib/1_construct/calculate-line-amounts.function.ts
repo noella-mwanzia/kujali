@@ -4,7 +4,9 @@ import { Budget } from "@app/model/finance/planning/budgets";
 
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
-import { AmountPerYear, BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+// import { AmountPerYear, BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+// (IAN)
+import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from "@app/model/finance/planning/budget-defaults";
 
 import { BudgetLineRow } from '@app/model/finance/planning/budget-rendering';
@@ -34,7 +36,8 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
 }
 
 /** Algorithm responsible for calculating the value of each column in the whole budget line (accross all its years) */
-function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan[])
+// Ian
+function _populateBudgetLineValues(line: any[], plans: TransactionPlan[])
 {
   const orderedPlans = ___sortBy(plans, ['fromYear', 'fromMonth']);
 
@@ -56,7 +59,8 @@ function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan
 }
 
 /** Converts the first occurence of all transaciton occurences into a budget line. */
-function _templateToLine(template: TransactionPlan, plans: TransactionPlan[], values: AmountPerYear[]): BudgetLineRow
+//Ian
+function _templateToLine(template: TransactionPlan, plans: TransactionPlan[], values: any[]): BudgetLineRow
 {
   return {
     id: template.lineId,

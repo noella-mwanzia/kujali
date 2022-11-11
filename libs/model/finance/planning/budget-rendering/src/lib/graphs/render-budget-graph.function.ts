@@ -5,7 +5,8 @@ import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { AmountPerYear } from "@app/model/finance/planning/budget-lines";
 import { BudgetRowYear } from "@app/model/finance/planning/budget-lines-by-year";
 
-import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
+// (IAN)
+// import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
 
 const COLOR_RANGES = ['#7986cb', '#3f51b5', '#666ad1', '#001970', '#536dfe', '#26c6da', '#0097a7'];
 
@@ -23,7 +24,7 @@ export function ___CreateGraphBalanceLine(balance: BudgetRowYear)
               .reduce((prev, curr) => prev.concat(curr));
   }
  
-export function ___CreateGraphBlocks(result: FinancialExplorerState) 
+export function ___CreateGraphBlocks(result: any) 
 {
   return [
     _toGraphBlock(result.scopedResult, 0),
@@ -46,7 +47,7 @@ export function ___CreateGraphBlocks(result: FinancialExplorerState)
 
 export function ___CreateGraphLabels(timeSkeleton: AmountPerYear[]): string[]
 {
-  const labels = [];
+  const labels: string[] = [];
   for (const year of timeSkeleton)
   {
     labels.push(year.year + ' - jan');

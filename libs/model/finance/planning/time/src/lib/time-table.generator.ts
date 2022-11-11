@@ -11,7 +11,7 @@ export class TimeTableGenerator
    */
   getTimeFrameSkeleton(startYear: number, durationInYears: number)
   {
-    const years = [];
+    const years: any = [];
     for (let i = startYear; i < startYear + durationInYears; i++) {
       years.push({ year: i, months: MONTHS.map(month => month.month) });
     }

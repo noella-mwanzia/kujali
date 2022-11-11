@@ -3,7 +3,8 @@ import { clone as ___clone } from 'lodash';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 import { AmountPerYear, BudgetRow } from "@app/model/finance/planning/budget-lines";
 
-import { FinancialExplorerState } from "./f-explorer.state.model";
+// IAN
+// import { FinancialExplorerState } from "./f-explorer.state.model";
 import { NULL_AMOUNT_BY_YEAR_AND_MONTH } from '@app/model/finance/planning/budget-defaults';
 import { Budget } from '@app/model/finance/planning/budgets';
 
@@ -13,17 +14,18 @@ import { Budget } from '@app/model/finance/planning/budgets';
  * @param state - The  to scope
  * @param year  - The year to scope too
  */
-export function __ScopeStateToYear(state: FinancialExplorerState)
+export function __ScopeStateToYear(state: any)
 {
   const year = state.year;
 
   if(state.loaded)
   {
-    state.scopedCosts        = state.budget.costs.map(c => _scopeLine(state.budget, year, c));
+    // TODO (IAN) add strict types to map 
+    state.scopedCosts        = state.budget.costs.map((c: any) => _scopeLine(state.budget, year, c));
     state.scopedCostTotals   = _scopeLine(state.budget, year, state.budget.costTotals);
-    state.scopedIncome       = state.budget.income.map(c => _scopeLine(state.budget, year, c));
+    state.scopedIncome       = state.budget.income.map((c: any) => _scopeLine(state.budget, year, c));
     state.scopedIncomeTotals = _scopeLine(state.budget, year, state.budget.incomeTotals);
-    state.scopedChildBudgets = state.budget.children.map(c => _scopeLine(state.budget, year, c.header));
+    state.scopedChildBudgets = state.budget.children.map((c: any) => _scopeLine(state.budget, year, c.header));
     state.scopedResult       = _scopeLine(state.budget, year, state.budget.result);
     state.scopedBalance      = _scopeLine(state.budget, year, state.budget.balance);
   }

@@ -22,7 +22,7 @@ export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems
   const occurencesByLine = ___groupBy(plannedItems, 'transactionId');
 
   // Loop keys
-  const byTransaction = [];
+  const byTransaction: any[] = [];
   for (const lineId in occurencesByLine)
   {
     // Take the first transaction -> Each row represents a transactions.
