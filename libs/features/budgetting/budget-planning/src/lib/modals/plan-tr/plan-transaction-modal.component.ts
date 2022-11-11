@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
@@ -10,8 +10,8 @@ import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } f
 import { CostTypesStore } from '@app/state/finance/cost-types';
 
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
-import { CreateTransactionForm } from '../../model/create-transaction-form.interface';
 
+import { CreateTransactionForm } from '../../model/create-transaction-form.interface';
 
 @Component({
   selector: 'app-plan-transaction',
@@ -21,6 +21,8 @@ import { CreateTransactionForm } from '../../model/create-transaction-form.inter
 export class PlanTransactionModalComponent // implements OnInit
 {
   @ViewChild('form', { static: true }) form!: NgForm;
+
+  plannedTransactionForm!: FormGroup;
 
   model!: TransactionPlan;
   title: string;

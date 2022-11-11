@@ -10,7 +10,7 @@ import { MONTHS } from '@app/model/finance/planning/time';
 import { Budget } from '@app/model/finance/planning/budgets';
 import { RenderedBudget, ___CreateGraphBalanceLine, ___CreateGraphBlocks, ___CreateGraphLabels } from '@app/model/finance/planning/budget-rendering';
 
-// import { FinancialExplorerState } from '@app/model/finance/budgetting/budget-rendering-state';
+import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
 @Component({
   selector: 'app-financial-plan-burn-chart',
@@ -19,9 +19,7 @@ import { RenderedBudget, ___CreateGraphBalanceLine, ___CreateGraphBlocks, ___Cre
 })
 export class FinancialPlanBurnChartComponent implements OnInit
 {
-  // fix type (Ian)
-  // @Input() state$! : Observable<FinancialExplorerState>;
-  @Input() state$! : Observable<any>;
+  @Input() state$! : Observable<FinancialExplorerState>;
 
   budget$!: Observable<RenderedBudget>;
   year$!  : Observable<number>;

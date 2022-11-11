@@ -5,8 +5,7 @@ import { BudgetRowType } from "@app/model/finance/planning/budget-grouping";
 import { AmountPerYear } from "@app/model/finance/planning/budget-lines";
 import { BudgetRowYear } from "@app/model/finance/planning/budget-lines-by-year";
 
-// (IAN)
-// import { FinancialExplorerState } from "@app/model/finance/budgetting/budget-rendering-state";
+import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
 const COLOR_RANGES = ['#7986cb', '#3f51b5', '#666ad1', '#001970', '#536dfe', '#26c6da', '#0097a7'];
 
@@ -24,7 +23,7 @@ export function ___CreateGraphBalanceLine(balance: BudgetRowYear)
               .reduce((prev, curr) => prev.concat(curr));
   }
  
-export function ___CreateGraphBlocks(result: any) 
+export function ___CreateGraphBlocks(result: FinancialExplorerState) 
 {
   return [
     _toGraphBlock(result.scopedResult, 0),
