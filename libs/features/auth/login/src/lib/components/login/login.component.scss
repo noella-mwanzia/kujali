@@ -1,6 +1,19 @@
 $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
+
+.form-body {
+    padding-top: 50px;
+    align-self: center;
+    width: 100%;
+}
+
+.login-title {
+    font-family: var(--kujali-segoe-ui-bold);
+    color: #0047AB;
+    font-size: 2rem;
+}
+
 .uppercase-txt {
     text-transform: uppercase;
 }
@@ -54,6 +67,7 @@ $secondary-elements-color: white;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-right: -2px;
+
     &.form-field-icon {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -61,10 +75,12 @@ $secondary-elements-color: white;
         background-color: #70739D0D;
         max-height: 35px;
     }
+
     &.google-icon {
         color: $secondary-elements-color;
         background-color: #de5246;
     }
+
     &.fb-icon {
         color: $secondary-elements-color;
         background-color: #29487D;
@@ -75,21 +91,25 @@ $secondary-elements-color: white;
     min-height: 40px;
 }
 
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    // border-bottom: 1px solid black;
-    width: 100%;
-}
 
 #login-button {
     width: 100%;
-    background-color: $primary-color;
-    font-size: 12px;
-    height: 30px;
+    color: white;
+    background-color: #0047AB;
 }
 
-.form-body {
-    align-self: center;
+#login-button:hover {
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .mat-form-field-outline {
+    background-color: white!important;
+}
+
+::ng-deep .mat-form-field {
     width: 100%
+}
+
+::ng-deep .mat-form-field-infix {
+    border-top-width: 2px !important;
 }

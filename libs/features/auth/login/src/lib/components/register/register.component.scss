@@ -5,6 +5,11 @@ $secondary-elements-color: white;
     text-transform: uppercase;
 }
 
+.form-body {
+    padding-top: 50px;
+    width: 100%;
+}
+
 #googleBtn {
     background-color: #de5246;
     color: $secondary-elements-color;
@@ -75,20 +80,8 @@ $secondary-elements-color: white;
     min-height: 40px;
 }
 
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    width: 100%!important;
-}
-
 #register-button {
     width: 100%;
-    background-color: $primary-color;
-    font-size: 12px;
-    height: 30px;
-}
-
-.form-body {
-    align-self: center;
-    width: 80%;
+    color: white;
+    background-color: #0047AB;
 }
