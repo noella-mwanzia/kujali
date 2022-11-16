@@ -57,7 +57,6 @@ export class AuthPageComponent implements OnInit, OnDestroy
   
   toggleMode()
   {
-    debugger
     this.isLogin=false;
 
     if(!this.isLogin)
