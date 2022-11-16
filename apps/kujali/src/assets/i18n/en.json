@@ -42,12 +42,103 @@
       "LEARN-MORE-LINK": "https://italanta.net" 
     }
   },
+  "MODAL": {
+    "CLOSE": "Close"
+  },
   "PAGE-CONTENT": {
     "BLOCKS": {
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location"
       }
+    }
+  },
+  "PL": {
+    "TABLE": {
+      "TYPE-HEADER": "Type",
+      "CAT-HEADER": {
+        "TITLE": "Category",
+        "TOTAL": "Total"
+      }
+    }
+  },
+  "BUDGETS": {
+    "HEADERS": {
+      "RESULT": "Result"
+    }
+  },
+  "BUDGETTING": {
+    "LINES" : {
+      "INCOME": "Income",
+      "COST" : "Cost"
+    }
+  },
+  "PL-EXPLORER": {
+    "TRPLANNER": {
+      "ACTION-UPDATE": "Update",
+      "TITLE-INCOME": "Income",
+      "INCOME-TYPE": "Income",
+      "COST-TYPE": "Cost",
+      "TITLE-COST": "Cost"
+    }
+  },
+  "FIN": {
+    "TM": {
+      "JAN": "January",
+      "FEB": "February",
+      "MAR": "March",
+      "APR": "April",
+      "MAY": "May",
+      "JUN": "June",
+      "JUL": "July",
+      "AUG": "August",
+      "SEP": "September",
+      "OCT": "October",
+      "NOV": "November",
+      "DEC": "December"
+    }
+  },
+  "INCOME-TYPES": {
+    "SALES": {
+      "MAIN": "Sales",
+      "GOODS": "Goods",
+      "CONSULTING": "Consulting",
+      "ROYALTIES": "Royalties",
+      "MISC": "Miscellaneous"
+    },
+    "INVS": {
+      "MAIN": "Invoices",
+      "EQUITY": "Equity",
+      "CONSULTING": "Consulting",
+      "MISC": "Miscellaneous"
+    }
+  },
+  "COST-TYPES": {
+    "COS": {
+      "MAIN": "Costs",
+      "SALES": "Sales",
+      "MATERIALS": "Materials",
+      "STAFF": "Staff",
+      "MISC": "Miscellaneous"
+    },
+    "EXP": {
+      "MAIN": "Expenses",
+      "PAYROLL": "Payroll",
+      "OFFICE": "Office",
+      "MATERIALS": "Materials",
+      "RENTS": "Rents",
+      "ADMIN": "Admin",
+      "LEGAL": "Legal",
+      "FINANCE": "Finance",
+      "FLEET": "Fleet",
+      "MISC": "Miscellaneous"
+    },
+    "INVST": {
+      "MAIN": "Investments",
+      "FLEET": "Fleet",
+      "EQUIPMENT": "Equipment",
+      "FINANCE": "Finance",
+      "MISC": "Miscellaneous"
     }
   }
 }
