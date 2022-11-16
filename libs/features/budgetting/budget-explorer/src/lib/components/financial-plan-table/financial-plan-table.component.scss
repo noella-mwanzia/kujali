@@ -3,6 +3,11 @@ table {
   margin-bottom: 20px;
 }
 
+th, td {
+  box-sizing: border-box!important;
+  padding: 5px 10px!important;
+}
+
 .amount-cell, .end-cell, .footer-cell-totals {
   border-left: 1px solid #eee;
   padding-left: 10px;
