@@ -1,15 +1,18 @@
 <!-- Table Holder with Prev and Next buttons -->
-<div fxLayout="row">
-  <div fxFlex="5" fxLayoutAlign="center center">
-    <button (click)="navigateYear('prev')" mat-mini-fab>&lt;&lt;</button>
+<div fxLayout="column">
+  <h3 *ngIf="title">{{ title }}</h3>
+
+  <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px">
+    <div fxLayoutAlign="center center">
+      <button (click)="navigateYear('prev')" mat-stroked-button>Previous year</button>
+    </div>
+  
+    <div fxLayoutAlign="center center">
+      <button (click)="navigateYear('next')" mat-stroked-button>Next year</button>
+    </div>
   </div>
 
-  <div fxFlex="90">
-    <h3 *ngIf="title">{{ title }}</h3>
+  <div>
     <ng-content></ng-content>
-  </div>
-
-  <div fxFlex="5" fxLayoutAlign="center center">
-    <button (click)="navigateYear('next')" mat-mini-fab>&gt;&gt;</button>
   </div>
 </div>
