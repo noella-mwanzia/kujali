@@ -1,36 +1,45 @@
-import { FormBuilder } from "@angular/forms"
+import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 
-export function CreateTransactionForm (_fb: FormBuilder) {
+import { YEARS, MONTHS } from "@app/model/finance/planning/time"
+
+export function CreateTransactionFormGroup (_fb: FormBuilder): FormGroup {
   return _fb.group({
-    createdBy: [''],
 
-    type: [],
-    name: [''],
-  
-    budgetId: [''],
-  
-    amount: [0],
-    units: [0],
-  
-    yearFrom: [0],
-    monthFrom: [],
-  
-    frequency: [0],
-    xTimesInterval: [0],
-  
-    transactionId: [''],
-  
-    baseTypeMultiplier: [0],
-  
-    hasIncrease: [false],
-    amountIncreaseConfig: [false] ,
-    amountIncreaseFrequency: [0],
-    amountIncreaseRate: [0],
-    xTimesAmountIncreaseInterval: [0],
-  
-    unitIncreaseConfig: [false],
-    unitIncreaseFrequency: [0],
-    unitIncreaseRate: [0],
-    xTimesUnitIncreaseInterval: [0],
+    // Section 1: Transaction
+    pTNameFormGroup: _fb.group({
+      type: ['', Validators.required],
+      name: ['', Validators.required],
+      budgetId: ['']
+    }),
+
+    // Section 2: Value base
+    pTValueBaseFormGroup: _fb.group({
+      amount: [0, Validators.required],
+      units: [0, Validators.required]
+    }),
+
+    // Section 3: Occurence
+    pTOccurenceFormGroup: _fb.group({
+      fromYear: [YEARS[0], Validators.required],
+      fromMonth: [MONTHS[0], Validators.required],
+      frequency: ['Once', Validators.required],
+      xTimesInterval: [0]
+    }),
+
+    // Section 4: determined by section 3 frequency
+    pTIncreaseFormGroup: _fb.group({
+      hasIncrease: [false],
+      amountIncreaseFrequency: [0],
+      xTimesAmountIncreaseInterval: [0, Validators.required],
+
+      amntIncrConfig: [''],
+      amountIncreaseRate: [0, Validators.required],
+
+      unitIncrConfig: [''],
+      unitIncreaseRate: [0, Validators.required],
+      unitIncreaseFrequency: [0],
+      xTimesUnitIncreaseInterval: [0],
+    })
+
   })
 }
