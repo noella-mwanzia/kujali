@@ -8,40 +8,69 @@
 @include mat-core();
 
 $mat-ele: (
-  50: #e3efff,
-  100: #c3d8e9,
-  200: #a5bdd2,
-  300: #85a2bb,
-  400: #0071BC,
-  500: #000000,
-  600: #486b86,
-  700: #39576f,
-  800: #151B4A,
-  900: #000839,
-  A100: #02B3FE,
-  A200: #ffce32,
-  A400: #EB6766,
-  A700: #000BC4,
-  A800: #dbcbf0,
-  A900: #6418C3,
-
-  contrast: (
-    50: #666,
-    100: #666,
-    200: #666,
-    300: #666,
-    400: $white-87-opacity,
-    500: #ffffff,
-    600: $white-87-opacity,
-    700: $white-87-opacity,
-    800: $white-87-opacity,
-    900: white,
-    A100: $black-87-opacity,
-    A200: black,
-    A400: white,
-    A700: white,
+  50 : #e6e8f3,
+  100 : #c1c5e2,
+  200 : #989fcf,
+  300 : #6e79bc,
+  400 : #4f5cad,
+  500 : #303f9f,
+  600 : #2b3997,
+  700 : #24318d,
+  800 : #1e2983,
+  900 : #131b72,
+  A100 : #a8aeff,
+  A200 : #757eff,
+  A400 : #424fff,
+  A700 : #2937ff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
   )
 );
+
+$mat-ele-accent: (
+  50 : #eaf5ea,
+  100 : #c9e7cb,
+  200 : #a6d7a8,
+  300 : #82c785,
+  400 : #67bb6a,
+  500 : #4caf50,
+  600 : #45a849,
+  700 : #3c9f40,
+  800 : #339637,
+  900 : #248627,
+  A100 : #c5ffc7,
+  A200 : #92ff95,
+  A400 : #5fff64,
+  A700 : #46ff4b,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
 
 /*  A100: #b9e4f8,
   A200: #8ed2f3,
@@ -52,10 +81,10 @@ $mat-ele: (
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $primary: mat-palette($mat-ele);
-$accent:  mat-palette($mat-ele, A200, A100, A400);
+$accent: mat-palette($mat-ele-accent);
 
 // The warn palette is optional (defaults to red).
-$warn:    mat-palette($mat-red);
+$warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $theme: mat-light-theme($primary, $accent, $warn);
@@ -69,7 +98,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 //
 
 .mat-toolbar.mat-primary {
-  background:#ffffff;
+  background: #ffffff;
   color: $black-87-opacity;
   font-family: "Varela Round", "Open Sans", "Segoe UI", Tahoma, sans-serif;
 }
@@ -78,36 +107,50 @@ $theme: mat-light-theme($primary, $accent, $warn);
 //
 
 // Typography: https://medium.com/razroo/angular-material-typography-a63dbd0c1ed4
-$custom-typography: mat-typography-config(
-  $font-family: 'Lato, sans-serif',
+$custom-typography: mat-typography-config($font-family: 'Lato, sans-serif',
 
-  $display-4:  mat-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
-  $display-3:  mat-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
-  $display-2:  mat-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
-  $display-1:  mat-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
+    $display-4: mat-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
+    $display-3: mat-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
+    $display-2: mat-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
+    $display-1: mat-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
 
-  $headline:       mat-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
-  $title:          mat-typography-level(20px, 32px, 500, 'Varela Round, sans-serif'),
-  $subheading-2:   mat-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
-  $subheading-1:   mat-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
+    $headline: mat-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
+    $title: mat-typography-level(20px, 32px, 500, 'Varela Round, sans-serif'),
+    $subheading-2: mat-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
+    $subheading-1: mat-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
 
-  $body-2:  mat-typography-level(14px, 24px, 500),
-  $body-1:  mat-typography-level(14px, 20px, 500),
-  $caption: mat-typography-level(12px, 20px, 400),
-  $button:  mat-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
-  $input:   mat-typography-level(inherit, 1.125, 400)
-);
+    $body-2: mat-typography-level(14px, 24px, 500),
+    $body-1: mat-typography-level(14px, 20px, 500),
+    $caption: mat-typography-level(12px, 20px, 400),
+    $button: mat-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
+    $input: mat-typography-level(inherit, 1.125, 400));
 @include angular-material-typography($custom-typography);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: "Lato", sans-serif; background-color: #F2F6F9 }
+html,
+body {
+  height: 100%;
+}
 
-button:focus {outline:0;}
-a:focus {outline:0;}
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  background-color: #F2F6F9
+}
 
-.container { padding: 16px; }
+button:focus {
+  outline: 0;
+}
 
-.flex-spacer, .fill-remaining {
+a:focus {
+  outline: 0;
+}
+
+.container {
+  padding: 16px;
+}
+
+.flex-spacer,
+.fill-remaining {
   flex-grow: 1;
 }
 
@@ -132,7 +175,8 @@ a:focus {outline:0;}
   min-width: 600px;
 }
 
-.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background: #32382D;
 }
 
@@ -158,10 +202,10 @@ a:focus {outline:0;}
   margin: 10px inherit;
 }
 
-  .form-field-label {
-    margin-right: 15px;
-    margin-bottom: 5px;
-  }
+.form-field-label {
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
 
 .breadcrumbs-container {
   background: #fff;
@@ -181,7 +225,7 @@ a:focus {outline:0;}
   bottom: 4px;
 }
 
-.section-container{
+.section-container {
   margin-bottom: 20px;
   background-color: #ffffff;
 }
@@ -194,7 +238,7 @@ a:focus {outline:0;}
   padding: 0 16px;
 }
 
-.header-area{
+.header-area {
   min-height: 50px;
 }
 
@@ -209,33 +253,30 @@ a:focus {outline:0;}
 /*
  *  Scrollbar styling
  */
- ::-webkit-scrollbar-track
- {
-   box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
-   -webkit-box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
-   background-color: #F5F5F5;
-   border-radius: 2px;
- }
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+  background-color: #F5F5F5;
+  border-radius: 2px;
+}
 
- ::-webkit-scrollbar
- {
- width: 5px;
- height: 5px;
- background-color: #F5F5F5;
- }
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #F5F5F5;
+}
 
 
- ::-webkit-scrollbar-thumb
- {
-   background-color: #e2e2e2;
-   border: 5px solid #C1C1C1;
-   border-radius: 3px;
+::-webkit-scrollbar-thumb {
+  background-color: #e2e2e2;
+  border: 5px solid #C1C1C1;
+  border-radius: 3px;
 
- }
+}
 
- ::-webkit-scrollbar:hover {
-   width: 10px;
- }
+::-webkit-scrollbar:hover {
+  width: 10px;
+}
 
 /** Responsive tables **/
 // Note ***: Table has to include the '.mobile-label'
@@ -252,11 +293,13 @@ a:focus {outline:0;}
     margin-right: 5px;
   }
 
-  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type{
+  mat-cell:first-of-type,
+  mat-header-cell:first-of-type,
+  mat-footer-cell:first-of-type {
     margin-left: -24px !important;
   }
 
-  mat-cell{
+  mat-cell {
     max-width: 100% !important;
     align-items: start !important;
   }
@@ -271,4 +314,3 @@ a:focus {outline:0;}
     padding: 20px 5px;
   }
 }
-
