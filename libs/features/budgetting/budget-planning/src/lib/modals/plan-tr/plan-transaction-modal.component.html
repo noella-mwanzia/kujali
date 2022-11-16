@@ -1,51 +1,62 @@
-<div style="text-align: right"><span (click)="exitModal()" class="close-modal-btn"><i class="far fa-times-circle"></i> {{ 'MODAL.CLOSE' | transloco }}</span></div>
+<div style="text-align: right">
+  <span (click)="exitModal()" class="close-modal-btn">
+    <i class="fa-regular fa-circle-xmark"></i>
+  </span>
+</div>
 
-<form #form="ngForm" (ngSubmit)="saveTransaction(form.value)" fxLayout="column">
+<form [formGroup]="plannedTransactionFormGroup" (ngSubmit)="saveTransaction(plannedTransactionFormGroup.value)"
+  fxLayout="column">
 
   <div fxLayout="row">
-    <h2 class="mat-title modal-title">{{ lblAction | transloco }} <span class="type-title">{{ lblType | transloco }}</span></h2> 
+    <h2 class="mat-title modal-title">{{ lblAction | transloco }} <span class="type-title">{{ lblType | transloco
+        }}</span></h2>
     <div style="flex: 1;"></div>
-    <button type="submit" class="btn-submit"  
-            class="btn-submit" fxLayoutAlign="end" mat-raised-button color="accent" 
-            [disabled]="!form.valid">
-      {{ lblAction }} {{ lblType | transloco }}
+    <button type="submit" class="btn-submit" class="btn-submit" fxLayoutAlign="end" mat-raised-button color="accent"
+      [disabled]="!plannedTransactionFormGroup.valid">
+      {{ lblAction | transloco }} {{ lblType | transloco }}
     </button>
   </div>
   <hr class="title-line" />
 
 
-  <div fxLayout="row" class="form-body">
-    
-    <mat-horizontal-stepper [linear]="true" #stepper fxFlex="100">
+  <div [formGroup]="plannedTransactionFormGroup" fxLayout="row" class="form-body">
 
-      <!-- <mat-step [stepControl]="fgLineConfig" #fgLineConfig="ngModelGroup" [hasError]="!fgLineConfig.valid"> -->
-      <mat-step>
+    <mat-stepper #stepper linear fxFlex="100">
+
+      <mat-step [stepControl]="getFormGroup('pTNameFormGroup')" [hasError]="!getFormGroup('pTNameFormGroup').valid">
         <ng-template matStepLabel>{{ title | transloco }}</ng-template>
-        <app-plan-transaction-name [categoryType]="type"></app-plan-transaction-name>
+        <app-plan-transaction-name [pTNameFormGroup]="plannedTransactionFormGroup" [categoryType]="type"
+          [categories]="categories">
+        </app-plan-transaction-name>
 
         <button matStepperNext class="btn-modal" mat-raised-button color="primary" type="button"
-                [disabled]="!form.value.selectedCat || !form.value.selectedType || !form.value.name">
+          [disabled]="!getFormGroup('pTNameFormGroup').valid">
           Next
         </button>
       </mat-step>
 
-      <!-- <mat-step [stepControl]="fgBase" #fgBase="ngModelGroup" [hasError]="!fgBase.valid"> -->
-      <mat-step >
+      <mat-step [stepControl]="getFormGroup('pTValueBaseFormGroup')"
+        [hasError]="!getFormGroup('pTValueBaseFormGroup').valid">
         <ng-template matStepLabel>Initial Value</ng-template>
 
         <div class="form-section" fxLayout="column">
           <h4 class="mat-title type-title">Set Amount</h4>
-          <app-plan-transaction-value-base-amount [amount]="amount" type="amount" viewType="Amount"></app-plan-transaction-value-base-amount>
+          <app-plan-transaction-value-base-amount
+            [planTransactionValueBaseAmountFormGroup]="plannedTransactionFormGroup" [amount]="amount" type="amount"
+            viewType="Amount"></app-plan-transaction-value-base-amount>
         </div>
 
         <div class="form-section" fxLayout="column">
           <h4 class="mat-title type-title">Set Units</h4>
-          <app-plan-transaction-value-base-amount [units]="units" type="units" viewType="Units"></app-plan-transaction-value-base-amount>
+          <app-plan-transaction-value-base-amount
+            [planTransactionValueBaseAmountFormGroup]="plannedTransactionFormGroup" [units]="units" type="units"
+            viewType="Units"></app-plan-transaction-value-base-amount>
         </div>
 
         <div fxLayout="row" fxFlex="100">
           <div fxFlex="100">
-            <button matStepperNext class="btn-modal" mat-raised-button color="primary" [disabled]="!(form.value.amount > 0 && form.value.units > 0)"  type="button">Next</button>
+            <button matStepperNext class="btn-modal" mat-raised-button color="primary"
+              [disabled]="!getFormGroup('pTValueBaseFormGroup').valid" type="button">Next</button>
             <button matStepperPrevious class="btn-modal" mat-button>Previous</button>
           </div>
         </div>
@@ -53,40 +64,35 @@
       </mat-step>
 
       <!-- <mat-step [stepControl]="fgOccurence" #fgOccurence="ngModelGroup" ngModelGroup="occurence" [hasError]="!fgOccurence.valid"> -->
-      <mat-step>
+      <mat-step [stepControl]="getFormGroup('pTOccurenceFormGroup')"
+        [hasError]="!getFormGroup('pTOccurenceFormGroup').valid">
         <ng-template matStepLabel>Transaction Time</ng-template>
 
-        <app-plan-transaction-occurence [type]="type" 
-                                        [yearFrom]="yearFrom" 
-                                        [monthFromPassed]="monthFrom">
+        <app-plan-transaction-occurence [type]="type" [yearFrom]="yearFrom" [monthFromPassed]="monthFrom"
+          [planTransactionOccurenceFormGroup]="plannedTransactionFormGroup">
         </app-plan-transaction-occurence>
 
         <div fxLayout="row" fxFlex="100">
           <div fxFlex="100">
             <button matStepperNext class="btn-modal" mat-raised-button color="primary"
-                    [disabled]="!form.valid || (form.valid && (!form.value.yearFrom  || !form.value.monthFrom || !form.value.frequency)) || (form.valid && form.value.frequency == 'once')" type="button">
-                  Next
+              [disabled]="!getFormGroup('pTOccurenceFormGroup').valid" type="button">
+              Next
             </button>
             <button matStepperPrevious class="btn-modal" mat-button>Previous</button>
           </div>
         </div>
       </mat-step>
 
-      <mat-step *ngIf="form.value.frequency != null && form.value.frequency != 'once'" >
-      <!-- <mat-step *ngIf="form.value.frequency != null && form.value.frequency != 'once'" 
+      <mat-step
+        *ngIf="getFormGroup('pTOccurenceFormGroup').value.frequency != null && getFormGroup('pTOccurenceFormGroup').value.frequency != 'Once'">
+        <!-- <mat-step *ngIf="form.value.frequency != null && form.value.frequency != 'once'" 
                 [stepControl]="fgIncrease" #fgIncrease="ngModelGroup" ngModelGroup="increase" [hasError]="!fgIncrease.valid"> -->
         <ng-template matStepLabel>Increase</ng-template>
 
-        <!-- <app-plan-transaction-increase [type]="type" [frequency]="form.value.frequency"></app-plan-transaction-increase> -->
-        <app-plan-transaction-increase [type]="type" ></app-plan-transaction-increase>
+        <app-plan-transaction-increase [planTransactionIncreaseFormGroup]="plannedTransactionFormGroup" [type]="type"
+          [frequency]="getFormGroup('pTOccurenceFormGroup').value.frequency"></app-plan-transaction-increase>
 
       </mat-step>
-
-    </mat-horizontal-stepper>
-  
-
-  </div> 
-
-  
-
+    </mat-stepper>
+  </div>
 </form>

@@ -1,17 +1,18 @@
-import { Component, ViewChild, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
-import { PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { TranslateService } from '@ngfi/multi-lang';
+
+import { BudgetItemFrequency, TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 import { CostTypesStore } from '@app/state/finance/cost-types';
-
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 
-import { CreateTransactionForm } from '../../model/create-transaction-form.interface';
+import { CreateTransactionFormGroup } from '../../model/create-transaction-form.model';
 
 @Component({
   selector: 'app-plan-transaction',
@@ -20,14 +21,14 @@ import { CreateTransactionForm } from '../../model/create-transaction-form.inter
 })
 export class PlanTransactionModalComponent // implements OnInit
 {
-  @ViewChild('form', { static: true }) form!: NgForm;
-
-  plannedTransactionForm!: FormGroup;
+  plannedTransactionFormGroup!: FormGroup;
 
   model!: TransactionPlan;
   title: string;
   lblAction: string;
   lblType: string;
+
+  budgetId: string;
 
   /** Master type of the planned transaction */
   // type!: BudgetRowType.CostLine | BudgetRowType.IncomeLine;
@@ -58,12 +59,19 @@ export class PlanTransactionModalComponent // implements OnInit
   /** Line units */
   units  = 1; 
 
-  constructor(private _costTypes$$: CostTypesStore,
+  constructor(private _fb: FormBuilder,
+              private _translation: TranslateService,
+              private _costTypes$$: CostTypesStore,
               private _fYExplorer$$: FinancialExplorerStateService,
               private _dialog: MatDialogRef<PlanTransactionModalComponent>, 
-              
-              @Inject(MAT_DIALOG_DATA) data: PlanTrInput) 
+              @Inject(MAT_DIALOG_DATA) data: any
+  ) 
   {
+    this._translation.initialise();
+    this.budgetId = data.budgetId as string;
+
+    this.plannedTransactionFormGroup = CreateTransactionFormGroup(_fb);
+
     const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
 
     this.type = cmd.type;
@@ -82,27 +90,38 @@ export class PlanTransactionModalComponent // implements OnInit
                                                         : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
   }
 
-  validateName() {
-    const value = this.form.value;
-
-    return ! (value.selectedCategory && value.selectedType && value.name);
+  getFormGroup(formGroup: string): FormGroup {
+    return this.plannedTransactionFormGroup.get(formGroup) as FormGroup;
   }
 
-  saveTransaction(form: CreateTransactionForm)
+  validateName() {
+    const nameForm = this.plannedTransactionFormGroup.get('pTNameFormGroup') as FormGroup;
+    return !(nameForm.value.selectedCategory && nameForm.value.selectedType && nameForm.value.name);
+  }
+
+  saveTransaction(form: any)
   {
-    if(!form.hasIncrease) {
-      form.hasIncrease = false; 
+
+    // TODO Review IAN <> JENTE
+    let transaciton = {
+      ...form.pTNameFormGroup,
+      ...form.pTValueBaseFormGroup,
+      ...form.pTOccurenceFormGroup,
+      ...form.pTIncreaseFormGroup,
+      budgetId: this.budgetId,
+      king: true
     }
 
-    //
-    // TODO(Ian): Fix subforms and convert form to PlannedTransaction
-    //
-
-    // form.budgetId = this.budgetId;
+    if(!transaciton.hasIncrease) {
+      transaciton.hasIncrease = false; 
+    }
+  
+    transaciton.frequency = BudgetItemFrequency[transaciton.frequency];
+    transaciton.mode = transaciton.type.type;
     
     // Process the changes and recalculate the budget. 
-    // (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaction)
-    //                                   : this._fYExplorer$$.updateTransaction(transaction);
+    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
+                                      : this._fYExplorer$$.updateTransaction(transaciton);
 
     this.exitModal();
   }

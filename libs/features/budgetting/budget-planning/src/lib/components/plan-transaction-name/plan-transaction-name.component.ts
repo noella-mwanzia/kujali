@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+
+import { LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 // import { GroupedTransactionType } from '../../../transaction-type-management/model/grouped-transaction-type.interface';
 // import { TransactionType } from '../../../transaction-type-management/model/transaction-type.interface';
@@ -11,26 +14,33 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-plan-transaction-name',
   templateUrl: './plan-transaction-name.component.html',
-  styleUrls: ['../transaction-planner-form.style.scss'],
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
+  styleUrls: ['../../shared/transaction-planner-form.style.scss'],
 })
+
 export class PlanTransactionNameComponent implements OnInit {
 
-  @Input() categoryType!: 'cost' | 'income' ;
-  viewType!: string;
+  @Input() pTNameFormGroup: FormGroup;
+  @Input() categoryType: 'cost' | 'income';
+  @Input() categories: Observable<LoadedTransactionTypeCategory[]>;
 
-  name!: string;
+  selectedCategory: LoadedTransactionTypeCategory;
+  type: LoadedTransactionType;
 
-  categories!: Observable<any[]>;
-  selectedCategory: any;
-  type: any;
+  viewType: string;
+  name: string;
 
-  // constructor(private _transactionTypesService: TransactionTypeService) { }
+  // TODO Review (IAN <> JENTE)
+  
+  // constructor(private _transactionTypesService: TransactionTypeService,
+  //             private _costTypes$$: CostTypesStore,
+  // ) { }
 
   ngOnInit() {
     // this.categories = this._transactionTypesService.getTransactionCategoryTypes(this.categoryType);
-    this.categories = of([{name: 1, types:[{name: 1}]}, {name: 1, types:[{name: 1}]}, {name: 1, types:[{name: 1}]}]);
-
     this.viewType = this.categoryType == 'cost' ? 'Budget' : 'Target';
+  }
+
+  categoryChanged(category: MatSelectChange) {
+    this.selectedCategory = category.value;
   }
 }

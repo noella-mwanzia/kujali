@@ -1,40 +1,61 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { MatRadioChange } from '@angular/material/radio';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
-// import { Frequency } from '../../model/frequency.type';
+import { BudgetItemFrequency } from '@app/model/finance/planning/budget-items';
 
 @Component({
   selector: 'app-plan-transaction-increase',
   templateUrl: './plan-transaction-increase.component.html',
-  styleUrls: ['../transaction-planner-form.style.scss', './plan-transaction-increase.component.scss'],
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
+  styleUrls: ['../../shared/transaction-planner-form.style.scss', './plan-transaction-increase.component.scss'],
 })
 export class PlanTransactionIncreaseComponent implements OnInit
 {
+  // TODO Review (IAN <> JENTE)
+  @Input() planTransactionIncreaseFormGroup: FormGroup;
   @Input() type!: 'cost' | 'income';
 
   // Occurence Frequency
-  // @Input() frequency: Frequency;
-  @Input() frequency: any;
+  @Input() frequency: string;
+  @Input() hasIncrease: boolean;
 
-  // Temp (IAN)
-  amountIncreaseFrequency: any
-  unitIncreaseFrequency: any
-
-  @Input() hasIncrease!: boolean;
-
-  @Input() amountIncreaseRate!: number;
+  @Input() amountIncreaseRate: number;
   @Input() amountIncreaseConfig: 'percentage' | 'value' = 'percentage';
-  // @Input() amountIncreaseFrequency: Frequency = 'never';
-  @Input() xTimesAmountIncreaseInterval!: number;
+  @Input() xTimesAmountIncreaseInterval: number;
 
-  @Input() unitIncreaseRate!: number;
+  @Input() unitIncreaseRate: number;
   @Input() unitIncreaseConfig: 'percentage' | 'value' = 'value';
+  @Input() xTimesUnitIncreaseInterval: number;
+
+  // @Input() amountIncreaseFrequency: Frequency = 'never';
   // @Input() unitIncreaseFrequency: Frequency = 'never';
-  @Input() xTimesUnitIncreaseInterval!: number;
+
+  amountIncreaseFrequency: string;
+  unitIncreaseFrequency: string;
 
   constructor() { }
 
   ngOnInit() { }
+
+  hasIncreaseChanged(increase: MatSlideToggleChange) {
+    this.hasIncrease = increase.checked;
+  }
+
+  amountIncConfigChanged(config: MatRadioChange) {
+    this.amountIncreaseConfig = config.value;
+  }
+
+  unitIncConfigChanged(config: MatRadioChange) {
+    this.unitIncreaseConfig = config.value;
+  }
+
+  amountIncreaseFrequencyChanged(amountFreq: MatRadioChange) {
+    this.amountIncreaseFrequency = amountFreq.value;
+  }
+
+  unitIncreaseFrequencyChanged(unitFreq: MatRadioChange) {
+    this.unitIncreaseFrequency = unitFreq.value;
+  }
 
 }
