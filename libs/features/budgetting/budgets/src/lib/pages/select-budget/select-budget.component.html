@@ -1,57 +1,82 @@
 <app-page>
+  <div fxLayout="column" class="page-container">
 
-  <app-navbar>
-    <!-- <app-user-menu></app-user-menu> -->
-  </app-navbar>
-
-  <div fxLayout="column" class="container">
-
-    <div class="page-heading">
-      <h1 class="mat-display-1">{{ 'FINANCE.BUDGET-SELECT.TITLE' | transloco }}</h1>
-      <h2 class="mat-h2">{{ 'FINANCE.BUDGET-SELECT.SUBTITLE' | transloco }}</h2>
+    <div class="">
+      <h1 class="page-header">{{ 'FINANCE.BUDGET-SELECT.TITLE' | transloco }}</h1>
+      <h2 class="page-sub-header">{{ 'FINANCE.BUDGET-SELECT.SUBTITLE' | transloco }}</h2>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <div fxFlex="20"></div>
-      <div fxFlex="60">
-        <div *ngIf="overview$ | async as overview; else loading" fxLayout="column">
+    <div fxFlex>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="30px"
+          *ngIf="overview$ | async as overview; else loading">
           <!-- Active Budgets -->
-          <div class="overview-section">
+          <div fxLayout="column" class="overview-section">
             <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ACTIVE-BUDGETS' | transloco }}</div>
-            <app-display-budget-record *ngFor="let record of overview.inUse"             
-                                        [record]="record" class="mat-elevation-z8">
-            </app-display-budget-record>
+
+            <div fxFlex>
+              <div *ngIf="overview.inUse.length > 0; else noActiveBudgets">
+                <app-display-budget-record *ngFor="let record of overview.inUse" [record]="record" class="mat-elevation-z8">
+                </app-display-budget-record>
+              </div>
+              <ng-template #noActiveBudgets>
+                <span>There are no active budgets</span>
+              </ng-template>
+            </div>
           </div>
 
           <!-- My Budgets -->
-          <div class="overview-section">
-            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.MY-BUDGETS' | transloco }}</div>
-
-            <div class="my-budget" *ngFor="let record of overview.underConstruction">
-              <app-display-budget-record [record]="record" [canPromote]="canPromote(record)" 
-                                        (onPromote)="setActive(record)"
-                                        class="mat-elevation-z8">
-              </app-display-budget-record>
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="center">
-              <button (click)="openDialog(false)" mat-raised-button color="accent">
+          <div fxLayout="column" class="overview-section">
+            <div class="overview-section-title" fxLayout="row" fxLayoutAlign="space-between center">
+              <span>
+                {{ 'FINANCE.BUDGET-SELECT.MY-BUDGETS' | transloco }}
+              </span>
+              <button style="color: white;" (click)="openDialog(false)" mat-raised-button color="accent">
                 {{ 'FINANCE.BUDGET-SELECT.CREATE-NEW' | transloco }}
               </button>
+            </div>
+
+            <div fxFlex>
+              <div *ngIf="overview.underConstruction.length > 0; else noBudgets" fxFlex>
+                <div fxLayout="row-wrap" fxLayoutAlign="start start" fxLayoutGap="30px">
+                  <div class="my-budget" *ngFor="let record of overview.underConstruction" fxFlex="25">
+                    <app-display-budget-record [record]="record" [canPromote]="canPromote(record)"
+                      (onPromote)="setActive(record)" class="budget-card">
+                    </app-display-budget-record>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noBudgets>
+                <span>There are no budgets</span>
+              </ng-template>
             </div>
           </div>
 
           <!-- Archived Budgets -->
-          <div class="overview-section">
+          <div fxLayout="column" class="overview-section">
             <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ARCHIVED-BUDGETS' | transloco }}</div>
-            <app-display-budget-record *ngFor="let record of overview.archived"         
-                                        [record]="record" class="mat-elevation-z8">
-            </app-display-budget-record>
+
+            <div fxFlex>
+              <div *ngIf="overview.archived.length > 0; else noArchivedBudgets">
+                <app-display-budget-record *ngFor="let record of overview.archived" [record]="record" class="budget-card">
+                </app-display-budget-record>
+              </div>
+              <ng-template #noArchivedBudgets>
+                <span>There are no archived budgets</span>
+              </ng-template>
+            </div>
+
           </div>
         </div>
-        <ng-template #loading><app-spinner></app-spinner></ng-template>
+        <ng-template #loading>
+          <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
+            <div style="padding-top: 50px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
+              <span>Fetching budgets..</span>
+              <mat-spinner diameter="30"></mat-spinner>
+            </div>
+          </div>
+        </ng-template>
       </div>
-      <div fxFlex="20"></div>
     </div>
 
   </div>

@@ -1,25 +1,48 @@
+.page-container {
+	width: 95%;
+	min-height: 100%;
+	margin: auto;
+}
+
+.page-header {
+	font-family: var(--kujali-segoe-ui-bold);
+	font-weight: 1.5rem;
+	color: var(--kujali-color-primary-blue);
+}
+
+.page-sub-header {
+	font-family: var(--kujali-segoe-ui-semi-bold);
+	font-weight: 1.1rem;
+	color: var(--kujali-color-primary-blue);
+}
+
+.budget-card {
+	border-radius: 10px;
+	height: 270px;
+  box-shadow: 0 0 20px 8px #d0d0d0;
+}
+
 .overview-section {
-    margin-bottom: 25px;
+	margin-bottom: 25px;
 }
 
 .overview-section-title {
-    font-weight: bold;
-    background: #bbb;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    text-align: center;
+	font-weight: bold;
+	background: white;
+	padding: 10px 20px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 20px 8px #d0d0d0;
 }
 
-app-display-budget-record 
-{
-    display: block;
-    clear: both;
-    
-    padding: 10px 20px;
-
-    margin-bottom: 15px;
-
-    background-color: white;
+app-display-budget-record {
+	display: block;
+	clear: both;
+	padding: 10px 20px;
+	margin-bottom: 15px;
+	background-color: white;
 }
 
-button { max-width: 150px; }
+button {
+	max-width: 150px;
+}
