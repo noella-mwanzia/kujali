@@ -16,6 +16,8 @@ export class SideMenuComponent implements OnInit, OnDestroy
 
   @Input() user: any;
 
+  orgId = ''
+  flowId = ''
   projectName: string;
   projectInfo: string;
 
