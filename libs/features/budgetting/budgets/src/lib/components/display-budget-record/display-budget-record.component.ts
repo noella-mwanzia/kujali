@@ -23,6 +23,8 @@ export class DisplayBudgetRecordComponent
   @Input()  canPromote = false;
   @Output() doPromote: EventEmitter<void> = new EventEmitter();;
 
+  desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam hic perspiciatis illum nobis, numquam quidem,veniam et...';
+
   constructor(public dialog: MatDialog) { }
   
   /** 

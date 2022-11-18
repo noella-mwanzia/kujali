@@ -1,7 +1,17 @@
 .table-header {
   font-weight: bold;
   padding-bottom: 20px;
-  text-align: center;
+  // text-align: center;
+}
+
+.share-btn {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+}
+
+.fa-share-alt {
+  margin-bottom: 4px;
 }
 
 .record-row {
@@ -9,7 +19,6 @@
   flex: 100;
 
   padding: 5px 20px;
-  border-bottom: 1px solid rgba(0,0,0,.12);
 }
 
 .record-name {
@@ -21,37 +30,44 @@
   flex: 25;
 }
 
+.record-desc {
+  font-family: var(--kujali-segoe-ui-light);
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
 .budget-title {
-    font-size: 20px; 
+  font-size: 20px;
 }
 
 .budget-children p {
-    margin: 4px;
-    font-size: 14px; 
+  margin: 4px;
+  font-size: 14px;
 }
 
-.budget-btn-container button {
-    cursor: pointer; 
-    margin-left: 10px;
-    color: #212529;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
-    font-weight: 400;
-    text-align: center;    
-    vertical-align: middle;
-    font-size: 14px; 
-    padding: 5px 10px;
-    border: 1px solid transparent;
-}
+// .budget-btn-container button {
+//   cursor: pointer;
+//   margin-left: 10px;
+//   color: #212529;
+//   background-color: #f8f9fa;
+//   border-color: #f8f9fa;
+//   font-weight: 400;
+//   text-align: center;
+//   vertical-align: middle;
+//   font-size: 14px;
+//   padding: 5px 10px;
+//   border: 1px solid transparent;
+// }
 
-.budget-btn-container button:hover {
-    background: #DEDFE0;
-}
+// .budget-btn-container button:hover {
+//   background: #DEDFE0;
+// }
 
 button.btn-promote {
-  background: #3f51b5 !important; 
+  background: #3f51b5 !important;
   color: #f8f9fa !important;
 }
-  button.btn-promote:hover {
-    background: black !important;
-  }
+
+button.btn-promote:hover {
+  background: black !important;
+}
