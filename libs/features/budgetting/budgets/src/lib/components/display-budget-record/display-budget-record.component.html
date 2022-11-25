@@ -22,7 +22,7 @@
   </div>
 
   <div class="budget-btn-container" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
-    <button mat-stroked-button [routerLink]="[record.budget.id]" *ngIf="access('edit')">
+    <button mat-stroked-button (click)="goToDetail(record.budget.id!, 'edit')" *ngIf="access('edit')">
       {{ 'BUDGET.VIEW-RECORD.ACTIONS.EDIT' | transloco }}
     </button>
 
@@ -30,7 +30,7 @@
       {{ 'BUDGET.VIEW-RECORD.ACTIONS.CLONE'| transloco }}
     </button>
 
-    <button mat-raised-button color="primary" [routerLink]="[record.budget.id]" *ngIf="access('view')">
+    <button mat-raised-button color="primary" (click)="goToDetail(record.budget.id!, 'view')" *ngIf="access('view')">
       {{'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco}}
     </button>
   </div>

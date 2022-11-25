@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { Budget, BudgetRecord } from '@app/model/finance/planning/budgets';
 
@@ -21,11 +22,13 @@ export class DisplayBudgetRecordComponent
   @Input() count = 0;
 
   @Input()  canPromote = false;
-  @Output() doPromote: EventEmitter<void> = new EventEmitter();;
+  @Output() doPromote: EventEmitter<void> = new EventEmitter();
 
   desc = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam hic perspiciatis illum nobis, numquam quidem,veniam et...';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private _router$$: Router,
+              public dialog: MatDialog,
+  ) { }
   
   /** 
    * Checks whether the user has access to a certain feature.
@@ -83,10 +86,13 @@ export class DisplayBudgetRecordComponent
   /** Open clone screen to clone and reconfigure budget. */
   openCloneBudgetDialog(parent: Budget | false): void {
     this.dialog.open(CreateBudgetModalComponent, {
-      height: '600px',
+      height: 'fit-content',
       width: '600px',
       data: parent != null ? parent : false
     });
   }
 
+  goToDetail(budgetId: string, action: string) {
+    this._router$$.navigate(['budgets', budgetId, action]);
+  }
 }
