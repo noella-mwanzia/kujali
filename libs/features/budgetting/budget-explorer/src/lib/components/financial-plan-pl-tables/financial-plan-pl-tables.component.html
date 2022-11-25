@@ -9,7 +9,8 @@
 
     <app-financial-plan-table #costTable 
                               classId="cost" [type]="costType" 
-                              [rows$]="costDataSource$" [total$]="costTotal$">
+                              [rows$]="costDataSource$" [total$]="costTotal$"
+                              [isInEditMode]="isInEditMode">
     </app-financial-plan-table>
 
 </app-year-focus>
@@ -18,7 +19,8 @@
 <app-year-focus [title]="'Income'" (navigateYearPressed)="onPressNavigateYear($event)">
 
   <app-financial-plan-table classId="income" [type]="incomeType"
-                            [rows$]="incomeDataSource$" [total$]="incomeTotal$">
+                            [rows$]="incomeDataSource$" [total$]="incomeTotal$"
+                            [isInEditMode]="isInEditMode">
   </app-financial-plan-table>
 
 </app-year-focus>
