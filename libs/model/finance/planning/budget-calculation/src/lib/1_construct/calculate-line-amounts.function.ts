@@ -36,7 +36,6 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
 }
 
 /** Algorithm responsible for calculating the value of each column in the whole budget line (accross all its years) */
-// Ian
 function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan[])
 {
   const orderedPlans = ___sortBy(plans, ['fromYear', 'fromMonth']);
@@ -59,7 +58,6 @@ function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan
 }
 
 /** Converts the first occurence of all transaciton occurences into a budget line. */
-//Ian
 function _templateToLine(template: TransactionPlan, plans: TransactionPlan[], values: AmountPerYear[]): BudgetLineRow
 {
   return {
