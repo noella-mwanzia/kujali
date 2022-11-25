@@ -1,9 +1,13 @@
 .user-image {
-  margin-top: 5px;
   width: 30px;
   height: 30px;
   object-fit: contain;
   clip-path: circle();
+  margin-right: 10px;
+}
+
+img {
+  margin-top: 5px;
 }
 
 .user-btn{
