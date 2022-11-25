@@ -51,6 +51,7 @@ export class TransactionPlannerManager
   add(plan: TransactionPlan)
   {
     plan.id = ___uniqueId();
+    plan.lineId = plan.id;
     // 1. Validate! We can't add a second king
     if(this._active.find(p => p.trTypeId === plan.trTypeId && p.king && plan.king))
       throw new Error('There cannot be two king (template) transaction plans of the same line');
