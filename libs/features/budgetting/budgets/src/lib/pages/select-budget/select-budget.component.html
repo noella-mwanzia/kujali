@@ -9,9 +9,9 @@
     <div fxFlex>
       <div fxFlex>
         <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="30px"
-          *ngIf="overview$ | async as overview; else loading">
+          *ngIf="overview$ | async as overview; else loading" fxFlex>
           <!-- Active Budgets -->
-          <div fxLayout="column" class="overview-section">
+          <div fxLayout="column" class="overview-section" fxFlex>
             <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ACTIVE-BUDGETS' | transloco }}</div>
 
             <div fxFlex>
@@ -26,7 +26,7 @@
           </div>
 
           <!-- My Budgets -->
-          <div fxLayout="column" class="overview-section">
+          <div fxLayout="column" class="overview-section" fxFlex>
             <div class="overview-section-title" fxLayout="row" fxLayoutAlign="space-between center">
               <span>
                 {{ 'FINANCE.BUDGET-SELECT.MY-BUDGETS' | transloco }}
@@ -41,7 +41,7 @@
                 <div fxLayout="row-wrap" fxLayoutAlign="start start" fxLayoutGap="30px">
                   <div class="my-budget" *ngFor="let record of overview.underConstruction" fxFlex="25">
                     <app-display-budget-record [record]="record" [canPromote]="canPromote(record)"
-                      (onPromote)="setActive(record)" class="budget-card">
+                      (onPromote)="setActive(record)" class="budget-card" fxFlex>
                     </app-display-budget-record>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
           </div>
 
           <!-- Archived Budgets -->
-          <div fxLayout="column" class="overview-section">
+          <div fxLayout="column" class="overview-section" fxFlex>
             <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ARCHIVED-BUDGETS' | transloco }}</div>
 
             <div fxFlex>
@@ -68,6 +68,7 @@
 
           </div>
         </div>
+
         <ng-template #loading>
           <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
             <div style="padding-top: 50px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
