@@ -19,7 +19,7 @@ import { __CalculateLineAmounts } from './calculate-line-amounts.function';
  */
 export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems: TransactionPlan[]) : BudgetLineRow[]
 {
-  const occurencesByLine = ___groupBy(plannedItems, 'transactionId');
+  const occurencesByLine = ___groupBy(plannedItems, 'id');
 
   // Loop keys
   const byTransaction: any[] = [];
@@ -33,5 +33,6 @@ export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems
     line.plans = occurencesByLine[lineId] // TODO(jrosseel): this._filterLastOccurences(budget, grouped[group]);
     byTransaction.push(line);
   }
+  
   return byTransaction;
 }
