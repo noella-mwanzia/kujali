@@ -8,6 +8,8 @@ import {
   FlexLayoutModule,
 } from '@iote/bricks-angular';
 
+import { MultiLangModule } from '@ngfi/multi-lang';
+
 import { UserMenuModule } from '@app/elements/layout/user-menu';
 
 import { PageComponent } from './components/app-page/page.component';
@@ -26,6 +28,8 @@ import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
   imports: [
     CommonModule,
     RouterModule,
+
+    MultiLangModule,
     MaterialDesignModule,
     MaterialBricksModule,
     FlexLayoutModule,
