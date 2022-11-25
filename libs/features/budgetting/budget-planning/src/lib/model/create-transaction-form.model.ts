@@ -8,7 +8,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder): FormGroup {
     // Section 1: Transaction
     pTNameFormGroup: _fb.group({
       type: ['', Validators.required],
-      name: ['', Validators.required],
+      lineName: ['', Validators.required],
       budgetId: ['']
     }),
 
