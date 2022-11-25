@@ -48,3 +48,12 @@ mat-select {
 .mr-10px {
   margin-right: 10px;
 }
+
+.spinner {
+  min-width: 100%;
+  min-height: auto;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
