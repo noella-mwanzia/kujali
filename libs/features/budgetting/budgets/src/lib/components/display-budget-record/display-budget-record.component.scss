@@ -1,7 +1,6 @@
 .table-header {
   font-weight: bold;
   padding-bottom: 20px;
-  // text-align: center;
 }
 
 .share-btn {
@@ -45,24 +44,6 @@
   font-size: 14px;
 }
 
-// .budget-btn-container button {
-//   cursor: pointer;
-//   margin-left: 10px;
-//   color: #212529;
-//   background-color: #f8f9fa;
-//   border-color: #f8f9fa;
-//   font-weight: 400;
-//   text-align: center;
-//   vertical-align: middle;
-//   font-size: 14px;
-//   padding: 5px 10px;
-//   border: 1px solid transparent;
-// }
-
-// .budget-btn-container button:hover {
-//   background: #DEDFE0;
-// }
-
 button.btn-promote {
   background: #3f51b5 !important;
   color: #f8f9fa !important;
@@ -70,4 +51,8 @@ button.btn-promote {
 
 button.btn-promote:hover {
   background: black !important;
+}
+
+::ng-deep .table-header .mat-mini-fab .mat-button-wrapper {
+  padding: 0px!important;
 }
