@@ -43,6 +43,7 @@ export class FinancialPlanTableComponent implements OnInit
 
   @Input() allowAdd = true;
   @Input() nameField = true;
+  @Input() isInEditMode: boolean;
 
   savingTransactions: number = 0;
 
@@ -142,13 +143,15 @@ export class FinancialPlanTableComponent implements OnInit
 
   openPlanTransactionModal(m : any): void
   {
-    this.dialog.open(PlanTransactionModalComponent, 
-    {
-      data: { month: m.month, type: this.type, budgetId: this.budgetId },
-      minHeight: '600px'
-    })
-    .afterClosed()
-    .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+    if (this.isInEditMode && this.classId != 'result') {
+      this.dialog.open(PlanTransactionModalComponent, 
+        {
+          data: { month: m.month, type: this.type, budgetId: this.budgetId },
+          minHeight: '600px'
+        })
+        .afterClosed()
+        .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+    }
   }
 
   // openCellModal(cell: BudgetRowMonths, column)
