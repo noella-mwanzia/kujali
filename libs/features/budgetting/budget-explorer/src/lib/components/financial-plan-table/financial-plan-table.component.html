@@ -30,12 +30,14 @@
   <!-- Values per month -->
   <ng-container [matColumnDef]="column.slug" *ngFor="let column of monthColumns">
 
-    <th mat-header-cell *matHeaderCellDef class="header" (click)="openPlanTransactionModal(column)">
+    <th mat-header-cell *matHeaderCellDef class="header">
       <div fxLayout="row" fxLayoutAlign="start center">
-        <span>{{ column.name | transloco }}</span>
-        <span *ngIf="allowAdd" class="create-cost-btn" (click)="openPlanTransactionModal(column)">
-          <i class="fas fa-plus"></i> 
-        </span>
+        <div class="open-modal" fxLayout="row" fxLayoutAlign="start center" (click)="openPlanTransactionModal(column)">
+          <span>{{ column.name | transloco }}</span>
+          <span *ngIf="allowAdd && isInEditMode" class="create-cost-btn">
+            <i class="fas fa-plus"></i> 
+          </span>
+        </div>
       </div>
     </th>
 
