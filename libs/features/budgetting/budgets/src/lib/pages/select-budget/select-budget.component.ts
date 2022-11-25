@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { cloneDeep as ___cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { Budget, BudgetRecord, BudgetStatus, OrgBudgetsOverview } from '@app/model/finance/planning/budgets';
+
 import { BudgetsStore, OrgBudgetsStore } from '@app/state/finance/budgetting/budgets';
 
 import { CreateBudgetModalComponent } from '../../components/create-budget-modal/create-budget-modal.component';
@@ -22,6 +23,7 @@ export class SelectBudgetPageComponent implements OnInit
 {
   /** Overview which contains all budgets of an organisation */
   overview$!: Observable<OrgBudgetsOverview>;
+  sharedBudgets$: Observable<any[]>;
 
   constructor(private _orgBudgets$$: OrgBudgetsStore,
               private _budgets$$: BudgetsStore,
@@ -31,12 +33,13 @@ export class SelectBudgetPageComponent implements OnInit
 
   ngOnInit() {
     this.overview$ = this._orgBudgets$$.get();
+    this.sharedBudgets$ = this._budgets$$.get();
   }
 
   openDialog(parent : Budget | false): void 
   {
     const dialog = this._dialog.open(CreateBudgetModalComponent, {
-      height: '600px',
+      height: 'fit-content',
       width: '600px',
       data: parent != null ? parent : false
     });
