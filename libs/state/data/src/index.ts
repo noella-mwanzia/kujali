@@ -1,1 +1,2 @@
-export * from './lib/state-data.module';
+export * from './lib/data/data.provider';
+export * from './lib/kujali-data-providers.module';
