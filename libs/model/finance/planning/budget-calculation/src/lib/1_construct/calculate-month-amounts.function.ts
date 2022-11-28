@@ -82,7 +82,7 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
   {
     case BudgetItemFrequency.Once:        return _isOccurenceStart(y, m, plan); 
     case BudgetItemFrequency.Monthly:     return true;
-    case BudgetItemFrequency.Quarterly:     return (m % 3 == 0);
+    case BudgetItemFrequency.Quarterly:   return (m % 3 == 0);
     case BudgetItemFrequency.Year:        return (plan.fromMonth.month == m);
     case BudgetItemFrequency.EveryXTimes: return ((plan.fromMonth.month - m) % plan.xTimesInterval === 0);
   }
