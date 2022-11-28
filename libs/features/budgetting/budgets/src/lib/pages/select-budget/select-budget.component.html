@@ -38,8 +38,8 @@
 
             <div fxFlex>
               <div *ngIf="overview.underConstruction.length > 0; else noBudgets" fxFlex>
-                <div fxLayout="row-wrap" fxLayoutAlign="start start" fxLayoutGap="30px">
-                  <div class="my-budget" *ngFor="let record of overview.underConstruction" fxFlex="25">
+                <div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px">
+                  <div class="my-budget" *ngFor="let record of overview.underConstruction" fxFlex="30">
                     <app-display-budget-record [record]="record" [canPromote]="canPromote(record)"
                       (onPromote)="setActive(record)" class="budget-card" fxFlex>
                     </app-display-budget-record>

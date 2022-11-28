@@ -1,6 +1,6 @@
-.semi-full-width {
-  width: 60%; 
-}
+// .semi-full-width {
+//   width: 60%; 
+// }
 
 .create-budget-btn {
   margin-top: 20px;
@@ -13,13 +13,10 @@
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-h4 {
-  font-size: 0.8em;
-  padding: 5px;
-  background-color: #eee;
-  margin-bottom: 5px;
-}
-
 .sm-divider {
   height: 20px;
+}
+
+.mat-form-field {
+  display: inline;
 }
