@@ -88,6 +88,7 @@ export class PlanTransactionModalComponent // implements OnInit
                                                        : 'PL-EXPLORER.TRPLANNER.TITLE-INCOME';
     this.lblType = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.COST-TYPE' 
                                                         : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
+
   }
 
   getFormGroup(formGroup: string): FormGroup {
@@ -99,17 +100,26 @@ export class PlanTransactionModalComponent // implements OnInit
     return !(nameForm.value.selectedCategory && nameForm.value.selectedType && nameForm.value.name);
   }
 
-  saveTransaction(form: any)
+  saveTransaction(transactionForm: any)
   {
+    const transaciton = this.createTransactionObject(transactionForm);
+    
+    // Process the changes and recalculate the budget.
+    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
+                                      : this._fYExplorer$$.updateTransaction(transaciton);
 
+    this.exitModal();
+  }
+
+  createTransactionObject(transactionForm: any): TransactionPlan {
     // TODO Review IAN <> JENTE
     let transaciton = {
-      ...form.pTNameFormGroup,
-      ...form.pTValueBaseFormGroup,
-      ...form.pTOccurenceFormGroup,
-      ...form.pTIncreaseFormGroup,
+      ...transactionForm.pTNameFormGroup,
+      ...transactionForm.pTValueBaseFormGroup,
+      ...transactionForm.pTOccurenceFormGroup,
+      ...transactionForm.pTIncreaseFormGroup,
       budgetId: this.budgetId,
-      king: true
+      king: false
     }
 
     if(!transaciton.hasIncrease) {
@@ -117,13 +127,11 @@ export class PlanTransactionModalComponent // implements OnInit
     }
   
     transaciton.frequency = BudgetItemFrequency[transaciton.frequency];
+    transaciton.trCatId = transaciton.type.categoryId;
+    transaciton.trTypeId = transaciton.type.id;
     transaciton.mode = transaciton.type.type;
-    
-    // Process the changes and recalculate the budget. 
-    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
-                                      : this._fYExplorer$$.updateTransaction(transaciton);
 
-    this.exitModal();
+    return transaciton;
   }
 
   onNoClick = () => this.exitModal();

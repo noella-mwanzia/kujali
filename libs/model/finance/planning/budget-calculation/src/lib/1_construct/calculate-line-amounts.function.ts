@@ -28,9 +28,16 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
   const values = _populateBudgetLineValues(valueTemplate, occs);
 
   // Use first occurence created as template for the line configuration (category, ...)
-  const lineTemplate = occs.find(o => o.king);
-  if(!lineTemplate)
-    throw new Error('Line has no king/main template plan');
+  let lineTemplate = occs.find(o => o.king);
+
+  // TODO: Review Jente <> Ian
+  // if(!lineTemplate)
+  //   throw new Error('Line has no king/main template plan');
+
+  if(!lineTemplate) {
+    occs[0].king = true;
+    lineTemplate = occs[0]
+  }
 
   return _templateToLine(lineTemplate, occs, values);
 }
