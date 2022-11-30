@@ -27,7 +27,9 @@ mat-nav-list {
   font-size: 1.5em;
   margin-right: 15px;
   color: mat-color($accent, A200);
-  max-width: 25px;
+  width: 100px;
+  height: auto;
+  object-fit: contain;
   border-radius: 5px;
 }
 

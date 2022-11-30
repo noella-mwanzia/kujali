@@ -9,53 +9,36 @@
 </div>
 
 <ng-template #showLogin>
-    <div class="auth-page" fxLayout="row" fxLayoutAlign="center none">
-        <div fxFlexLayout="column" class="auth-card">
-            <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form">
-                <div class="tiny-logo" fxLayoutAlign="center">
-                    <img style="max-width: 100px;" src="assets/images/logo.jpg" />
-                    <div fxLayout="row" fxLayoutAlign="end center">
-                        <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:30px;" data-intercom-tooltip="Language selector" fxFlex="7-" 
-                                    [matTooltip]="'ELS.TOGGLES.SWITCH-LANG' | transloco">
-                            <mat-option value="en" (click)="setLang('en')">EN</mat-option>
-                            <mat-option value="fr" (click)="setLang('fr')">FR</mat-option>
-                        </mat-select>
-                    </div>
-                </div>
+    <div class="auth-page">
+        <div class="auth-card" fxLayout="row" fxLayoutAlign="start start">
+            <div class="login-info"  fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex="40">
+                <img class="logo" src="assets/images/kujali-logo.png" alt="">
 
-                <div class="button-area">
-                    <div mat-raised-button fxLayout=" row " fxLayoutAlign="space-evenly none ">
-                        <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
-                        <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
-                    </div>
-                </div>
+                <p class="title" >Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
 
-                <div class="form " fxLayout="row " fxLayoutGap="2 " fxLayoutAlign="center center ">
+                <p class="sub-title">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
 
-                    <span *ngIf="isLogin "> 
-                       <app-login></app-login>
-                      </span>
-
-                    <span *ngIf="!isLogin "> 
-                        <app-register></app-register>
-                      </span>
-
-                    <!-- <router-outlet fxFlex="100 "></router-outlet> -->
-
-                </div>
-
-
+                <!-- <img class="fin-img" src="https://img.freepik.com/free-vector/finance-financial-performance-concept-illustration_53876-43398.jpg?w=2000" alt=""> -->
             </div>
 
-            <div fxFlex fxLayout="column" fxLayoutAlign="center" class="elewa-info">
-                <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
-                <p class="description"> {{'LOGIN.HERO.DESCRIPTION' | transloco}}</p>
-                <p class="hyperlink">{{'LOGIN.HERO.LEARN-MORE' | transloco}}
-                    <a [href]="'LOGIN.HERO.LEARN-MORE-LINK' | transloco">{{'LOGIN.HERO.LEARN-MORE-LINK'| transloco}}</a>
-                </p>
+            <div class="login-form" fxLayout="column" fxLayoutAlign="start center" fxFlex>
+                <div fxFlex="80">
+                    <mat-tab-group (selectedTabChange)="authChanged($event)">
+                        <mat-tab (click)="toggleModeLogin()" label="Log In">
+                            <span *ngIf="isLogin" fxFlex>
+                                <app-login fxFlex></app-login>
+                            </span>
+                        </mat-tab>
+                        <mat-tab (click)="toggleMode()" label="Create Account">
+                            <span *ngIf="!isLogin" fxFlex>
+                                <app-register></app-register>
+                            </span>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
             </div>
-
         </div>
-
     </div>
 </ng-template>

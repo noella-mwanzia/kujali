@@ -33,12 +33,12 @@ function _selectMostRelevantPlan(y: number, m: number, orderedPlans: Transaction
   // 1. Only look at plans earlier than or on the same month as today.
   const relevantPlans = orderedPlans
           .filter((plan) => plan.fromYear < y || 
-                           (plan.fromYear == y && plan.fromMonth <= m));
+                           (plan.fromYear == y && plan.fromMonth.month <= m));
 
   // If there are relevant plans, get the last of those. Since we filtered out everything later, this is the correct one. 
   //    There are 12 months so if we do year * 100 + month[1-12] we get a max function with priority 1 year (first 4 digits), priority 2 month (last 2 digits). 
   return ___maxBy(relevantPlans, 
-                  (plan) => plan.fromYear * 100 + plan.fromMonth);
+                  (plan) => plan.fromYear * 100 + plan.fromMonth.month);
 }
 
 //
@@ -82,8 +82,8 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
   {
     case BudgetItemFrequency.Once:        return _isOccurenceStart(y, m, plan); 
     case BudgetItemFrequency.Monthly:     return true; 
-    case BudgetItemFrequency.Year:        return (plan.fromMonth == m);
-    case BudgetItemFrequency.EveryXTimes: return ((plan.fromMonth - m) % plan.xTimesInterval === 0);
+    case BudgetItemFrequency.Year:        return (plan.fromMonth.month == m);
+    case BudgetItemFrequency.EveryXTimes: return ((plan.fromMonth.month - m) % plan.xTimesInterval === 0);
   }
 
   return false;
@@ -125,9 +125,9 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
     if(incrFreq)
       switch (incrFreq) 
       {
-        case BudgetItemFrequency.Monthly:     return _monthsAgo(plan.fromYear, plan.fromMonth, y, m);
-        case BudgetItemFrequency.Quarterly:   return _monthsAgo(plan.fromYear, plan.fromMonth, y, m) / 3;
-        case BudgetItemFrequency.EveryXTimes: return _monthsAgo(y, m, plan.fromYear, plan.fromMonth) / (interval as number);
+        case BudgetItemFrequency.Monthly:     return _monthsAgo(plan.fromYear, plan.fromMonth.month, y, m);
+        case BudgetItemFrequency.Quarterly:   return _monthsAgo(plan.fromYear, plan.fromMonth.month, y, m) / 3;
+        case BudgetItemFrequency.EveryXTimes: return _monthsAgo(y, m, plan.fromYear, plan.fromMonth.month) / (interval as number);
         case BudgetItemFrequency.Year:        return _yearsAgo(plan.fromYear, y);
       }
 
@@ -144,5 +144,5 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
 /** Checks if this month is the occurenceStart of a given plan */
 function _isOccurenceStart(year: number, month: number, plan: TransactionPlan) 
 {
-  return plan.fromYear == year && plan.fromMonth == month;
+  return plan.fromYear == year && plan.fromMonth.month == month;
 }

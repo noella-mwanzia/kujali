@@ -15,7 +15,7 @@ export class TransactionPlannerManager
   private _plans$$!: BehaviorSubject<TransactionPlan[]>;
   private _plans$!: Observable<TransactionPlan[]>;
 
-  constructor(initial: TransactionPlan[],)
+  constructor(initial: TransactionPlan[])
   {
     this._plans$$ = new BehaviorSubject(initial);
     this._plans$ = this._plans$$.asObservable();
@@ -37,7 +37,7 @@ export class TransactionPlannerManager
     if(plansInLine.length === 0)
       return { mode: 'not_found' };
     
-    const toEdit = plansInLine.find(p => p.fromYear === year && p.fromMonth === month);
+    const toEdit = plansInLine.find(p => p.fromYear === year && p.fromMonth.month === month);
     
     // Check if user wants to edit existing transction occurence.
     return toEdit ? { mode: 'edit', plan: toEdit }

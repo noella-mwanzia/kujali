@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import {} from 'lodash';
 import { filter, map, Observable, Subscription, take } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';

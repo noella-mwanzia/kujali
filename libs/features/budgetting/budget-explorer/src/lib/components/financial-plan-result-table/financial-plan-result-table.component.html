@@ -1,14 +1,3 @@
-
-<!-- Balance Actions-->
-<div class="container" fxLayout="row" fxLayoutAlign="end">
-  <button mat-raised-button color="primary" class="mr-10px" (click)="downloadExcelFile()">
-    <i class="far fa-file-excel"></i> Export to Excel</button>
-
-  <button mat-raised-button color="primary" (click)="linkChildModal()">
-    Link Child Budget <i class="fas fa-share-alt-square"></i>
-  </button>
-</div>
-
 <!-- Balance Table -->
 <app-financial-plan-table  
       classId="result"
@@ -17,3 +6,13 @@
       [total$]="balance$"
       [allowAdd]="false" [nameField]="false">
 </app-financial-plan-table>
+
+<!-- Balance Actions-->
+<div fxLayout="row" fxLayoutAlign="start">
+  <button mat-raised-button color="primary" class="mr-10px" (click)="downloadExcelFile()">
+    <i class="far fa-file-excel"></i> Export to Excel</button>
+
+  <button mat-raised-button color="primary" (click)="linkChildModal()">
+    Link Child Budget <i class="fas fa-share-alt-square"></i>
+  </button>
+</div>

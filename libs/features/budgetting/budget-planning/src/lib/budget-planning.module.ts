@@ -14,6 +14,10 @@ import { BudgetRenderingStateModule } from '@app/state/finance/budgetting/render
 import { iTalPageModule } from '@app/elements/layout/page';
 
 import { PlanTransactionModalComponent } from './modals/plan-tr/plan-transaction-modal.component';
+import { PlanTransactionOccurenceComponent } from './components/plan-transaction-occurence/plan-transaction-occurence.component';
+import { PlanTransactionIncreaseComponent } from './components/plan-transaction-increase/plan-transaction-increase.component';
+import { PlanTransactionValueBaseAmountComponent } from './components/plan-transaction-value-base-amount/plan-transaction-value-base-amount.component';
+import { PlanTransactionNameComponent } from './components/plan-transaction-name/plan-transaction-name.component';
 
 @NgModule({
   imports: [
@@ -28,7 +32,9 @@ import { PlanTransactionModalComponent } from './modals/plan-tr/plan-transaction
     BudgetRenderingStateModule
   ],  
   declarations: [
-    PlanTransactionModalComponent
+    PlanTransactionModalComponent, PlanTransactionOccurenceComponent,
+    PlanTransactionIncreaseComponent, PlanTransactionValueBaseAmountComponent,
+    PlanTransactionNameComponent
   ],
   exports: [
     PlanTransactionModalComponent

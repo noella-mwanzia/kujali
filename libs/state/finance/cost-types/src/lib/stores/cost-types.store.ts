@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
-import { filter, map, of } from "rxjs";
+import { filter, map, of, tap } from "rxjs";
+
+import { flatMap as __flatMap } from "lodash";
 
 import { Store } from "@iote/state";
 
@@ -32,5 +34,7 @@ export class CostTypesStore extends Store<LoadedTransactionTypeCategory[]>
 
   /** Get cost types of a specific master type (cost || income) */
   getOfType = (type: BudgetRowType) => this.get()
-      .pipe(map(cs => cs.filter(c => c.type === type)));
+      .pipe(
+        filter((d) => !!d),
+        map(cs => Object.values(cs).filter(c => c.type === type)));
 }

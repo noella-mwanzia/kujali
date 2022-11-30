@@ -1,28 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { MatRadioChange } from '@angular/material/radio';
 
-import { Frequency } from '../../model/frequency.type';
-
-import { YEARS, MONTHS } from '@elewa/portal-shared';
+import { BudgetItemFrequency } from '@app/model/finance/planning/budget-items';
+import { YEARS, MONTHS } from '@app/model/finance/planning/time';
 
 @Component({
   selector: 'app-plan-transaction-occurence',
   templateUrl: './plan-transaction-occurence.component.html',
-  styleUrls: ['../transaction-planner-form.style.scss', './plan-transaction-occurence.component.scss'],
-  viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
+  styleUrls: ['../../shared/transaction-planner-form.style.scss', './plan-transaction-occurence.component.scss'],
 })
 export class PlanTransactionOccurenceComponent implements OnInit {
-
-  @Input() type: 'cost' | 'income';
 
   years  = YEARS;
   months = MONTHS;
 
+  @Input() planTransactionOccurenceFormGroup: FormGroup;
+  @Input() type!: 'cost' | 'income';
+
   @Input() yearFrom = 2020;
   @Input() monthFromPassed: number;
   @Input() monthFrom = this.months[0];
-  @Input() frequency: Frequency = 'once'; 
+  @Input() frequency: string = 'Once'; 
 
+  xTimesInterval: number;
+  
   constructor() { }
 
   ngOnInit() {
@@ -30,4 +32,7 @@ export class PlanTransactionOccurenceComponent implements OnInit {
       this.monthFrom = this.months[this.monthFromPassed - 1];
   }
 
+  frequencyChanged(frequency: MatRadioChange) {
+    this.frequency = frequency.value;
+  }
 }

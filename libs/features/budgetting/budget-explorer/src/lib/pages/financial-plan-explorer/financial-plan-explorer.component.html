@@ -1,10 +1,29 @@
-<app-page [loading]="loading"> <!-- [loadingText]="'Please hold as we load the budget..'"> -->
+<app-page [loading]="loading">
+  <!-- [loadingText]="'Please hold as we load the budget..'"> -->
 
-  <div fxLayout="column" class="container">
+  <div fxLayout="column" fxlayoutALign="start start" class="container">
 
-    <div class="page-heading" *ngIf="state$ | async as state">
-      <h1 class="mat-display-1">{{ state.budget.name }}</h1> <i>Role: <span class="budget-status">TODO<!--{{ translateStats(budget.status) }}--></span></i>
-    </div>
+    <mat-card class="" *ngIf="state$ | async as state">
+      <p class="budget-name">{{ state.budget.name }}</p> 
+        <!-- Role:  -->
+        <span class="budget-status">
+          <!-- TODO -->
+          <!--{{ translateStats(budget.status) }}-->
+        </span>
+
+        <div class="year-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <span>
+            Current Year:
+          </span>
+          <mat-form-field class="year-selector">
+            <mat-select name="year" [(ngModel)]="year" (ngModelChange)="setYear($event)" required>
+              <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </mat-card>
 
     <!-- TODO: Restate chart -->
     <!-- <app-year-focus (navigateYearPressed)="navigateYear($event)">
@@ -14,21 +33,10 @@
   
     </app-year-focus>  -->
 
-    <div class="year-title" fxLayout="row" fxLayoutAlign="center">
-      <mat-form-field class="year-selector">
-        <mat-select name="year" [(ngModel)]="year" (ngModelChange)="setYear($event)" placeholder="Year" required>
-          <mat-option *ngFor="let year of years" [value]="year">
-            {{ year }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
     <div class="container" fxLayout="column wrap" fxLayoutAlign="start">
 
       <!-- Budget Table Viz -->
-      <app-financial-plan-pl-tables [state$]="state$"
-                                    (navigateYearPressed)="navigateYear($event)">
+      <app-financial-plan-pl-tables [state$]="state$" (navigateYearPressed)="navigateYear($event)">
       </app-financial-plan-pl-tables>
 
     </div>

@@ -1,14 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
+import { Observable, Subscription, take } from 'rxjs';
 
+import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
-
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 
 import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
@@ -46,12 +44,16 @@ export class FinancialPlanTableComponent implements OnInit
   @Input() allowAdd = true;
   @Input() nameField = true;
 
-  constructor(public dialog: MatDialog)
-              // private _plannedTransactionService: PlanTransactionService) 
-  { }
+  savingTransactions: number = 0;
+
+  constructor(private _router$$: Router,
+              public dialog: MatDialog,
+              // private _plannedTransactionService: PlanTransactionService
+  ) { }
 
   ngOnInit()
   {
+    this.budgetId = this._router$$.url.split('/')[2];
     // Initialise columns
     this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
                                      .concat(MONTHS.map((m) => m.slug))
@@ -68,10 +70,10 @@ export class FinancialPlanTableComponent implements OnInit
   //
 
   /** Get the category name (for higher-level roles) */
-  getCategory(row: BudgetRowYear) {
+  getCategory(row: BudgetRowYear): string {
     return (row.isHeader || row.type == 'childResult')
-              ? row.name
-              : row.type;
+              ? row.name as string
+              : row.type as string;
   }
 
   /** Get name if applicable (only for non-typed rows) */
@@ -95,7 +97,7 @@ export class FinancialPlanTableComponent implements OnInit
   getTableTotalAmount()
   {
     try {
-      return this.total ? this._formatPrice(Math.abs(this.total.total as number))
+      return this.total ? this._formatPrice(Math.abs(this.total.totalYear as number))
                         : '0';
     }
     catch(e) { return 0; }
@@ -142,7 +144,8 @@ export class FinancialPlanTableComponent implements OnInit
   {
     this.dialog.open(PlanTransactionModalComponent, 
     {
-      data: { month: m.month, type: this.type, budgetId: this.budgetId }
+      data: { month: m.month, type: this.type, budgetId: this.budgetId },
+      minHeight: '600px'
     })
     .afterClosed()
     .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
@@ -173,24 +176,25 @@ export class FinancialPlanTableComponent implements OnInit
 
 
   /** Counter for when transactions are being saved. */
-  // private _addCounterSaving(transaction: Observable<any>) 
-  // {
-  //   this.savingTransactions++;
+  private _addCounterSaving(transaction: Observable<any>) 
+  {
+    this.savingTransactions++;
 
-  //   transaction.pipe(take(1))
-  //               .subscribe(_ => {
-  //                 if (this.savingTransactions && this.savingTransactions > 0)
-  //                   this.savingTransactions--;
-  //               });
-  // }
+    transaction.pipe(take(1))
+                .subscribe(_ => {
+                  if (this.savingTransactions && this.savingTransactions > 0) {
+                    this.savingTransactions--;
+                  }
+                });
+  }
 
-  // deleteTransaction(transaction) {
-  //   let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
+  deleteTransaction(transaction) {
+    let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
 
-  //   if(isConfirmed) {
-  //     this._plannedTransactionService.deletePlannedTransaction(transaction); 
-  //   }
-  // }
+    if(isConfirmed) {
+      // this._plannedTransactionService.deletePlannedTransaction(transaction); 
+    }
+  }
 
 
   //
@@ -200,7 +204,7 @@ export class FinancialPlanTableComponent implements OnInit
   /** Get class for the row visualisation. */
   getClassesCell(row: BudgetRowYear, col: Month)
   {
-    const classes = [];
+    const classes: string[] = [];
     const value = this._getCellValue(row, col);
 
     if (row.isHeader || row.type == 'childResult')

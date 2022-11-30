@@ -1,26 +1,21 @@
-<div class="form-section-body" fxLayout="column">
-  Set a base "{{ viewType }}". The initial value of {{ viewType }} on start date.
-</div>
-
-<div class="form-section-body" fxLayout="column">
-  <mat-form-field *ngIf="type == 'amount'">
-    <mat-label class="type-title">Base {{ viewType }}</mat-label>
+<div [formGroup]="planTransactionValueBaseAmountFormGroup">
+  <div formGroupName="pTValueBaseFormGroup">
+    <div class="form-section-body m-b-20" fxLayout="column">
+      Set a base "{{ viewType }}". The initial value of {{ viewType }} on start date.
+    </div>
     
-    <input matInput type="number" required [min]="0" [(ngModel)]="amount" name="amount" #amountF="ngModel">
-
-    <mat-error *ngIf="(amountF && amountF.errors)">Base {{ viewType }} is invalid. Value is required and needs to be a positive amount
-      (&gt; 0).</mat-error>
-
-    <span matPrefix>KES &nbsp;</span>
-    <span matSuffix>.00</span>
-  </mat-form-field>
-
-  <mat-form-field *ngIf="type == 'units'">
-    <mat-label class="type-title">Base {{ viewType }}</mat-label>
+    <div class="form-section-body" fxLayout="column">
+      <mat-form-field>
+        <mat-label class="type-title">Base {{ viewType }}</mat-label>
+        
+        <input matInput type="number" [formControlName]="type" [min]="0" name="amount">
     
-    <input matInput type="number" required [min]="0" [(ngModel)]="units" name="units" #unitF="ngModel">
-
-    <mat-error *ngIf="(unitF && unitF.errors)">Base {{ viewType }} is invalid. Value is required and needs to be a positive amount
-      (&gt; 0).</mat-error>
-  </mat-form-field>
+        <!-- <mat-error *ngIf="(amountF && amountF.errors)">Base {{ viewType }} is invalid. Value is required and needs to be a positive amount
+          (&gt; 0).</mat-error> -->
+    
+        <span matPrefix>KES &nbsp;</span>
+        <span matSuffix>.00</span>
+      </mat-form-field>
+    </div>
+  </div>
 </div>

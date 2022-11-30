@@ -31,7 +31,7 @@ export interface TransactionPlan extends IObject
   /** From when this occurence occures - Year */
   fromYear: number;
   /** From when this occurence occures - Month */
-  fromMonth: number;
+  fromMonth: { name: 'string', month: number, slug: 'string' };
 
   /** Occurence frequency type. */
   frequency: BudgetItemFrequency;

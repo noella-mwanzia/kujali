@@ -2,14 +2,15 @@ import { Injectable } from "@angular/core";
 
 import * as _ from "lodash";
 
-import { Query } from "ngfire-firestore-query-builder";
-import { BackendService, Repository } from "ngfire-angular";
+import { BackendService, Repository } from "@ngfi/angular";
+import { Query } from "@ngfi/firestore-qbuilder";
+import { Logger, ToastService } from "@iote/bricks-angular";
 
 import { PlannedTransaction } from "../model/planned-transaction.interface";
 
 import { CreateTransactionForm } from "../model/create-transaction-form.interface";
 import { CreateOccurenceForm } from "../model/create-occurence-form.interface";
-import { Logger, ToastService } from '@elewa/angular-bricks';
+
 import { DataService } from 'src/base-modules/core/data/data.service';
 
 export const PLANNED_TRANSACTION_COLL = 'planned-transactions';

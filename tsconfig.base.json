@@ -17,6 +17,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
     "paths": {
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
