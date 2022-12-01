@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Observable, Subscription, take } from 'rxjs';
+import { map, Observable, Subscription, take } from 'rxjs';
 
 import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
@@ -45,12 +45,19 @@ export class FinancialPlanTableComponent implements OnInit
   @Input() nameField = true;
   @Input() isInEditMode: boolean;
 
+  datasource$!  : Observable<BudgetRowYear[]>;
+
   savingTransactions: number = 0;
+
+  datatodisplay: any;
+  loaded= false;
 
   constructor(private _router$$: Router,
               public dialog: MatDialog,
               // private _plannedTransactionService: PlanTransactionService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit()
   {
@@ -59,6 +66,17 @@ export class FinancialPlanTableComponent implements OnInit
     this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
                                      .concat(MONTHS.map((m) => m.slug))
                                     .concat('total').concat('action');
+
+    // hijacking the stream to remove unneccesary headers for cost and income
+    if (this.rows$) {
+      this.datasource$ = this.rows$.pipe(
+        map((rows) => 
+            rows.filter((row) => this.classId != 'result'
+              ? row.isHeader === false && (row.name !== 'BUDGETTING.LINES.COST' && row.name !== 'BUDGETTING.LINES.INCOME')
+              : row
+              )))
+    }
+    
     // Unpack total as we need it for small aggregated visualisations.
     this.subscr = 
       this.total$.subscribe(total => {
@@ -74,7 +92,7 @@ export class FinancialPlanTableComponent implements OnInit
   getCategory(row: BudgetRowYear): string {
     return (row.isHeader || row.type == 'childResult')
               ? row.name as string
-              : row.type as string;
+              : '';
   }
 
   /** Get name if applicable (only for non-typed rows) */
