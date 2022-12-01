@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms"
 
 import { YEARS, MONTHS } from "@app/model/finance/planning/time"
 
-export function CreateTransactionFormGroup (_fb: FormBuilder): FormGroup {
+export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): FormGroup {
   return _fb.group({
 
     // Section 1: Transaction
@@ -21,7 +21,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder): FormGroup {
     // Section 3: Occurence
     pTOccurenceFormGroup: _fb.group({
       fromYear: [YEARS[0], Validators.required],
-      fromMonth: [MONTHS[0], Validators.required],
+      fromMonth: [MONTHS[month - 1] ?? MONTHS[0], Validators.required],
       frequency: ['Once', Validators.required],
       xTimesInterval: [0]
     }),
