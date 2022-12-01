@@ -5,6 +5,8 @@ import { Logger, ToastService } from '@iote/bricks-angular';
 
 import { Budget } from '@app/model/finance/planning/budgets';
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
+import { BudgetQuery } from 'libs/state/finance/budgetting/rendering/src/lib/queries/budget.query';
+import { of, switchMap, take } from 'rxjs';
 
 @Component({
     selector: 'app-link-budget-modal',
@@ -23,25 +25,32 @@ export class LinkBudgetModalComponent implements OnInit
   noOptions!: boolean;
 
   constructor(public dialogRef: MatDialogRef<LinkBudgetModalComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Budget,
+              @Inject(MAT_DIALOG_DATA) public data: string,
               private _toastService: ToastService,
+              private _budget$$: BudgetQuery,
               private _budgets$$: BudgetsStore,
               private _logger: Logger)
   { }
 
   ngOnInit() { 
-    this.budget = this.data;
+    this._budget$$.get(this.data).pipe(take(1)).subscribe((b) => {if(b) this.getData(b)});
 
-    this._budgets$$.getChildBudgetsAddable(this.budget)
-      .subscribe(bs =>
-      {
-        this.possibleChilds = bs;
-        this.optionsAvailable = bs.length > 0;
-        if (this.optionsAvailable)
-          this.selectedBudget = bs[0];
-        
-        this.loading = false;
-      });
+    // this.budget = this.data;
+
+  }
+
+  getData(b: Budget) {
+    this.budget = b
+    this._budgets$$.getChildBudgetsAddable(b)
+    .subscribe(bs =>
+    {
+      this.possibleChilds = bs;
+      this.optionsAvailable = bs.length > 0;
+      if (this.optionsAvailable)
+        this.selectedBudget = bs[0];
+      
+      this.loading = false;
+    });
   }
 
   onNoClick(): void {
