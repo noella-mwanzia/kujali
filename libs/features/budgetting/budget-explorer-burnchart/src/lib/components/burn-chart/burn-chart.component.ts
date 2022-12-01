@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { TranslateService } from '@ngfi/multi-lang';
 
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-burn-chart',
@@ -19,6 +20,10 @@ export class BurnChartComponent implements AfterViewInit, OnChanges
 
   private _chart!: Chart;
 
+  constructor(private _translateService: TranslateService) {
+    Chart.register(...registerables);
+  }
+  
   ngAfterViewInit() { 
     this._initChart(); 
     this._viewHasInit = true; 
@@ -31,9 +36,10 @@ export class BurnChartComponent implements AfterViewInit, OnChanges
 
   private _initChart() 
   {
+    this.groupData = this.translateLabels(this.groupData);
     const ctx = this.chartEl.nativeElement.getContext('2d');
 
-    if (!this._chart)
+    if (!this._chart) {
       this._chart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -67,7 +73,7 @@ export class BurnChartComponent implements AfterViewInit, OnChanges
             } 
           },
           scales: {
-            yAxes: [
+            y: 
               {
                 ticks: {
                   callback: function (label: number) {
@@ -76,11 +82,11 @@ export class BurnChartComponent implements AfterViewInit, OnChanges
                   }
                 },
               }
-            ]
           }
 
         }
       } as any);
+    }
     else {
       this._chart.data = {
         datasets: [<any>{ label: 'Balance', data: this.lineData, backgroundColor: 'rgba(0,0,0,0)', borderColor: '#ffce32', type: 'line' }]
@@ -92,4 +98,10 @@ export class BurnChartComponent implements AfterViewInit, OnChanges
     }
   }
 
+  translateLabels(groups: { label: string, data: number[] }[]): { label: string, data: number[] }[] {
+    groups.forEach((group) => {
+      group.label = this._translateService.translate(group.label);
+    })
+    return groups;
+  }
 }
