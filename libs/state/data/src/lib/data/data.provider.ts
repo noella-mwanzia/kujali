@@ -5,6 +5,7 @@ import { IObject } from '@iote/bricks';
 import { BaseDataProvider, UserService } from '@ngfi/angular';
 
 import { KuUser } from '@app/model/common/user';
+import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 
 
 /**
@@ -20,6 +21,9 @@ export class DataProvider extends BaseDataProvider
               _userService: UserService<KuUser>)
   { super(_db, _userService); }
 
+
+
+  getPlannedTransactionRepo = (orgId: string, budgetId: string) => this.getRepo<TransactionPlan>(`orgs/${orgId}/budgets/${budgetId}/plans`);
 
   /**
    * Newer version of the data service.
