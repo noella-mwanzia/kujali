@@ -17,6 +17,7 @@ export class FinancialPlanPlTablesComponent implements OnInit
 {
   @Input() state$!: Observable<FinancialExplorerState>;
   @Input() isInEditMode: boolean;
+  @Input() budgetId: string;
   
   costType   = BudgetRowType.CostLine;
   incomeType = BudgetRowType.IncomeLine;

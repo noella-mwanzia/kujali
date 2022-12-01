@@ -20,6 +20,7 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
   private _sBs!: Subscription;
 
   @Input() state$!: Observable<FinancialExplorerState>;
+  @Input() budgetId: string;
 
   balanceTable$!: Observable<BudgetRowYear[]>;
   balance$!     : Observable<BudgetRowYear>;
@@ -36,11 +37,9 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   linkChildModal() 
   {
-    // this._sBs = 
-    //   this._dialog.open(
-    //     LinkBudgetModalComponent, 
-    //     { data: this.budget })
-    //  .afterClosed();
+    this._dialog.open( LinkBudgetModalComponent, 
+        { data: this.budgetId })
+    .afterClosed();
   }
 
   downloadExcelFile() {
