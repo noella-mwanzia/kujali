@@ -1,15 +1,14 @@
 {
-  "name": "state-data",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/state/data/src",
+  "sourceRoot": "libs/state/data/firebase/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/state/data/jest.config.ts",
+        "jestConfig": "libs/state/data/firebase/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -17,8 +16,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/state/data/**/*.ts",
-          "libs/state/data/**/*.html"
+          "libs/state/data/firebase/**/*.ts",
+          "libs/state/data/firebase/**/*.html"
         ]
       }
     }
