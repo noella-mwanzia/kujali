@@ -19,7 +19,7 @@ import { CreateTransactionFormGroup } from '../../model/create-transaction-form.
   templateUrl: './plan-transaction-modal.component.html',
   styleUrls: ['../../shared/transaction-planner-form.style.scss', './plan-transaction-modal.component.scss'],
 })
-export class PlanTransactionModalComponent // implements OnInit
+export class PlanTransactionModalComponent  // implements OnInit
 {
   plannedTransactionFormGroup!: FormGroup;
 
@@ -64,13 +64,13 @@ export class PlanTransactionModalComponent // implements OnInit
               private _costTypes$$: CostTypesStore,
               private _fYExplorer$$: FinancialExplorerStateService,
               private _dialog: MatDialogRef<PlanTransactionModalComponent>, 
-              @Inject(MAT_DIALOG_DATA) data: any
+              @Inject(MAT_DIALOG_DATA) data: any,
   ) 
   {
     this._translation.initialise();
     this.budgetId = data.budgetId as string;
 
-    this.plannedTransactionFormGroup = CreateTransactionFormGroup(_fb);
+    this.plannedTransactionFormGroup = CreateTransactionFormGroup(_fb, data.month);
 
     const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
 
@@ -88,7 +88,6 @@ export class PlanTransactionModalComponent // implements OnInit
                                                        : 'PL-EXPLORER.TRPLANNER.TITLE-INCOME';
     this.lblType = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.COST-TYPE' 
                                                         : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
-
   }
 
   getFormGroup(formGroup: string): FormGroup {
@@ -105,19 +104,22 @@ export class PlanTransactionModalComponent // implements OnInit
     const transaciton = this.createTransactionObject(transactionForm);
     
     // Process the changes and recalculate the budget.
-    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
-                                      : this._fYExplorer$$.updateTransaction(transaciton);
+    !(this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
+                                       : this._fYExplorer$$.updateTransaction(transaciton);
 
     this.exitModal();
   }
 
-  createTransactionObject(transactionForm: any): TransactionPlan {
+  createTransactionObject(transactionForm: FormGroup): TransactionPlan {
     // TODO Review IAN <> JENTE
+
+    let formvalues = transactionForm.getRawValue();
+
     let transaciton = {
-      ...transactionForm.pTNameFormGroup,
-      ...transactionForm.pTValueBaseFormGroup,
-      ...transactionForm.pTOccurenceFormGroup,
-      ...transactionForm.pTIncreaseFormGroup,
+      ...formvalues.pTNameFormGroup,
+      ...formvalues.pTValueBaseFormGroup,
+      ...formvalues.pTOccurenceFormGroup,
+      ...formvalues.pTIncreaseFormGroup,
       budgetId: this.budgetId,
       king: false
     }
