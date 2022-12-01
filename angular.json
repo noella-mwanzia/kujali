@@ -33,6 +33,7 @@
     "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering",
     "model-finance-planning-budget-rendering-state": "libs/model/finance/planning/budget-rendering-state",
     "state-data-firebase": "libs/state/data/firebase",
+    "state-data-gql": "libs/state/data/gql",
     "state-finance-budgetting-results": "libs/state/finance/budgetting/results",
     "state-finance-cost-types": "libs/state/finance/cost-types"
   }
