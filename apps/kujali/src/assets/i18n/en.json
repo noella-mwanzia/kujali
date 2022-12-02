@@ -65,6 +65,15 @@
   "BUDGETS": {
     "HEADERS": {
       "RESULT": "Result"
+    },
+    "SELECT-BUDGETS": {
+      "FETCHING-BUDGETS": "Fetching budgets",
+      "NO-ARCHIVED-BUDGETS": "There are no archived budgets",
+      "NO-ACTIVE-BUDGETS": "There are no active budgets",
+      "NO-BUDGETS": "There are no budgets"
+    },
+    "DISPLAY-BUDGETS": {
+      "INHERITS-FROM": "Inherits from: "
     }
   },
   "BUDGETTING": {
