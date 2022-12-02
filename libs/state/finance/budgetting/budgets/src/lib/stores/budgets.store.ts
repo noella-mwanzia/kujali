@@ -12,6 +12,7 @@ import { Organisation } from "@app/model/organisation";
 import { Budget } from "@app/model/finance/planning/budgets";
 
 import { ActiveOrgStore } from "@app/state/organisation";
+import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
 
 @Injectable()
 export class BudgetsStore extends DataStore<Budget>
@@ -22,6 +23,8 @@ export class BudgetsStore extends DataStore<Budget>
 
   constructor(org$$: ActiveOrgStore,
               dataService: DataService,
+              private _dataProvider: GqlDataProvider,
+              private _fetchdata: FetchDbRecordsService,
               _logger: Logger)
   {
     super('always', _logger);
@@ -30,9 +33,8 @@ export class BudgetsStore extends DataStore<Budget>
       .pipe(
         tap(o => this._org = o),
         tap(o => this._activeRepo = dataService.getRepo<Budget>(`orgs/${o.id}/budgets`)),
-        switchMap(
-          () => this._activeRepo.getDocuments(new Query())),
-        map((budgets: Budget[]) => ___orderBy(budgets, 'createdOn', 'asc')))
+        switchMap(() => this._fetchdata.get('budgets', _dataProvider.getAllBudgets())),
+        map((payLoad: any) => ___orderBy(payLoad.budgets, 'createdOn', 'asc')))
     
       .subscribe(budgets => {
         this.set(budgets, 'FROM DB');
@@ -59,12 +61,12 @@ export class BudgetsStore extends DataStore<Budget>
    * 
    *  TODO: Deep search for loops within large budget hierarchies. Needs recursive pattern
    */
-  getChildBudgetsAddable(budget: Budget)
+  getChildBudgetsAddable(budget: any)
   {
     return this.get()
         .pipe(map(budgets => budgets.filter(b => budget.id != b.id
-                                                      && ! ___includes(budget.childrenList, b.id)
-                                                      && ! ___includes(budget.overrideList, b.id))));
+                                                      && !(budget.parentBudgetId === b.id)
+                                                      && !(budget.parentOverrideId === b.id))));
   }
 
   // add(budget: Budget): Observable<Budget>

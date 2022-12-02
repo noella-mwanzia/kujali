@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "@ngfi/angular";
 
-import { Observable } from "rxjs";
+import { Observable, of, tap, map } from "rxjs";
 
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
+
+import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
 
 /**
  * This service is responsible for rendering budgets by counting up their 
@@ -16,7 +18,7 @@ import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 @Injectable()
 export class BudgetPlansQuery
 {
-  constructor(private _db: DataService)
+  constructor(private _db: FetchDbRecordsService, private _dataProvider: GqlDataProvider)
   { }
 
   /**
@@ -25,9 +27,11 @@ export class BudgetPlansQuery
    * @param {Budget} budget - The budget to render
    * @returns {RenderedBudget}
    */
-  getPlans(budget: Budget): Observable<TransactionPlan[]>
+  getPlans(budget: Budget): Observable<any>
   {
-    const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
+    const repo = this._db.get('transaction_plans', this._dataProvider.getAllTransactions());
+
+    return repo.pipe(map((payLoad:any) => payLoad.transaction_plans.filter((plans: TransactionPlan) => plans.budgetId === budget.id)));
 
     // TODO(jrosseel): Add back override functionality
     // const bases = ___concat(budget.overrideList, budget.id);
@@ -35,7 +39,6 @@ export class BudgetPlansQuery
     // return combineLatest(
     //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
     //        )
-    return repo.getDocuments();
   }
 
   // TODO(jrosseel): Add back override functionality

@@ -57,12 +57,13 @@ export class BudgetQuery
   //            So no two users edit the same budget at the same time else they might override each other.
   get(budgetId: string)
   {
-    return this._editStatus$$.getLockStatus(budgetId).pipe(
-                  switchMap((budgetLock) => budgetLock.isbudgetLocked && budgetLock.createdBy == this._user.id
-                        // If budgets$$ resolves, we can be sure that orgId and user are set as well.
-                        ? this._budgets$$.get().pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget)) 
-                        : of()
-    ))
+    return this._budgets$$.get().pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget))
+    // return this._editStatus$$.getLockStatus(budgetId).pipe(
+    //               switchMap((budgetLock) => budgetLock.isbudgetLocked && budgetLock.createdBy == this._user.id
+    //                     // If budgets$$ resolves, we can be sure that orgId and user are set as well.
+    //                     ? this._budgets$$.get().pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget)) 
+    //                     : of()
+    // ))
   }
 
   /**
