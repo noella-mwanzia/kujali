@@ -18,6 +18,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { BudgetRouter } from './budget-router';
 import { SelectBudgetPageComponent } from './pages/select-budget/select-budget.component';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
+import { Apollo, ApolloModule } from 'apollo-angular';
 
 /**
  * Financial-Planning module. Contains financial planning creation and forecasting.
@@ -39,6 +40,8 @@ import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
                  SelectBudgetPageComponent],
 
   entryComponents: [CreateBudgetModalComponent, ShareBudgetModalComponent],
+
+  providers: [Apollo]
 
 })
 export class FinancialPlanningModule { }
