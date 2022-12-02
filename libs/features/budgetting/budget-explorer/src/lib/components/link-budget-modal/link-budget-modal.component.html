@@ -1,10 +1,9 @@
 <!-- The form is going to go here -->
-<div style="text-align: right"><span (click)="onNoClick()" class="close-modal-btn"><i class="far fa-times-circle"></i>
-    Close</span></div>
+<div style="text-align: right"><span (click)="onNoClick()" class="close-modal-btn"><i class="far fa-times-circle"></i></span></div>
 
 <form *ngIf="budget" #form="ngForm" (ngSubmit)="linkBudget(form.value)" fxLayout="column">
 
-  <h4 class="mat-title type-title">Choose Budget to Link to {{ budget.name }}</h4>
+  <h4 class="mat-title type-title"> {{"BUDGETS.LINK-BUDGETS.CHOOSE-BUDGET" | transloco}} {{ budget.name }}</h4>
 
   <div class="sm-divider"></div>
 
@@ -20,9 +19,9 @@
     <div class="sm-divider"></div>
   </div>
   <ng-template #noOptionsAvailable><div *ngIf="loading; else noOp"><app-spinner></app-spinner></div></ng-template>
-  <ng-template #noOp>No child budgets available.</ng-template>
+  <ng-template #noOp> {{"BUDGETS.LINK-BUDGETS.NO-BUDGETS" | transloco}} </ng-template>
   <button type="submit" [disabled]="loading || !optionsAvailable || form.invalid" class="btn-submit" mat-raised-button color="primary">
-    Link Budget
+    {{"BUDGETS.LINK-BUDGETS.LINK-BUDGET" | transloco}}
   </button>
 
 </form>
