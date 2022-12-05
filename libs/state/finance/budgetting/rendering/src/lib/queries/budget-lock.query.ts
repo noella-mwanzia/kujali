@@ -4,15 +4,14 @@ import { DataService } from "@ngfi/angular";
 import { Observable, switchMap } from "rxjs";
 
 import { IObject } from "@iote/bricks";
-import { ActiveOrgStore } from "@app/state/organisation";
+
 import { Organisation } from "@app/model/organisation";
 
+import { ActiveOrgStore } from "@app/state/organisation";
+
 /**
- * This service is responsible for rendering budgets by counting up their 
- *  internal lines with their results.
+ * This service is responsible for checking if the budget is available for editing
  * 
- * @note This service is used for single use on page load of the budget explorer.
- * @note Should only be imported by BudgetExplorerQuery!
  */
 @Injectable()
 export class BudgetLockQuery
@@ -29,12 +28,12 @@ export class BudgetLockQuery
    */
   getLockStatus(budgetId: string): Observable<BudgetLock>
   {
-    return this._activeOrg.get().pipe(switchMap((org) => this.getLockRepo(org, budgetId)))
+    return this._activeOrg.get().pipe(switchMap((org) => this.getLockRepo(org, budgetId)));
   }
 
   getLockRepo(org: Organisation, budgetId: string) {
     const repo = this._db.getRepo<BudgetLock>(`orgs/${org.id}/budgets/${budgetId}/config`);
-    return repo.getDocumentById('budgetLock')
+    return repo.getDocumentById('budgetLock');
   }
 }
 
