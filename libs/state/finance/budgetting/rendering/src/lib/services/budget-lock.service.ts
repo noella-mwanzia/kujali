@@ -21,18 +21,20 @@ export class BudgetLockService {
   constructor(private _db: DataService,
               private _user$$: UserService<KuUser>,
               private _activeOrg$$: ActiveOrgStore
-  ) 
-  {
+  ) {
     this._user$$.getUserId().pipe(take(1)).subscribe((userId) => this.activeUserId = userId);
   }
 
   lockBudget(budgetId: string, lock: boolean) {
-    this._activeOrg$$.get().pipe(take(1)).subscribe((org) => {if (org) this.updateBudgetLock(org, budgetId, lock)});
+    this._activeOrg$$.get().pipe(take(1)).subscribe((org) => { if (org) this.updateBudgetLock(org, budgetId, lock) });
   }
 
   updateBudgetLock(org: Organisation, budgetId: string, lock: boolean) {
     const repo = this._db.getRepo<BudgetLock>(`orgs/${org.id}/budgets/${budgetId}/config`);
-    return repo.getDocumentById('budgetLock').pipe(take(1)).subscribe((budgetLock) => { if (budgetLock) this.saveLock(budgetLock, repo, lock)});
+    return repo.getDocumentById('budgetLock')
+                .pipe(take(1))
+                  .subscribe((budgetLock) =>
+                      { if (budgetLock) this.saveLock(budgetLock, repo, lock) });
   }
 
   saveLock(bLock: BudgetLock, repo: Repository<BudgetLock>, lock: boolean) {
@@ -53,6 +55,6 @@ export class BudgetLockService {
   }
 }
 
-interface BudgetLock extends IObject{
+interface BudgetLock extends IObject {
   isbudgetLocked: boolean;
 }
