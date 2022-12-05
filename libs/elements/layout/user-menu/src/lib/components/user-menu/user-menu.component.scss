@@ -1,5 +1,16 @@
-@import 'libs/elements/theming/common.theme.scss';
+.user-image {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  clip-path: circle();
+  margin-right: 10px;
+}
+
+img {
+  margin-top: 5px;
+}
 
 .user-btn{
-  background-color: mat-color($accent, A200);;
+  color: white;
+  background-color: var(--kujali-color-primary-blue);
 }
