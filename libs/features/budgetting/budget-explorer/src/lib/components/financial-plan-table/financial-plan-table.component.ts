@@ -92,7 +92,7 @@ export class FinancialPlanTableComponent implements OnInit
   getCategory(row: BudgetRowYear): string {
     return (row.isHeader || row.type == 'childResult')
               ? row.name as string
-              : '';
+              : row.type as string;
   }
 
   /** Get name if applicable (only for non-typed rows) */
