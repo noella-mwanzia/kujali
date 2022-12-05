@@ -36,7 +36,7 @@
     <div class="container" fxLayout="column wrap" fxLayoutAlign="start">
 
       <!-- Budget Table Viz -->
-      <app-financial-plan-pl-tables [state$]="state$" (navigateYearPressed)="navigateYear($event)">
+      <app-financial-plan-pl-tables [state$]="state$" [budgetId]="budgetId" [isInEditMode]="isInEditMode" (navigateYearPressed)="navigateYear($event)">
       </app-financial-plan-pl-tables>
 
     </div>

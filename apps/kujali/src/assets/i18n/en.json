@@ -75,6 +75,11 @@
     "HEADERS": {
       "RESULT": "Result"
     },
+    "LINK-BUDGETS": {
+      "NO-BUDGETS": "No child budgets available",
+      "CHOOSE-BUDGET": "Choose Budget to Link to",
+      "LINK-BUDGET": "Link Budget"
+    },
     "SELECT-BUDGETS": {
       "FETCHING-BUDGETS": "Fetching budgets",
       "NO-ARCHIVED-BUDGETS": "There are no archived budgets",
