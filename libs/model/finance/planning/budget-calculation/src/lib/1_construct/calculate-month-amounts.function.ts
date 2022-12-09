@@ -19,6 +19,9 @@ import { AmountPerMonth, CalculatedAmountPerMonth } from "@app/model/finance/pla
  */
 export function __CalculateAmountForMonth(y: number, m: number, orderedPlans: TransactionPlan[]) : AmountPerMonth
 {
+  // compensate for month deficeincy
+  m = m + 1;
+  
   // 1. Select the plan relevant to the month and year.
   const plan = _selectMostRelevantPlan(y, m, orderedPlans);
   
@@ -65,6 +68,7 @@ function _selectMostRelevantPlan(y: number, m: number, orderedPlans: Transaction
    // The calculation
    const totalMonth = _getPlanAmount(y, m, plan) * _getPlanUnits(y, m, plan) * mode;
  
+
    return {
      amount: totalMonth,
      isOccurenceStart: _isOccurenceStart(y, m, plan), 
@@ -83,9 +87,10 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
     case BudgetItemFrequency.Once:        return _isOccurenceStart(y, m, plan); 
     case BudgetItemFrequency.Monthly:     return true;
     case BudgetItemFrequency.Quarterly:   return (m % 3 == 0);
-    case BudgetItemFrequency.Year:        return (plan.fromMonth.month == m);
+    case BudgetItemFrequency.Yearly:        return (plan.fromMonth.month == m);
     case BudgetItemFrequency.EveryXTimes: return ((plan.fromMonth.month - m) % plan.xTimesInterval === 0);
   }
+
 
   return false;
 }
@@ -123,13 +128,14 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
 
   function _getFrequencyCount(y: number, m: number, plan: TransactionPlan, incrFreq?: BudgetItemFrequency, interval?: number)
   {
+    
     if(incrFreq)
       switch (incrFreq) 
       {
         case BudgetItemFrequency.Monthly:     return _monthsAgo(plan.fromYear, plan.fromMonth.month, y, m);
         case BudgetItemFrequency.Quarterly:   return _monthsAgo(plan.fromYear, plan.fromMonth.month, y, m) / 3;
         case BudgetItemFrequency.EveryXTimes: return _monthsAgo(y, m, plan.fromYear, plan.fromMonth.month) / (interval as number);
-        case BudgetItemFrequency.Year:        return _yearsAgo(plan.fromYear, y);
+        case BudgetItemFrequency.Yearly:      return _yearsAgo(plan.fromYear, y);
       }
 
     return 0;
