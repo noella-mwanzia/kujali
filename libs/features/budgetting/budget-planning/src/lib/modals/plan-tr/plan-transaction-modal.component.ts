@@ -12,7 +12,7 @@ import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } f
 import { CostTypesStore } from '@app/state/finance/cost-types';
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 
-import { CreateTransactionFormGroup } from '../../model/create-transaction-form.model';
+import { CreateTransactionFormGroup, CreateUpdateTransactionFormGroup } from '../../model/create-transaction-form.model';
 
 @Component({
   selector: 'app-plan-transaction',
@@ -66,11 +66,11 @@ export class PlanTransactionModalComponent  // implements OnInit
               private _dialog: MatDialogRef<PlanTransactionModalComponent>, 
               @Inject(MAT_DIALOG_DATA) data: any,
   ) 
-  {
+  {    
     this._translation.initialise();
     this.budgetId = data.budgetId as string;
 
-    this.plannedTransactionFormGroup = CreateTransactionFormGroup(_fb, data.month);
+    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.month);
 
     const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
 
@@ -81,13 +81,17 @@ export class PlanTransactionModalComponent  // implements OnInit
     this.isCreate  = !this.isNewLine && cmd.trMode === 'create';
     this.isEdit    = !this.isNewLine && !this.isCreate;
 
-    this.lblAction = this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
+    this.lblAction = !this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
                                     : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
 
     this.title  = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.TITLE-COST' 
                                                        : 'PL-EXPLORER.TRPLANNER.TITLE-INCOME';
     this.lblType = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.COST-TYPE' 
                                                         : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
+  }
+
+  createPlanTransactionForm(plan?: any, month?: number): FormGroup {
+    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence) : CreateTransactionFormGroup(this._fb, month!);
   }
 
   getFormGroup(formGroup: string): FormGroup {
@@ -101,39 +105,56 @@ export class PlanTransactionModalComponent  // implements OnInit
 
   saveTransaction(transactionForm: any)
   {
-    const transaciton = this.createTransactionObject(transactionForm);
-    
+    const transaciton = this._createTransactionObject(transactionForm);
+
     // Process the changes and recalculate the budget.
-    !(this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
+    
+    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
                                        : this._fYExplorer$$.updateTransaction(transaciton);
 
     this.exitModal();
   }
 
-  createTransactionObject(transactionForm: FormGroup): TransactionPlan {
-    // TODO Review IAN <> JENTE
+  /**
+   * Transforms transaction planner form into Planned Transaction.
+   * @param plTransForm: Transaction Planner Form Data
+   */
+  private _createTransactionObject(plTransForm: FormGroup): TransactionPlan
+  {
+    let formvalues = plTransForm.getRawValue();
 
-    let formvalues = transactionForm.getRawValue();
-
-    let transaciton = {
-      ...formvalues.pTNameFormGroup,
-      ...formvalues.pTValueBaseFormGroup,
-      ...formvalues.pTOccurenceFormGroup,
-      ...formvalues.pTIncreaseFormGroup,
-      budgetId: this.budgetId,
-      king: false
+    let transaction = { ...formvalues.pTNameFormGroup, ...formvalues.pTValueBaseFormGroup,
+                        ...formvalues.pTOccurenceFormGroup, ...formvalues.pTIncreaseFormGroup,
+                        budgetId: this.budgetId, king: false
     }
 
-    if(!transaciton.hasIncrease) {
-      transaciton.hasIncrease = false; 
+    if(!transaction.hasIncrease) {
+      transaction.hasIncrease = false; 
     }
   
-    transaciton.frequency = BudgetItemFrequency[transaciton.frequency];
-    transaciton.trCatId = transaciton.type.categoryId;
-    transaciton.trTypeId = transaciton.type.id;
-    transaciton.mode = transaciton.type.type;
+    transaction.trCatId = transaction.type.categoryId;
+    transaction.trTypeId = transaction.type.id;
+    transaction.mode = transaction.type.type;
 
-    return transaciton;
+    transaction.unitIncrConfig = {
+      incrStyle: transaction.unitIncrConfig,
+      incrFreq: transaction.unitIncreaseFrequency,
+      incrRate: transaction.unitIncreaseRate,
+      interval: transaction.xTimesUnitIncreaseInterval 
+    }
+
+    transaction.amntIncrConfig = {
+      incrStyle: transaction.amntIncrConfig,
+      incrFreq: transaction.amountIncreaseFrequency,
+      incrRate: transaction.amountIncreaseRate,
+      interval: transaction.xTimesAmountIncreaseInterval 
+    }
+
+    transaction.frequency = BudgetItemFrequency[transaction.frequency];
+    transaction.amntIncrConfig.incrFreq = BudgetItemFrequency[transaction.amntIncrConfig.incrFreq];
+    transaction.unitIncrConfig.incrFreq = BudgetItemFrequency[transaction.amntIncrConfig.incrFreq];
+
+    return transaction as TransactionPlan;
   }
 
   onNoClick = () => this.exitModal();
