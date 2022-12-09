@@ -28,11 +28,11 @@
         <div class="form-field">
   
           <mat-radio-group (change)="frequencyChanged($event)" name="frequency" formControlName="frequency" fxLayout="row wrap">
-            <mat-radio-button [value]="'Once'"      name="frequency">Once</mat-radio-button>
-            <mat-radio-button [value]="'Monthly'" name="frequency">Monthly / Each Time</mat-radio-button>
-            <mat-radio-button [value]="'Quarterly'" name="frequency">Quarterly</mat-radio-button>
-            <mat-radio-button [value]="'Yearly'"    name="frequency">Yearly</mat-radio-button>
-            <mat-radio-button [value]="'EveryXTimes'" name="frequency">X-Months</mat-radio-button>
+            <mat-radio-button [value]="0" name="frequency">Once</mat-radio-button>
+            <mat-radio-button [value]="1" name="frequency">Monthly / Each Time</mat-radio-button>
+            <mat-radio-button [value]="90" name="frequency">Quarterly</mat-radio-button>
+            <mat-radio-button [value]="365"    name="frequency">Yearly</mat-radio-button>
+            <mat-radio-button [value]="999" name="frequency">Every-X-Months</mat-radio-button>
           </mat-radio-group>
         </div>
   

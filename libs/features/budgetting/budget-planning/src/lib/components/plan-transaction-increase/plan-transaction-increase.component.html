@@ -27,11 +27,11 @@
               <!-- <mat-radio-group formControlName="amountIncreaseFrequency" name="amountIncreaseFrequency" [(ngModel)]="frequency" fxLayout="row wrap"> -->
               <mat-radio-group formControlName="amountIncreaseFrequency" name="amountIncreaseFrequency" fxLayout="row wrap"
                                 fxLayoutGap="10px" (change)="amountIncreaseFrequencyChanged($event)">
-                <mat-radio-button [value]="'Never'" name="unitIncreaseFrequency">No increase</mat-radio-button>
-                <mat-radio-button [value]="'Monthly'"     name="amountIncreaseFrequency">Monthly</mat-radio-button>
-                <mat-radio-button [value]="'EveryXTimes'" name="amountIncreaseFrequency">Every X Occurences</mat-radio-button>
-                <mat-radio-button [value]="'Yearly'"        name="amountIncreaseFrequency">Yearly</mat-radio-button>
-                <mat-radio-button [value]="'Quarterly'"     name="amountIncreaseFrequency">Quarterly</mat-radio-button>
+                <mat-radio-button [value]="-1" name="unitIncreaseFrequency">No increase</mat-radio-button>
+                <mat-radio-button [value]="1" name="amountIncreaseFrequency">Monthly</mat-radio-button>
+                <mat-radio-button [value]="999" name="amountIncreaseFrequency">Every X Occurences</mat-radio-button>
+                <mat-radio-button [value]="365" name="amountIncreaseFrequency">Yearly</mat-radio-button>
+                <mat-radio-button [value]="90" name="amountIncreaseFrequency">Quarterly</mat-radio-button>
               </mat-radio-group>
             </div>
   
@@ -84,12 +84,11 @@
             <div class="form-field increase-select">
               <mat-radio-group name="unitIncreaseFrequency" formControlName="unitIncreaseFrequency" fxLayout="row wrap" 
                               fxLayoutGap="10px" (change)="unitIncreaseFrequencyChanged($event)">
-                <mat-radio-button [value]="'Never'" name="unitIncreaseFrequency">No increase</mat-radio-button>
-                <mat-radio-button [value]="'Monthly'" name="unitIncreaseFrequency">Monthly</mat-radio-button>
-                <mat-radio-button [value]="'EveryXTimes'" name="unitIncreaseFrequency">Every X Occurences
-                </mat-radio-button>
-                <mat-radio-button [value]="'Yearly'" name="unitIncreaseFrequency">Yearly</mat-radio-button>
-                <mat-radio-button [value]="'Quarterly'" name="unitIncreaseFrequency">Quarterly</mat-radio-button>
+              <mat-radio-button [value]="-1" name="unitIncreaseFrequency">No increase</mat-radio-button>
+              <mat-radio-button [value]="1" name="amountIncreaseFrequency">Monthly</mat-radio-button>
+              <mat-radio-button [value]="999" name="amountIncreaseFrequency">Every X Occurences</mat-radio-button>
+              <mat-radio-button [value]="365" name="amountIncreaseFrequency">Yearly</mat-radio-button>
+              <mat-radio-button [value]="90" name="amountIncreaseFrequency">Quarterly</mat-radio-button>
               </mat-radio-group>
             </div>
       
