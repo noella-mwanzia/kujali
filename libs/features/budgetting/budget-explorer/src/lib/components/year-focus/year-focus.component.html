@@ -2,13 +2,23 @@
 <div fxLayout="column">
   <h3 *ngIf="title">{{ title }}</h3>
 
-  <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px">
-    <div fxLayoutAlign="center center">
-      <button (click)="navigateYear('prev')" mat-stroked-button>Previous year</button>
+  <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="space-between center" fxFlex>
+
+    <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px" fxFlex>
+      <div fxLayoutAlign="center center">
+        <button (click)="navigateYear('prev')" mat-stroked-button>Previous year</button>
+      </div>
+
+      <div fxLayoutAlign="center center">
+        <button (click)="navigateYear('next')" mat-stroked-button>Next year</button>
+      </div>
     </div>
-  
+
     <div fxLayoutAlign="center center">
-      <button (click)="navigateYear('next')" mat-stroked-button>Next year</button>
+      <button [class]="title" *ngIf=" title && title != 'Balance'" (click)="addCostOrIncome()" mat-raised-button>
+        <i *ngIf="title == 'Income'" class="fas fa-plus"></i>
+        <i *ngIf="title == 'Costs'" class="fas fa-minus"></i>
+        Add {{title}} </button>
     </div>
   </div>
 
