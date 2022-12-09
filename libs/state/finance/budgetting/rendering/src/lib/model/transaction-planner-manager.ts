@@ -50,8 +50,9 @@ export class TransactionPlannerManager
    */
   add(plan: TransactionPlan)
   {
-    plan.id = ___uniqueId();
-    plan.lineId = plan.id;
+    // uid makes sure the Id is not repeated even when the project restarts
+    plan.id = plan.id && plan.lineId ? plan.id : this.uid();
+    plan.lineId = plan.lineId ? plan.lineId : plan.id;
     // 1. Validate! We can't add a second king
     if(this._active.find(p => p.trTypeId === plan.trTypeId && p.king && plan.king))
       throw new Error('There cannot be two king (template) transaction plans of the same line');
@@ -70,7 +71,6 @@ export class TransactionPlannerManager
     // Now add back the new version
     without.push(plan);
     this._active = without;
-    
     this._refresh();
   }
 
@@ -99,7 +99,11 @@ export class TransactionPlannerManager
     this._active = this._active.filter(a => a.trTypeId !== trTypeId);
     this._refresh();
   }
-    
+
+  private uid = () => {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
+  }
+
   private _refresh()
   {
     this._plans$$.next(this._active);
