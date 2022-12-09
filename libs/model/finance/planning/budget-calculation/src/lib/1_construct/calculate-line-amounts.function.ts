@@ -30,7 +30,6 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
   // Use first occurence created as template for the line configuration (category, ...)
   if (occs.length === 1) {
     occs[0].king = true;
-    occs[0].lineId = uniqueId();
   }
   
   let lineTemplate = occs.find(o => o.king);
