@@ -1,4 +1,4 @@
-import { sortBy as ___sortBy } from 'lodash';
+import { sortBy as ___sortBy, uniqueId } from 'lodash';
 
 import { Budget } from "@app/model/finance/planning/budgets";
 
@@ -28,16 +28,16 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
   const values = _populateBudgetLineValues(valueTemplate, occs);
 
   // Use first occurence created as template for the line configuration (category, ...)
+  if (occs.length === 1) {
+    occs[0].king = true;
+    occs[0].lineId = uniqueId();
+  }
+  
   let lineTemplate = occs.find(o => o.king);
 
   // TODO: Review Jente <> Ian
-  // if(!lineTemplate)
-  //   throw new Error('Line has no king/main template plan');
-
-  if(!lineTemplate) {
-    occs[0].king = true;
-    lineTemplate = occs[0]
-  }
+  if(!lineTemplate)
+    throw new Error('Line has no king/main template plan');
 
   return _templateToLine(lineTemplate, occs, values);
 }
@@ -68,7 +68,7 @@ function _populateBudgetLineValues(line: AmountPerYear[], plans: TransactionPlan
 function _templateToLine(template: TransactionPlan, plans: TransactionPlan[], values: AmountPerYear[]): BudgetLineRow
 {
   return {
-    id: template.lineId,
+    id: template.id!,
     name: template.lineName,
 
     amountsYear: values,
