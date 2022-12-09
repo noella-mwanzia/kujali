@@ -22,6 +22,7 @@ export class FinancialPlanPlTablesComponent implements OnInit
   costType   = BudgetRowType.CostLine;
   incomeType = BudgetRowType.IncomeLine;
 
+  @Output() budgetSubmittedEvent = new EventEmitter();
   @Output() navigateYearPressed = new EventEmitter<'prev' | 'next'>();
   
   // Data Sources
@@ -44,5 +45,9 @@ export class FinancialPlanPlTablesComponent implements OnInit
   onPressNavigateYear($event: 'prev' | 'next')
   {
     this.navigateYearPressed.emit($event);
+  }
+
+  budgetSubmitted() {
+    this.budgetSubmittedEvent.emit();
   }
 }

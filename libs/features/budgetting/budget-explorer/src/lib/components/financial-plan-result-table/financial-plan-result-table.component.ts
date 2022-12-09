@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, Subscription } from 'rxjs';
@@ -22,6 +22,8 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
   @Input() state$!: Observable<FinancialExplorerState>;
   @Input() budgetId: string;
 
+  @Output() budgetSubmitted = new EventEmitter();
+
   balanceTable$!: Observable<BudgetRowYear[]>;
   balance$!     : Observable<BudgetRowYear>;
 
@@ -44,6 +46,10 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   downloadExcelFile() {
     console.log('Service does not exist');
+  }
+
+  submitBudget() {
+    this.budgetSubmitted.emit();
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,30 @@
 <app-year-focus [title]="'Balance'" (navigateYearPressed)="onPressNavigateYear($event)">
 
-  <app-financial-plan-result-table [state$]="state$" [budgetId]="budgetId"></app-financial-plan-result-table>
+  <app-financial-plan-result-table [state$]="state$" 
+                                   [budgetId]="budgetId"
+                                   (budgetSubmitted)="budgetSubmitted()">
+  </app-financial-plan-result-table>
+
+</app-year-focus>
+
+<!-- Income Sheet -->
+<app-year-focus [title]="'Income'"
+                [type]="incomeType"
+                [budgetId]="budgetId"
+                (navigateYearPressed)="onPressNavigateYear($event)">
+
+  <app-financial-plan-table classId="income" [type]="incomeType"
+                            [rows$]="incomeDataSource$" [total$]="incomeTotal$"
+                            [isInEditMode]="isInEditMode">
+  </app-financial-plan-table>
 
 </app-year-focus>
 
 <!-- Cost Sheet -->
-<app-year-focus [title]="'Costs'" (navigateYearPressed)="onPressNavigateYear($event)">
+<app-year-focus [title]="'Costs'"
+                [type]="costType"
+                [budgetId]="budgetId"
+                (navigateYearPressed)="onPressNavigateYear($event)">
 
     <app-financial-plan-table #costTable 
                               classId="cost" [type]="costType" 
@@ -15,12 +34,3 @@
 
 </app-year-focus>
 
-<!-- Income Sheet -->
-<app-year-focus [title]="'Income'" (navigateYearPressed)="onPressNavigateYear($event)">
-
-  <app-financial-plan-table classId="income" [type]="incomeType"
-                            [rows$]="incomeDataSource$" [total$]="incomeTotal$"
-                            [isInEditMode]="isInEditMode">
-  </app-financial-plan-table>
-
-</app-year-focus>

@@ -1,18 +1,22 @@
-<!-- Balance Table -->
-<app-financial-plan-table  
-      classId="result"
-      [type]="tableType" 
-      [rows$]="balanceTable$" 
-      [total$]="balance$"
-      [allowAdd]="false" [nameField]="false">
-</app-financial-plan-table>
+<div fxLayout="column" fxLayoutAlign="start">
+  <!-- Balance Table -->
+  <app-financial-plan-table classId="result" [type]="tableType" [rows$]="balanceTable$" [total$]="balance$"
+    [allowAdd]="false" [nameField]="false">
+  </app-financial-plan-table>
 
-<!-- Balance Actions-->
-<div fxLayout="row" fxLayoutAlign="start">
-  <button mat-raised-button color="primary" class="mr-10px" (click)="downloadExcelFile()">
-    <i class="far fa-file-excel"></i> Export to Excel</button>
+  <!-- Balance Actions-->
+  <div fxLayout="row" fxLayoutAlign="space-between" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="start" fxFlex>
+      <button mat-raised-button color="primary" class="mr-10px" (click)="downloadExcelFile()">
+        <i class="far fa-file-excel"></i> Export to Excel</button>
 
-  <button mat-raised-button color="primary" (click)="linkChildModal()">
-    Link Child Budget <i class="fas fa-share-alt-square"></i>
-  </button>
+      <button mat-raised-button color="primary" (click)="linkChildModal()">
+        <i class="fas fa-share-alt-square"></i> Link Child Budget
+      </button>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="submitBudget()">
+      <i class="fa-solid fa-paper-plane"></i> Submit Budget
+    </button>
+  </div>
 </div>
