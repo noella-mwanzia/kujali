@@ -36,7 +36,9 @@ export class PlanTransactionIncreaseComponent implements OnInit
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.hasIncrease = this.planTransactionIncreaseFormGroup.value.pTIncreaseFormGroup.hasIncrease;
+  }
 
   hasIncreaseChanged(increase: MatSlideToggleChange) {
     this.hasIncrease = increase.checked;
