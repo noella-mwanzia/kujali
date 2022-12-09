@@ -74,6 +74,20 @@
   "BUDGETS": {
     "HEADERS": {
       "RESULT": "Result"
+    },
+    "LINK-BUDGETS": {
+      "NO-BUDGETS": "No child budgets available",
+      "CHOOSE-BUDGET": "Choose Budget to Link to",
+      "LINK-BUDGET": "Link Budget"
+    },
+    "SELECT-BUDGETS": {
+      "FETCHING-BUDGETS": "Fetching budgets",
+      "NO-ARCHIVED-BUDGETS": "There are no archived budgets",
+      "NO-ACTIVE-BUDGETS": "There are no active budgets",
+      "NO-BUDGETS": "There are no budgets"
+    },
+    "DISPLAY-BUDGETS": {
+      "INHERITS-FROM": "Inherits from: "
     }
   },
   "BUDGETTING": {

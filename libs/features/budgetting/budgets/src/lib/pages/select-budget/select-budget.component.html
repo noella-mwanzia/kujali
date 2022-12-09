@@ -20,7 +20,7 @@
                 </app-display-budget-record>
               </div>
               <ng-template #noActiveBudgets>
-                <span>There are no active budgets</span>
+                <span> {{'BUDGETS.SELECT-BUDGETS.NO-ACTIVE-BUDGETS' | transloco}} </span>
               </ng-template>
             </div>
           </div>
@@ -47,7 +47,7 @@
                 </div>
               </div>
               <ng-template #noBudgets>
-                <span>There are no budgets</span>
+                <span> {{'BUDGETS.SELECT-BUDGETS.NO-BUDGETS' | transloco}} </span>
               </ng-template>
             </div>
           </div>
@@ -62,7 +62,7 @@
                 </app-display-budget-record>
               </div>
               <ng-template #noArchivedBudgets>
-                <span>There are no archived budgets</span>
+                <span> {{'BUDGETS.SELECT-BUDGETS.NO-ARCHIVED-BUDGETS' | transloco}} </span>
               </ng-template>
             </div>
 
@@ -72,7 +72,7 @@
         <ng-template #loading>
           <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
             <div style="padding-top: 50px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-              <span>Fetching budgets..</span>
+              <span> {{'BUDGETS.SELECT-BUDGETS.FETCHING-BUDGETS' | transloco}} </span>
               <mat-spinner diameter="30"></mat-spinner>
             </div>
           </div>
