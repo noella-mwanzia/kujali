@@ -13,6 +13,7 @@ import { CostTypesStore } from '@app/state/finance/cost-types';
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 
 import { CreateTransactionFormGroup, CreateUpdateTransactionFormGroup } from '../../model/create-transaction-form.model';
+import { TransactionPlanService } from '../../services/transaction-plan.service';
 
 @Component({
   selector: 'app-plan-transaction',
@@ -60,11 +61,12 @@ export class PlanTransactionModalComponent  // implements OnInit
   units  = 1; 
 
   constructor(private _fb: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) data: any,
+              private _dialog: MatDialogRef<PlanTransactionModalComponent>,
               private _translation: TranslateService,
               private _costTypes$$: CostTypesStore,
               private _fYExplorer$$: FinancialExplorerStateService,
-              private _dialog: MatDialogRef<PlanTransactionModalComponent>, 
-              @Inject(MAT_DIALOG_DATA) data: any,
+              private _transactionPlService: TransactionPlanService
   ) 
   {    
     this._translation.initialise();
@@ -91,7 +93,8 @@ export class PlanTransactionModalComponent  // implements OnInit
   }
 
   createPlanTransactionForm(plan?: any, month?: number): FormGroup {
-    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence) : CreateTransactionFormGroup(this._fb, month!);
+    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence)
+                          : CreateTransactionFormGroup(this._fb, month!);
   }
 
   getFormGroup(formGroup: string): FormGroup {
@@ -103,58 +106,15 @@ export class PlanTransactionModalComponent  // implements OnInit
     return !(nameForm.value.selectedCategory && nameForm.value.selectedType && nameForm.value.name);
   }
 
-  saveTransaction(transactionForm: any)
+  saveTransaction(transactionForm: FormGroup)
   {
-    const transaciton = this._createTransactionObject(transactionForm);
-
-    // Process the changes and recalculate the budget.
+    const transaciton = this._transactionPlService.createTransactionPlan(transactionForm, this.budgetId, this.type);
     
+    // Process the changes and recalculate the budget.
     (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
                                        : this._fYExplorer$$.updateTransaction(transaciton);
 
     this.exitModal();
-  }
-
-  /**
-   * Transforms transaction planner form into Planned Transaction.
-   * @param plTransForm: Transaction Planner Form Data
-   */
-  private _createTransactionObject(plTransForm: FormGroup): TransactionPlan
-  {
-    let formvalues = plTransForm.getRawValue();
-
-    let transaction = { ...formvalues.pTNameFormGroup, ...formvalues.pTValueBaseFormGroup,
-                        ...formvalues.pTOccurenceFormGroup, ...formvalues.pTIncreaseFormGroup,
-                        budgetId: this.budgetId, king: false
-    }
-
-    if(!transaction.hasIncrease) {
-      transaction.hasIncrease = false; 
-    }
-  
-    transaction.trCatId = transaction.type.categoryId;
-    transaction.trTypeId = transaction.type.id;
-    transaction.mode = transaction.type.type;
-
-    transaction.unitIncrConfig = {
-      incrStyle: transaction.unitIncrConfig,
-      incrFreq: transaction.unitIncreaseFrequency,
-      incrRate: transaction.unitIncreaseRate,
-      interval: transaction.xTimesUnitIncreaseInterval 
-    }
-
-    transaction.amntIncrConfig = {
-      incrStyle: transaction.amntIncrConfig,
-      incrFreq: transaction.amountIncreaseFrequency,
-      incrRate: transaction.amountIncreaseRate,
-      interval: transaction.xTimesAmountIncreaseInterval 
-    }
-
-    transaction.frequency = BudgetItemFrequency[transaction.frequency];
-    transaction.amntIncrConfig.incrFreq = BudgetItemFrequency[transaction.amntIncrConfig.incrFreq];
-    transaction.unitIncrConfig.incrFreq = BudgetItemFrequency[transaction.amntIncrConfig.incrFreq];
-
-    return transaction as TransactionPlan;
   }
 
   onNoClick = () => this.exitModal();
