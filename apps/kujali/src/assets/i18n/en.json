@@ -68,7 +68,9 @@
       "CAT-HEADER": {
         "TITLE": "Category",
         "TOTAL": "Total"
-      }
+      },
+      "EXCEL-EXPORT": "Export to Excel",
+      "LINK-CHILD": "Link Child Budget"
     }
   },
   "BUDGETS": {
@@ -80,6 +82,7 @@
       "CHOOSE-BUDGET": "Choose Budget to Link to",
       "LINK-BUDGET": "Link Budget"
     },
+    "SUBMIT": "Submit Budget",
     "SELECT-BUDGETS": {
       "FETCHING-BUDGETS": "Fetching budgets",
       "NO-ARCHIVED-BUDGETS": "There are no archived budgets",

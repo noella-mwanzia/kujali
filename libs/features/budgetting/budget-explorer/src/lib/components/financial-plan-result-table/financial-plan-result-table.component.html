@@ -8,15 +8,15 @@
   <div fxLayout="row" fxLayoutAlign="space-between" fxFlex>
     <div fxLayout="row" fxLayoutAlign="start" fxFlex>
       <button mat-raised-button color="primary" class="mr-10px" (click)="downloadExcelFile()">
-        <i class="far fa-file-excel"></i> Export to Excel</button>
+        <i class="far fa-file-excel"></i> {{"PL.TABLE.EXCEL-EXPORT" | transloco}} </button>
 
       <button mat-raised-button color="primary" (click)="linkChildModal()">
-        <i class="fas fa-share-alt-square"></i> Link Child Budget
+        <i class="fas fa-share-alt-square"></i> {{"PL.TABLE.LINK-CHILD" | transloco}}
       </button>
     </div>
 
     <button mat-raised-button color="primary" (click)="submitBudget()">
-      <i class="fa-solid fa-paper-plane"></i> Submit Budget
+      <i class="fa-solid fa-paper-plane"></i> {{"BUDGETS.SUBMIT" | transloco}}
     </button>
   </div>
 </div>
