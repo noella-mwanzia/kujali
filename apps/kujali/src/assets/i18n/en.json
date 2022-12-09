@@ -85,6 +85,7 @@
   "PL-EXPLORER": {
     "TRPLANNER": {
       "ACTION-UPDATE": "Update",
+      "ACTION-CREATE": "Create",
       "TITLE-INCOME": "Income",
       "INCOME-TYPE": "Income",
       "COST-TYPE": "Cost",
