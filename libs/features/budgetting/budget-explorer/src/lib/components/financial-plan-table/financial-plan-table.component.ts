@@ -49,7 +49,6 @@ export class FinancialPlanTableComponent implements OnInit
 
   savingTransactions: number = 0;
 
-  datatodisplay: any;
   loaded= false;
 
   constructor(private _router$$: Router,
@@ -157,22 +156,7 @@ export class FinancialPlanTableComponent implements OnInit
     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  // -- Create and Update Rows
-  openPlanTransactionModal(m : any): void
-  {
-    if (this.isInEditMode && this.classId != 'result') {
-      this.dialog.open(PlanTransactionModalComponent, 
-        {
-          data: { isInCreateMode: true, month: m.month, type: this.type, budgetId: this.budgetId },
-          minHeight: '600px'
-        })
-        .afterClosed()
-        .subscribe((saving: Observable<any> | false) => 
-          { if (saving) this._addCounterSaving(saving); });
-    }
-  }
-
-  openCellModal(cell: any, column)
+  openCellModal(cell, column)
   {    
     const amount = this._getCellValue(cell, column);
 
@@ -184,7 +168,6 @@ export class FinancialPlanTableComponent implements OnInit
                     amount: amount.baseAmount,
                     units: amount.units,
                     update: amount.isOccurenceStart,
-                    // transaction: cell.transaction,
 
                     budgetId: this.budgetId, 
                     occurence: cell.amountsMonth[column.month - 1].plan 
@@ -192,13 +175,13 @@ export class FinancialPlanTableComponent implements OnInit
                   
     this.dialog.open(PlanTransactionModalComponent, { data })
                .afterClosed()
-               .subscribe((saving: Observable<any> | false) => 
+               .subscribe((saving: Observable<boolean> | false) => 
                   { if (saving) this._addCounterSaving(saving); });
   }
 
 
   /** Counter for when transactions are being saved. */
-  private _addCounterSaving(transaction: Observable<any>) 
+  private _addCounterSaving(transaction: Observable<boolean>) 
   {
     this.savingTransactions++;
 

@@ -6,11 +6,11 @@
 
     <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px" fxFlex>
       <div fxLayoutAlign="center center">
-        <button (click)="navigateYear('prev')" mat-stroked-button>Previous year</button>
+        <button (click)="navigateYear('prev')" mat-stroked-button> {{"BUDGET.PREVIOUS-YEAR" | transloco}} </button>
       </div>
 
       <div fxLayoutAlign="center center">
-        <button (click)="navigateYear('next')" mat-stroked-button>Next year</button>
+        <button (click)="navigateYear('next')" mat-stroked-button> {{"BUDGET.NEXT-YEAR" | transloco}} </button>
       </div>
     </div>
 
@@ -18,7 +18,8 @@
       <button [class]="title" *ngIf=" title && title != 'Balance'" (click)="addCostOrIncome()" mat-raised-button>
         <i *ngIf="title == 'Income'" class="fas fa-plus"></i>
         <i *ngIf="title == 'Costs'" class="fas fa-minus"></i>
-        Add {{title}} </button>
+        Add {{title}} 
+      </button>
     </div>
   </div>
 

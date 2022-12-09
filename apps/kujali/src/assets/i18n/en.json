@@ -183,6 +183,8 @@
     }
   },
   "BUDGET": {
+    "PREVIOUS-YEAR": "Previous Year",
+    "NEXT-YEAR": "Next Year",
     "CREATE": {
       "HDR-CREATE-BUDGET":"Create budget",
       "HDR-FLD-BUDGET-NAME": "Budget name",

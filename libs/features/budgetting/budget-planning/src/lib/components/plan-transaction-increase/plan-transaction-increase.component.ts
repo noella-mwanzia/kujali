@@ -31,8 +31,8 @@ export class PlanTransactionIncreaseComponent implements OnInit
   // @Input() amountIncreaseFrequency: Frequency = 'never';
   // @Input() unitIncreaseFrequency: Frequency = 'never';
 
-  amountIncreaseFrequency: string;
-  unitIncreaseFrequency: string;
+  amountIncreaseFrequency: number;
+  unitIncreaseFrequency: number;
 
   constructor() { }
 

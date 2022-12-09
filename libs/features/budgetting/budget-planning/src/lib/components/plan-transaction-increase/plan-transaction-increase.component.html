@@ -35,7 +35,7 @@
               </mat-radio-group>
             </div>
   
-            <div fxLayout="row" *ngIf="amountIncreaseFrequency == 'EveryXTimes'">
+            <div fxLayout="row" *ngIf="amountIncreaseFrequency == 999">
               <div  class="increase-rate-label">Increase per:</div>
               <mat-form-field fxFlex="80">
                 <mat-label>Number of occurences before increase</mat-label>
@@ -44,7 +44,7 @@
               </mat-form-field>
           </div>
   
-          <div class="form-section-sub" *ngIf="amountIncreaseFrequency != 'Never'">
+          <div class="form-section-sub" *ngIf="amountIncreaseFrequency != -1">
             <div class="form-section-sub-title">Increase Rate</div>
             <div fxLayout="row">
               <div fxFlex="50" class="form-field increase-select">
@@ -92,7 +92,7 @@
               </mat-radio-group>
             </div>
       
-            <div fxLayout="row" *ngIf="unitIncreaseFrequency == 'EveryXTimes'">
+            <div fxLayout="row" *ngIf="unitIncreaseFrequency == 999">
               <div class="increase-rate-label">Increase per: </div>
               <mat-form-field>
                 <mat-label>Number of occurences before increase</mat-label>
@@ -104,7 +104,7 @@
            
           </div>
       
-          <div class="form-section-sub" *ngIf="unitIncreaseFrequency != 'Never'">
+          <div class="form-section-sub" *ngIf="unitIncreaseFrequency != -1">
             <div class="form-section-sub-title">Increase Rate</div>
             <div fxLayout="row">
               <div fxFlex="50" class="form-field increase-select">
