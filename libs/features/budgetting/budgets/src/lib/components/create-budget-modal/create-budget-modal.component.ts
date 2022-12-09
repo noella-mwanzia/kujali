@@ -87,27 +87,18 @@ export class CreateBudgetModalComponent implements OnInit
     }
 
     const budget = <Budget><unknown>{
-      id: 'dskhbjklsdfn',
-      orgId: '',
-      budgetId: '',
       name: this.budgetName,
       startYear: this.startYear,
       startMonth: 0,
       duration: this.duration,
 
-      // result: this._emptyBalance(),
+      result: this._emptyBalance(),
       status: BudgetStatus.Open,
-      createdBy: '',
-      createdOn: '',
 
-      parentBudgetId: '',
-      parentOverrideId: ''
-
-      // overrideList,
-      // overrideNameList,
-      // childrenList,
+      overrideList,
+      overrideNameList,
+      childrenList,
     };
-
 
     // Add to store.
     this._budgets$$.add(budget).subscribe((budget) => {
