@@ -71,9 +71,9 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
   /**
    * Constructs a budget-overview-tree from the roots down.
    */
-  private _createRootTree(filtered: any[], all: any[]): BudgetRecord[]
+  private _createRootTree(filtered: Budget[], all: Budget[]): BudgetRecord[]
   {
-    const roots = filtered.filter(f => ! ___flatMap(all, a => a.id).includes(f.parentBudgetId));
+    const roots = filtered.filter(f => ! ___flatMap(all, a => a.childrenList).includes(f.id as string));
 
     const mightBeChildren = all.filter(a => ! ___includes(roots.map(r => r.id), a.id));
 
@@ -81,16 +81,16 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
   }
 
   /** Returns child budgets of a current iterated budget. */
-  private _findChildren(current: any, availableNodes: any[], parentStatus?: BudgetStatus): BudgetRecord
+  private _findChildren(current: Budget, availableNodes: Budget[], parentStatus?: BudgetStatus): BudgetRecord
   {
     // If status is not in use but parent status is locked -> Lock child as well
     if (current.status != BudgetStatus.InUse && parentStatus != null && parentStatus == BudgetStatus.InUse)
       current.status = BudgetStatus.InUse;
     
-    const childNodes = availableNodes.filter(node => current.id == node.parentBudgetId);
+    const childNodes = availableNodes.filter(node => current.childrenList.includes(node.id as string));
     // Do not allow recursive budgets nor budgets inheriting their aunts/sisters.
     const childNodePossibleChildren = availableNodes.filter(n => n.id != current.id
-                                                                    && !___includes(current.id, n.parentBudgetId));
+                                                                      && !___includes(current.childrenList, n.id));
     
     return {
       budget: current,

@@ -33,8 +33,9 @@ export class BudgetsStore extends DataStore<Budget>
       .pipe(
         tap(o => this._org = o),
         tap(o => this._activeRepo = dataService.getRepo<Budget>(`orgs/${o.id}/budgets`)),
-        switchMap(() => this._fetchdata.get('budgets', _dataProvider.getAllBudgets())),
-        map((payLoad: any) => ___orderBy(payLoad.budgets, 'createdOn', 'asc')))
+        switchMap(
+          () => this._activeRepo.getDocuments(new Query())),
+        map((budgets: Budget[]) => ___orderBy(budgets, 'createdOn', 'asc')))
     
       .subscribe(budgets => {
         this.set(budgets, 'FROM DB');
@@ -61,12 +62,12 @@ export class BudgetsStore extends DataStore<Budget>
    * 
    *  TODO: Deep search for loops within large budget hierarchies. Needs recursive pattern
    */
-  getChildBudgetsAddable(budget: any)
+  getChildBudgetsAddable(budget: Budget)
   {
     return this.get()
         .pipe(map(budgets => budgets.filter(b => budget.id != b.id
-                                                      && !(budget.parentBudgetId === b.id)
-                                                      && !(budget.parentOverrideId === b.id))));
+                                                  && ! ___includes(budget.childrenList, b.id)
+                                                  && ! ___includes(budget.overrideList, b.id))));
   }
 
   // add(budget: Budget): Observable<Budget>
