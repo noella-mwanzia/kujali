@@ -9,7 +9,7 @@ import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
 import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
-import { BudgetLockService } from 'libs/state/finance/budgetting/rendering/src/lib/services/budget-lock.service';
+import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
 
 /**
  * This page visualises the Budget Explorer, which is the core feature of this application.
@@ -103,24 +103,29 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
     this._state$$.setYear(this.year);
   }
 
-  // translateStatus(status: BudgetStatus) {
-  //   switch (status) {
-  //     case 'in-use':
-  //       return 'Active';
+  submitBudget() {
+    this._state$$.submitBudget();
+  }
 
-  //     case 'open':
-  //       return 'Design';
+  translateStatus(status: number) {
+    switch (status) {
+      case 1:
+        return 'Active';
 
-  //     case 'archived':
-  //       return 'No Longer in Use';
+      case 0:
+        return 'Design';
 
-  //     case 'deleted':
-  //       return 'Deleted';
+      case 9:
+        return 'No Longer in Use';
 
-  //     default:
-  //       break;
-  //   }
-  // }
+      case -1:
+        return 'Deleted';
+
+      default:
+        return '';
+    }
+  }
+
   ngOnDestroy () {
     this._subscr.unsubscribe();
     this._bLock$$.lockBudget(this.budgetId, false);
