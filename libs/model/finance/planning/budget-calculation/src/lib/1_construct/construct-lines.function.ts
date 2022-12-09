@@ -19,7 +19,7 @@ import { __CalculateLineAmounts } from './calculate-line-amounts.function';
  */
 export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems: TransactionPlan[]) : BudgetLineRow[]
 {
-  const occurencesByLine = ___groupBy(plannedItems, 'id');
+  const occurencesByLine = ___groupBy(plannedItems, 'lineId');
 
   // Loop keys
   const byTransaction: any[] = [];
