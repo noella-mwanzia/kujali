@@ -23,7 +23,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
     pTOccurenceFormGroup: _fb.group({
       fromYear: [YEARS[0], Validators.required],
       fromMonth: [MONTHS[month - 1] ?? MONTHS[0], Validators.required],
-      frequency: ['Once', Validators.required],
+      frequency: [0, Validators.required],
       xTimesInterval: [0]
     }),
 
@@ -51,8 +51,8 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: any ):
     pTNameFormGroup: _fb.group({
       id: [''],
       lineId: [plan.lineId],
-      category: [plan.category.id, Validators.required],
-      type: [plan.type.id, Validators.required],
+      category: [plan.trCatId, Validators.required],
+      type: [plan.trTypeId, Validators.required],
       lineName: [plan.lineName, Validators.required],
       budgetId: [plan.budgetId]
     }),
@@ -67,7 +67,7 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: any ):
     pTOccurenceFormGroup: _fb.group({
       fromYear: [plan.fromYear, Validators.required],
       fromMonth: [plan.fromMonth ?? MONTHS[0], Validators.required],
-      frequency: [GetBudgetFrequency(plan.frequency), Validators.required],
+      frequency: [plan.frequency, Validators.required],
       xTimesInterval: [plan.xTimesInterval]
     }),
 
@@ -80,30 +80,11 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: any ):
       xTimesAmountIncreaseInterval: [plan.amntIncrConfig.interval, Validators.required],
       amountIncreaseRate: [plan.amntIncrConfig.incrRate, Validators.required],
 
-      unitIncrConfig: [plan.unitIncrConfig],
-      unitIncreaseRate: [plan.unitIncreaseRate, Validators.required],
-      unitIncreaseFrequency: [plan.unitIncreaseFrequency],
-      xTimesUnitIncreaseInterval: [plan.xTimesUnitIncreaseInterval],
+      unitIncrConfig: [plan.unitIncrConfig.incrStyle],
+      unitIncreaseRate: [plan.unitIncrConfig.incrRate, Validators.required],
+      unitIncreaseFrequency: [plan.unitIncrConfig.incrFreq],
+      xTimesUnitIncreaseInterval: [plan.unitIncrConfig.interval],
     })
 
   })
-}
-
-function GetBudgetFrequency(frequency: number): string {
-  switch (frequency) {
-    case -1:
-      return 'Never';
-    case 0:
-      return 'Once';
-    case 1:
-      return 'Monthly';
-    case 90:
-      return 'Quarterly';
-    case 365:
-      return 'Yearly';
-    case 999:
-      return 'EveryXTimes';
-    default:
-      return ''
-  }
 }
