@@ -4,15 +4,17 @@
 
     <div class="form-section-body" fxLayout="column">
       <mat-form-field>
-        <mat-select name="selectedCat" placeholder="Category of {{ viewType }}" (selectionChange)="categoryChanged($event)" required>
+        <mat-select formControlName="category" name="selectedCat" placeholder="Category of {{ viewType }}" 
+        (selectionChange)="categoryChanged($event)" [compareWith]="compareCateFn" required>
           <mat-option *ngFor="let gCategory of categories | async" [value]="gCategory">
             {{ gCategory.name | transloco}}
           </mat-option>
         </mat-select>
       </mat-form-field>
   
-      <mat-form-field *ngIf="selectedCategory">
-        <mat-select formControlName="type" name="type" [placeholder]="viewType + ' Type'">
+      <mat-form-field *ngIf="hasCategory">
+        <mat-select formControlName="type" name="type" [placeholder]="viewType + ' Type'"
+        [compareWith]="compareTypesFn">
           <mat-option *ngFor="let gType of selectedCategory.types" [value]="gType">
             {{ gType.name | transloco}}
           </mat-option>
