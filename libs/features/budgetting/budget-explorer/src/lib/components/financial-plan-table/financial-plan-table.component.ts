@@ -102,7 +102,7 @@ export class FinancialPlanTableComponent implements OnInit
 
   /** Get cell amount */
   getAmount(cell: BudgetRowYear, column: Month) 
-  {         
+  {
     return this._formatPrice(Math.abs(this._getCellValue(cell, column).amount));
   }
 
@@ -164,7 +164,7 @@ export class FinancialPlanTableComponent implements OnInit
     if (this.isInEditMode && this.classId != 'result') {
       this.dialog.open(PlanTransactionModalComponent, 
         {
-          data: { month: m.month, type: this.type, budgetId: this.budgetId },
+          data: { isInCreateMode: true, month: m.month, type: this.type, budgetId: this.budgetId },
           minHeight: '600px'
         })
         .afterClosed()
@@ -172,28 +172,28 @@ export class FinancialPlanTableComponent implements OnInit
     }
   }
 
-  // openCellModal(cell: BudgetRowMonths, column)
-  // {
-  //   const amount = this._getCellValue(cell, column);
+  openCellModal(cell: any, column)
+  {    
+    const amount = this._getCellValue(cell, column);
 
-  //   const data = (cell && !cell.isHeader) ? ({
-  //                   monthFrom: column.month,
-  //                   yearFrom: this.year,
-  //                   type: this.type,
-  //                   amount: amount.baseAmount,
-  //                   units: amount.units,
-  //                   update: amount.isOccurenceStart,
-  //                   // transaction: cell.transaction, 
+    const data = (cell && !cell.isHeader) ? ({
+                    isInCreateMode: false,
+                    fromMonth: column.month,
+                    fromYear: 2022,
+                    type: this.type,
+                    amount: amount.baseAmount,
+                    units: amount.units,
+                    update: amount.isOccurenceStart,
+                    // transaction: cell.transaction,
 
-  //                   budgetId: this.budgetId, 
-  //                   occurence: cell.amountsMonth[column.month - 1].occurence 
-  //                 })
-  //                 : _EMPTY_CELL_DATA(column.month, this.year, this.type);
-
-  //   this.dialog.open(CellTransactionOccurrenceModal, { data })
-  //              .afterClosed()
-  //              .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
-  // }
+                    budgetId: this.budgetId, 
+                    occurence: cell.amountsMonth[column.month - 1].plan 
+                  }): {}
+                  
+    this.dialog.open(PlanTransactionModalComponent, { data })
+               .afterClosed()
+               .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+  }
 
 
   /** Counter for when transactions are being saved. */
@@ -213,7 +213,7 @@ export class FinancialPlanTableComponent implements OnInit
     let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
 
     if(isConfirmed) {
-      // this._plannedTransactionService.deletePlannedTransaction(transaction); 
+      // this._plannedTransactionService.deletePlannedTransaction(transaction);
     }
   }
 

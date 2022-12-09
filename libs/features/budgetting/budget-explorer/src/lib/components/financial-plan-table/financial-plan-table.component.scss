@@ -63,11 +63,11 @@ tr.mat-row {
 }
 
 .red-top {
-  background: #c41c00;
+  background: var(--kujali-color-primary-red-header);
 }
 
 .green-top {
-  background: #4b830d; 
+  background: var(--kujali-color-primary-green-header); 
 }
 
 // Section identity text styling
