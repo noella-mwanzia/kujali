@@ -158,7 +158,6 @@ export class FinancialPlanTableComponent implements OnInit
   }
 
   // -- Create and Update Rows
-
   openPlanTransactionModal(m : any): void
   {
     if (this.isInEditMode && this.classId != 'result') {
@@ -168,7 +167,8 @@ export class FinancialPlanTableComponent implements OnInit
           minHeight: '600px'
         })
         .afterClosed()
-        .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+        .subscribe((saving: Observable<any> | false) => 
+          { if (saving) this._addCounterSaving(saving); });
     }
   }
 
@@ -192,7 +192,8 @@ export class FinancialPlanTableComponent implements OnInit
                   
     this.dialog.open(PlanTransactionModalComponent, { data })
                .afterClosed()
-               .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+               .subscribe((saving: Observable<any> | false) => 
+                  { if (saving) this._addCounterSaving(saving); });
   }
 
 
