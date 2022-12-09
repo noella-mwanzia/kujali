@@ -3,6 +3,8 @@ import { DataService } from "@ngfi/angular";
 
 import { Observable, of, tap, map } from "rxjs";
 
+import { Logger } from "@iote/bricks-angular";
+
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
@@ -18,8 +20,11 @@ import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
 @Injectable()
 export class BudgetPlansQuery
 {
-  constructor(private _db: FetchDbRecordsService, private _dataProvider: GqlDataProvider)
-  { }
+  constructor(private _logger: Logger,
+              private _dbSql: FetchDbRecordsService, 
+              private _dataProvider: GqlDataProvider,
+              private _db: DataService
+  ) { }
 
   /**
    * Gets all the budget lines beloning to a budget.
@@ -29,9 +34,11 @@ export class BudgetPlansQuery
    */
   getPlans(budget: Budget): Observable<any>
   {
-    const repo = this._db.get('transaction_plans', this._dataProvider.getAllTransactions());
+    // const repo = this._db.get('transaction_plans', this._dataProvider.getAllTransactions());
+    const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
 
-    return repo.pipe(map((payLoad:any) => payLoad.transaction_plans.filter((plans: TransactionPlan) => plans.budgetId === budget.id)));
+    return repo.getDocuments();
+    // return repo.pipe(map((payLoad:any) => payLoad.transaction_plans.filter((plans: TransactionPlan) => plans.budgetId === budget.id)));
 
     // TODO(jrosseel): Add back override functionality
     // const bases = ___concat(budget.overrideList, budget.id);
@@ -39,6 +46,22 @@ export class BudgetPlansQuery
     // return combineLatest(
     //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
     //        )
+  }
+
+  savePlans(budget: Budget, plans: TransactionPlan[]) {
+    const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
+
+    console.log(plans);
+    plans.forEach((plan: any) => {
+      delete plan.type.category;
+      delete plan.category.types
+
+      try {
+        repo.create(plan as TransactionPlan, plan.id).subscribe()
+      } catch (error) {
+        this._logger.log(() => `Could not create beacuse ${error}`);
+      }
+    })
   }
 
   // TODO(jrosseel): Add back override functionality
