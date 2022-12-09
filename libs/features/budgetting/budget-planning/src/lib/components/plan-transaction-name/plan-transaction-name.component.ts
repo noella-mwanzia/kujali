@@ -17,45 +17,54 @@ export class PlanTransactionNameComponent implements OnInit, AfterViewInit {
 
   @Input() pTNameFormGroup: FormGroup;
   @Input() categoryType: 'cost' | 'income';
-  @Input() categories: Observable<LoadedTransactionTypeCategory[]>;
+  @Input() categories$: Observable<LoadedTransactionTypeCategory[]>;
 
   selectedCategory: LoadedTransactionTypeCategory;
-  type: LoadedTransactionType;
+  allCategories: LoadedTransactionTypeCategory[];
+  selectedType: LoadedTransactionType;
+  allTypes: LoadedTransactionType[];
 
+  // type: LoadedTransactionType;
   viewType: string;
   name: string;
 
   hasCategory: boolean = false;
+  formDataHasLoaded: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
     this.viewType = this.categoryType == 'cost' ? 'Budget' : 'Target';
-  }
 
-  ngAfterViewInit(): void {
-    if (this.categories) {
-      let catId = this.pTNameFormGroup.getRawValue().pTNameFormGroup.category;
-      if (catId) {
-        this.categories.pipe(take(1))
-        .subscribe((cats) => {
-          this.selectedCategory = cats.find((cat) => cat.id === catId)!;
-          this.hasCategory = true
-        })
-      }
+    if (this.categories$) {
+      this.categories$.pipe(take(1))
+      .subscribe((categories) => {
+        let catId = this.pTNameFormGroup.getRawValue().pTNameFormGroup.category;
+
+        this.allCategories = categories;
+        this.allTypes = this.allCategories.find((category) => category.id == catId)?.types!;
+
+        this.hasCategory = catId ? true : false;
+      })
+      this.formDataHasLoaded = true;
     }
   }
 
-  categoryChanged(category: MatSelectChange) {
-    this.selectedCategory = category.value;
+  ngAfterViewInit(): void {
+
+  }
+
+  categoryChanged(categoryInput: MatSelectChange) {
+    this.selectedCategory = categoryInput.value;
+    this.allTypes = this.allCategories.find((category) => category.id == this.selectedCategory.id)?.types!;
     this.hasCategory = true;
   }
 
-  compareCateFn(c1: any, c2: any): boolean {
-    return c1 && c2 ? c1.types.id === c2.id : c1.types === c2;
+  compareCatFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2 : c1 === c2;
   }
 
-  compareTypesFn(c1: any, c2: any): boolean {
-    return c1 && c2 ? c1.types === c2.id : c1.types === c2;
+  compareTypeFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2 : c1 === c2;
   }
 }

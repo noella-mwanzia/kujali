@@ -26,7 +26,7 @@
       <mat-step [stepControl]="getFormGroup('pTNameFormGroup')" [hasError]="!getFormGroup('pTNameFormGroup').valid">
         <ng-template matStepLabel>{{ title | transloco }}</ng-template>
         <app-plan-transaction-name [pTNameFormGroup]="plannedTransactionFormGroup" [categoryType]="type"
-          [categories]="categories">
+          [categories$]="categories">
         </app-plan-transaction-name>
 
         <button matStepperNext class="btn-modal" mat-raised-button color="primary" type="button"
