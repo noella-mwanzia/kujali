@@ -24,7 +24,6 @@ import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
 import { CostTypesStateModule } from '@app/state/finance/cost-types';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
-import { GraphQlModule } from '@app/state/data/gql';
 
 import { environment } from '../environments/environment';
 
@@ -60,7 +59,6 @@ import { AppRoutingModule } from './app.routing.module';
     OrgStateModule.forRoot(),
     BudgetsStateModule.forRoot(),
     CostTypesStateModule.forRoot(),
-    GraphQlModule.forRoot("https://kujali.hasura.app/v1/graphql"),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

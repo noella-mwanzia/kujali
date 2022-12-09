@@ -11,7 +11,6 @@ import { BudgetRow } from '@app/model/finance/planning/budget-lines';
 
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
 import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
-import { FetchDbRecordsService } from '@app/state/data/gql';
 
 @Component({
   selector: 'app-create-budget-modal',
@@ -53,8 +52,7 @@ export class CreateBudgetModalComponent implements OnInit
               private _budgetLockService: BudgetLockService,
               @Inject(MAT_DIALOG_DATA) public childBudget: Budget | false,
               public dialogRef: MatDialogRef<CreateBudgetModalComponent>,
-              private _logger: Logger,
-              private _db: FetchDbRecordsService
+              private _logger: Logger
   ){ }
 
   ngOnInit = () => this.hasChild = !!this.childBudget;
@@ -110,28 +108,18 @@ export class CreateBudgetModalComponent implements OnInit
       // childrenList,
     };
 
-    this._db.add(budget).subscribe((data) => {
-      if (data) {
+
+    // Add to store.
+    this._budgets$$.add(budget).subscribe((budget) => {
+      if (budget) {
         this._logger.log(
-          () => 'Budget ' + budget.id + ' with id ' + budget.id + ' created.'
+          () => 'Budget ' + budget.name + ' with id ' + budget.id + ' created.'
         );
         this._budgetLockService.createBudgetLock(budget);
         this.isSaving = false;
         this.dialogRef.close();
       }
-    })
-
-    // Add to store.
-    // this._budgets$$.add(budget).subscribe((budget) => {
-    //   if (budget) {
-    //     this._logger.log(
-    //       () => 'Budget ' + budget.name + ' with id ' + budget.id + ' created.'
-    //     );
-    //     this._budgetLockService.createBudgetLock(budget);
-    //     this.isSaving = false;
-    //     this.dialogRef.close();
-    //   }
-    // });
+    });
   }
 
   /** Generates a default result header for the budget. */

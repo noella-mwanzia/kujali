@@ -4,16 +4,14 @@ import { RouterModule } from '@angular/router';
 
 import { BudgetsStore } from './stores/budgets.store';
 import { OrgBudgetsStore } from './stores/org-budgets-store.store';
-import { Apollo } from 'apollo-angular';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule
   ],
-
-  providers: [Apollo]
 })
+
 export class BudgetsStateModule 
 { 
   static forRoot(): ModuleWithProviders<BudgetsStateModule>

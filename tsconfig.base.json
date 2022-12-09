@@ -86,7 +86,6 @@
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/state/data/firebase": ["libs/state/data/firebase/src/index.ts"],
-      "@app/state/data/gql": ["libs/state/data/gql/src/index.ts"],
       "@app/state/finance/budgetting/budgets": [
         "libs/state/finance/budgetting/budgets/src/index.ts"
       ],

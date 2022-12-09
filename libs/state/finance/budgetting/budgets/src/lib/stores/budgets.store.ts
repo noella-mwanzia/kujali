@@ -12,7 +12,6 @@ import { Organisation } from "@app/model/organisation";
 import { Budget } from "@app/model/finance/planning/budgets";
 
 import { ActiveOrgStore } from "@app/state/organisation";
-import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
 
 @Injectable()
 export class BudgetsStore extends DataStore<Budget>
@@ -23,8 +22,6 @@ export class BudgetsStore extends DataStore<Budget>
 
   constructor(org$$: ActiveOrgStore,
               dataService: DataService,
-              private _dataProvider: GqlDataProvider,
-              private _fetchdata: FetchDbRecordsService,
               _logger: Logger)
   {
     super('always', _logger);

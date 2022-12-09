@@ -8,8 +8,6 @@ import { Logger } from "@iote/bricks-angular";
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
-import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
-
 /**
  * This service is responsible for rendering budgets by counting up their 
  *  internal lines with their results.
@@ -21,8 +19,6 @@ import { FetchDbRecordsService, GqlDataProvider } from "@app/state/data/gql";
 export class BudgetPlansQuery
 {
   constructor(private _logger: Logger,
-              private _dbSql: FetchDbRecordsService, 
-              private _dataProvider: GqlDataProvider,
               private _db: DataService
   ) { }
 
@@ -34,18 +30,15 @@ export class BudgetPlansQuery
    */
   getPlans(budget: Budget): Observable<any>
   {
-    // const repo = this._db.get('transaction_plans', this._dataProvider.getAllTransactions());
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
-
-    return repo.getDocuments();
-    // return repo.pipe(map((payLoad:any) => payLoad.transaction_plans.filter((plans: TransactionPlan) => plans.budgetId === budget.id)));
-
+    
     // TODO(jrosseel): Add back override functionality
     // const bases = ___concat(budget.overrideList, budget.id);
     
     // return combineLatest(
     //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
     //        )
+    return repo.getDocuments();
   }
 
   savePlans(budget: Budget, plans: TransactionPlan[]) {
