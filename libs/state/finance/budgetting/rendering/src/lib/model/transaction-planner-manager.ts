@@ -1,6 +1,8 @@
 import { uniqueId as ___uniqueId } from "lodash";
 import { BehaviorSubject, Observable } from "rxjs";
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
 
@@ -51,8 +53,8 @@ export class TransactionPlannerManager
   add(plan: TransactionPlan)
   {
     // uid makes sure the Id is not repeated even when the project restarts
-    plan.id = plan.id && plan.lineId ? plan.id : this.uid();
-    plan.lineId = plan.lineId ? plan.lineId : plan.id;
+    plan.id = plan.id && plan.lineId ? plan.id : uuidv4();
+    plan.lineId = plan.lineId ? plan.lineId : plan.id!;
     // 1. Validate! We can't add a second king
     if(this._active.find(p => p.trTypeId === plan.trTypeId && p.king && plan.king))
       throw new Error('There cannot be two king (template) transaction plans of the same line');
@@ -98,10 +100,6 @@ export class TransactionPlannerManager
   {
     this._active = this._active.filter(a => a.trTypeId !== trTypeId);
     this._refresh();
-  }
-
-  private uid = () => {
-    return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 
   private _refresh()
