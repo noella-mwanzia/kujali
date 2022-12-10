@@ -98,6 +98,7 @@
   },
   "BUDGETTING": {
     "LINES" : {
+      "BALANCE": "Balance",
       "INCOME": "Income",
       "COST" : "Costs"
     }
