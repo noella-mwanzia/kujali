@@ -31,14 +31,14 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
     pTIncreaseFormGroup: _fb.group({
       hasIncrease: [false],
 
-      amntIncrConfig: ['value'],
-      amountIncreaseFrequency: [0],
+      amntIncrConfig: ['percentage'],
+      amountIncreaseFrequency: [-1],
       xTimesAmountIncreaseInterval: [0, Validators.required],
       amountIncreaseRate: [0, Validators.required],
 
       unitIncrConfig: ['value'],
+      unitIncreaseFrequency: [-1],
       unitIncreaseRate: [0, Validators.required],
-      unitIncreaseFrequency: [0],
       xTimesUnitIncreaseInterval: [0],
     })
 

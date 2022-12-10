@@ -194,6 +194,31 @@
       "BTN-SUBMIT": "Submit",
       "HDR-OVERRIDE-LST": "Override List"
     },
+    "TRANSACTION": {
+      "NO-INCREASE": "No increase",
+      "ONCE": "Once",
+      "MONTHLY": "Monthly",
+      "EVERY-X-TIMES": "Every X Times",
+      "QUARTERLY": "Quaterly",
+      "YEARLY": "Yearly",
+      "INCREASE-VALUE": "Increase value",
+      "INCREASE-RATE": "Increase rate",
+      "INCR-TIME": "Increase time",
+      "TR-OCCURS": "Transaction occurs:",
+      "VALUE-VARIES": "Value varies over time",
+      "AMOUNT-INCR": "Amount increase",
+      "UNIT-INCR": "Unit increase",
+      "INCR-PER": "Increase per: ",
+      "OCC-BFR-INCREASE": "Number of occurences before increase",
+      "FIXED-AMOUNT": "Fixed amount",
+      "PERCENTAGE": "Percentage",
+
+      "HINTS": {
+        "AMOUNT-INCREASE-RATE": "Rate at which the value increases for each configured increase moment.",
+        "AMOUNT-INCREASE-VALUE": "Decimal value with which the value increases for each configured increase moment."
+      }
+
+    },
     "VIEW-RECORD": {
       "ACTIONS": {
         "VIEW": "View",
