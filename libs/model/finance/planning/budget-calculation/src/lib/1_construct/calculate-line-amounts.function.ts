@@ -28,10 +28,6 @@ export function __CalculateLineAmounts(budget: Budget, occs: TransactionPlan[]) 
   const values = _populateBudgetLineValues(valueTemplate, occs);
 
   // Use first occurence created as template for the line configuration (category, ...)
-  if (occs.length === 1) {
-    occs[0].king = true;
-  }
-  
   let lineTemplate = occs.find(o => o.king);
 
   // TODO: Review Jente <> Ian

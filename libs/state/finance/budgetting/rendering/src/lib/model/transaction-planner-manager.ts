@@ -55,6 +55,7 @@ export class TransactionPlannerManager
     // uid makes sure the Id is not repeated even when the project restarts
     plan.id = plan.id && plan.lineId ? plan.id : uuidv4();
     plan.lineId = plan.lineId ? plan.lineId : plan.id!;
+
     // 1. Validate! We can't add a second king
     if(this._active.find(p => p.trTypeId === plan.trTypeId && p.king && plan.king))
       throw new Error('There cannot be two king (template) transaction plans of the same line');

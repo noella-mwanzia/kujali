@@ -21,8 +21,17 @@ export function ___PlannedTransactionsToBudgetLines(budget: Budget, plannedItems
 {
   const occurencesByLine = ___groupBy(plannedItems, 'lineId');
 
+  // Always make the first occurence (when lenght === 1) the king
+  Object.keys(occurencesByLine).forEach((occsKey) => {
+    let occs = occurencesByLine[occsKey];
+    if (occs.length === 1) {
+      occs[0].king = true;
+    }
+  });
+
   // Loop keys
   const byTransaction: any[] = [];
+  
   for (const lineId in occurencesByLine)
   {
     // Take the first transaction -> Each row represents a transactions.

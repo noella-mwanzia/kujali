@@ -26,13 +26,28 @@ export class BudgetLockService {
     this._user$$.getUserId().pipe(take(1)).subscribe((userId) => this.activeUserId = userId);
   }
 
+  /**
+   * Locks the budget from the component
+   * Locks when the component is initialized and unlocks on destroy
+   * @param budgetId 
+   * @param lock 
+   */
   lockBudget(budgetId: string, lock: boolean) {
     this._activeOrg$$.get().pipe(take(1)).subscribe((org) => {if (org) this.updateBudgetLock(org, budgetId, lock)});
   }
 
+  /**
+   * Simple repo fetch for the active budget lock document on the DB
+   * @param org 
+   * @param budgetId 
+   * @param lock 
+   * @returns A write operation for updating the lock document
+   */
   updateBudgetLock(org: Organisation, budgetId: string, lock: boolean) {
     const repo = this._db.getRepo<BudgetLock>(`orgs/${org.id}/budgets/${budgetId}/config`);
-    return repo.getDocumentById('budgetLock').pipe(take(1)).subscribe((budgetLock) => { if (budgetLock) this.saveLock(budgetLock, repo, lock)});
+    return repo.getDocumentById('budgetLock').pipe(take(1))
+                                                .subscribe((budgetLock) => 
+                                                    { if (budgetLock) this.saveLock(budgetLock, repo, lock)});
   }
 
   saveLock(bLock: BudgetLock, repo: Repository<BudgetLock>, lock: boolean) {
@@ -43,6 +58,11 @@ export class BudgetLockService {
     }
   }
 
+  /**
+   * When a budget is created this function creates the lock document
+   * This ensures the budget lock query does not fail due to a null document
+   * @param budget 
+   */
   createBudgetLock(budget: Budget) {
     const repo = this._db.getRepo<BudgetLock>(`orgs/${budget.orgId}/budgets/${budget.id}/config`);
     const budgetLock: BudgetLock = {
