@@ -8,6 +8,7 @@ import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+import { CellInput, PlanTrInput } from '@app/model/finance/planning/budget-items';
 
 import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
 
@@ -156,27 +157,28 @@ export class FinancialPlanTableComponent implements OnInit
     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  openCellModal(cell, column)
-  {    
-    const amount = this._getCellValue(cell, column);
-
-    const data = (cell && !cell.isHeader) ? ({
-                    isInCreateMode: false,
-                    fromMonth: column.month,
-                    fromYear: 2022,
-                    type: this.type,
-                    amount: amount.baseAmount,
-                    units: amount.units,
-                    update: amount.isOccurenceStart,
-
-                    budgetId: this.budgetId, 
-                    occurence: cell.amountsMonth[column.month - 1].plan 
-                  }): {}
+  openCellModal(cell: CellInput, column: Month)
+  {
+    console.log(cell, column);
+    
+    const data = (cell && !cell.isHeader) ? (this.getTransactionPlanInput(column, cell)): {}
                   
     this.dialog.open(PlanTransactionModalComponent, { data })
                .afterClosed()
                .subscribe((saving: Observable<boolean> | false) => 
                   { if (saving) this._addCounterSaving(saving); });
+  }
+
+  getTransactionPlanInput(column: Month, cell: CellInput): PlanTrInput {
+    let tr = {
+      isInCreateMode: false,
+      fromMonth: column.month,
+      type: this.type,
+      budgetId: this.budgetId, 
+      occurence: cell.amountsMonth[column.month - 1].plan 
+    } as PlanTrInput;
+
+    return tr;
   }
 
 

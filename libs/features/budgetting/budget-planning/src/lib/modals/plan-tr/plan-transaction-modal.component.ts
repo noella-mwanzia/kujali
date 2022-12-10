@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { BudgetItemFrequency, TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { BudgetItemFrequency, PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 import { CostTypesStore } from '@app/state/finance/cost-types';
@@ -61,7 +61,7 @@ export class PlanTransactionModalComponent  // implements OnInit
   units  = 1; 
 
   constructor(private _fb: FormBuilder,
-              @Inject(MAT_DIALOG_DATA) data: any,
+              @Inject(MAT_DIALOG_DATA) data: PlanTrInput,
               private _dialog: MatDialogRef<PlanTransactionModalComponent>,
               private _translation: TranslateService,
               private _costTypes$$: CostTypesStore,
@@ -72,7 +72,7 @@ export class PlanTransactionModalComponent  // implements OnInit
     this._translation.initialise();
     this.budgetId = data.budgetId as string;
 
-    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.month);
+    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.fromMonth);
 
     const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
 

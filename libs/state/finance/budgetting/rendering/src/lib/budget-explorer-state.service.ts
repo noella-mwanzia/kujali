@@ -80,7 +80,7 @@ export class FinancialExplorerStateService
 
   // Transaction planner
   /** Load in the transaction planner data, so we can edit/create the transaction plan. */
-  public loadTransactionPlannerData(tr: any) : LoadedPlanTrInput
+  public loadTransactionPlannerData(tr: PlanTrInput) : LoadedPlanTrInput
   {
     const cmd = <unknown> tr as LoadedPlanTrInput;
     cmd.year = this._state.year;

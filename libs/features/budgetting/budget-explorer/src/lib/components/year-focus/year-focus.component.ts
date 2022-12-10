@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { MONTHS } from '@app/model/finance/planning/time';
+import { PlanTrInput } from '@app/model/finance/planning/budget-items';
 
 import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
 
@@ -30,8 +31,19 @@ export class YearFocusComponent {
   addCostOrIncome() {
     this.dialog.open(PlanTransactionModalComponent,
       {
-        data: { isInCreateMode: true, month: MONTHS[0], type: this.type, budgetId: this.budgetId },
+        data: this.getTransactionPlanInput(),
         minHeight: '600px'
       })
+  }
+
+  getTransactionPlanInput(): PlanTrInput {
+    let tr = { 
+      isInCreateMode: true, 
+      fromMonth:  MONTHS[0].month,
+      type: this.type,
+      budgetId: this.budgetId 
+    } as PlanTrInput;
+    
+    return tr;
   }
 }
