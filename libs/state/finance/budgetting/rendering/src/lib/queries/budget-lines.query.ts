@@ -28,7 +28,7 @@ export class BudgetPlansQuery
    * @param {Budget} budget - The budget to render
    * @returns {RenderedBudget}
    */
-  getPlans(budget: Budget): Observable<any>
+  getPlans(budget: Budget): Observable<TransactionPlan[]>
   {
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
     
@@ -44,7 +44,6 @@ export class BudgetPlansQuery
   savePlans(budget: Budget, plans: TransactionPlan[]) {
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
 
-    console.log(plans);
     plans.forEach((plan: any) => {
       delete plan.type.category;
       delete plan.category.types
