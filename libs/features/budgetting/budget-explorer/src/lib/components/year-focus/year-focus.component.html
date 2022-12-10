@@ -1,6 +1,6 @@
 <!-- Table Holder with Prev and Next buttons -->
 <div fxLayout="column">
-  <h3 *ngIf="title">{{ title }}</h3>
+  <h3 *ngIf="title">{{ title | transloco }}</h3>
 
   <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="space-between center" fxFlex>
 
@@ -15,10 +15,10 @@
     </div>
 
     <div fxLayoutAlign="center center">
-      <button [class]="title" *ngIf=" title && title != 'Balance'" (click)="addCostOrIncome()" mat-raised-button>
-        <i *ngIf="title == 'Income'" class="fas fa-plus"></i>
-        <i *ngIf="title == 'Costs'" class="fas fa-minus"></i>
-        Add {{title}} 
+      <button [ngClass]="type == 1 ? 'income-btn' : 'costs-btn'" *ngIf=" type && (type == 1 || type == -1) " (click)="addCostOrIncome()" mat-raised-button>
+        <i *ngIf="type == 1" class="fas fa-plus"></i>
+        <i *ngIf="type == -1" class="fas fa-minus"></i>
+        Add {{title | transloco }} 
       </button>
     </div>
   </div>
