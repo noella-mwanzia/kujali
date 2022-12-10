@@ -77,7 +77,10 @@
     "HEADERS": {
       "RESULT": "Result"
     },
+    "CREATING-BUDGET": "Creating budget",
+    "CURRENT-YEAR": "Current Year: ",
     "LINK-BUDGETS": {
+      "LINKED-BUDGETS": "Linked Budgets",
       "NO-BUDGETS": "No child budgets available",
       "CHOOSE-BUDGET": "Choose Budget to Link to",
       "LINK-BUDGET": "Link Budget"
@@ -183,6 +186,12 @@
     }
   },
   "BUDGET": {
+    "STATUS": {
+      "ACTIVE": "Active",
+      "DESIGN": "Design",
+      "NO-USE": "No longer in use",
+      "DELETED": "Deleted"
+    },
     "PREVIOUS-YEAR": "Previous Year",
     "NEXT-YEAR": "Next Year",
     "CREATE": {

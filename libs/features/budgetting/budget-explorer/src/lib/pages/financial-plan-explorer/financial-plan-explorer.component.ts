@@ -110,16 +110,16 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
   translateStatus(status: number) {
     switch (status) {
       case 1:
-        return 'Active';
+        return 'BUDGET.STATUS.ACTIVE';
 
       case 0:
-        return 'Design';
+        return 'BUDGET.STATUS.DESIGN';
 
       case 9:
-        return 'No Longer in Use';
+        return 'BUDGET.STATUS.NO-USE';
 
       case -1:
-        return 'Deleted';
+        return 'BUDGET.STATUS.DELETED';
 
       default:
         return '';
