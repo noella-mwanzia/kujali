@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms"
+import { TransactionPlan } from "@app/model/finance/planning/budget-items"
 
 import { YEARS, MONTHS } from "@app/model/finance/planning/time"
 
@@ -45,16 +46,18 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
   })
 }
 
-export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: any ): FormGroup {
+export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean): FormGroup {
+  debugger
   return _fb.group({
     // Section 1: Transaction
     pTNameFormGroup: _fb.group({
-      id: [''],
+      id: [isEdit ? plan.id : ''],
       lineId: [plan.lineId],
       category: [plan.trCatId, Validators.required],
       type: [plan.trTypeId, Validators.required],
       lineName: [plan.lineName, Validators.required],
-      budgetId: [plan.budgetId]
+      budgetId: [plan.budgetId],
+      king: [isEdit && plan.king ? plan.king : false]
     }),
 
     // Section 2: Value base
@@ -75,15 +78,15 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: any ):
     pTIncreaseFormGroup: _fb.group({
       hasIncrease: [plan.hasIncrease],
 
-      amntIncrConfig: [plan.amntIncrConfig.incrStyle],
-      amountIncreaseFrequency: [plan.amntIncrConfig.incrFreq],
-      xTimesAmountIncreaseInterval: [plan.amntIncrConfig.interval, Validators.required],
-      amountIncreaseRate: [plan.amntIncrConfig.incrRate, Validators.required],
+      amntIncrConfig: [plan.amntIncrConfig!.incrStyle],
+      amountIncreaseFrequency: [plan.amntIncrConfig!.incrFreq],
+      xTimesAmountIncreaseInterval: [plan.amntIncrConfig!.interval, Validators.required],
+      amountIncreaseRate: [plan.amntIncrConfig!.incrRate, Validators.required],
 
-      unitIncrConfig: [plan.unitIncrConfig.incrStyle],
-      unitIncreaseRate: [plan.unitIncrConfig.incrRate, Validators.required],
-      unitIncreaseFrequency: [plan.unitIncrConfig.incrFreq],
-      xTimesUnitIncreaseInterval: [plan.unitIncrConfig.interval],
+      unitIncrConfig: [plan.unitIncrConfig!.incrStyle],
+      unitIncreaseRate: [plan.unitIncrConfig!.incrRate, Validators.required],
+      unitIncreaseFrequency: [plan.unitIncrConfig!.incrFreq],
+      xTimesUnitIncreaseInterval: [plan.unitIncrConfig!.interval],
     })
 
   })
