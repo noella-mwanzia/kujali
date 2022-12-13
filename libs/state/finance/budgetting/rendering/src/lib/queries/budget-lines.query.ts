@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { Observable } from "rxjs";
-
-import { Logger } from "@iote/bricks-angular";
+import { catchError, Observable, throwError } from "rxjs";
 
 import { DataService } from "@ngfi/angular";
 
@@ -19,8 +17,7 @@ import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 @Injectable()
 export class BudgetPlansQuery
 {
-  constructor(private _logger: Logger,
-              private _db: DataService
+  constructor(private _db: DataService
   ) { }
 
   /**
@@ -44,16 +41,18 @@ export class BudgetPlansQuery
 
   savePlans(budget: Budget, plans: TransactionPlan[]) {
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
-
-    plans.forEach((plan: any) => {
-      delete plan.type.category;
-      delete plan.category.types
-
-      try {
-        repo.create(plan as TransactionPlan, plan.id).subscribe()
-      } catch (error) {
-        this._logger.log(() => `Could not create beacuse ${error}`);
-      }
+    
+    plans.map((plan: TransactionPlan) => {
+      repo.create(plan as TransactionPlan, plan.id)
+      .pipe(catchError((err) => {
+        return throwError(() => new Error(err))}))
+      .subscribe({
+        error: (err: Error) => {
+          if (err.message.includes('id already exists')) {
+            repo.update(plan).subscribe();
+          }
+        },
+      });
     })
   }
 
