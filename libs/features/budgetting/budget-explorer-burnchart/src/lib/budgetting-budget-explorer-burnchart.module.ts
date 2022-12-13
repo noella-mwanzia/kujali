@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
-import { Ng5SliderModule } from 'ng5-slider';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { UserStateModule } from '@app/state/user';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
@@ -25,7 +25,7 @@ import { BurnChartComponent } from './components/burn-chart/burn-chart.component
     FormsModule, ReactiveFormsModule,
     UserStateModule,
 
-    Ng5SliderModule,
+    NgxSliderModule,
 
     iTalPageModule,
 
