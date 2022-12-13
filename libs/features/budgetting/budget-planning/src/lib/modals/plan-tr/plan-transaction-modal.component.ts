@@ -72,16 +72,16 @@ export class PlanTransactionModalComponent  // implements OnInit
     this._translation.initialise();
     this.budgetId = data.budgetId as string;
 
-    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.fromMonth);
-
     const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
 
     this.type = cmd.type;
     this.categories = this._costTypes$$.getOfType(this.type); 
 
-    this.isNewLine = !!cmd.tr;
+    this.isNewLine = !!cmd.tr && cmd.isInCreateMode == false && cmd.trUpdateMode == 'create';
     this.isCreate  = !this.isNewLine && cmd.trMode === 'create';
     this.isEdit    = !this.isNewLine && !this.isCreate;
+
+    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.fromMonth);
 
     this.lblAction = !this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
                                     : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
@@ -93,7 +93,7 @@ export class PlanTransactionModalComponent  // implements OnInit
   }
 
   createPlanTransactionForm(plan?: any, month?: number): FormGroup {
-    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence)
+    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit)
                           : CreateTransactionFormGroup(this._fb, month!);
   }
 
@@ -108,11 +108,14 @@ export class PlanTransactionModalComponent  // implements OnInit
 
   saveTransaction(transactionForm: FormGroup)
   {
-    const transaciton = this._transactionPlService.createTransactionPlan(transactionForm, this.budgetId, this.type);
+    const transaciton = this._transactionPlService.createTransactionPlan(transactionForm, this.budgetId, this.type, this.isEdit);
     
     // Process the changes and recalculate the budget.
-    (this.isNewLine || this.isCreate) ? this._fYExplorer$$.addTransaction(transaciton)
-                                       : this._fYExplorer$$.updateTransaction(transaciton);
+    if ((this.isNewLine || this.isCreate)) {
+      this._fYExplorer$$.addTransaction(transaciton)
+    } else {
+      this._fYExplorer$$.updateTransaction(transaciton);
+    }
 
     this.exitModal();
   }
