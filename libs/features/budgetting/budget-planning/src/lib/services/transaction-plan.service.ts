@@ -9,7 +9,7 @@ export class TransactionPlanService {
 
   constructor() { }
 
-  createTransactionPlan(transacitonForm: FormGroup, budgetId: string, mode: 1 | -1): TransactionPlan {
+  createTransactionPlan(transacitonForm: FormGroup, budgetId: string, mode: 1 | -1, isEdit: boolean): TransactionPlan {
     let formvalues = transacitonForm.getRawValue();
 
     let transaction = { ...formvalues.pTNameFormGroup, ...formvalues.pTValueBaseFormGroup,
@@ -26,7 +26,7 @@ export class TransactionPlanService {
       fromMonth: transaction.fromMonth,
       frequency: transaction.frequency,
       xTimesInterval: transaction.xTimesInterval,
-      king: false,
+      king: isEdit && transaction.king ? true : false,
       lineName: transaction.lineName,
       mode: mode,
       lineId : transaction.lineId,
