@@ -95,6 +95,7 @@ export class FinancialExplorerStateService
       
       // Use the month to check if user clicked a transaction he/she wants to edit,
       //    or if the user wants to add a complete new line
+      cmd.trUpdateMode = plan.mode;
       cmd.tr = plan.plan;
     }
 

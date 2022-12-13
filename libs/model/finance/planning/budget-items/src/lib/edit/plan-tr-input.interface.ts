@@ -28,6 +28,7 @@ export interface LoadedPlanTrInput extends PlanTrInput
   /** Previous transaction on the line */
   tr?: TransactionPlan;
   trMode: 'create' | 'edit';
+  trUpdateMode?: string
 }
 
 export interface CellInput {
