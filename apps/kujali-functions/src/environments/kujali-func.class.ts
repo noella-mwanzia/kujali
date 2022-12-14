@@ -9,7 +9,7 @@ import { environment } from "./environment";
  * @param T: The data expected by the function
  * @param R: The result returned from the function
  */
-export class VolkFunction<T, R> extends GCFunction<T, R>
+export class KujaliFunction<T, R> extends GCFunction<T, R>
 {
   constructor(name: string, registrar: FunctionRegistrar<T, R>, guards: Guard<T>[], handler: FunctionHandler<T, R>) {
     super(name, registrar, guards, handler);
