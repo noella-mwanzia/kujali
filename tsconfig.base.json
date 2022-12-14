@@ -52,6 +52,9 @@
       "@app/features/dashboard/main": [
         "libs/features/dashboard/main/src/index.ts"
       ],
+      "@app/functions/finance/budgeting": [
+        "libs/functions/finance/budgeting/src/index.ts"
+      ],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/finance/planning/budget-calculation": [
