@@ -28,6 +28,12 @@ export const APP_ROUTES: Route[] = [
     loadChildren: () => import('@app/features/budgetting/budgets').then(m => m.FinancialPlanningModule),
     canActivate: [IsLoggedInGuard]
   },
+
+  {
+    path: 'operations',
+    loadChildren: () => import('@app/features/operations/budgets').then(m => m.OperationsBudgetsModule),
+    canActivate: [IsLoggedInGuard]
+  },
 ];
 
 
