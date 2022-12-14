@@ -12,7 +12,6 @@
         "main": "apps/kujali-functions/src/main.ts",
         "polyfills": "apps/kujali-functions/src/polyfills.ts",
         "tsConfig": "apps/kujali-functions/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": ["apps/kujali-functions/src/assets"],
         "scripts": [],
         "allowedCommonJsDependencies": ["firebase-admin", "firebase-functions"]
