@@ -29,6 +29,7 @@
     "features-budgetting-budget-explorer-burnchart": "libs/features/budgetting/budget-explorer-burnchart",
     "features-budgetting-budget-planning": "libs/features/budgetting/budget-planning",
     "kujali": "apps/kujali",
+    "kujali-functions": "apps/kujali-functions",
     "model-finance-planning-budget-grouping": "libs/model/finance/planning/budget-grouping",
     "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering",
     "model-finance-planning-budget-rendering-state": "libs/model/finance/planning/budget-rendering-state",
