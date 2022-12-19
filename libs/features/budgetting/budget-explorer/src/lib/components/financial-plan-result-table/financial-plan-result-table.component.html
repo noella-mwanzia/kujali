@@ -15,8 +15,24 @@
       </button>
     </div>
 
-    <button mat-raised-button color="primary" (click)="submitBudget()">
-      <i class="fa-solid fa-paper-plane"></i> {{"BUDGETS.SUBMIT" | transloco}}
-    </button>
+    <div>
+      <button [disabled]="budgetSubmitting" style="margin-right: 20px;" mat-raised-button color="primary" (click)="submitBudget()">
+        <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+          <i class="fa-solid fa-paper-plane"></i> 
+          <span>{{"BUDGETS.SUBMIT" | transloco}}</span>
+          <mat-spinner *ngIf="budgetSubmitting" diameter="15" ></mat-spinner>
+        </span>
+      </button>
+
+      <button [disabled]="budgetActivating" mat-raised-button color="primary" (click)="activateBudget()">
+        <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+          <i class="fa-solid fa-paper-plane"></i> 
+          <span>
+            Activate Budget
+          </span>
+          <mat-spinner *ngIf="budgetActivating" diameter="15" ></mat-spinner>
+        </span>
+      </button>
+    </div>
   </div>
 </div>

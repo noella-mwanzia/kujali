@@ -4,29 +4,34 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { UserStateModule } from '@app/state/user';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { OperationBudgetsQuery } from '@app/state/finance/budgetting/rendering';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
-import { OperationsBudgetsPageComponent } from './pages/operations-budgets/operations-budgets.page';
-import { OperationBudgetsRouterModule } from './operations-budgets-router';
 import { BudgetsPeriodTableComponent } from './components/budgets-period-table/budgets-period-table.component';
+import { OperationsBudgetsPageComponent } from './pages/operations-budgets/operations-budgets.page';
+
+import { OperationBudgetsRouterModule } from './operations-budgets-router';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, MultiLangModule,
-    MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-    FormsModule, ReactiveFormsModule,
-    UserStateModule,
+imports: [
+  CommonModule, RouterModule, MultiLangModule,
+  MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
+  FormsModule, ReactiveFormsModule,
+  UserStateModule,
 
-    iTalPageModule,
+  iTalPageModule,
 
-    OperationBudgetsRouterModule],
+  OperationBudgetsRouterModule
+],
 
 declarations: [
   OperationsBudgetsPageComponent,
   BudgetsPeriodTableComponent
-]
+],
+providers: [OperationBudgetsQuery]
 })
 export class OperationsBudgetsModule {}

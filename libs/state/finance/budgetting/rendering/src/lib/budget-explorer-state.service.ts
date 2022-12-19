@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { AngularFireFunctions } from "@angular/fire/compat/functions";
 
 import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, take, tap } from "rxjs";
 
@@ -8,7 +9,8 @@ import { Budget } from "@app/model/finance/planning/budgets";
 import { LoadedPlanTrInput, PlanTrInput, TransactionPlan } from "@app/model/finance/planning/budget-items";
 import { RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
-import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "@app/model/finance/planning/budget-rendering-state";
+import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, 
+         _FIRST_YEAR_OF_BUDGET, _YEARS_RANGE_OF_BUDGET } from "@app/model/finance/planning/budget-rendering-state";
 
 import { BudgetQuery } from "./queries/budget.query";
 import { BudgetPlansQuery } from "./queries/budget-lines.query";
@@ -57,7 +59,9 @@ export class FinancialExplorerStateService
   constructor(private _budget$$: BudgetQuery,
               private _budgetPlans$: BudgetPlansQuery,
               private _renderer: BudgetRendererService,
-              private _logger: Logger)
+              private _logger: Logger,
+              private _bs: AngularFireFunctions
+              )
   { }
 
   /** Return the active explorer state. */
@@ -206,6 +210,18 @@ export class FinancialExplorerStateService
       if (state && plans) {
         let budget = state.budget;
         this._budgetPlans$.savePlans(budget, plans);
+      }
+    })
+  }
+
+  activateBudget() {
+    let state$ = this._state$$;
+    let plans$ = this._budgetPlan$$.getTransactionPlans$();
+
+    return combineLatest([state$, plans$]).pipe(take(1)).subscribe(([state, plans]) => {
+      if (state && plans) {
+        let data = {budget: state, plans: plans}
+        this._bs.httpsCallable('promoteBudget')(data).subscribe();
       }
     })
   }

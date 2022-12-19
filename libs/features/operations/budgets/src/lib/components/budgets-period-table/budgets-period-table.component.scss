@@ -1,3 +1,13 @@
 table {
   width: 100%;
 }
+
+.mat-header-cell {
+  background-color: var(--volk-color-primary-background);
+  font-weight: 600;
+  font-size: 15px;
+}
+.mat-row:hover .mat-cell {
+  background-color: var(--volk-color-primary-background);
+  cursor: pointer;
+}

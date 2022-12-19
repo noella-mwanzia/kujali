@@ -46,3 +46,6 @@ public
 firebase.json
 .firebaserc
 firestore.indexes.json
+firestore-debug.log
+firebase-debug.log
+*.log

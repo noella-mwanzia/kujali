@@ -1,25 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 
+import { SubSink } from 'subsink';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { flatMap, flatMap as __flatMap, groupBy, groupBy as __groupBy} from 'lodash';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { MONTHS, YEARS } from '@app/model/finance/planning/time';
+
+import { OperationBudgetsQuery } from '@app/state/finance/budgetting/rendering';
+
+import { Month } from '@app/model/finance/planning/budget-items';
 
 @Component({
   selector: 'app-budgets-period-table',
@@ -28,12 +19,72 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class BudgetsPeriodTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  private _sbS = new SubSink();
 
-  constructor() { }
+  @Input() operationLines: any;
+  @Input() orgId: string;
+  @Input() yearIndex: string = '2022';
+
+  yearValue$ = new BehaviorSubject('2022');
+  monthValue$ = new BehaviorSubject(MONTHS[0]);
+
+  displayedColumns: string[] = ['budget', 'name', 'total', 'action'];
+  dataSource;
+
+  currMonth: string = MONTHS[0].name;
+  
+  allMonths: any[] = [];
+
+  allMonthsList = MONTHS;
+  allYearsList = YEARS;
+
+  allTransactions: any;
+
+  currentMonthValues: any;
+
+  activeYear = YEARS[0];
+  activeMonth = MONTHS[0].month.toString();
+
+  constructor(private opsMonths$$: OperationBudgetsQuery) {}
 
   ngOnInit(): void {
+    if (this.operationLines) {
+      this.allTransactions = this.operationLines;
+      // this.getAllTras();
+
+    }
   }
+
+  // getAllTras() {
+  //   this._sbS.sink = this.yearValue$.subscribe((year) => {
+  //     this.allMonths = [];
+  //     this.operationLines.map((line) => {
+  //       this.opsMonths$$.getLineMonths(this.orgId, line?.id, year).subscribe((months) => {
+  //         this.allMonths.push(months);
+  //       });
+  //     })
+  //   })
+  // }
+
+  yearChanged(year: MatSelectChange) {
+    this.activeYear = year.value;
+    this.yearValue$.next(year.value);
+  }
+
+  flattenMonths(months): any {
+    let m = groupBy(flatMap(months), 'id')
+    this.dataSource = m[this.activeMonth]
+    return m;
+  }
+
+  monthChanged(month: MatSelectChange) {
+    this.activeMonth = (month.value.month - 1).toString();
+    this.monthValue$.next(month.value);
+  }
+
+  absolute(number) {
+    return Math.abs(number);
+  }
+
 
 }
