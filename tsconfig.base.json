@@ -55,6 +55,9 @@
       "@app/features/operations/budgets": [
         "libs/features/operations/budgets/src/index.ts"
       ],
+      "@app/features/operations/expenses": [
+        "libs/features/operations/expenses/src/index.ts"
+      ],
       "@app/functions/finance/budgeting": [
         "libs/functions/finance/budgeting/src/index.ts"
       ],
