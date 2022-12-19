@@ -60,6 +60,9 @@
       ],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
+      "@app/model/finance/operations/expenses": [
+        "libs/model/finance/operations/expenses/src/index.ts"
+      ],
       "@app/model/finance/planning/budget-calculation": [
         "libs/model/finance/planning/budget-calculation/src/index.ts"
       ],
