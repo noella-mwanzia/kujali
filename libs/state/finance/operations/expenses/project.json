@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/state/finance/operations/expenses/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/finance/operations/expenses"],
+      "options": {
+        "jestConfig": "libs/state/finance/operations/expenses/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/finance/operations/expenses/**/*.ts",
+          "libs/state/finance/operations/expenses/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
