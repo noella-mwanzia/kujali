@@ -52,6 +52,9 @@
       "@app/features/dashboard/main": [
         "libs/features/dashboard/main/src/index.ts"
       ],
+      "@app/features/operations/base": [
+        "libs/features/operations/base/src/index.ts"
+      ],
       "@app/features/operations/budgets": [
         "libs/features/operations/budgets/src/index.ts"
       ],
