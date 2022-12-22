@@ -27,11 +27,23 @@
       </a>
 
       <!-- Section Operations -->
-      <a routerLink="/operations" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center"
-        fxLayoutGap="10px">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>{{'SIDENAV.NAV.OPERATIONS' | transloco}}</span>
-      </a>
+      <mat-expansion-panel [ngClass]="operationsIsActive ? 'oper-drop-active' : 'not-active'" [expanded]="true"
+        (click)="toggleOpsDrop()">
+        <mat-expansion-panel-header [ngClass]="operationsIsActive ? 'oper-drop-active' : 'not-active'">
+          <a routerLink="/operations" routerLinkActive="" fxLayout=row fxLayoutAlign="start center" fxLayoutGap="10px">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>{{'SIDENAV.NAV.OPERATIONS' | transloco}}</span>
+          </a>
+        </mat-expansion-panel-header>
+        <span fxLayout="column" fxLayoutAlign="start">
+          <a class="sub-active" routerLink="/operations/budgets" routerLinkActive="active">
+            {{'SIDENAV.NAV.BUDGETS' | transloco}}
+          </a>
+          <a class="sub-active" routerLink="/operations/expenses" routerLinkActive="active">
+            {{'SIDENAV.NAV.EXPENSES' | transloco}}
+          </a>
+        </span>
+      </mat-expansion-panel>
 
       <!-- Section Budgetting -->
       <a routerLink="/budgets" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center" fxLayoutGap="10px">

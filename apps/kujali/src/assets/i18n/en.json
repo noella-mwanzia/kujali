@@ -9,6 +9,8 @@
       "DASHBOARD": "Dashboard",
       "BUSINESS": "Business",
       "OPERATIONS": "Operations",
+      "EXPENSES": "Expenses",
+      "BUDGETS": "Budgets",
       "BUDGETTING": "Budgetting",
       "SETTINGS": "Settings"
     }

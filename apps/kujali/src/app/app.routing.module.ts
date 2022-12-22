@@ -31,7 +31,7 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'operations',
-    loadChildren: () => import('@app/features/operations/budgets').then(m => m.OperationsBudgetsModule),
+    loadChildren: () => import('@app/features/operations/base').then(m => m.OperationsBaseModule),
     canActivate: [IsLoggedInGuard]
   },
 ];

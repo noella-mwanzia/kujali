@@ -21,6 +21,8 @@ export class SideMenuComponent implements OnInit, OnDestroy
   projectName: string;
   projectInfo: string;
 
+  operationsIsActive: boolean = true;
+
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
               @Inject('ENVIRONMENT') private _env: any)
@@ -33,6 +35,10 @@ export class SideMenuComponent implements OnInit, OnDestroy
   }
 
   getLogo = () => 'assets/images/italanta-logo.png'
+
+  toggleOpsDrop() {
+    this.operationsIsActive = !this.operationsIsActive;
+  }
 
   ngOnDestroy()
   {
