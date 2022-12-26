@@ -1,9 +1,9 @@
 <div class="slider-holder">
-  <ng5-slider *ngIf="isLoaded"
+  <ngx-slider *ngIf="isLoaded"
               [(value)]="sliderMinValue" [(highValue)]="sliderMaxValue" 
               (valueChange)="rangeChange()" (highValueChange)="rangeChange()" 
               [options]="sliderOptions">
-  </ng5-slider>
+  </ngx-slider>
 </div>
 
 <app-burn-chart *ngIf="isLoaded"

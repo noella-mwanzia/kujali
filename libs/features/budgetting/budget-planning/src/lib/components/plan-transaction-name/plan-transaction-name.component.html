@@ -1,19 +1,21 @@
 <div [formGroup]="pTNameFormGroup" class="form-section" fxLayout="column">
-  <div formGroupName="pTNameFormGroup">
+  <div *ngIf="formDataHasLoaded" formGroupName="pTNameFormGroup">
     <h4 class="mat-title type-title">{{ viewType }} Category</h4>
 
     <div class="form-section-body" fxLayout="column">
       <mat-form-field>
-        <mat-select name="selectedCat" placeholder="Category of {{ viewType }}" (selectionChange)="categoryChanged($event)" required>
-          <mat-option *ngFor="let gCategory of categories | async" [value]="gCategory">
+        <mat-select formControlName="category" name="selectedCat" placeholder="Category of {{ viewType }}" 
+        (selectionChange)="categoryChanged($event)" [compareWith]="compareCatFn" required>
+          <mat-option *ngFor="let gCategory of allCategories" [value]="gCategory">
             {{ gCategory.name | transloco}}
           </mat-option>
         </mat-select>
       </mat-form-field>
   
-      <mat-form-field *ngIf="selectedCategory">
-        <mat-select formControlName="type" name="type" [placeholder]="viewType + ' Type'">
-          <mat-option *ngFor="let gType of selectedCategory.types" [value]="gType">
+      <mat-form-field *ngIf="hasCategory">
+        <mat-select formControlName="type" name="type" [placeholder]="viewType + ' Type'"
+        [compareWith]="compareTypeFn" >
+          <mat-option *ngFor="let gType of allTypes" [value]="gType">
             {{ gType.name | transloco}}
           </mat-option>
         </mat-select>
@@ -26,7 +28,7 @@
       <div class="form-section-body" fxLayout="column">
         <mat-form-field fxFlex="100">
           <mat-label>Name</mat-label>
-          <input matInput type="text" formControlName="name" name="name"/>
+          <input matInput type="text" formControlName="lineName" name="lineName"/>
     
           <mat-hint>Transaction name is a description. Do not use people names, specific service providers, ...</mat-hint>
         </mat-form-field>

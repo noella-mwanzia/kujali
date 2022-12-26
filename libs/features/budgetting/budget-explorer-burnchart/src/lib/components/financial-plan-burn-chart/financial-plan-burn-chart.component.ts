@@ -4,11 +4,13 @@ import { clone as ___clone, drop as ___drop, take as ___take } from 'lodash';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { Options } from '@angular-slider/ngx-slider';
+
 import { MONTHS } from '@app/model/finance/planning/time';
 
-// import { Options } from 'ng5-slider';
 import { Budget } from '@app/model/finance/planning/budgets';
-import { RenderedBudget, ___CreateGraphBalanceLine, ___CreateGraphBlocks, ___CreateGraphLabels } from '@app/model/finance/planning/budget-rendering';
+import { RenderedBudget, ___CreateGraphBalanceLine, 
+          ___CreateGraphBlocks, ___CreateGraphLabels } from '@app/model/finance/planning/budget-rendering';
 
 import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
@@ -31,7 +33,7 @@ export class FinancialPlanBurnChartComponent implements OnInit
   sliderMaxValue = 5;
   sliderValues$$ : BehaviorSubject<{ min: number, max: number }> = new BehaviorSubject(null as any);
   sliderValues$  = this.sliderValues$$.asObservable().pipe(filter(s => s != null));
-  sliderOptions!: any; //: Options = {};
+  sliderOptions!: Options;
 
   balanceLine$!: Observable<number[]>;
   balanceLineDisplay!: number[];

@@ -1,11 +1,12 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { UserService } from '@ngfi/angular';
+import { Subscription } from 'rxjs';
+
+import { ToastService } from '@iote/bricks-angular';
 
 import { KuUser } from '@app/model/common/user';
-import { ToastService } from '@iote/bricks-angular';
-import { Subscription } from 'rxjs';
+import { UserStore } from '@app/state/user';
 
 @Component({
   selector: 'app-share-budget-modal',
@@ -27,7 +28,7 @@ export class ShareBudgetModalComponent implements OnInit, OnDestroy
       public dialogRef: MatDialogRef<ShareBudgetModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any,
                 
-      private _users$$: UserService<KuUser>,
+      private _users$$: UserStore,
       private _toasts$: ToastService) 
   { }
 
@@ -88,7 +89,7 @@ export class ShareBudgetModalComponent implements OnInit, OnDestroy
     await Promise.all(usersToEdit.map(u => this._users$$.updateUser(u)))
            .then(() => {
 
-              this._toasts$.doSimpleToast('Budgets assigned successfully', 3000);
+              // this._toasts$.doSimpleToast('Budgets assigned successfully', 3000);
               this.saving = false; 
               this.closeModal(); 
            }); 

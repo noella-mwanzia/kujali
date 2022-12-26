@@ -84,16 +84,18 @@ export class FinancialExplorerStateService
   {
     const cmd = <unknown> tr as LoadedPlanTrInput;
     cmd.year = this._state.year;
+    cmd.trMode = tr.isInCreateMode ? 'create' : 'edit';
 
-    if(tr.lineId)
+    if(tr?.occurence?.lineId)
     {
-      const plan = this._budgetPlan$$.find(tr.lineId, cmd.year, cmd.month);
+      const plan = this._budgetPlan$$.find(tr.occurence.lineId, cmd.year, tr.fromMonth);
+
       if(plan.mode === 'not_found')
         throw new Error('Line to edit somehow disappeared?');
       
       // Use the month to check if user clicked a transaction he/she wants to edit,
       //    or if the user wants to add a complete new line
-      cmd.trMode = plan.mode as 'create' | 'edit';
+      cmd.trUpdateMode = plan.mode;
       cmd.tr = plan.plan;
     }
 
@@ -194,6 +196,18 @@ export class FinancialExplorerStateService
         this._triggerUpdate();
       })
     );
+  }
+
+  submitBudget() {
+    let state$ = this._state$$;
+    let plans$ = this._budgetPlan$$.getTransactionPlans$();
+
+    return combineLatest(([state$, plans$])).pipe(take(1)).subscribe(([state, plans]) => {
+      if (state && plans) {
+        let budget = state.budget;
+        this._budgetPlans$.savePlans(budget, plans);
+      }
+    })
   }
  
 }

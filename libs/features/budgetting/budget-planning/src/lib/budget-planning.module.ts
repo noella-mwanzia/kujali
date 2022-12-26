@@ -19,6 +19,8 @@ import { PlanTransactionIncreaseComponent } from './components/plan-transaction-
 import { PlanTransactionValueBaseAmountComponent } from './components/plan-transaction-value-base-amount/plan-transaction-value-base-amount.component';
 import { PlanTransactionNameComponent } from './components/plan-transaction-name/plan-transaction-name.component';
 
+import { TransactionPlanService } from './services/transaction-plan.service';
+
 @NgModule({
   imports: [
     CommonModule, RouterModule, MultiLangModule,
@@ -38,7 +40,8 @@ import { PlanTransactionNameComponent } from './components/plan-transaction-name
   ],
   exports: [
     PlanTransactionModalComponent
-  ]
+  ],
+  providers: [TransactionPlanService]
 })
 /** 
  * Module used by the PL planning tool.

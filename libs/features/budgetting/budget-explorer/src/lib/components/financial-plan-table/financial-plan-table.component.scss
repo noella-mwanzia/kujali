@@ -8,6 +8,10 @@ th, td {
   padding: 5px 10px!important;
 }
 
+.open-modal {
+  cursor: pointer;
+}
+
 .amount-cell, .end-cell, .footer-cell-totals {
   border-left: 1px solid #eee;
   padding-left: 10px;
@@ -59,11 +63,11 @@ tr.mat-row {
 }
 
 .red-top {
-  background: #c41c00;
+  background: var(--kujali-color-primary-red-header);
 }
 
 .green-top {
-  background: #4b830d; 
+  background: var(--kujali-color-primary-green-header); 
 }
 
 // Section identity text styling

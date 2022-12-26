@@ -52,6 +52,9 @@
       "@app/features/dashboard/main": [
         "libs/features/dashboard/main/src/index.ts"
       ],
+      "@app/functions/finance/budgeting": [
+        "libs/functions/finance/budgeting/src/index.ts"
+      ],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/finance/planning/budget-calculation": [
@@ -85,7 +88,7 @@
         "libs/model/finance/planning/time/src/index.ts"
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
-      "@app/state/data": ["libs/state/data/src/index.ts"],
+      "@app/state/data/firebase": ["libs/state/data/firebase/src/index.ts"],
       "@app/state/finance/budgetting/budgets": [
         "libs/state/finance/budgetting/budgets/src/index.ts"
       ],

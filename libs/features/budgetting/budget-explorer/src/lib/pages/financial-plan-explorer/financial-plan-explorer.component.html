@@ -1,19 +1,19 @@
 <app-page [loading]="loading">
   <!-- [loadingText]="'Please hold as we load the budget..'"> -->
 
-  <div fxLayout="column" fxlayoutALign="start start" class="container">
-
-    <mat-card class="" *ngIf="state$ | async as state">
-      <p class="budget-name">{{ state.budget.name }}</p> 
+  <div *ngIf="state$ | async as state; else loadingBudget" fxLayout="column" fxlayoutALign="start start"
+    class="container">
+    <div class="" fxLayout="row" fxlayoutALign="space-between start" fxFlex>
+      <div fxFlex="50">
+        <span class="budget-name">{{ state.budget.name }}</span>
         <!-- Role:  -->
         <span class="budget-status">
-          <!-- TODO -->
-          <!--{{ translateStats(budget.status) }}-->
+          ({{ translateStatus(state.budget.status) | transloco}})
         </span>
 
         <div class="year-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <span>
-            Current Year:
+            {{"BUDGETS.CURRENT-YEAR" | transloco}}
           </span>
           <mat-form-field class="year-selector">
             <mat-select name="year" [(ngModel)]="year" (ngModelChange)="setYear($event)" required>
@@ -23,24 +23,34 @@
             </mat-select>
           </mat-form-field>
         </div>
-    </mat-card>
+      </div>
+    </div>
 
     <!-- chart -->
     <app-year-focus (navigateYearPressed)="navigateYear($event)">
 
       <app-financial-plan-burn-chart [state$]="state$">
       </app-financial-plan-burn-chart>
-  
+
     </app-year-focus>
 
-    <div class="container" fxLayout="column wrap" fxLayoutAlign="start">
+    <div fxLayout="column wrap" fxLayoutAlign="start">
 
       <!-- Budget Table Viz -->
-      <app-financial-plan-pl-tables [state$]="state$" [budgetId]="budgetId" [isInEditMode]="isInEditMode" (navigateYearPressed)="navigateYear($event)">
+      <app-financial-plan-pl-tables [state$]="state$" 
+                                    [budgetId]="budgetId" 
+                                    [isInEditMode]="isInEditMode"
+                                    (navigateYearPressed)="navigateYear($event)"
+                                    (budgetSubmittedEvent)="submitBudget()">
       </app-financial-plan-pl-tables>
 
     </div>
-
   </div>
 
+  <ng-template #loadingBudget>
+    <div class="spinner" fxLayout="row" fxLayoutALign="center center" fxLayoutGap="20px">
+      <p> {{"BUDGETS.CREATING-BUDGET" | transloco}} </p>
+      <mat-spinner diameter="35"></mat-spinner>
+    </div>
+  </ng-template>
 </app-page>

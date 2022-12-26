@@ -53,6 +53,21 @@ button.btn-promote:hover {
   background: black !important;
 }
 
+.children {
+  margin: 30px 0px 0px 30px;
+}
+
+.child-header {
+  font-weight: bolder;
+  padding-bottom: 10px!important;
+}
+
+.child-bg {
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
 ::ng-deep .table-header .mat-mini-fab .mat-button-wrapper {
   padding: 0px!important;
 }

@@ -9,8 +9,9 @@ import { OrgBudgetsStore } from './stores/org-budgets-store.store';
   imports: [
     CommonModule,
     RouterModule
-  ]
+  ],
 })
+
 export class BudgetsStateModule 
 { 
   static forRoot(): ModuleWithProviders<BudgetsStateModule>

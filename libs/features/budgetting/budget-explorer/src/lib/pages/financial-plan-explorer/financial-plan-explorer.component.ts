@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { filter, map, Observable, Subscription, take } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
 import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
+import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
 
 /**
  * This page visualises the Budget Explorer, which is the core feature of this application.
@@ -38,23 +39,29 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
   maxValue = 1;
 
   loading = true;
+  isInEditMode: boolean;
 
   constructor(private _state$$: FinancialExplorerStateService,
-              private _route: ActivatedRoute,
+              private _bLock$$: BudgetLockService,
+              private _router$$: Router,
               private _logger: Logger)
-  { }
+  { 
+  }
 
   ngOnInit() 
   {
-    const routeParams = this._route.snapshot.paramMap;
-    const bId = routeParams.get('budgetId');
+    const routeParams = this._router$$.url.split('/');
+    this.budgetId = routeParams[2];
+    this.isInEditMode = routeParams[3] === 'edit';
 
-    if(!bId) {
+    this._bLock$$.lockBudget(this.budgetId, true);
+
+    if(!this.budgetId) {
       alert('Component cannot load as no budget-id has been passed through the route. Please contact support.');
       throw new Error('FPE-L1');
     }
 
-    this.state$ = this._state$$.init(bId).pipe(filter(st => st.loaded));
+    this.state$ = this._state$$.init(this.budgetId).pipe(filter(st => st.loaded));
     this.budget$ = this.state$.pipe(map(s => s.budget));
     this.year$   = this.state$.pipe(map(st => st.year));
 
@@ -96,25 +103,33 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
     this._state$$.setYear(this.year);
   }
 
-  // translateStatus(status: BudgetStatus) {
-  //   switch (status) {
-  //     case 'in-use':
-  //       return 'Active';
+  submitBudget() {
+    this._state$$.submitBudget();
+  }
 
-  //     case 'open':
-  //       return 'Design';
+  translateStatus(status: number) {
+    switch (status) {
+      case 1:
+        return 'BUDGET.STATUS.ACTIVE';
 
-  //     case 'archived':
-  //       return 'No Longer in Use';
+      case 0:
+        return 'BUDGET.STATUS.DESIGN';
 
-  //     case 'deleted':
-  //       return 'Deleted';
+      case 9:
+        return 'BUDGET.STATUS.NO-USE';
 
-  //     default:
-  //       break;
-  //   }
-  // }
-  ngOnDestroy = () => this._subscr.unsubscribe();
+      case -1:
+        return 'BUDGET.STATUS.DELETED';
+
+      default:
+        return '';
+    }
+  }
+
+  ngOnDestroy () {
+    this._subscr.unsubscribe();
+    this._bLock$$.lockBudget(this.budgetId, false);
+  }
 }
 
 

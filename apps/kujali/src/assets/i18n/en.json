@@ -68,18 +68,24 @@
       "CAT-HEADER": {
         "TITLE": "Category",
         "TOTAL": "Total"
-      }
+      },
+      "EXCEL-EXPORT": "Export to Excel",
+      "LINK-CHILD": "Link Child Budget"
     }
   },
   "BUDGETS": {
     "HEADERS": {
       "RESULT": "Result"
     },
+    "CREATING-BUDGET": "Creating budget",
+    "CURRENT-YEAR": "Current Year: ",
     "LINK-BUDGETS": {
+      "LINKED-BUDGETS": "Linked Budgets",
       "NO-BUDGETS": "No child budgets available",
       "CHOOSE-BUDGET": "Choose Budget to Link to",
       "LINK-BUDGET": "Link Budget"
     },
+    "SUBMIT": "Submit Budget",
     "SELECT-BUDGETS": {
       "FETCHING-BUDGETS": "Fetching budgets",
       "NO-ARCHIVED-BUDGETS": "There are no archived budgets",
@@ -92,13 +98,15 @@
   },
   "BUDGETTING": {
     "LINES" : {
+      "BALANCE": "Balance",
       "INCOME": "Income",
-      "COST" : "Cost"
+      "COST" : "Costs"
     }
   },
   "PL-EXPLORER": {
     "TRPLANNER": {
       "ACTION-UPDATE": "Update",
+      "ACTION-CREATE": "Create",
       "TITLE-INCOME": "Income",
       "INCOME-TYPE": "Income",
       "COST-TYPE": "Cost",
@@ -179,6 +187,14 @@
     }
   },
   "BUDGET": {
+    "STATUS": {
+      "ACTIVE": "Active",
+      "DESIGN": "Design",
+      "NO-USE": "No longer in use",
+      "DELETED": "Deleted"
+    },
+    "PREVIOUS-YEAR": "Previous Year",
+    "NEXT-YEAR": "Next Year",
     "CREATE": {
       "HDR-CREATE-BUDGET":"Create budget",
       "HDR-FLD-BUDGET-NAME": "Budget name",
@@ -187,6 +203,31 @@
       "FLD-DUR": "Duration",
       "BTN-SUBMIT": "Submit",
       "HDR-OVERRIDE-LST": "Override List"
+    },
+    "TRANSACTION": {
+      "NO-INCREASE": "No increase",
+      "ONCE": "Once",
+      "MONTHLY": "Monthly",
+      "EVERY-X-TIMES": "Every X Times",
+      "QUARTERLY": "Quaterly",
+      "YEARLY": "Yearly",
+      "INCREASE-VALUE": "Increase value",
+      "INCREASE-RATE": "Increase rate",
+      "INCR-TIME": "Increase time",
+      "TR-OCCURS": "Transaction occurs:",
+      "VALUE-VARIES": "Value varies over time",
+      "AMOUNT-INCR": "Amount increase",
+      "UNIT-INCR": "Unit increase",
+      "INCR-PER": "Increase per: ",
+      "OCC-BFR-INCREASE": "Number of occurences before increase",
+      "FIXED-AMOUNT": "Fixed amount",
+      "PERCENTAGE": "Percentage",
+
+      "HINTS": {
+        "AMOUNT-INCREASE-RATE": "Rate at which the value increases for each configured increase moment.",
+        "AMOUNT-INCREASE-VALUE": "Decimal value with which the value increases for each configured increase moment."
+      }
+
     },
     "VIEW-RECORD": {
       "ACTIONS": {

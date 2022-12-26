@@ -1,14 +1,25 @@
 <!-- Table Holder with Prev and Next buttons -->
 <div fxLayout="column">
-  <h3 *ngIf="title">{{ title }}</h3>
+  <h3 *ngIf="title">{{ title | transloco }}</h3>
 
-  <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px">
-    <div fxLayoutAlign="center center">
-      <button (click)="navigateYear('prev')" mat-stroked-button>Previous year</button>
+  <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="space-between center" fxFlex>
+
+    <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px" fxFlex>
+      <div fxLayoutAlign="center center">
+        <button (click)="navigateYear('prev')" mat-stroked-button> {{"BUDGET.PREVIOUS-YEAR" | transloco}} </button>
+      </div>
+
+      <div fxLayoutAlign="center center">
+        <button (click)="navigateYear('next')" mat-stroked-button> {{"BUDGET.NEXT-YEAR" | transloco}} </button>
+      </div>
     </div>
-  
+
     <div fxLayoutAlign="center center">
-      <button (click)="navigateYear('next')" mat-stroked-button>Next year</button>
+      <button [ngClass]="type == 1 ? 'income-btn' : 'costs-btn'" *ngIf=" type && (type == 1 || type == -1) " (click)="addCostOrIncome()" mat-raised-button>
+        <i *ngIf="type == 1" class="fas fa-plus"></i>
+        <i *ngIf="type == -1" class="fas fa-minus"></i>
+        Add {{title | transloco }} 
+      </button>
     </div>
   </div>
 

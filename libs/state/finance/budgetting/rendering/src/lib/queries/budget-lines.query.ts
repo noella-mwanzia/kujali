@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "@ngfi/angular";
 
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
+
+import { DataService } from "@ngfi/angular";
 
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
@@ -16,8 +17,8 @@ import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 @Injectable()
 export class BudgetPlansQuery
 {
-  constructor(private _db: DataService)
-  { }
+  constructor(private _db: DataService
+  ) { }
 
   /**
    * Gets all the budget lines beloning to a budget.
@@ -28,7 +29,7 @@ export class BudgetPlansQuery
   getPlans(budget: Budget): Observable<TransactionPlan[]>
   {
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
-
+    
     // TODO(jrosseel): Add back override functionality
     // const bases = ___concat(budget.overrideList, budget.id);
     
@@ -36,6 +37,23 @@ export class BudgetPlansQuery
     //          bases.map(chId => repo.getDocuments(new Query().where('transaction.budgetId', '==', chId)))
     //        )
     return repo.getDocuments();
+  }
+
+  savePlans(budget: Budget, plans: TransactionPlan[]) {
+    const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
+    
+    plans.map((plan: TransactionPlan) => {
+      repo.create(plan as TransactionPlan, plan.id)
+      .pipe(catchError((err) => {
+        return throwError(() => new Error(err))}))
+      .subscribe({
+        error: (err: Error) => {
+          if (err.message.includes('id already exists')) {
+            repo.update(plan).subscribe();
+          }
+        },
+      });
+    })
   }
 
   // TODO(jrosseel): Add back override functionality

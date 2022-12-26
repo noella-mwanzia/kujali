@@ -3,20 +3,21 @@ import { DataService } from '@ngfi/angular';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { KuUser } from '@app/model/common/user';
 import { Organisation } from '@app/model/organisation';
-
 import { Budget } from '@app/model/finance/planning/budgets';
 import { BudgetResult } from '@app/model/finance/planning/budget-lines';
+import { RenderedChildBudget } from '@app/model/finance/planning/budget-rendering';
 
 import { UserStore } from '@app/state/user';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { BudgetsStore }   from '@app/state/finance/budgetting/budgets';
-import { RenderedChildBudget } from '@app/model/finance/planning/budget-rendering';
+
+import { BudgetLockQuery } from './budget-lock.query';
 
 /** 
  * A query which can render budgets for the budget explorer and other potential pages.
@@ -35,6 +36,8 @@ export class BudgetQuery
   constructor(_user$$: UserStore,
               _org$$: ActiveOrgStore,
               _router: Router,
+
+              private _editStatus$$: BudgetLockQuery,
               
               private _budgets$$: BudgetsStore,
               private _db: DataService)
@@ -54,9 +57,14 @@ export class BudgetQuery
   //            So no two users edit the same budget at the same time else they might override each other.
   get(budgetId: string)
   {
-    return this._budgets$$.get()
-            // If budgets$$ resolves, we can be sure that orgId and user are set as well.
-      .pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget));
+    // sql
+    // return this._budgets$$.get().pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget))
+    return this._editStatus$$.getLockStatus(budgetId).pipe(
+                  switchMap((budgetLock) => budgetLock.isbudgetLocked && budgetLock.createdBy == this._user.id
+                        // If budgets$$ resolves, we can be sure that orgId and user are set as well.
+                        ? this._budgets$$.get().pipe(map((budgets) => budgets.find(b => b.id === budgetId) as Budget)) 
+                        : of()
+    ))
   }
 
   /**
@@ -101,5 +109,9 @@ export class BudgetQuery
           }) as RenderedChildBudget)),
           // Block longlasting subscriptions
           take(1));
+   }
+
+   updateBudget(budget: Budget) {
+    return this._budgets$$.update(budget as Budget);
    }
 }

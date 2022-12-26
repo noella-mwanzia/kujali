@@ -28,11 +28,13 @@
     "@app/state/user": "libs/state/user",
     "features-budgetting-budget-explorer-burnchart": "libs/features/budgetting/budget-explorer-burnchart",
     "features-budgetting-budget-planning": "libs/features/budgetting/budget-planning",
+    "functions-finance-budgeting": "libs/functions/finance/budgeting",
     "kujali": "apps/kujali",
+    "kujali-functions": "apps/kujali-functions",
     "model-finance-planning-budget-grouping": "libs/model/finance/planning/budget-grouping",
     "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering",
     "model-finance-planning-budget-rendering-state": "libs/model/finance/planning/budget-rendering-state",
-    "state-data": "libs/state/data",
+    "state-data-firebase": "libs/state/data/firebase",
     "state-finance-budgetting-results": "libs/state/finance/budgetting/results",
     "state-finance-cost-types": "libs/state/finance/cost-types"
   }

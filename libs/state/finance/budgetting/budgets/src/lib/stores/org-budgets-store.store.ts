@@ -90,7 +90,7 @@ export class OrgBudgetsStore extends Store<OrgBudgetsOverview>
     const childNodes = availableNodes.filter(node => current.childrenList.includes(node.id as string));
     // Do not allow recursive budgets nor budgets inheriting their aunts/sisters.
     const childNodePossibleChildren = availableNodes.filter(n => n.id != current.id
-                                                                    && !___includes(current.childrenList, n.id));
+                                                                      && !___includes(current.childrenList, n.id));
     
     return {
       budget: current,

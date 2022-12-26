@@ -63,8 +63,8 @@ export class BudgetsStore extends DataStore<Budget>
   {
     return this.get()
         .pipe(map(budgets => budgets.filter(b => budget.id != b.id
-                                                      && ! ___includes(budget.childrenList, b.id)
-                                                      && ! ___includes(budget.overrideList, b.id))));
+                                                  && ! ___includes(budget.childrenList, b.id)
+                                                  && ! ___includes(budget.overrideList, b.id))));
   }
 
   // add(budget: Budget): Observable<Budget>

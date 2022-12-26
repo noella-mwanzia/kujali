@@ -10,7 +10,7 @@ export enum BudgetItemFrequency
   /** Budget item occurs every quarter */
   Quarterly = 90,
   /** Budget item occurs yearly */
-  Year = 365,
+  Yearly = 365,
   /** Budget item occurs every x months */
   EveryXTimes = 999,
   /** Budget item occurs never (for disabled budget line) */

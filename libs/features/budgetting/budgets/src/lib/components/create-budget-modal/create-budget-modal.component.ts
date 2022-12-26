@@ -10,6 +10,7 @@ import { Budget, BudgetStatus } from '@app/model/finance/planning/budgets';
 import { BudgetRow } from '@app/model/finance/planning/budget-lines';
 
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
+import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
 
 @Component({
   selector: 'app-create-budget-modal',
@@ -45,13 +46,14 @@ export class CreateBudgetModalComponent implements OnInit
 
   // - ENDSECTION
 
-  constructor(
-      private _budgets$$: BudgetsStore,
+  isSaving: boolean = false;
 
-      @Inject(MAT_DIALOG_DATA) public childBudget: Budget | false,
-      public dialogRef: MatDialogRef<CreateBudgetModalComponent>,
-      private _logger: Logger) 
-  { }
+  constructor(private _budgets$$: BudgetsStore,
+              private _budgetLockService: BudgetLockService,
+              @Inject(MAT_DIALOG_DATA) public childBudget: Budget | false,
+              public dialogRef: MatDialogRef<CreateBudgetModalComponent>,
+              private _logger: Logger
+  ){ }
 
   ngOnInit = () => this.hasChild = !!this.childBudget;
 
@@ -66,6 +68,7 @@ export class CreateBudgetModalComponent implements OnInit
    */
   createBudget(b: Budget) 
   {
+    this.isSaving = true;
     let overrideList     : string[] = [];
     let overrideNameList : string[] = [];
     const childrenList   : string[] = [];
@@ -99,10 +102,14 @@ export class CreateBudgetModalComponent implements OnInit
 
     // Add to store.
     this._budgets$$.add(budget).subscribe((budget) => {
-      this._logger.log(
-        () => 'Budget ' + budget.name + ' with id ' + budget.id + ' created.'
-      );
-      this.dialogRef.close();
+      if (budget) {
+        this._logger.log(
+          () => 'Budget ' + budget.name + ' with id ' + budget.id + ' created.'
+        );
+        this._budgetLockService.createBudgetLock(budget);
+        this.isSaving = false;
+        this.dialogRef.close();
+      }
     });
   }
 

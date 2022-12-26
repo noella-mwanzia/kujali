@@ -41,5 +41,12 @@
   </div>
 </div>
 
-<app-display-budget-record *ngFor="let child of record.children" [record]="child" [count]="count + 1">
-</app-display-budget-record>
+<div fxLayout="column" fxLayoutALign="start start" *ngIf="record.children.length > 0" class="children">
+
+  <p class="child-header"> {{ "BUDGETS.LINK-BUDGETS.LINKED-BUDGETS" | transloco}} </p>
+
+  <div fxLayout="column" fxLayoutALign="start start" class="child-bg" fxFlex>
+    <app-display-budget-record *ngFor="let child of record.children" [record]="child" [count]="count + 1">
+    </app-display-budget-record>
+  </div>
+</div>

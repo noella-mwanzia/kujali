@@ -4,6 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
+
+import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
@@ -11,13 +14,12 @@ import { iTalPageModule } from '@app/elements/layout/page';
 // import { FinancialPlanExplorerModule } from '../financial-plan-explorer/financial-plan-explorer.module';
 
 import { CreateBudgetModalComponent } from './components/create-budget-modal/create-budget-modal.component';
-
 import { DisplayBudgetRecordComponent } from './components/display-budget-record/display-budget-record.component';
 import { ShareBudgetModalComponent } from './components/share-budget-modal/share-budget-modal.component';
-import { MultiLangModule } from '@ngfi/multi-lang';
-import { BudgetRouter } from './budget-router';
+
 import { SelectBudgetPageComponent } from './pages/select-budget/select-budget.component';
-import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
+
+import { BudgetRouter } from './budget-router';
 
 /**
  * Financial-Planning module. Contains financial planning creation and forecasting.

@@ -1,15 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
+import { FormGroup } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 import { LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
-
-// import { GroupedTransactionType } from '../../../transaction-type-management/model/grouped-transaction-type.interface';
-// import { TransactionType } from '../../../transaction-type-management/model/transaction-type.interface';
-
-// import { TransactionTypeService } from '../../../transaction-type-management/services/transactions-types.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-plan-transaction-name',
@@ -17,30 +13,58 @@ import { LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model
   styleUrls: ['../../shared/transaction-planner-form.style.scss'],
 })
 
-export class PlanTransactionNameComponent implements OnInit {
+export class PlanTransactionNameComponent implements OnInit, AfterViewInit {
 
   @Input() pTNameFormGroup: FormGroup;
   @Input() categoryType: 'cost' | 'income';
-  @Input() categories: Observable<LoadedTransactionTypeCategory[]>;
+  @Input() categories$: Observable<LoadedTransactionTypeCategory[]>;
 
   selectedCategory: LoadedTransactionTypeCategory;
-  type: LoadedTransactionType;
+  allCategories: LoadedTransactionTypeCategory[];
+  selectedType: LoadedTransactionType;
+  allTypes: LoadedTransactionType[];
 
+  // type: LoadedTransactionType;
   viewType: string;
   name: string;
 
-  // TODO Review (IAN <> JENTE)
-  
-  // constructor(private _transactionTypesService: TransactionTypeService,
-  //             private _costTypes$$: CostTypesStore,
-  // ) { }
+  hasCategory: boolean = false;
+  formDataHasLoaded: boolean = false;
+
+  constructor() { }
 
   ngOnInit() {
-    // this.categories = this._transactionTypesService.getTransactionCategoryTypes(this.categoryType);
     this.viewType = this.categoryType == 'cost' ? 'Budget' : 'Target';
+
+    if (this.categories$) {
+      this.categories$.pipe(take(1))
+      .subscribe((categories) => {
+        let catId = this.pTNameFormGroup.getRawValue().pTNameFormGroup.category;
+
+        this.allCategories = categories;
+        this.allTypes = this.allCategories.find((category) => category.id == catId)?.types!;
+
+        this.hasCategory = catId ? true : false;
+      })
+      this.formDataHasLoaded = true;
+    }
   }
 
-  categoryChanged(category: MatSelectChange) {
-    this.selectedCategory = category.value;
+  ngAfterViewInit(): void {
+
+  }
+
+  categoryChanged(categoryInput: MatSelectChange) {
+    this.selectedCategory = categoryInput.value;
+    this.allTypes = this.allCategories.find((category) => category.id == this.selectedCategory.id)?.types!;
+    this.hasCategory = true;
+  }
+
+  compareCatFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2 : c1 === c2;
+  }
+
+  compareTypeFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2 : c1 === c2;
   }
 }

@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Observable, Subscription, take } from 'rxjs';
+import { map, Observable, Subscription, take } from 'rxjs';
 
 import { Month, MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { NULL_AMOUNT_PER_MONTH } from '@app/model/finance/planning/budget-defaults';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
+import { CellInput, PlanTrInput } from '@app/model/finance/planning/budget-items';
 
 import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
 
@@ -43,13 +44,20 @@ export class FinancialPlanTableComponent implements OnInit
 
   @Input() allowAdd = true;
   @Input() nameField = true;
+  @Input() isInEditMode: boolean;
+
+  datasource$!  : Observable<BudgetRowYear[]>;
 
   savingTransactions: number = 0;
+
+  loaded= false;
 
   constructor(private _router$$: Router,
               public dialog: MatDialog,
               // private _plannedTransactionService: PlanTransactionService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit()
   {
@@ -58,6 +66,17 @@ export class FinancialPlanTableComponent implements OnInit
     this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
                                      .concat(MONTHS.map((m) => m.slug))
                                     .concat('total').concat('action');
+
+    // hijacking the stream to remove unneccesary headers for cost and income
+    if (this.rows$) {
+      this.datasource$ = this.rows$.pipe(
+        map((rows) => 
+            rows.filter((row) => this.classId != 'result'
+              ? row.isHeader === false && (row.name !== 'BUDGETTING.LINES.COST' && row.name !== 'BUDGETTING.LINES.INCOME')
+              : row
+              )))
+    }
+    
     // Unpack total as we need it for small aggregated visualisations.
     this.subscr = 
       this.total$.subscribe(total => {
@@ -73,7 +92,7 @@ export class FinancialPlanTableComponent implements OnInit
   getCategory(row: BudgetRowYear): string {
     return (row.isHeader || row.type == 'childResult')
               ? row.name as string
-              : row.type as string;
+              : '';
   }
 
   /** Get name if applicable (only for non-typed rows) */
@@ -83,7 +102,7 @@ export class FinancialPlanTableComponent implements OnInit
 
   /** Get cell amount */
   getAmount(cell: BudgetRowYear, column: Month) 
-  {         
+  {
     return this._formatPrice(Math.abs(this._getCellValue(cell, column).amount));
   }
 
@@ -138,45 +157,31 @@ export class FinancialPlanTableComponent implements OnInit
     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  // -- Create and Update Rows
-
-  openPlanTransactionModal(m : any): void
-  {
-    this.dialog.open(PlanTransactionModalComponent, 
-    {
-      data: { month: m.month, type: this.type, budgetId: this.budgetId },
-      minHeight: '600px'
-    })
-    .afterClosed()
-    .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
+  openCellModal(cell: CellInput, column: Month)
+  {    
+    const data = (cell && !cell.isHeader) ? (this.getTransactionPlanInput(column, cell)): {}
+                  
+    this.dialog.open(PlanTransactionModalComponent, { data })
+               .afterClosed()
+               .subscribe((saving: Observable<boolean> | false) => 
+                  { if (saving) this._addCounterSaving(saving); });
   }
 
-  // openCellModal(cell: BudgetRowMonths, column)
-  // {
-  //   const amount = this._getCellValue(cell, column);
+  getTransactionPlanInput(column: Month, cell: CellInput): PlanTrInput {
+    let tr = {
+      isInCreateMode: false,
+      fromMonth: column.month,
+      type: this.type,
+      budgetId: this.budgetId, 
+      occurence: cell.amountsMonth[column.month - 1].plan 
+    } as PlanTrInput;
 
-  //   const data = (cell && !cell.isHeader) ? ({
-  //                   monthFrom: column.month,
-  //                   yearFrom: this.year,
-  //                   type: this.type,
-  //                   amount: amount.baseAmount,
-  //                   units: amount.units,
-  //                   update: amount.isOccurenceStart,
-  //                   // transaction: cell.transaction, 
-
-  //                   budgetId: this.budgetId, 
-  //                   occurence: cell.amountsMonth[column.month - 1].occurence 
-  //                 })
-  //                 : _EMPTY_CELL_DATA(column.month, this.year, this.type);
-
-  //   this.dialog.open(CellTransactionOccurrenceModal, { data })
-  //              .afterClosed()
-  //              .subscribe((saving: Observable<any> | false) => { if (saving) this._addCounterSaving(saving); });
-  // }
+    return tr;
+  }
 
 
   /** Counter for when transactions are being saved. */
-  private _addCounterSaving(transaction: Observable<any>) 
+  private _addCounterSaving(transaction: Observable<boolean>) 
   {
     this.savingTransactions++;
 
@@ -192,7 +197,7 @@ export class FinancialPlanTableComponent implements OnInit
     let isConfirmed = confirm("Are you sure you want to delete this transaction? Click ok to continue"); 
 
     if(isConfirmed) {
-      // this._plannedTransactionService.deletePlannedTransaction(transaction); 
+      // this._plannedTransactionService.deletePlannedTransaction(transaction);
     }
   }
 
