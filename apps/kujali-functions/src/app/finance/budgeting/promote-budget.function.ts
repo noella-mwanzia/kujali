@@ -1,7 +1,7 @@
 import { RestRegistrar } from '@ngfi/functions';
 import { KujaliFunction } from '../../../environments/kujali-func.class';
 
-import { PromoteBudgetHandler } from 'libs/functions/finance/budgeting/src';
+import { PromoteBudgetHandler } from '@app/functions/finance/budgeting';
 
 const promoteBudgetHandler = new PromoteBudgetHandler();
 
