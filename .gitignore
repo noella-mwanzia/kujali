@@ -41,8 +41,4 @@ Thumbs.db
 .angular
 apps/kujali-functions/src/environments/environment.prod.ts
 apps/kujali-functions/src/environments/environment.ts
-public
-*.rules
-firebase.json
-.firebaserc
-firestore.indexes.json
+
