@@ -5,8 +5,9 @@ import { PromoteBudgetHandler } from '@app/functions/finance/budgeting';
 
 const promoteBudgetHandler = new PromoteBudgetHandler();
 
-export const promoteBudget = new KujaliFunction('promoteBudget',
-                                                  new RestRegistrar(),
-                                                  [],
-                                                  promoteBudgetHandler)
-                                                  .build()
+export const promoteBudget = new KujaliFunction(
+                'promoteBudget',
+                new RestRegistrar(),
+                [],
+                promoteBudgetHandler)
+              .build()
