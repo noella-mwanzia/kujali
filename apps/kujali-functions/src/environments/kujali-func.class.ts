@@ -1,5 +1,4 @@
 import { GCFunction, FunctionRegistrar, Guard, FunctionHandler } from "@ngfi/functions";
-import { environment } from "./environment";
 
 /**
  * Implementation of GCFunction for the scope of this project. Adds in Environment.
