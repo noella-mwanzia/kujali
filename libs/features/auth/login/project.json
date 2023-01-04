@@ -1,11 +1,12 @@
 {
+  "name": "@app/features/auth/login",
   "projectType": "library",
   "sourceRoot": "libs/features/auth/login/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/auth/login"],
+      "outputs": ["{workspaceRoot}/coverage/libs/features/auth/login"],
       "options": {
         "jestConfig": "libs/features/auth/login/jest.config.ts",
         "passWithNoTests": true

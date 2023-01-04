@@ -1,11 +1,14 @@
 {
+  "name": "@app/features/budgetting/budget-explorer",
   "projectType": "library",
   "sourceRoot": "libs/features/budgetting/budget-explorer/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/budgetting/budget-explorer"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/budgetting/budget-explorer"
+      ],
       "options": {
         "jestConfig": "libs/features/budgetting/budget-explorer/jest.config.ts",
         "passWithNoTests": true

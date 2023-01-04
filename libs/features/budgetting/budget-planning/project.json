@@ -1,11 +1,14 @@
 {
+  "name": "features-budgetting-budget-planning",
   "projectType": "library",
   "sourceRoot": "libs/features/budgetting/budget-planning/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/budgetting/budget-planning"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/budgetting/budget-planning"
+      ],
       "options": {
         "jestConfig": "libs/features/budgetting/budget-planning/jest.config.ts",
         "passWithNoTests": true

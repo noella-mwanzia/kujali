@@ -1,11 +1,12 @@
 {
+  "name": "@app/features/dashboard/main",
   "projectType": "library",
   "sourceRoot": "libs/features/dashboard/main/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/dashboard/main"],
+      "outputs": ["{workspaceRoot}/coverage/libs/features/dashboard/main"],
       "options": {
         "jestConfig": "libs/features/dashboard/main/jest.config.ts",
         "passWithNoTests": true

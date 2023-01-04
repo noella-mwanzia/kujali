@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select';
 import { FormGroup } from '@angular/forms';
 
 import { map, Observable, tap } from 'rxjs';

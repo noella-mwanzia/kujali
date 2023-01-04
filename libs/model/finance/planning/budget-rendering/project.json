@@ -1,4 +1,5 @@
 {
+  "name": "model-finance-planning-budget-rendering",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/model/finance/planning/budget-rendering/src",
   "projectType": "library",
@@ -14,7 +15,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/finance/planning/budget-rendering"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/model/finance/planning/budget-rendering"
+      ],
       "options": {
         "jestConfig": "libs/model/finance/planning/budget-rendering/jest.config.ts",
         "passWithNoTests": true

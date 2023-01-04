@@ -1,11 +1,14 @@
 {
+  "name": "@app/state/finance/budgetting/budgets",
   "projectType": "library",
   "sourceRoot": "libs/state/finance/budgetting/budgets/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/finance/budgetting/budgets"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/state/finance/budgetting/budgets"
+      ],
       "options": {
         "jestConfig": "libs/state/finance/budgetting/budgets/jest.config.ts",
         "passWithNoTests": true

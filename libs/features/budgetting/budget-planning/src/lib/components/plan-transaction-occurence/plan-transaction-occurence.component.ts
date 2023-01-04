@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
 
 import { BudgetItemFrequency } from '@app/model/finance/planning/budget-items';
 import { YEARS, MONTHS } from '@app/model/finance/planning/time';

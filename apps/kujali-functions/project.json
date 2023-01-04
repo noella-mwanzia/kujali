@@ -1,16 +1,19 @@
 {
+  "name": "kujali-functions",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/kujali-functions/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/kujali-functions",
         "main": "apps/kujali-functions/src/main.ts",
         "tsConfig": "apps/kujali-functions/tsconfig.app.json",
-        "assets": ["apps/kujali-functions/src/assets"]
+        "assets": ["apps/kujali-functions/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -46,7 +49,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/kujali-functions"],
+      "outputs": ["{workspaceRoot}/coverage/apps/kujali-functions"],
       "options": {
         "jestConfig": "apps/kujali-functions/jest.config.ts",
         "passWithNoTests": true

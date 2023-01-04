@@ -1,4 +1,5 @@
 {
+  "name": "@app/model/finance/planning/budget-items",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/finance/model/planning/budget-items/src",
   "projectType": "library",
@@ -12,7 +13,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/finance/model/planning/budget-items"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/finance/model/planning/budget-items"
+      ],
       "options": {
         "jestConfig": "libs/finance/model/planning/budget-items/jest.config.ts",
         "passWithNoTests": true

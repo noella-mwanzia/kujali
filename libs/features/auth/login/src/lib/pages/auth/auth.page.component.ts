@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs';
 import { Router } from '@angular/router';
 
 import { Observable, Subscription } from 'rxjs';

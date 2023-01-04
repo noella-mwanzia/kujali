@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { MONTHS } from '@app/model/finance/planning/time';

@@ -1,11 +1,14 @@
 {
+  "name": "@app/state/finance/budgetting/rendering",
   "projectType": "library",
   "sourceRoot": "libs/state/finance/budgetting/rendering/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/finance/budgetting/rendering"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/state/finance/budgetting/rendering"
+      ],
       "options": {
         "jestConfig": "libs/state/finance/budgetting/rendering/jest.config.ts",
         "passWithNoTests": true

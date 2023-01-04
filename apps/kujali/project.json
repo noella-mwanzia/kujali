@@ -1,4 +1,5 @@
 {
+  "name": "kujali",
   "projectType": "application",
   "sourceRoot": "apps/kujali/src",
   "prefix": "kujali",
@@ -82,7 +83,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/kujali"],
+      "outputs": ["{workspaceRoot}/coverage/apps/kujali"],
       "options": {
         "jestConfig": "apps/kujali/jest.config.ts",
         "passWithNoTests": true
