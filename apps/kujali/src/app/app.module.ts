@@ -11,9 +11,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialBricksModule } from '@iote/bricks-angular';
+import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { MultiLangRootModule } from '@ngfi/multi-lang';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
@@ -29,6 +29,7 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,7 +41,7 @@ import { AppRoutingModule } from './app.routing.module';
     AngularFireAnalyticsModule,
     HttpClientModule,
 
-    MaterialBricksModule.forRoot(),
+    MaterialBricksRootModule.forRoot(),
 
     UserStateModule.forRoot(),
     AuthorisationModule.forRoot(environment, environment.production),
@@ -48,7 +49,7 @@ import { AppRoutingModule } from './app.routing.module';
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
     FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
-    MultiLangModule.forRoot(true),
+    MultiLangRootModule.forRoot(true),
     // UserNavModule,
 
     MatProgressBarModule,
@@ -65,7 +66,9 @@ import { AppRoutingModule } from './app.routing.module';
     // MessagingStateModule.forRoot(),
     // CommChannelsStateModule.forRoot(),
 
-    AppRoutingModule
+    AppRoutingModule,
+
+    // TranslocoRootModule
   ],
   providers: [],
   bootstrap: [AppComponent],
