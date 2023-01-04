@@ -8,13 +8,13 @@
 <form #form="ngForm" (ngSubmit)="createBudget(form.value)" fxLayout="column">
 
 
-  <h2 class="mat-title modal-title">
+  <h2 class="mat-headline-6 modal-title">
     <!-- Create budget | Create child budget -->
     {{ (hasChild ? 'BUDGET.CREATE.HDR-CREATE-CHILD' : 'BUDGET.CREATE.HDR-CREATE-BUDGET') | transloco }}
   </h2>
 
   <div *ngIf="childBudget">
-    <h4 class="mat-title type-title">{{ 'BUDGET.CREATE.HDR-OVERRIDE-LST' | transloco }}</h4>
+    <h4 class="mat-headline-6 type-title">{{ 'BUDGET.CREATE.HDR-OVERRIDE-LST' | transloco }}</h4>
     Parents: {{ childBudget.overrideList.join(', ') }} - {{ childBudget.name }}
   </div>
 

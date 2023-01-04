@@ -7,11 +7,11 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 
-import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialBricksRootModule } from '@iote/bricks-angular';
+import { MaterialBricksModule, MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
 import { MultiLangRootModule } from '@ngfi/multi-lang';
 
@@ -40,6 +40,7 @@ import { AppRoutingModule } from './app.routing.module';
     AngularFireAnalyticsModule,
     HttpClientModule,
 
+    MaterialBricksModule,
     MaterialBricksRootModule.forRoot(),
 
     UserStateModule.forRoot(),
@@ -65,9 +66,7 @@ import { AppRoutingModule } from './app.routing.module';
     // MessagingStateModule.forRoot(),
     // CommChannelsStateModule.forRoot(),
 
-    AppRoutingModule,
-
-    // TranslocoRootModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

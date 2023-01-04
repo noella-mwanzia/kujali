@@ -16,7 +16,8 @@
         "inlineStyleLanguage": "scss",
         "assets": ["apps/kujali/src/favicon.ico", "apps/kujali/src/assets"],
         "styles": [
-          "libs/elements/theming/common.theme.scss",
+          "libs/elements/theming/_theme.scss",
+          "libs/elements/theming/_variables.scss",
           "apps/kujali/src/styles.scss"
         ],
         "stylePreprocessorOptions": {

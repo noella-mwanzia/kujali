@@ -1,5 +1,3 @@
-@import '@angular/material/theming';
-@import 'libs/elements/theming/common.theme.scss';
 
 #sidemenu-footer {
   text-align: center;
@@ -23,7 +21,7 @@
   margin: 0 10px;
   color: #eee;
   border-radius: 10px;
-  background-color: mat-color($primary, 800);
+  // background-color: mat-color($primary, 800);
 }
 
 .lang:hover {

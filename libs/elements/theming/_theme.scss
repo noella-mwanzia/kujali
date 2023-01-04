@@ -1,0 +1,126 @@
+@use '@angular/material' as mat;
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$black-87-opacity: rgba(black, 0.87);
+$white-87-opacity: rgba(white, 0.87);
+
+$mat-ele: (
+  50 : #e6e8f3,
+  100 : #c1c5e2,
+  200 : #989fcf,
+  300 : #6e79bc,
+  400 : #4f5cad,
+  500 : #303f9f,
+  600 : #2b3997,
+  700 : #24318d,
+  800 : #1e2983,
+  900 : #131b72,
+  A100 : #a8aeff,
+  A200 : #757eff,
+  A400 : #424fff,
+  A700 : #2937ff,
+  contrast: (50 : $black-87-opacity,
+    100 : $black-87-opacity,
+    200 : $black-87-opacity,
+    300 : $white-87-opacity,
+    400 : $white-87-opacity,
+    500 : $white-87-opacity,
+    600 : $white-87-opacity,
+    700 : $white-87-opacity,
+    800 : $white-87-opacity,
+    900 : $white-87-opacity,
+    A100 : $black-87-opacity,
+    A200 : $black-87-opacity,
+    A400 : $white-87-opacity,
+    A700 : $white-87-opacity,
+  )
+);
+
+$mat-ele-accent: (
+  50 : #eaf5ea,
+  100 : #c9e7cb,
+  200 : #a6d7a8,
+  300 : #82c785,
+  400 : #67bb6a,
+  500 : #4caf50,
+  600 : #45a849,
+  700 : #3c9f40,
+  800 : #339637,
+  900 : #248627,
+  A100 : #c5ffc7,
+  A200 : #92ff95,
+  A400 : #5fff64,
+  A700 : #46ff4b,
+  contrast: (50 : $black-87-opacity,
+    100 : $black-87-opacity,
+    200 : $black-87-opacity,
+    300 : $black-87-opacity,
+    400 : $black-87-opacity,
+    500 : $black-87-opacity,
+    600 : $white-87-opacity,
+    700 : $white-87-opacity,
+    800 : $white-87-opacity,
+    900 : $white-87-opacity,
+    A100 : $black-87-opacity,
+    A200 : $black-87-opacity,
+    A400 : $black-87-opacity,
+    A700 : $black-87-opacity
+  )
+);
+/*  A100: #b9e4f8,
+  A200: #8ed2f3,
+  A400: #4998d4,
+  A700: #4285c0, */
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$primary: mat.define-palette($mat-ele);
+$accent:  mat.define-palette($mat-ele-accent);
+
+// The warn palette is optional (defaults to red).
+$warn: mat.define-palette(mat.$red-palette);
+
+$custom-typography:  mat.define-typography-config(
+  $headline-4:  mat.define-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
+  $headline-3:  mat.define-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
+  $headline-2:  mat.define-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
+  $headline-1:  mat.define-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
+
+  $headline-5:       mat.define-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
+  $subtitle-2:   mat.define-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
+  $subtitle-1:   mat.define-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
+
+  $body-2:  mat.define-typography-level(14px, 24px, 500),
+  $body-1:  mat.define-typography-level(14px, 20px, 500),
+  $caption: mat.define-typography-level(12px, 20px, 400),
+  
+  $button:  mat.define-typography-level(14px, 14px, 400, 'Varela Round, sans-serif')
+);
+
+// Create the theme object (a Sass map containing all of the palettes).
+// $theme: mat.define-light-theme($primary, $accent, $warn);
+$theme: mat.define-light-theme(
+(
+  color: (
+    primary: $primary,
+    accent: $accent, 
+    warn: $warn
+ ),
+ typography: $custom-typography,
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include mat.core-theme($theme);
+@include mat.all-component-themes($theme);
+
+// CUSTOM STYLES (ANGULAR MATERIAL ONLY)
+
