@@ -15,6 +15,7 @@ import { BudgetsPeriodTableComponent } from './components/budgets-period-table/b
 import { OperationsBudgetsPageComponent } from './pages/operations-budgets/operations-budgets.page';
 
 import { OperationBudgetsRouterModule } from './operations-budgets-router';
+import { BudgetPlansQuery } from 'libs/state/finance/budgetting/rendering/src/lib/queries/budget-lines.query';
 
 @NgModule({
 imports: [
@@ -32,6 +33,6 @@ declarations: [
   OperationsBudgetsPageComponent,
   BudgetsPeriodTableComponent
 ],
-providers: [OperationBudgetsQuery]
+providers: [OperationBudgetsQuery, BudgetPlansQuery]
 })
 export class OperationsBudgetsModule {}

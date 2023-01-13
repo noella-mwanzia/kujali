@@ -25,14 +25,14 @@ export class OperationsBudgetsPageComponent implements OnInit
   {}
 
   ngOnInit(): void {
-    // this.activeOrg$$.get().subscribe((org) => {
-    //   this.activeOrg = org
-    //   if (this.activeOrg) {
-    //     this.monthlyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 1)));
-    //     this.quaterlyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 90)));
-    //     this.yeralyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 365)));
-    //   }
-    // });
+    this.activeOrg$$.get().subscribe((org) => {
+      if (org) {
+        this.activeOrg = org
+        // this.monthlyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 1)));
+        // this.quaterlyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 90)));
+        // this.yeralyOperationsLines$ = this.operatiosLines$$.getLines(this.activeOrg.id!).pipe(map((lines) => lines.filter((li) => li.frequency == 365)));
+      }
+    });
   }
   
 }
