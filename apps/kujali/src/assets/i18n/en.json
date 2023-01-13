@@ -1,4 +1,16 @@
 {
+  "MODALS" : {
+    "CREATE-EXPENSE": {
+      "CREATE-EXPENSE": "Create New Expense",
+      "BUDGET": "Budget",
+      "AMOUNT": "Amount",
+      "DATE": "Date",
+      "CATEGORY": "Category",
+      "TYPE": "Type",
+      "VAT": "Vat",
+      "NOTE": "Note"
+    }
+  },
   "ELS": {
     "TOGGLES": {
       "SWITCH-LANG": "Switch language"
