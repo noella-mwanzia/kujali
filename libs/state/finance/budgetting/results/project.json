@@ -1,4 +1,5 @@
 {
+  "name": "state-finance-budgetting-results",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/state/finance/budgetting/results/src",
   "projectType": "library",
@@ -12,7 +13,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/finance/budgetting/results"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/state/finance/budgetting/results"
+      ],
       "options": {
         "jestConfig": "libs/state/finance/budgetting/results/jest.config.ts",
         "passWithNoTests": true

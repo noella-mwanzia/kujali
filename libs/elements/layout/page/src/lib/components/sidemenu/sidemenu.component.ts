@@ -30,8 +30,8 @@ export class SideMenuComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.projectName = this._env.project.name;
-    this.projectInfo = this._env.project.info;
+    // this.projectName = this._env.project.name;
+    // this.projectInfo = this._env.project.info;
   }
 
   getLogo = () => 'assets/images/italanta-logo.png'

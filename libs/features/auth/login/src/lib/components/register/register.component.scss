@@ -20,10 +20,12 @@ $secondary-elements-color: white;
     color: $secondary-elements-color;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.  */
 .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 0 !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.  */
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
     background-color: #000000 !important;
 }

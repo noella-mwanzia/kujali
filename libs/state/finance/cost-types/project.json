@@ -1,11 +1,12 @@
 {
+  "name": "state-finance-cost-types",
   "projectType": "library",
   "sourceRoot": "libs/state/finance/cost-types/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/finance/cost-types"],
+      "outputs": ["{workspaceRoot}/coverage/libs/state/finance/cost-types"],
       "options": {
         "jestConfig": "libs/state/finance/cost-types/jest.config.ts",
         "passWithNoTests": true

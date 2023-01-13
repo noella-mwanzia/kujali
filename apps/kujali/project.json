@@ -1,4 +1,5 @@
 {
+  "name": "kujali",
   "projectType": "application",
   "sourceRoot": "apps/kujali/src",
   "prefix": "kujali",
@@ -14,7 +15,8 @@
         "inlineStyleLanguage": "scss",
         "assets": ["apps/kujali/src/favicon.ico", "apps/kujali/src/assets"],
         "styles": [
-          "libs/elements/theming/common.theme.scss",
+          "libs/elements/theming/_theme.scss",
+          "libs/elements/theming/_variables.scss",
           "apps/kujali/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
@@ -81,7 +83,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/kujali"],
+      "outputs": ["{workspaceRoot}/coverage/apps/kujali"],
       "options": {
         "jestConfig": "apps/kujali/jest.config.ts",
         "passWithNoTests": true

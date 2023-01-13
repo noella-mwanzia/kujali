@@ -1,4 +1,5 @@
 {
+  "name": "features-budgetting-budget-explorer-burnchart",
   "projectType": "library",
   "sourceRoot": "libs/features/budgetting/budget-explorer-burnchart/src",
   "prefix": "app",
@@ -6,7 +7,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "coverage/libs/features/budgetting/budget-explorer-burnchart"
+        "{workspaceRoot}/coverage/libs/features/budgetting/budget-explorer-burnchart"
       ],
       "options": {
         "jestConfig": "libs/features/budgetting/budget-explorer-burnchart/jest.config.ts",

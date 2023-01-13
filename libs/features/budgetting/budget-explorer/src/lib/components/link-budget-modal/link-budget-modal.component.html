@@ -3,7 +3,7 @@
 
 <form *ngIf="budget" #form="ngForm" (ngSubmit)="linkBudget(form.value)" fxLayout="column">
 
-  <h4 class="mat-title type-title"> {{"BUDGETS.LINK-BUDGETS.CHOOSE-BUDGET" | transloco}} {{ budget.name }}</h4>
+  <h4 class="mat-headline-6 type-title"> {{"BUDGETS.LINK-BUDGETS.CHOOSE-BUDGET" | transloco}} {{ budget.name }}</h4>
 
   <div class="sm-divider"></div>
 

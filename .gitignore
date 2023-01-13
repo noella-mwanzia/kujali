@@ -39,6 +39,7 @@ testem.log
 Thumbs.db
 
 .angular
+package-lock.json
 apps/kujali-functions/src/environments/environment.prod.ts
 apps/kujali-functions/src/environments/environment.ts
 public
@@ -49,3 +50,5 @@ firestore.indexes.json
 firestore-debug.log
 firebase-debug.log
 *.log
+
+package-lock.json

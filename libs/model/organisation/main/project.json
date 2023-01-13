@@ -1,4 +1,5 @@
 {
+  "name": "@app/model/organisation",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/model/organisation/main/src",
   "projectType": "library",
@@ -12,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/organisation/main"],
+      "outputs": ["{workspaceRoot}/coverage/libs/model/organisation/main"],
       "options": {
         "jestConfig": "libs/model/organisation/main/jest.config.ts",
         "passWithNoTests": true
