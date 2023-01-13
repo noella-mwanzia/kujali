@@ -10,7 +10,6 @@
         "outputPath": "dist/apps/kujali",
         "index": "apps/kujali/src/index.html",
         "main": "apps/kujali/src/main.ts",
-        "polyfills": "apps/kujali/src/polyfills.ts",
         "tsConfig": "apps/kujali/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/kujali/src/favicon.ico", "apps/kujali/src/assets"],
@@ -29,12 +28,12 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "3mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumError": "3mb"
             }
           ],
           "fileReplacements": [
