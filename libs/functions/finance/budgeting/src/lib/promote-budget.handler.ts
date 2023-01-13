@@ -8,7 +8,7 @@ import { FinancialExplorerState } from '@app/model/finance/planning/budget-rende
 export class PromoteBudgetHandler extends FunctionHandler<any, any>
 {
 
-  public async execute(budgetData: {budget: FinancialExplorerState, plans: TransactionPlan[]}, context: FunctionContext, tools: HandlerTools) {
+  public async execute(budgetData: { budget: FinancialExplorerState, plans: TransactionPlan[] }, context: FunctionContext, tools: HandlerTools) {
 
     tools.Logger.log(() => `Starting promote budget`);
 
@@ -43,40 +43,47 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
         frequency: fr
       }
 
-       linesRepo.write(line, pl.name.toLowerCase()).then( () => {
 
-        tools.Logger.log(() => `creating plan ${pl.name}`);
+      tools.Logger.log(() => `Iterating plans ${pl.name}`);
 
+      let yearRepo = tools.getRepository<any>(`orgs/${budget.orgId}/expenses/config/years`);
 
-        let yearRepo = tools.getRepository<any>(`orgs/${budget.orgId}/expenses/config/lines/${pl.name.toLowerCase()}/years`);
+      allYears.map((yr) => {
+        let year = pl.amountsYear.find((ay) => ay.year == yr)
 
-        allYears.map((yr) => {
-          let year = pl.amountsYear.find((ay) => ay.year == yr)
+        yearRepo.write({ id: year?.year, total: year?.total }, yr.toString()).then(() => {
 
-          yearRepo.write({id: year?.year, total: year?.total}, yr.toString()).then(() => {
+          tools.Logger.log(() => `creating plan years`);
 
-            tools.Logger.log(() => `creating plan years`);
+          let monthsRepo = tools.getRepository<any>(`orgs/${budget.orgId}/expenses/config/years/${yr.toString()}/months`);
 
-            let monthsRepo = tools.getRepository<any>(`orgs/${budget.orgId}/expenses/config/lines/${pl.name.toLowerCase()}/years/${yr.toString()}/months`);
+          let months = year?.amountsMonth;
 
-            let months = year?.amountsMonth;
+          months?.map((month, index) => {
+            tools.Logger.log(() => `creating plan months`);
 
-            months?.map((month, index) => {
-              tools.Logger.log(() => `creating plan months`);
-              // delete month['plan'];
-              // month['plan'] = month['plan'].lineName;
-              monthsRepo.write(month, index.toString());
-            })
+            let monthPlan = month['plan']?.id ? month['plan'] : {};
+            delete month['plan'];
 
+            let plan = {
+              id: monthPlan?.id ?? '',
+              lineId: monthPlan?.lineId ?? '',
+              budgetId: monthPlan?.budgetId ?? ''
+            }
+
+            month['plan'] = plan;
+
+            monthsRepo.write({...month, id: index}, index.toString());
           })
+
         })
-      });
+      })
     })
 
   }
 
   applyfilter(data: BudgetRowYear[]): BudgetRowYear[] {
-    return data.filter((row) => 
-            row.isHeader === false && (row.name !== 'BUDGETTING.LINES.COST' && row.name !== 'BUDGETTING.LINES.INCOME'))
+    return data.filter((row) =>
+      row.isHeader === false && (row.name !== 'BUDGETTING.LINES.COST' && row.name !== 'BUDGETTING.LINES.INCOME'))
   }
 }

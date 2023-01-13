@@ -31,8 +31,8 @@ export class OperationBudgetsQuery
     return linesRepo.getDocuments();
   }
 
-  getYear(orgId: string, lineId: string): Observable<any> {
-    const yearsRepo = this._db.getRepo<TransactionPlan>(`orgs/${orgId}/expenses/config/lines/${lineId}/years`);
+  getYearMonths(orgId: string, yearId: string): Observable<any> {
+    const yearsRepo = this._db.getRepo<TransactionPlan>(`orgs/${orgId}/expenses/config/years/${yearId}/months`);
     return yearsRepo.getDocuments();
   }
 
