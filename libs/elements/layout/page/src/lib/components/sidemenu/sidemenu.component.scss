@@ -133,14 +133,16 @@ a:hover {
 .sub-active {
   margin-left: 40px!important;
   font-size: 0.9rem!important;
+  color: #ccc;
 }
 
 .oper-drop-active {
-  background-color: white!important;
+  // background-color: white!important;
+  color: white!important;
 }
 
 .oper-drop-active  a {
-  color: var(--kujali-color-primary-blue)!important;
+  // color: var(--kujali-color-primary-blue)!important;
 }
 
 .not-active {

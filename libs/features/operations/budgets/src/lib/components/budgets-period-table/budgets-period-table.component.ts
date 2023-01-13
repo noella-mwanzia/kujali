@@ -4,13 +4,15 @@ import { MatSelectChange } from '@angular/material/select';
 import { SubSink } from 'subsink';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 
-import { flatMap, flatMap as __flatMap, groupBy, groupBy as __groupBy} from 'lodash';
+import { flatMap, flatMap as __flatMap, groupBy, groupBy as __groupBy, orderBy, sortBy} from 'lodash';
 
 import { MONTHS, YEARS } from '@app/model/finance/planning/time';
 
 import { OperationBudgetsQuery } from '@app/state/finance/budgetting/rendering';
 
 import { Month } from '@app/model/finance/planning/budget-items';
+import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
+import { BudgetPlansQuery } from 'libs/state/finance/budgetting/rendering/src/lib/queries/budget-lines.query';
 
 @Component({
   selector: 'app-budgets-period-table',
@@ -33,9 +35,10 @@ export class BudgetsPeriodTableComponent implements OnInit {
 
   currMonth: string = MONTHS[0].name;
   
-  allMonths: any[] = [];
+  allMonths: any;;
 
   allMonthsList = MONTHS;
+  month = this.allMonthsList[0];
   allYearsList = YEARS;
 
   allTransactions: any;
@@ -45,26 +48,24 @@ export class BudgetsPeriodTableComponent implements OnInit {
   activeYear = YEARS[0];
   activeMonth = MONTHS[0].month.toString();
 
-  constructor(private opsMonths$$: OperationBudgetsQuery) {}
+  constructor(private opsMonths$$: OperationBudgetsQuery,
+              private _budgets$$: BudgetsStore,
+              private _plans$$: BudgetPlansQuery
+    ) {}
 
   ngOnInit(): void {
-    if (this.operationLines) {
-      this.allTransactions = this.operationLines;
-      // this.getAllTras();
-
-    }
+    this.getAllTras();
   }
 
-  // getAllTras() {
-  //   this._sbS.sink = this.yearValue$.subscribe((year) => {
-  //     this.allMonths = [];
-  //     this.operationLines.map((line) => {
-  //       this.opsMonths$$.getLineMonths(this.orgId, line?.id, year).subscribe((months) => {
-  //         this.allMonths.push(months);
-  //       });
-  //     })
-  //   })
-  // }
+  getAllTras() {
+    this._sbS.sink = this.yearValue$.subscribe((year) => {
+
+        this.opsMonths$$.getYearMonths(this.orgId, year).subscribe((months) => {
+          let monthsO = months.map((d, index) => {return {...d, index: index}})
+          this.allMonths = monthsO
+        });
+    })
+  }
 
   yearChanged(year: MatSelectChange) {
     this.activeYear = year.value;
@@ -79,6 +80,7 @@ export class BudgetsPeriodTableComponent implements OnInit {
 
   monthChanged(month: MatSelectChange) {
     this.activeMonth = (month.value.month - 1).toString();
+    this.month = month.value;
     this.monthValue$.next(month.value);
   }
 

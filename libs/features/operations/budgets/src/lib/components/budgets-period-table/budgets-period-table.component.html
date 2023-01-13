@@ -3,7 +3,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Current Year</mat-label>
-      <mat-select (selectionChange)="yearChanged($event)">
+      <mat-select (selectionChange)="yearChanged($event)" [(ngModel)]="activeYear" >
         <mat-option *ngFor="let year of allYearsList" [value]="year">
           {{year}}
         </mat-option>
@@ -13,7 +13,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Current Month</mat-label>
-      <mat-select (selectionChange)="monthChanged($event)">
+      <mat-select (selectionChange)="monthChanged($event)" [(ngModel)]="month">
         <mat-option *ngFor="let month of allMonthsList" [value]="month">
           {{month.name | transloco}}
         </mat-option>
@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<table *ngIf="flattenMonths(allMonths)[activeMonth]" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="allMonths" mat-table [dataSource]="allMonths" class="mat-elevation-z8">
   <!-- Position Column -->
   <ng-container matColumnDef="budget">
     <th mat-header-cell *matHeaderCellDef> Budget Name </th>
