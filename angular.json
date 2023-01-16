@@ -34,6 +34,7 @@
     "model-finance-planning-budget-grouping": "libs/model/finance/planning/budget-grouping",
     "model-finance-planning-budget-rendering": "libs/model/finance/planning/budget-rendering",
     "model-finance-planning-budget-rendering-state": "libs/model/finance/planning/budget-rendering-state",
+    "private-state-organisation": "libs/private/state/organisation",
     "state-data-firebase": "libs/state/data/firebase",
     "state-finance-budgetting-results": "libs/state/finance/budgetting/results",
     "state-finance-cost-types": "libs/state/finance/cost-types",
@@ -52,5 +53,6 @@
     "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
     "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
     "util-ngfi-state": "libs/util/ngfi/state"
-  }
+  },
+  "defaultProject": "kujali"
 }
