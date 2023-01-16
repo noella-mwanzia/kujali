@@ -7,13 +7,13 @@ import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
 
 import { User } from '@iote/bricks';
+import { Logger } from '@iote/bricks-angular';
 import { LocalPersistanceService } from '@iote/local-persistance';
 
 import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
 import { ActiveOrgStore, OrgStore } from '@app/state/organisation';
-import { Logger } from '@iote/bricks-angular';
 
 @Injectable()
 export class MtActiveOrgStore extends ActiveOrgStore
