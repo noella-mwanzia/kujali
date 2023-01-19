@@ -135,6 +135,67 @@ Adding a web application to a Firebase project is a simple process that can be c
   git clone git@github.com:italanta/kujali.git
 ```
 
+### Setup project environments
+Open the project with your prefered IDE (VS Code, Sublime, e.t.c)
+
+You need to add the environment config to your app to connect to firebase, follow the steps below:
+
+```
+1. Create a folder called environments inside -> app/kujali/src
+2. Create a file called environment.ts inside this folder
+3. Create a file called environment.prod.ts inside this folder
+```
+
+Once you've created the files above copy the firebase config and paste inside each file.
+
+Your environment.ts file should contain a firebase object similar to the one below:
+
+```typescript
+export const environment = {
+
+  production : false,
+  useEmulators: true,
+
+  firebase: {
+    apiKey: "YOUR_API-KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_ID",
+    appId: "YOUR_APP_ID"
+  },
+
+  project: {
+    name: 'YOUR_PROJECT_NAME'
+  }
+}
+```
+
+Your environment.prod.ts file should contain a firebase object similar to the one below:
+
+```typescript
+export const environment = {
+
+  production : true,
+  useEmulators: false,
+
+  firebase: {
+    apiKey: "YOUR_API-KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_ID",
+    appId: "YOUR_APP_ID"
+  },
+
+  project: {
+    name: 'YOUR_PROJECT_NAME'
+  }
+}
+```
+
+Your app is now almost ready to connect to firebase.
+
 ### Install dependencies
 
 You will need a version of node ^14.20.1 to install project dependencies using npm 
