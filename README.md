@@ -80,6 +80,25 @@ Follow the instructions on the screen to set up the feature.
 You can also access the project settings, by clicking on the settings icon on the top left corner of the project dashboard, you will access the settings to add collaborators, and configure the project.
 
 That's it! You now have a Firebase project set up and ready to use. Keep in mind that you may need to configure some settings and add some dependencies to your application to make use of the Firebase features as you'll see in the (Installtion step).
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your environment files (in the Installation step)
+This config variables can be found by following the steps below.
+
+
+`apiKey`: `YOUR_FIREBASE_API-KEY`
+
+`authDomain`: `YOUR_AUTH_DOMAIN`
+
+`projectId`: `YOUR_PROJECT_ID`
+
+`storageBucket`: `YOUR_STORAGE_BUCKET`
+
+`messagingSenderId`: `YOUR_MESSAGING_ID`
+
+`appId`: `YOUR_APP_ID`
+
 ### Add a Web Application to your project
 
 Adding a web application to a Firebase project is a simple process that can be completed in a few steps. Here is a step-by-step guide on how to do it:
@@ -103,27 +122,19 @@ Now you need to install the Firebase SDK, you can do it by running the command n
 Import the Firebase library in your application by adding the following line to your code import * as firebase from 'firebase/app';
 
 Initialize the Firebase app by adding the following code snippet in your main file usually index.ts or index.js
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-
-`apiKey`: `YOUR_FIREBASE_API-KEY`
-
-`authDomain`: `YOUR_AUTH_DOMAIN`
-
-`projectId`: `YOUR_PROJECT_ID`
-
-`storageBucket`: `YOUR_STORAGE_BUCKET`
-
-`messagingSenderId`: `YOUR_MESSAGING_ID`
-
-`appId`: `YOUR_APP_ID`
 
 
 ## Install and Run Locally
 
-Clone the project
+Fork & Clone the project
+
+```
+1. Go to the [Kujali repository](https://github.com/italanta/kujali) on Github.
+2. Click on the "Fork" button located on the top right corner of the page.
+3. Select the account you want to fork the repository to (Once the fork is complete, you will be redirected to your newly forked repository.)
+4. Clone the forked repository to your local machine by copying the "clone" URL and running "git clone [URL]" in your command line.
+
+```
 
 ```bash
   git clone git@github.com:italanta/kujali.git
@@ -144,8 +155,25 @@ Install dependencies
 Start the App & Emulators
 
 ```bash
-  npm run start
+  npm run run-develop
 ```
+
+```
+The project is now succesfuly installed and running on your machine
+
+Whenever you have updates you need to bring back to the main project you can follow the steps below: 
+
+1. Commit the changes to your local repository by running "git commit -am '[commit message]'"
+2. Push the changes to your forked repository on Github by running "git push origin [branch name]"
+3. Go to the Kujali repository and create a new pull request.
+4. Add a detailed description (Using our PR template provided) of the changes made and submit the pull request.
+```
+#### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork.
+You can do this by adding the original repository as a remote: git remote add upstream [URL of original repository]
+then fetch the changes: git fetch upstream
+and merge them with your local branch git merge upstream/master.
+
+
 
 
 ## Contributing
@@ -155,4 +183,3 @@ Contributions are always welcome!
 See `contributing.md` for ways to get started.
 
 Please adhere to this project's `code of conduct`.
-
