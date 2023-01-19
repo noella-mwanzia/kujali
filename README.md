@@ -135,12 +135,12 @@ Adding a web application to a Firebase project is a simple process that can be c
   git clone git@github.com:italanta/kujali.git
 ```
 
-#### Install dependencies
+### Install dependencies
 
 You will need a version of node ^14.20.1 to install project dependencies using npm 
 
 
-#### Follow the steps below to install node on your pc (For Mac Computers)
+### Install node on your pc (For Mac Computers)
 
 ```
 1. Open the Terminal application on your Macbook.
@@ -198,14 +198,56 @@ You will need a version of node ^14.20.1 to install project dependencies using n
 
 nvm (Node Version Manager) is a command-line utility that allows you to easily install and manage multiple versions of Node.js on your Macbook, making it easy to switch between different versions of Node.js and also it allows you to install multiple version of Node.js, so you can use different version of Node.js for different projects.
 
+### Install Angular
 
+Install the CLI using the `npm` package manager:
+
+```bash
+  npm install -g @angular/cli
+```
+
+
+Invoke the tool on the command line through the `ng` executable. Online help is available on the command line. Enter the following to list commands or options for a given command (such as generate) with a short description.
+
+```bash
+  ng help
+  ng generate --help
+```
+
+### Install Firebase Tools
+
+The Firebase CLI provides a variety of tools for managing, viewing, and deploying to Firebase projects.
+
+Install the Firebase CLI via `npm` by running the following command:
+
+```bash
+  npm install -g firebase-tools
+```
+
+```
+This command enables the globally available firebase command.
+
+```
+
+After installing the CLI, you must authenticate. Then you can confirm authentication by listing your Firebase projects.
+
+Log into Firebase using your Google account by running the following command:
+
+
+```bash
+  firebase login
+```
+
+```
+This command connects your local machine to Firebase and grants you access to your Firebase projects.
+```
+
+### Install project dependencies using npm
 #### Go to the project directory
 
 ```bash
   cd my-project
 ```
-
-#### install project dependencies using npm
 
 ```bash
   npm install
