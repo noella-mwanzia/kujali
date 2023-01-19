@@ -299,6 +299,52 @@ Log into Firebase using your Google account by running the following command:
 This command connects your local machine to Firebase and grants you access to your Firebase projects.
 ```
 
+### Install Firebase Emulators
+
+Set up the Emulator Suite. This command starts a configuration wizard that lets you select emulators of interest, download the corresponding emulator binary files, and set emulator ports if the defaults are not appropriate.
+
+```bash
+  firebase init emulators
+```
+
+Read the instructions on the emulator wizard carefully and install all the emulators
+
+
+### Install Docker (For Windows and Mac)
+
+Install Docker on your machine by visiting the official website at -> https://www.docker.com/ and downloading the installer for your operating system.
+
+
+Once download is complete follow the steps below to setup docker: 
+
+
+- Run the installer and follow the instructions to complete the installation process. This may include accepting the terms and conditions, specifying the installation location, and configuring any necessary settings.
+
+- Once the installation is complete, open a terminal or command prompt and run the command below to verify that Docker has been installed and is running correctly.
+```bash
+  docker -v
+```
+
+- To use Docker, you need to have an account on Docker hub. If you don't have one, create an account on -> https://hub.docker.com
+
+- Run the command below and provide your credentials that you used to create an account on Docker hub.
+
+```bash
+  docker login
+```
+
+- You are now ready to use Docker on your machine. 
+
+- You can use the command below to download images from the Docker Hub.
+```bash
+  docker pull [image url / name]
+```
+
+- You can use the command below to run the images in containers.
+```bash
+  docker run
+```
+
 ### Install project dependencies using npm
 #### Go to the project directory
 
