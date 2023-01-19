@@ -54,7 +54,7 @@ Follow the steps below to setup your project and get running
 Setting up a Firebase project is a simple process that can be completed in a few steps. Here is a step-by-step guide on how to do it:
 
 ```
-1. Go to the [Firebase website](https://firebase.google.com) and sign in to your Google account.
+1. Go to the [Firebase website] (https://firebase.google.com) and sign in to your Google account.
 
 2. Click on the "Go to console" button on the top right corner of the page.
 
@@ -104,7 +104,7 @@ This config variables can be found by following the steps below.
 Adding a web application to a Firebase project is a simple process that can be completed in a few steps. Here is a step-by-step guide on how to do it:
 
 ```
-1. Go to the [Firebase Console](https://console.firebase.google.com) and select the project that you want to add the web application to.
+1. Go to the [Firebase Console] (https://console.firebase.google.com) and select the project that you want to add the web application to.
 
 2. Click on the "Develop" tab in the navigation menu on the left side of the page.
 
@@ -117,19 +117,14 @@ Adding a web application to a Firebase project is a simple process that can be c
 6. Copy and paste the Firebase configuration object into this file and make sure it's available to the rest of your application.
 
 ```
-Now you need to install the Firebase SDK, you can do it by running the command npm install firebase or yarn add firebase.
-
-Import the Firebase library in your application by adding the following line to your code import * as firebase from 'firebase/app';
-
-Initialize the Firebase app by adding the following code snippet in your main file usually index.ts or index.js
 
 
 ## Install and Run Locally
 
-Fork & Clone the project
+#### Fork & Clone the project
 
 ```
-1. Go to the [Kujali repository](https://github.com/italanta/kujali) on Github.
+1. Go to the [Kujali repository] (https://github.com/italanta/kujali) on Github.
 2. Click on the "Fork" button located on the top right corner of the page.
 3. Select the account you want to fork the repository to (Once the fork is complete, you will be redirected to your newly forked repository.)
 4. Clone the forked repository to your local machine by copying the "clone" URL and running "git clone [URL]" in your command line.
@@ -140,13 +135,77 @@ Fork & Clone the project
   git clone git@github.com:italanta/kujali.git
 ```
 
-Go to the project directory
+#### Install dependencies
+
+You will need a version of node ^14.20.1 to install project dependencies using npm 
+
+
+#### Follow the steps below to install node on your pc (For Mac Computers)
+
+```
+1. Open the Terminal application on your Macbook.
+
+2. Install nvm by running the following command:
+```
+
+```bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+```
+
+```
+3. Close and reopen the Terminal to start using nvm.
+
+4. Verify that nvm is installed by running the command:
+```
+
+```bash
+  nvm --version
+```
+
+```
+5. Use nvm to install the latest version of Node.js by running the command:
+```
+
+```bash
+  nvm install node
+```
+
+```
+6. Verify that Node.js is installed by running the command:
+```
+
+```bash
+  node -v
+```
+
+```
+7. To use a specific version of Node.js, you can run the command:
+```
+
+```bash
+  nvm use [version number]
+```
+
+```
+8. To check all the version of Node.js installed via nvm, run the command:
+```
+
+```bash
+  nvm ls
+```
+
+#### Note
+
+nvm (Node Version Manager) is a command-line utility that allows you to easily install and manage multiple versions of Node.js on your Macbook, making it easy to switch between different versions of Node.js and also it allows you to install multiple version of Node.js, so you can use different version of Node.js for different projects.
+
+
+#### Go to the project directory
 
 ```bash
   cd my-project
 ```
 
-Install dependencies
+#### install project dependencies using npm
 
 ```bash
   npm install
