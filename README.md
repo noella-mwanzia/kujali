@@ -219,13 +219,6 @@ Start the App & Emulators
 
 ```
 The project is now succesfuly installed and running on your machine
-
-Whenever you have updates you need to bring back to the main project you can follow the steps below: 
-
-1. Commit the changes to your local repository by running "git commit -am '[commit message]'"
-2. Push the changes to your forked repository on Github by running "git push origin [branch name]"
-3. Go to the Kujali repository and create a new pull request.
-4. Add a detailed description (Using our PR template provided) of the changes made and submit the pull request.
 ```
 #### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork.
 You can do this by adding the original repository as a remote: git remote add upstream [URL of original repository]
@@ -239,6 +232,53 @@ and merge them with your local branch git merge upstream/master.
 
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
+Follow the steps below to start contributing on the project via pull requests:
+
+```
+Create a new branch for your changes by running
+```
+```bash
+  git checkout -b [branch name]
+```
+```
+Make the desired changes to the code on your local machine.
+Commit the changes to your local repository by running 
+```
+```bash
+  git commit -am '[commit message]
+```
+```
+Push the changes to your forked repository on Github by running
+```
+```bash
+  git push origin [branch name]
+```
+```
+Go to the kujali repository and create a new pull request by clicking on the "New pull request" button.
+Select the branch that contains your changes and compare it with the main branch of the original repository.
+Add a detailed description (Using our PR template provided) of the changes made and submit the pull request.
+Submit the pull request.
+```
+
+#### Note:
+
+It is always a good practice to check the open source project's contributing guide before making any changes.
+
+It is also recommended to keep your fork updated with the original repository by syncing your fork. 
+You can do this by adding the original repository as a remote: 
+
+```bash
+  git remote add upstream [URL of original repository]
+```
+then fetch the changes and merge them with your local branch : 
+
+```bash
+  git fetch upstream
+  git merge upstream/main
+```
+
+
+Also it is good to communicate with the maintainers or other contributors, you can do this by opening an issue or leaving a comment on the pull request you created.
 
 Please adhere to this project's `code of conduct`.
+
