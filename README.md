@@ -24,24 +24,23 @@ Our application is built using Angular, a popular JavaScript framework for build
 
 Here is a brief overview of how the application is structured:
 
-```
-1. Components: The building blocks of the application, responsible for displaying the UI and handling user interactions. Each component has its own template, styles, and logic, and can be nested inside other components.
+- Components: The building blocks of the application, responsible for displaying the UI and handling user interactions. Each component has its own template, styles, and logic, and can be nested inside other components.
 
-2. Services: Classes that handle the business logic of the application, such as accessing an API or manipulating data. Services can be injected into components to share functionality across the application.
+- Services: Classes that handle the business logic of the application, such as accessing an API or manipulating data. Services can be injected into components to share functionality across the application.
 
-3. Routes: Define the different URLs of the application and which component should be displayed for each route.
+- Routes: Define the different URLs of the application and which component should be displayed for each route.
 
-4. Modules: Group related components, services, and routes together. Each module has its own set of imports, declarations, and exports, which define what should be available to other modules in the application.
+- Modules: Group related components, services, and routes together. Each module has its own set of imports, declarations, and exports, which define what should be available to other modules in the application.
 
-5. TypeScript: The application uses TypeScript, a superset of JavaScript that adds optional static typing, classes, interfaces and other features. That makes the development more robust and reliable.
+- TypeScript: The application uses TypeScript, a superset of JavaScript that adds optional static typing, classes, interfaces and other features. That makes the development more robust and reliable.
 
-6. Interfaces: are used to define the types of the variables and objects in the application.
+- Interfaces: are used to define the types of the variables and objects in the application.
 
-7. Decorators: are used to add metadata to classes, methods, and properties, which can be used by Angular to configure the application.
+- Decorators: are used to add metadata to classes, methods, and properties, which can be used by Angular to configure the application.
 
-8. Observables: We use the RxJS library to handle asynchronous data streams, such as HTTP requests and user input. Components can subscribe to observables to receive updates and trigger changes in the UI.
+- Observables: We use the RxJS library to handle asynchronous data streams, such as HTTP requests and user input. Components can subscribe to observables to receive updates and trigger changes in the UI.
 
-```
+
 Overall, The application is built with a modular structure, that makes it easy to understand, maintain, and scale. The use of TypeScript and Angular makes it robust and reliable. The application implements best practices for web development, such as separating concerns and using dependency injection, to make the code more maintainable.
 
 
@@ -201,55 +200,52 @@ Your app is now almost ready to connect to firebase.
 You will need a version of node ^14.20.1 to install project dependencies using npm 
 
 
-### Install node on your pc (For Mac Computers)
+### Install node on your pc 
+#### For Mac Computers
 
-```
-1. Open the Terminal application on your Macbook.
+- Open the Terminal application on your Macbook.
 
-2. Install nvm by running the following command:
-```
+- Install nvm by running the following command:
 
 ```bash
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
 
-```
-3. Close and reopen the Terminal to start using nvm.
 
-4. Verify that nvm is installed by running the command:
-```
+#### For Windows Computers
+
+- Go to the link here -> https://github.com/coreybutler/nvm-windows/releases
+- Find the latest release of nvm-windows and download the nvm-setup.exe file on the assets section
+- Once donwload is completed, click the setup file and follow instructions to install.
+
+
+#### For Windows and Mac Computers
+
+- Verify that nvm is installed by running the command:
 
 ```bash
   nvm --version
 ```
 
-```
-5. Use nvm to install the latest version of Node.js by running the command:
-```
+- Use nvm to install the latest version of Node.js by running the command:
 
 ```bash
   nvm install node
 ```
 
-```
-6. Verify that Node.js is installed by running the command:
-```
+- Verify that Node.js is installed by running the command:
 
 ```bash
   node -v
 ```
 
-```
-7. To use a specific version of Node.js, you can run the command:
-```
+- To use a specific version of Node.js, you can run the command:
 
 ```bash
   nvm use [version number]
 ```
 
-```
-8. To check all the version of Node.js installed via nvm, run the command:
-```
+- To check all the version of Node.js installed via nvm, run the command:
 
 ```bash
   nvm ls
@@ -389,4 +385,3 @@ then fetch the changes and merge them with your local branch :
 Also it is good to communicate with the maintainers or other contributors, you can do this by opening an issue or leaving a comment on the pull request you created.
 
 Please adhere to this project's `code of conduct`.
-
