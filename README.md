@@ -54,7 +54,7 @@ Follow the steps below to setup your project and get running
 Setting up a Firebase project is a simple process that can be completed in a few steps. Here is a step-by-step guide on how to do it:
 
 ```
-1. Go to the [Firebase website] (https://firebase.google.com) and sign in to your Google account.
+1. Go to the Firebase website <https://firebase.google.com> and sign in to your Google account.
 
 2. Click on the "Go to console" button on the top right corner of the page.
 
@@ -104,7 +104,7 @@ This config variables can be found by following the steps below.
 Adding a web application to a Firebase project is a simple process that can be completed in a few steps. Here is a step-by-step guide on how to do it:
 
 ```
-1. Go to the [Firebase Console] (https://console.firebase.google.com) and select the project that you want to add the web application to.
+1. Go to the Firebase Console <https://console.firebase.google.com> and select the project that you want to add the web application to.
 
 2. Click on the "Develop" tab in the navigation menu on the left side of the page.
 
@@ -124,7 +124,7 @@ Adding a web application to a Firebase project is a simple process that can be c
 #### Fork & Clone the project
 
 ```
-1. Go to the [Kujali repository] (https://github.com/italanta/kujali) on Github.
+1. Go to the Kujali repository <https://github.com/italanta/kujali> on Github.
 2. Click on the "Fork" button located on the top right corner of the page.
 3. Select the account you want to fork the repository to (Once the fork is complete, you will be redirected to your newly forked repository.)
 4. Clone the forked repository to your local machine by copying the "clone" URL and running "git clone [URL]" in your command line.
@@ -262,12 +262,17 @@ Start the App & Emulators
 ```
 The project is now succesfuly installed and running on your machine
 ```
-#### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork.
-You can do this by adding the original repository as a remote: git remote add upstream [URL of original repository]
-then fetch the changes: git fetch upstream
-and merge them with your local branch git merge upstream/master.
 
+The application ships with a demo account provided with a few application data e.g. budgets
 
+Use the following credentials to log in:
+
+```
+Email: user@demo.com
+Password: demoUser
+```
+
+#### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork (explained in detail on contributing section).
 
 
 ## Contributing
