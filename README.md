@@ -344,6 +344,13 @@ Once download is complete follow the steps below to setup docker:
 ```bash
   docker run
 ```
+#### Start a mysql server instance on Docker
+```bash
+  $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
+```
+
+where "some-mysql" is the name you want to assign to your container, "my-secret-pw" is the password to be set for the MySQL root user.
+
 
 ### Install project dependencies using npm
 #### Go to the project directory
@@ -431,3 +438,4 @@ then fetch the changes and merge them with your local branch :
 Also it is good to communicate with the maintainers or other contributors, you can do this by opening an issue or leaving a comment on the pull request you created.
 
 Please adhere to this project's `code of conduct`.
+
