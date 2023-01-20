@@ -117,7 +117,6 @@ Adding a web application to a Firebase project is a simple process that can be c
 
 ```
 
-
 ## Install and Run Locally
 
 #### Fork & Clone the project
@@ -351,6 +350,29 @@ Once download is complete follow the steps below to setup docker:
 
 where "some-mysql" is the name you want to assign to your container, "my-secret-pw" is the password to be set for the MySQL root user.
 
+Once the step above is done you will have a docker mysql image and a docker container with the name provided above.
+
+To start your docker container run the commands below:
+
+```bash
+  docker ps
+```
+
+```
+The command above lists all the running docker containers present. To list all containers (including exited) add `-a` flag to the command above.
+```
+
+Copy the container ID for the container you want to start and run the command below:
+
+```bash
+  docker start YOUR_CONTAINER_ID
+```
+
+To stop the container run:
+
+```bash
+  docker stop YOUR_CONTAINER_ID
+```
 
 ### Install project dependencies using npm
 #### Go to the project directory
@@ -383,7 +405,6 @@ Password: demoUser
 ```
 
 #### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork (explained in detail on contributing section).
-
 
 ## Contributing
 
@@ -438,4 +459,3 @@ then fetch the changes and merge them with your local branch :
 Also it is good to communicate with the maintainers or other contributors, you can do this by opening an issue or leaving a comment on the pull request you created.
 
 Please adhere to this project's `code of conduct`.
-
