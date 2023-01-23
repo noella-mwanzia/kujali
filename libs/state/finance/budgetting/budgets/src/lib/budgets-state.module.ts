@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { BudgetsStore } from './stores/budgets.store';
 import { OrgBudgetsStore } from './stores/org-budgets-store.store';
+import { ActiveBudgetStore } from './stores/active-budget.store';
+import { BudgetHeaderResultStore } from './stores/budget-header-result.store';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ export class BudgetsStateModule
       ngModule: BudgetsStateModule,
       providers: [
         BudgetsStore, 
-        OrgBudgetsStore
+        OrgBudgetsStore,
+        ActiveBudgetStore,
+        BudgetHeaderResultStore
       ]
     };
   }
