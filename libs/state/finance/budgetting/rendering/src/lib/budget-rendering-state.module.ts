@@ -10,6 +10,7 @@ import { BudgetLockQuery } from './queries/budget-lock.query';
 import { BudgetRendererService } from './queries/budget-renderer.service';
 import { FinancialExplorerStateService } from './budget-explorer-state.service';
 import { BudgetLockService } from './services/budget-lock.service';
+import { CalculateBudgetHeaderService } from './services/calculate-budget-header.service';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { BudgetLockService } from './services/budget-lock.service';
 
     BudgetLockService,
     BudgetRendererService,
-    FinancialExplorerStateService
+    FinancialExplorerStateService,
+    CalculateBudgetHeaderService
   ]
 })
 /** 

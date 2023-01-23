@@ -13,6 +13,7 @@ import { FinancialExplorerState, _DEFAULT_FINANCIAL_EXPLORER_STATE, _FIRST_YEAR_
 import { BudgetQuery } from "./queries/budget.query";
 import { BudgetPlansQuery } from "./queries/budget-lines.query";
 import { BudgetRendererService } from "./queries/budget-renderer.service";
+import { CalculateBudgetHeaderService } from "./services/calculate-budget-header.service";
 
 import { ChildBudgetManager } from "./model/child-budget-manager.model";
 import { TransactionPlannerManager } from "./model/transaction-planner-manager";
@@ -57,6 +58,7 @@ export class FinancialExplorerStateService
   constructor(private _budget$$: BudgetQuery,
               private _budgetPlans$: BudgetPlansQuery,
               private _renderer: BudgetRendererService,
+              private _budgetHeaderService: CalculateBudgetHeaderService,
               private _logger: Logger)
   { }
 
@@ -206,8 +208,8 @@ export class FinancialExplorerStateService
       if (state && plans) {
         let budget = state.budget;
         this._budgetPlans$.savePlans(budget, plans);
+        this._budgetHeaderService._bdgtCalculateHeader(budget.id!, budget.name, budget.years, state.scopedResult.amountsYear);
       }
     })
   }
- 
 }
