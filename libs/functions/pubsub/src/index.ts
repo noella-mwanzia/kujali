@@ -1,1 +1,1 @@
-export * from './lib/functions-pubsub.module';
+export * from './lib/pubsub-pubslish-action.function';

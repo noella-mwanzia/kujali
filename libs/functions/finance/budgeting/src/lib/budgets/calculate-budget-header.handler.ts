@@ -7,6 +7,10 @@ import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, ___RenderBudget } from '@app/model/finance/planning/budget-calculation';
 import { Budget } from '@app/model/finance/planning/budgets';
 import { Query } from '@ngfi/firestore-qbuilder';
+import { __PubSubPublishAction } from '@app/functions/pubsub';
+
+let BUDGET_PARENTS: Budget[] = [];
+let BUDGET_PARENTS_IDS: string[] = [];
 
 export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: RenderedBudget, plans: TransactionPlan[]}, boolean>
 {
@@ -15,23 +19,20 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
 
     tools.Logger.log(() => `Starting calculate budget header`);
 
-    let budgetParents = await this.checkIfBudgetHasParent(budgetData.budget, tools);
+    BUDGET_PARENTS = await this.checkIfBudgetHasParent(budgetData.budget, tools);
     
-    if (budgetParents && budgetParents.length > 0) {
-      tools.Logger.log(() => `Has a parent`);
+    if (BUDGET_PARENTS && BUDGET_PARENTS.length > 0) {
+      tools.Logger.log(() => `Has a parent(s)`);
 
-      let parentIds = budgetParents.map((budget) => budget.id);
+      BUDGET_PARENTS_IDS = BUDGET_PARENTS.map((budget) => budget.id!);
 
-      if (parentIds.includes(budgetData.budget.id!)) 
+      if (BUDGET_PARENTS_IDS.includes(budgetData.budget.id!)) 
         throw 'This scenario will cause endless loop';
-      
-      
-
-    } else {
-      let scopedResult = this.calculateHeaderResults(budgetData.budget, budgetData.plans, tools);
-
-      await this.saveBudgetHeaders(scopedResult, tools);
+       
     }
+
+    let scopedResult = this.calculateHeaderResults(budgetData.budget, budgetData.plans, tools);
+    await this.saveBudgetHeaders(scopedResult, tools);
 
     return false;
   }
@@ -41,11 +42,9 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
 
     let budgetsRepo = tools.getRepository<Budget>(`orgs/${budget.orgId}/budgets`);
 
-    let budgets = await budgetsRepo.getDocuments(new Query());
+    let budgets = await budgetsRepo.getDocuments(new Query().where('childrenList', 'array-contains', budget.id));
 
-    let budgetParents = budgets.filter((budget) => budget.childrenList.includes(budget.id!));
-
-    return budgetParents;
+    return budgets;
   }
 
   private calculateHeaderResults(budget: Budget, plans: TransactionPlan[], tools: HandlerTools): RenderedBudget {
@@ -61,7 +60,7 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
   }
 
   private async saveBudgetHeaders (budget: RenderedBudget, tools: HandlerTools) {
-    tools.Logger.log(() => `Calculating header results`);
+    tools.Logger.log(() => `saving header results`);
 
     let header: BudgetHeaderResult  = {
       id: Math.floor(Date.now() / 1000).toString(),
@@ -70,7 +69,8 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
       budgetId: budget.id!,
       startY: budget.years[0],
       duration: budget.duration,
-      headers: {}
+      headers: {},
+      years: budget.years
     }
     
     budget.result.amountsYear.forEach((yearValues) => {
@@ -79,6 +79,30 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
     })
 
     let budgetHeaderRepo = tools.getRepository<BudgetHeaderResult>(`orgs/${header.orgId}/budgets/${header.budgetId}/headers`);
-    return budgetHeaderRepo.create(header, header.id);
+    await budgetHeaderRepo.create(header, header.id);
+
+    if (BUDGET_PARENTS_IDS.length > 0) {
+
+      tools.Logger.log(() => `updating parent header results`);
+
+      BUDGET_PARENTS_IDS.map(async (id) => {
+
+        let headerValue = {
+          orgId: header.orgId, 
+          parentBudgetId: id, 
+          childHeaderResult: header
+        }
+
+        await this._calculateParentBudgetHeaders(headerValue, tools);
+      })
+    }
+
+    return true;
+  }
+
+  private async _calculateParentBudgetHeaders(headerValues: {orgId: string, parentBudgetId: string, childHeaderResult: BudgetHeaderResult}, tools: HandlerTools)
+  {
+    tools.Logger.log(() => `Triggering parent budget headers recalculation for ${headerValues.parentBudgetId}`);
+    await __PubSubPublishAction<any>('bdgtCalculateHeaderPubSub', headerValues);
   }
 }

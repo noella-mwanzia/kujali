@@ -4,9 +4,13 @@ import { KujaliFunction } from '../../../environments/kujali-func.class';
 
 import { BdgtCalculateHeaderOnSaveBudget } from '@app/functions/finance/budgeting';
 
-const CALCULATE_BUDGET_HEADER_TOPIC = '';
+import { BdgtCalculateHeaderPubSub } from '@app/functions/finance/budgeting';
+
+const CALCULATE_BUDGET_HEADER_TOPIC = 'bdgtCalculateHeaderPubSub';
 
 const bdgtCalculateHeaderOnSaveBudgetHandler = new BdgtCalculateHeaderOnSaveBudget();
+
+const bdgtCalculateHeaderPubSubHandler = new BdgtCalculateHeaderPubSub();
 
 export const bdgtCalculateHeaderOnSaveBudget = new KujaliFunction(
                 'bdgtCalculateHeaderOnSaveBudget',
@@ -20,5 +24,5 @@ export const bdgtCalculateHeaderPubSub = new KujaliFunction(
                 'bdgtCalculateHeaderPubSub',
                 new PubSubRegistrar(CALCULATE_BUDGET_HEADER_TOPIC),
                 [],
-                bdgtCalculateHeaderOnSaveBudgetHandler as any)
+                bdgtCalculateHeaderPubSubHandler as any)
               .build()
