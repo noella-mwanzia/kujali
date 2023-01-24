@@ -7,3 +7,4 @@ const conf = config()['firebase'];
 admin.initializeApp(conf);
 
 export * from './app/finance/budgeting/promote-budget.function';
+export * from './app/finance/budgeting/calculate-budget-headers.function';

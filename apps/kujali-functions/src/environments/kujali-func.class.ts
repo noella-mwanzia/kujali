@@ -1,5 +1,5 @@
 import { GCFunction, FunctionRegistrar, Guard, FunctionHandler } from "@ngfi/functions";
-import { environment } from "./environment";
+import { environment } from "../../../kujali/src/environments/environment";
 
 /**
  * Implementation of GCFunction for the scope of this project. Adds in Environment.
