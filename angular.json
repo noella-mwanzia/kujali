@@ -29,6 +29,7 @@
     "features-budgetting-budget-explorer-burnchart": "libs/features/budgetting/budget-explorer-burnchart",
     "features-budgetting-budget-planning": "libs/features/budgetting/budget-planning",
     "functions-finance-budgeting": "libs/functions/finance/budgeting",
+    "functions-pubsub": "libs/functions/pubsub",
     "kujali": "apps/kujali",
     "kujali-functions": "apps/kujali-functions",
     "model-finance-planning-budget-grouping": "libs/model/finance/planning/budget-grouping",
@@ -52,5 +53,6 @@
     "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
     "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
     "util-ngfi-state": "libs/util/ngfi/state"
-  }
+  },
+  "defaultProject": "kujali"
 }
