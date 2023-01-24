@@ -53,11 +53,14 @@
       "port": 9199
     },
     "hosting": {
-      "port": 5001
+      "port": 5010
     },
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "database": {
+      "port": 9000
+    }
   }
 }
