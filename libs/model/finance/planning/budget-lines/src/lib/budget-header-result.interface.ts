@@ -18,6 +18,8 @@ export interface BudgetHeaderResult extends IObject
   /** Budget Duration */
   duration: number;
 
+  years: number[];
+
   /** Scoped results values month over month */
   headers: {};
 }
