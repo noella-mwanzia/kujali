@@ -4,6 +4,8 @@ export interface BudgetHeaderResult extends IObject
 {
   id: string;
 
+  orgId: string;
+
   /** Name of the budget */
   name: string;
 

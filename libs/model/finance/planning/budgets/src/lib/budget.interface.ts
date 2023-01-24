@@ -1,7 +1,5 @@
 import { IObject } from "@iote/bricks";
 
-import { BudgetRow } from "@app/model/finance/planning/budget-lines";
-
 import { BudgetStatus } from "./types/budget-status.enum";
 
 /**

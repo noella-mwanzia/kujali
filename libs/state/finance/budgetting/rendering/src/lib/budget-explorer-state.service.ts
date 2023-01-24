@@ -207,8 +207,9 @@ export class FinancialExplorerStateService
     return combineLatest(([state$, plans$])).pipe(take(1)).subscribe(([state, plans]) => {
       if (state && plans) {
         let budget = state.budget;
+        
         this._budgetPlans$.savePlans(budget, plans);
-        this._budgetHeaderService._bdgtCalculateHeader(budget.id!, budget.name, budget.years, state.scopedResult.amountsYear);
+        this._budgetHeaderService._bdgtCalculateHeader(budget, plans);
       }
     })
   }
