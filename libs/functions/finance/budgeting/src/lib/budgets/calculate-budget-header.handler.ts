@@ -1,13 +1,23 @@
 import { HandlerTools } from '@iote/cqrs';
+import { Query } from '@ngfi/firestore-qbuilder';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
-import { BudgetHeaderResult } from '@app/model/finance/planning/budget-lines';
-import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
-import { TransactionPlan } from '@app/model/finance/planning/budget-items';
-import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, ___RenderBudget } from '@app/model/finance/planning/budget-calculation';
 import { Budget } from '@app/model/finance/planning/budgets';
-import { Query } from '@ngfi/firestore-qbuilder';
+import { TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
+import { BudgetHeaderResult } from '@app/model/finance/planning/budget-lines';
+import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, 
+         ___RenderBudget } from '@app/model/finance/planning/budget-calculation';
+
 import { __PubSubPublishAction } from '@app/functions/pubsub';
+
+import { updateParentHeaders } from '../common/update-parent-headers.function';
+import { calculateHeaderResults } from '../common/calculate-header-results.function';
+import { createBudgetHeaderResult } from '../common/create-budget-header-result.function';
+
+
+const BUDGETS_REPO_PATH = (orgId: string) : string =>  {return `orgs/${orgId}/budgets`};
+const BUDGETS_HEADERS_REPO_PATH = (orgId: string, budgetId: string) : string =>  {return `orgs/${orgId}/budgets/${budgetId}/headers`};
 
 let BUDGET_PARENTS: Budget[] = [];
 let BUDGET_PARENTS_IDS: string[] = [];
@@ -25,84 +35,45 @@ export class BdgtCalculateHeaderOnSaveBudget extends FunctionHandler<{budget: Re
       tools.Logger.log(() => `Has a parent(s)`);
 
       BUDGET_PARENTS_IDS = BUDGET_PARENTS.map((budget) => budget.id!);
-
-      if (BUDGET_PARENTS_IDS.includes(budgetData.budget.id!)) 
-        throw 'This scenario will cause endless loop';
-       
     }
 
-    let scopedResult = this.calculateHeaderResults(budgetData.budget, budgetData.plans, tools);
-    await this.saveBudgetHeaders(scopedResult, tools);
+    let scopedResult = calculateHeaderResults(budgetData.budget, budgetData.plans, tools)
+    await this.saveBudgetHeaders(scopedResult, budgetData.budget, tools);
 
     return false;
   }
 
+  /**
+   * Checks if the the active budget has a parent(s)
+   * @param budget 
+   * @param tools 
+   * @returns the parent budget(s) list
+   */
   private async checkIfBudgetHasParent(budget: Budget, tools: HandlerTools): Promise< Budget[]> {
-    tools.Logger.log(() => `Checking if budget has a parent`);
+    tools.Logger.log(() => `Checking if budget has a parent(s)`);
 
-    let budgetsRepo = tools.getRepository<Budget>(`orgs/${budget.orgId}/budgets`);
+    let budgetsRepo = tools.getRepository<Budget>(BUDGETS_REPO_PATH(budget.orgId));
 
     let budgets = await budgetsRepo.getDocuments(new Query().where('childrenList', 'array-contains', budget.id));
 
     return budgets;
   }
 
-  private calculateHeaderResults(budget: Budget, plans: TransactionPlan[], tools: HandlerTools): RenderedBudget {
-    tools.Logger.log(() => `Calculating header results`);
-
-    const lines = ___PlannedTransactionsToBudgetLines(budget, plans);
-
-    const localBudget = ___CalculateLocalBudget(budget, lines);
-
-    let renderedBudget = ___RenderBudget(budget, [], localBudget);
-
-    return renderedBudget;
-  }
-
-  private async saveBudgetHeaders (budget: RenderedBudget, tools: HandlerTools) {
+  /**
+   * Creates the budget result header object and saves to firebase
+   * @param budget 
+   * @param tools 
+   * @returns 
+   */
+  private async saveBudgetHeaders (budget: RenderedBudget, budgetData: Budget, tools: HandlerTools) {
     tools.Logger.log(() => `saving header results`);
 
-    let header: BudgetHeaderResult  = {
-      id: Math.floor(Date.now() / 1000).toString(),
-      orgId: budget.orgId,
-      name: budget.name,
-      budgetId: budget.id!,
-      startY: budget.years[0],
-      duration: budget.duration,
-      headers: {},
-      years: budget.years
-    }
-    
-    budget.result.amountsYear.forEach((yearValues) => {
-      let year = yearValues.year;
-      header.headers[year] = yearValues.amountsMonth.map((months) => months.amount);
-    })
+    let header: BudgetHeaderResult  = createBudgetHeaderResult(budget, tools);
 
-    let budgetHeaderRepo = tools.getRepository<BudgetHeaderResult>(`orgs/${header.orgId}/budgets/${header.budgetId}/headers`);
+    let budgetHeaderRepo = tools.getRepository<BudgetHeaderResult>(BUDGETS_HEADERS_REPO_PATH(header.orgId, header.budgetId));
+
     await budgetHeaderRepo.create(header, header.id);
 
-    if (BUDGET_PARENTS_IDS.length > 0) {
-
-      tools.Logger.log(() => `updating parent header results`);
-
-      BUDGET_PARENTS_IDS.map(async (id) => {
-
-        let headerValue = {
-          orgId: header.orgId, 
-          parentBudgetId: id, 
-          childHeaderResult: header
-        }
-
-        await this._calculateParentBudgetHeaders(headerValue, tools);
-      })
-    }
-
-    return true;
-  }
-
-  private async _calculateParentBudgetHeaders(headerValues: {orgId: string, parentBudgetId: string, childHeaderResult: BudgetHeaderResult}, tools: HandlerTools)
-  {
-    tools.Logger.log(() => `Triggering parent budget headers recalculation for ${headerValues.parentBudgetId}`);
-    await __PubSubPublishAction<any>('bdgtCalculateHeaderPubSub', headerValues);
+    await updateParentHeaders(BUDGET_PARENTS_IDS, header, budgetData, tools);
   }
 }
