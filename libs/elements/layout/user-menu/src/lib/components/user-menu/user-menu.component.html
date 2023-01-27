@@ -1,7 +1,7 @@
-<div *ngIf="user$ | async as user">
+<div *ngIf="user$ | async as user" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
   <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu" fxLayout="row" fxLayoutALign="start center"
     fxLayoutGap="10px">
-    <span *ngIf="user.photoUrl; else avatar">
+    <span *ngIf="user.photoUrl">
       <img class="user-image" [src]="user.photoUrl">
     </span>
     <ng-template #avatar>
