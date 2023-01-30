@@ -1,29 +1,34 @@
-<!-- The form is going to go here -->
-<div style="text-align: right"><span (click)="onNoClick()" class="close-modal-btn"><i class="far fa-times-circle"></i></span></div>
+<div class="modal">
+  <!-- The form is going to go here -->
+  <div style="text-align: right;" ><span (click)="onNoClick()" class="close-modal-btn"><i class="far fa-times-circle"></i></span></div>
 
-<form *ngIf="budget" #form="ngForm" (ngSubmit)="linkBudget(form.value)" fxLayout="column">
+  <form *ngIf="budget" #form="ngForm" (ngSubmit)="linkBudget(form.value)" fxLayout="column">
 
-  <h4 class="mat-headline-6 type-title"> {{"BUDGETS.LINK-BUDGETS.CHOOSE-BUDGET" | transloco}} {{ budget.name }}</h4>
+    <h4 class="mat-headline-6 type-title"> {{"BUDGETS.LINK-BUDGETS.CHOOSE-BUDGET" | transloco}} {{ budget.name }}</h4>
 
-  <div class="sm-divider"></div>
-
-  <div *ngIf="optionsAvailable; else noOptionsAvailable">
-    <mat-form-field class="budget-selector">
-      <mat-select name="selectedBudget" [(ngModel)]="selectedBudget" placeholder="Budget" required>
-        <mat-option *ngFor="let budget of possibleChilds" [value]="budget">
-          {{ budget.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    
     <div class="sm-divider"></div>
-  </div>
-  <ng-template #noOptionsAvailable><div *ngIf="loading; else noOp"><app-spinner></app-spinner></div></ng-template>
-  <ng-template #noOp> {{"BUDGETS.LINK-BUDGETS.NO-BUDGETS" | transloco}} </ng-template>
-  <button type="submit" [disabled]="loading || !optionsAvailable || form.invalid" class="btn-submit" mat-raised-button color="primary">
-    {{"BUDGETS.LINK-BUDGETS.LINK-BUDGET" | transloco}}
-  </button>
 
-</form>
+    <div *ngIf="optionsAvailable; else noOptionsAvailable">
+      <mat-form-field class="budget-selector">
+        <mat-select name="selectedBudget" [(ngModel)]="selectedBudget" placeholder="Budget" required>
+          <mat-option *ngFor="let budget of possibleChilds" [value]="budget">
+            {{ budget.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<br />
+      <div class="sm-divider"></div>
+    </div>
+    <ng-template #noOptionsAvailable>
+      <div *ngIf="loading; else noOp"><app-spinner></app-spinner></div>
+    </ng-template>
+    <ng-template #noOp> {{"BUDGETS.LINK-BUDGETS.NO-BUDGETS" | transloco}} </ng-template>
+    <button type="submit" [disabled]="loading || !optionsAvailable || form.invalid" class="btn-submit" mat-raised-button
+      color="primary">
+      {{"BUDGETS.LINK-BUDGETS.LINK-BUDGET" | transloco}}
+    </button>
+
+  </form>
+
+  <br />
+</div>
