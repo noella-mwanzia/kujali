@@ -1,14 +1,12 @@
 .user-image {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
   clip-path: circle();
-  margin-right: 10px;
 }
 
 .user-btn{
   color: white;
-  padding: 10px;
   background-color: var(--kujali-color-primary-blue);
 }
 
