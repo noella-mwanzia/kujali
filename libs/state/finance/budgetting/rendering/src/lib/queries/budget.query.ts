@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from '@ngfi/angular';
 import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, combineLatest } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -10,7 +10,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { KuUser } from '@app/model/common/user';
 import { Organisation } from '@app/model/organisation';
 import { Budget } from '@app/model/finance/planning/budgets';
-import { BudgetResult } from '@app/model/finance/planning/budget-lines';
+import { BudgetHeaderResult } from '@app/model/finance/planning/budget-lines';
 import { RenderedChildBudget } from '@app/model/finance/planning/budget-rendering';
 
 import { UserStore } from '@app/state/user';
@@ -18,6 +18,7 @@ import { ActiveOrgStore } from '@app/state/organisation';
 import { BudgetsStore }   from '@app/state/finance/budgetting/budgets';
 
 import { BudgetLockQuery } from './budget-lock.query';
+import { CreateBudgetRow } from '../model/convert-budget-header-to-budget-row.function';
 
 /** 
  * A query which can render budgets for the budget explorer and other potential pages.
@@ -36,9 +37,7 @@ export class BudgetQuery
   constructor(_user$$: UserStore,
               _org$$: ActiveOrgStore,
               _router: Router,
-
               private _editStatus$$: BudgetLockQuery,
-              
               private _budgets$$: BudgetsStore,
               private _db: DataService)
   {
@@ -80,7 +79,7 @@ export class BudgetQuery
 
     // If there are children, load them
     const budgetQ = new Query().where('id', 'in', b.childrenList);
- 
+
     return this._toChildBudget$(budgetQ);
   }
 
@@ -98,20 +97,32 @@ export class BudgetQuery
 
    private _toChildBudget$(childBudgetQ: Query)
    {
-    return this._db.getRepo<BudgetResult>(`orgs/${this._activeOrg.id}/budgets`)
+    return this._db.getRepo<Budget>(`orgs/${this._activeOrg.id}/budgets`)
         .getDocuments(childBudgetQ)
         .pipe(
-          map(chBs => chBs.map(chB => 
-          ({
-            id: chB.id as string,
-            name: chB.name,
-            header: chB.balance
-          }) as RenderedChildBudget)),
-          // Block longlasting subscriptions
-          take(1));
+          switchMap(chBs =>
+            combineLatest(chBs.map(ch => this._getHeaders(ch)))))
    }
 
    updateBudget(budget: Budget) {
     return this._budgets$$.update(budget as Budget);
+   }
+   
+
+  private _getHeaders(budget: Budget): Observable<RenderedChildBudget>
+  {
+    const repo = this._db.getRepo<BudgetHeaderResult>(`orgs/${this._activeOrg.id}/budgets/${budget.id}/headers`)
+    const newestHeaderQ = new Query().orderBy('id', 'desc').limit(1);
+
+    const header$ = repo.getDocuments(newestHeaderQ).pipe(take(1));
+
+    return header$.pipe(map(h => {
+      return ({
+        id: budget.id as string,
+        name: budget.name,
+        header: CreateBudgetRow(h[0])
+      }) as RenderedChildBudget
+    }
+    ));
    }
 }
