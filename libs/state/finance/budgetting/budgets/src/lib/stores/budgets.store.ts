@@ -58,11 +58,14 @@ export class BudgetsStore extends DataStore<Budget>
    * Child budgets that can still be added to the budget. 
    * 
    *  TODO: Deep search for loops within large budget hierarchies. Needs recursive pattern
+   *  added case to check that budgets that already parents to active budget
+   *  are not provided as addable budgets i.e my parent cannot be my child
    */
   getChildBudgetsAddable(budget: Budget)
   {
     return this.get()
         .pipe(map(budgets => budgets.filter(b => budget.id != b.id
+                                                  && ! ___includes(b.childrenList, budget.id)
                                                   && ! ___includes(budget.childrenList, b.id)
                                                   && ! ___includes(budget.overrideList, b.id))));
   }
