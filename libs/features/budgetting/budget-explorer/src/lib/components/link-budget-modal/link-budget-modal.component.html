@@ -8,7 +8,7 @@
 
     <div class="sm-divider"></div>
 
-    <div *ngIf="optionsAvailable; else noOptionsAvailable">
+    <div *ngIf="optionsAvailable; else noOptionsAvailable" >
       <mat-form-field class="budget-selector">
         <mat-select name="selectedBudget" [(ngModel)]="selectedBudget" placeholder="Budget" required>
           <mat-option *ngFor="let budget of possibleChilds" [value]="budget">
