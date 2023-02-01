@@ -92,7 +92,7 @@ export class FinancialPlanTableComponent implements OnInit
   getCategory(row: BudgetRowYear): string {
     return (row.isHeader || row.type == 'childResult')
               ? row.name as string
-              : '';
+              : row.name;
   }
 
   /** Get name if applicable (only for non-typed rows) */
@@ -126,7 +126,7 @@ export class FinancialPlanTableComponent implements OnInit
   getRowTotal(row: BudgetRowYear)
   {
     try {
-      return this._formatPrice(row.total as number);
+      return this._formatPrice(row.totalYear as number);
     }
     catch(e) { return 0; }
   }
@@ -159,12 +159,14 @@ export class FinancialPlanTableComponent implements OnInit
 
   openCellModal(cell: CellInput, column: Month)
   {    
-    const data = (cell && !cell.isHeader) ? (this.getTransactionPlanInput(column, cell)): {}
+    if (this.classId !== 'result') {
+      const data = (cell && !cell.isHeader) ? (this.getTransactionPlanInput(column, cell)): {}
                   
-    this.dialog.open(PlanTransactionModalComponent, { data })
-               .afterClosed()
-               .subscribe((saving: Observable<boolean> | false) => 
-                  { if (saving) this._addCounterSaving(saving); });
+      this.dialog.open(PlanTransactionModalComponent, { data })
+                 .afterClosed()
+                 .subscribe((saving: Observable<boolean> | false) => 
+                    { if (saving) this._addCounterSaving(saving); });
+    }
   }
 
   getTransactionPlanInput(column: Month, cell: CellInput): PlanTrInput {
@@ -173,7 +175,7 @@ export class FinancialPlanTableComponent implements OnInit
       fromMonth: column.month,
       type: this.type,
       budgetId: this.budgetId, 
-      occurence: cell.amountsMonth[column.month - 1].plan 
+      occurence: cell.amountsMonth[column.month - 1].plan
     } as PlanTrInput;
 
     return tr;
