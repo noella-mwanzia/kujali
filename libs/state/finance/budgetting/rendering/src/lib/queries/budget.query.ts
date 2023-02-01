@@ -95,7 +95,7 @@ export class BudgetQuery
                                               : <unknown> null as RenderedChildBudget));
    }
 
-   private _toChildBudget$(childBudgetQ: Query)
+   private _toChildBudget$(childBudgetQ: Query): Observable<RenderedChildBudget[]>
    {
     return this._db.getRepo<Budget>(`orgs/${this._activeOrg.id}/budgets`)
         .getDocuments(childBudgetQ)
