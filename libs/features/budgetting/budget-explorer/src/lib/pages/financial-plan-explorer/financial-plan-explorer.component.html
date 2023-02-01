@@ -4,7 +4,7 @@
   <div *ngIf="state$ | async as state; else loadingBudget" fxLayout="column" fxlayoutALign="start start"
     class="container">
     <div class="" fxLayout="row" fxlayoutALign="space-between start" fxFlex>
-      <div fxFlex="50">
+      <div fxFlex>
         <span class="budget-name">{{ state.budget.name }}</span>
         <!-- Role:  -->
         <span class="budget-status">
@@ -23,6 +23,10 @@
             </mat-select>
           </mat-form-field>
         </div>
+      </div>
+
+      <div class="hierachy">
+        <app-budget-hierarchy-tree [state$]="state$" [budget$]="budget$" ></app-budget-hierarchy-tree>
       </div>
     </div>
 

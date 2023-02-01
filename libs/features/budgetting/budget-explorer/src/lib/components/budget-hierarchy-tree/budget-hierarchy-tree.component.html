@@ -1,0 +1,28 @@
+<button class="hier-btn budget-hierachy" mat-stroked-button [matMenuTriggerFor]="userMenu" fxLayout="row" fxLayoutALign="start center"
+  fxLayoutGap="10px">
+  <span>
+    Budget hierachy
+  </span>
+  <i class="fas fa-caret-down"></i>
+</button>
+
+<mat-menu #userMenu="matMenu" xPosition="before">
+  <mat-tree (click) = "$event.stopPropagation()" [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <span>{{getBudgetName(node.item)}}</span>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.item">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <span>{{ getBudgetName(node.item)}}</span>
+
+      <button *ngIf="node.item === activeBudget.id" mat-icon-button
+        (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
+    </mat-tree-node>
+  </mat-tree>
+</mat-menu>
