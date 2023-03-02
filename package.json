@@ -9,7 +9,10 @@
     "build": "nx build",
     "test": "nx test",
     "start-firebase-emulators": "firebase emulators:start --import=demo-data --export-on-exit=demo-data",
-    "run-develop": "npm run start & npm run start-firebase-emulators"
+    "run-develop": "npm run start & npm run start-firebase-emulators",
+    "deploy-kujali-hosting": "firebase deploy --only hosting",
+    "build-kujali-app": "nx build kujali --prod",
+    "deploy-kujali": "npm run build-kujali-app && npm run deploy-kujali-hosting"
   },
   "private": true,
   "dependencies": {
