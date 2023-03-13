@@ -52,6 +52,9 @@
       "@app/features/dashboard/main": [
         "libs/features/dashboard/main/src/index.ts"
       ],
+      "@app/functions/api/finance/banking/ponto-connect": [
+        "libs/functions/api/finance/banking/ponto-connect/src/index.ts"
+      ],
       "@app/functions/data/db": ["libs/functions/data/db/src/index.ts"],
       "@app/functions/finance/budgeting": [
         "libs/functions/finance/budgeting/src/index.ts"
