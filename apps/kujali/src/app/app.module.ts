@@ -22,6 +22,7 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
+import { BankingStateModule } from '@app/state/finance/banking';
 import { CostTypesStateModule } from '@app/state/finance/cost-types';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
 
@@ -55,6 +56,10 @@ import { AppRoutingModule } from './app.routing.module';
     MatProgressBarModule,
 
     // AppConfigModule.forRoot(),
+
+
+    //banking
+    BankingStateModule.forRoot(),
 
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
