@@ -1,1 +1,1 @@
-export * from './lib/model-finance-banking-base.module';
+export * from './lib/banking-access-token.interface';
