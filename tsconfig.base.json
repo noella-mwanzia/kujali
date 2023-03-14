@@ -73,6 +73,9 @@
       "@app/model/finance/banking/ponto": [
         "libs/model/finance/banking/ponto/src/index.ts"
       ],
+      "@app/model/finance/payments": [
+        "libs/model/finance/payments/src/index.ts"
+      ],
       "@app/model/finance/planning/budget-calculation": [
         "libs/model/finance/planning/budget-calculation/src/index.ts"
       ],
