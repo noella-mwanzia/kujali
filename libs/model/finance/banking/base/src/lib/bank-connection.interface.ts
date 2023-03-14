@@ -1,4 +1,4 @@
-import { IObject } from "@s4y/utils/iote/bricks";
+import { IObject } from "@iote/bricks";
 import { BankConnectionAccountType } from "./bank-connection-account-type.enum";
 import { BankConnectionAccount } from "./bank-connection-account.interface";
 import { BankConnectionStatus } from "./bank-connection-status.enum";
@@ -15,7 +15,7 @@ export interface BankConnection extends IObject
 {
   name: string;
   /** ID of the Property linked to this integration account */
-  propId: string;
+  orgId: string;
   /** List of accounts integrated via this connection. */
   accounts: BankConnectionAccount[];
 

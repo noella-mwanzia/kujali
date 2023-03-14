@@ -9,6 +9,8 @@ import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year'
 import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
 import { LinkBudgetModalComponent } from '../link-budget-modal/link-budget-modal.component';
+import { BackendService } from '@ngfi/angular';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Component({
   selector: 'app-financial-plan-result-table',
@@ -29,7 +31,7 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   tableType = BudgetRowType.Result;
 
-  constructor(private _dialog: MatDialog)
+  constructor(private _dialog: MatDialog, private _bs: AngularFireFunctions)
   { }
 
   ngOnInit() {
@@ -50,6 +52,10 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   submitBudget() {
     this.budgetSubmitted.emit();
+  }
+
+  fecthPontoTrs() {
+    this._bs.httpsCallable('fetchPontoUserBankTransactions')({ orgId: '24og1rpbhzXTkw8NJY7WGuHmGWN2', orgAccId: 'asnfslakndfsalfd' }).subscribe(() => {});
   }
 
   ngOnDestroy(): void {

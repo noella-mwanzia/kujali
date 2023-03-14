@@ -3,5 +3,5 @@ export interface UpdatePontoConnInput {
   authCode: string,
   accountId: string,
   accountName: string,
-  propId: string
+  orgId: string
 }

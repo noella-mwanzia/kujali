@@ -2,7 +2,7 @@ import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 import { HandlerTools } from '@iote/cqrs';
 
-import { BankConnection, BankConnectionAccount, BankConnectionAccountType, FetchAccessToken } from '@app/model/finance/banking';
+import { BankConnection, BankConnectionAccount, BankConnectionAccountType, FetchAccessTokenCmd } from '@app/model/finance/banking';
 
 // to add swan support in future
 // import { SwanFunctionCallsService } from '@s4y/functions/api/banking/swan';
@@ -22,14 +22,14 @@ const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `properties/${orgId}/b
    * Fetches and returns a new access token to be used when making subsequent calls to Ponto
    *
    */
-export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccessToken, any>
+export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccessTokenCmd, any>
 {
   /**
    * Static variable to keep track of the bankConnections that are still actively fetching the
    */
   private static ACTIVE_ACCESS_TOKEN_FETCHES: {[connectionId: string]: boolean} = {};
 
-  public async execute(data: FetchAccessToken, context: FunctionContext, tools: HandlerTools)
+  public async execute(data: FetchAccessTokenCmd, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: Processing request for access token for: ${ data.orgId }, AccId ${data.orgAccId}.`);
 
@@ -130,7 +130,7 @@ export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccess
     }
   }
 
-  private _logCurrentStatus(bankAccount: BankConnectionAccount, data: FetchAccessToken, connectionId: string, tools: HandlerTools){
+  private _logCurrentStatus(bankAccount: BankConnectionAccount, data: FetchAccessTokenCmd, connectionId: string, tools: HandlerTools){
     if(bankAccount){
       tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: Found associated account on orgAccId ${connectionId}, bankAccId ${bankAccount?.bankAccId}`);
     } else if(data.authCode){

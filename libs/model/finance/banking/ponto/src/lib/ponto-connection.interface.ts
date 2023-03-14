@@ -1,4 +1,4 @@
-import { BankConnection } from "@s4y/model/accounting/banking/base";
+import { BankConnection } from "@app/model/finance/banking";
 import { OnboardingDetailsObj } from "./onboarding-details.interface";
 
 /**

@@ -1,5 +1,5 @@
 import { Timestamp } from '@firebase/firestore-types';
-import { IObject } from '@s4y/utils/iote/bricks';
+import { IObject } from '@iote/bricks';
 import { BankConnectionAccountType } from "./bank-connection-account-type.enum";
 
 /**

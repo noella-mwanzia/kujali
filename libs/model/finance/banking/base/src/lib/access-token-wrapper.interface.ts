@@ -1,4 +1,4 @@
-import { IObject } from '@s4y/utils/iote/bricks';
+import { IObject } from '@iote/bricks';
 
 import { AccessToken } from './user-access-token.interface';
 
