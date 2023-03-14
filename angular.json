@@ -28,6 +28,7 @@
     "@app/state/user": "libs/state/user",
     "features-budgetting-budget-explorer-burnchart": "libs/features/budgetting/budget-explorer-burnchart",
     "features-budgetting-budget-planning": "libs/features/budgetting/budget-planning",
+    "features-operations-main": "libs/features/operations/main",
     "functions-api-finance-banking-ponto-connect": "libs/functions/api/finance/banking/ponto-connect",
     "functions-api-finance-banking-shared": "libs/functions/api/finance/banking/shared",
     "functions-data-db": "libs/functions/data/db",
