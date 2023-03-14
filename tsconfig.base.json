@@ -19,6 +19,8 @@
     "baseUrl": ".",
     "noImplicitAny": false,
     "strictPropertyInitialization": false,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node"],
     "paths": {
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
@@ -54,6 +56,9 @@
       ],
       "@app/functions/api/finance/banking/ponto-connect": [
         "libs/functions/api/finance/banking/ponto-connect/src/index.ts"
+      ],
+      "@app/functions/api/finance/banking/shared": [
+        "libs/functions/api/finance/banking/shared/src/index.ts"
       ],
       "@app/functions/data/db": ["libs/functions/data/db/src/index.ts"],
       "@app/functions/finance/budgeting": [

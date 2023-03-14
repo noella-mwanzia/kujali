@@ -29,6 +29,7 @@
     "features-budgetting-budget-explorer-burnchart": "libs/features/budgetting/budget-explorer-burnchart",
     "features-budgetting-budget-planning": "libs/features/budgetting/budget-planning",
     "functions-api-finance-banking-ponto-connect": "libs/functions/api/finance/banking/ponto-connect",
+    "functions-api-finance-banking-shared": "libs/functions/api/finance/banking/shared",
     "functions-data-db": "libs/functions/data/db",
     "functions-finance-budgeting": "libs/functions/finance/budgeting",
     "functions-pubsub": "libs/functions/pubsub",
