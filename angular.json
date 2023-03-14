@@ -36,6 +36,7 @@
     "functions-pubsub": "libs/functions/pubsub",
     "kujali": "apps/kujali",
     "kujali-functions": "apps/kujali-functions",
+    "model-finance-accounts-main": "libs/model/finance/accounts/main",
     "model-finance-banking-base": "libs/model/finance/banking/base",
     "model-finance-banking-ponto": "libs/model/finance/banking/ponto",
     "model-finance-payments": "libs/model/finance/payments",
