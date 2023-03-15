@@ -33,7 +33,7 @@ export class PontoConnectUtilityService
     const digest = vals?.digest ?? null;
 
     try{
-      const axiosOptions = {
+      const options = {
         url: endpoint,
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export class PontoConnectUtilityService
           'Signature' : signature,
           'Digest': digest
         },
-        data: data,
+        body: { "data": data },
         json: true,
         agentOptions: {
           cert: certFile,
@@ -52,7 +52,7 @@ export class PontoConnectUtilityService
         }
       };
 
-      return axios.post(endpoint, data, axiosOptions);
+      return request.post(options);
     } catch (err){
       this._logger.log(() => `[PontoConnectUtilityService].doCall : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);

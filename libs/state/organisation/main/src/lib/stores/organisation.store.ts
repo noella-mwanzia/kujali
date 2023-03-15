@@ -74,6 +74,10 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
       contact: {
         name: u.displayName ?? 'Unidentified',
         email: u.email
+      },
+      users: [],
+      bankingInfo: {
+        accounts: {}
       }
     };
   }

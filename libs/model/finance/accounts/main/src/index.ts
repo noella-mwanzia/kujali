@@ -1,1 +1,1 @@
-export * from './lib/model-finance-accounts-main.module';
+export * from './lib/f-account.interface';
