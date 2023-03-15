@@ -6,14 +6,12 @@ import { KujaliFunction } from '../../../../../environments/kujali-func.class';
 
 const handler = new FetchPontoUserBankTrsHandler();
 
-// Rest function
 export const fetchPontoUserBankTransactions = new KujaliFunction("fetchPontoUserBankTransactions",
                                                   new RestRegistrar(),
                                                   [],
                                                   handler)
                                   .build();
 
-// Pubsub function
 export const fetchPontoUserBankTransactionsPubsub = new KujaliFunction<{ orgId?: string, orgAccId: string}, any>
                                             ("fetchPontoUserBankTransactionsPubsub",
                                               new PubSubRegistrar('fetchPontoUserBankTransactionsPubsub'),
