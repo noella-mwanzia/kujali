@@ -76,6 +76,7 @@
       "@app/functions/pubsub": ["libs/functions/pubsub/src/index.ts"],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
+      "@app/model/data/db": ["libs/model/data/db/src/index.ts"],
       "@app/model/finance/accounts/main": [
         "libs/model/finance/accounts/main/src/index.ts"
       ],
