@@ -38,7 +38,7 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
     await __PubSubPublishAction<{ orgId: string}>('switchToBankPubSub', payload);
 
     // Step 1. Get corresponding S4Y Account
-    const _accRepo = tools.getRepository<FAccount>(`properties/${data.orgId}/accounts`);
+    const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
     const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
 
     // Step 2. Update S4Y FAccount
@@ -60,8 +60,8 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
     const conn = await _bankConnectionRepo.update(bankConnection);
 
     // Step 4. Perform initial transactions fetch
-    // const fetchTrsPayload = { orgId: data.orgId, orgAccId: account.id};
-    // await __PublishActionOnServiceBus<{ orgId: string}>('fetchPontoTransactionsPubsub', fetchTrsPayload);
+    const fetchTrsPayload = { orgId: data.orgId, orgAccId: account.id};
+    await __PubSubPublishAction<{ orgId: string}>('fetchPontoTransactionsPubsub', fetchTrsPayload);
 
     return conn;
   }

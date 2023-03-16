@@ -11,7 +11,7 @@ import { PontoConnectUtilityService } from '@app/functions/api/finance/banking/p
 
 import { Query } from '@ngfi/firestore-qbuilder';
 
-const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `properties/${orgId}/bank-connections`;
+const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) => `orgs/${orgId}/bank-connections`;
 
 const USER_ACCOUNT_ACCESS_REPO = (orgId: string, connectionId: string) => `orgs/${orgId}/bank-connections/${connectionId}/access-info`;
 
@@ -54,6 +54,7 @@ export async function __FETCH_USER_BANK_ACCESS(
   if(!previousTokenWrapper?.status) {
     try{
       tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: Step 2. Make call to banking API to fetch a new access token.`);
+
       const newAccessToken = await _utilityService.getAccessToken(previousTokenWrapper?.userAccess?.refresh_token!, authCode ?? '', redirectUrl ?? '');
 
       if(newAccessToken?.access_token){

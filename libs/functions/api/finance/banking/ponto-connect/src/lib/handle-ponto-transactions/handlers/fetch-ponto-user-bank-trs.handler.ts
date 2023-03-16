@@ -17,7 +17,7 @@ import { PontoTrReducerService } from '../services/ponto-trs-reducer.service';
 import { PontoConfig } from '../../model/ponto-config.interface';
 
 
-const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `properties/${orgId}/bank-connections`;
+const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
 /**
  * @class FetchPontoTrsHandler.
@@ -69,7 +69,7 @@ export class FetchPontoUserBankTrsHandler extends FunctionHandler<{ orgId: strin
     tools.Logger.log(() => `[FetchPontoTrsHandler].execute: Fetching transactions.`);
 
     // Get latest transaction id to use in request pagination parameter.
-    const _pontoRepo = tools.getRepository<BankTransaction>(`properties/${data.orgId}/ponto-transactions`);
+    const _pontoRepo = tools.getRepository<BankTransaction>(`orgs/${data.orgId}/ponto-transactions`);
     const latestTransaction = await _pontoRepo.getDocuments(new Query().where('from', '==', data.orgAccId).orderBy('date', 'desc').limit(1));
 
     // If it is the initial fetch, make recursive call to fetch all trs up to the start of the active fYear.

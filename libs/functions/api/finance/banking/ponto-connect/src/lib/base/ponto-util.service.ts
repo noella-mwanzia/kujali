@@ -241,7 +241,6 @@ export class PontoConnectUtilityService
       redirectUrl
     };
 
-    // to improve
     const endpoint = 'https://europe-west1-kujali-1be70.cloudfunctions.net/fetchPontoUserBankAccess';
 
     try{

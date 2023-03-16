@@ -14,7 +14,7 @@ import { __FETCH_USER_BANK_ACCESS } from '../services/fetch-user-bank-access.ser
 import { _HaltForMiliseconds } from '../providers/halt-for-milliseconds.function';
 
 
-const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `properties/${orgId}/bank-connections`;
+const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
 /**
    * @class FetchBankUserAccessHandler
@@ -33,7 +33,7 @@ export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccess
   {
     tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: Processing request for access token for: ${ data.orgId }, AccId ${data.orgAccId}.`);
 
-    // Bank connections have 1-1 mapping with property accounts and they
+    // Bank connections have 1-1 mapping with org accounts and they
     // get their id from the account that they correspond to.
     const connectionId = data.orgAccId;
 
@@ -57,15 +57,17 @@ export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccess
     const bankConnection = await _bankConnectionRepo.getDocumentById(connectionId);
 
     if(!bankConnection) {
-      tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: No associated connection found for property ${data.orgId}, orgAccId ${connectionId}`);
+      tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: No associated connection found for org ${data.orgId}, orgAccId ${connectionId}`);
       FetchPontoUserBankAccessHandler.ACTIVE_ACCESS_TOKEN_FETCHES[connectionId] = false;
       return;
     }
     tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: Found associated bank connection for orgAccId ${connectionId}`);
 
-    // Step 5. Get corresponding property account
+    // Step 5. Get corresponding org account
     const bankAccount = bankConnection.accounts.find(acc => acc.sysAccId === connectionId);
     this._logCurrentStatus(bankAccount!, data, connectionId, tools);
+
+    
 
     // Step 6. Fetch and Update Access token
     const userAccess = await __FETCH_USER_BANK_ACCESS(
@@ -136,7 +138,7 @@ export class FetchPontoUserBankAccessHandler extends FunctionHandler<FetchAccess
     } else if(data.authCode){
       tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: No associated account on orgAccId ${connectionId} was found, but authCode ${ data.authCode } was provided`);
     } else {
-      tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: No associated account found for property ${data.orgId}, orgAccId ${connectionId}`);
+      tools.Logger.log(() => `[FetchBankUserAccessHandler].execute: No associated account found for org ${data.orgId}, orgAccId ${connectionId}`);
       FetchPontoUserBankAccessHandler.ACTIVE_ACCESS_TOKEN_FETCHES[connectionId] = false;
       return;
     }

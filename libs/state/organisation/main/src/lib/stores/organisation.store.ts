@@ -47,8 +47,8 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
                                     
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
 
-    this._sbS.sink = data$.subscribe(properties => {
-      this.set(properties, 'UPDATE - FROM DB');
+    this._sbS.sink = data$.subscribe(orgs => {
+      this.set(orgs, 'UPDATE - FROM DB');
     });
   }
 

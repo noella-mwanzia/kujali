@@ -1,1 +1,34 @@
-<p>connect-ponto works!</p>
+<app-page>
+  <div class="main-page" fxLayout="column" fxLayoutAlign="start start">
+    <div *ngIf="!loadingAccounts else loading" fxLayout="column" fxLayoutAlign="center" fxFlex="50" class="bank-selection">
+      <div class="title">
+        {{ 'ACCOUNTING.CONNECT-PONTO.SELECT-BANK-ACC.TITLE' | transloco }} : {{ bankAccName }}
+      </div>
+      <div class="accounts-container">
+        <div class="bank-acc-card mat-elevation-z1" *ngFor="let bankAcc of bankAccounts"(click)="setSelectedAccount(bankAcc)"
+            fxLayout="column" fxLayoutGap="10px"  fxLayoutAlign="center center" [class.selected]="selectedAccount === bankAcc">
+          <div fxLayout="row" class="card-top" fxLayoutGap="10px">
+            <div class="bank-icon"><i class="far fa-credit-card"></i></div>
+            <div class="acc-iban">{{ bankAcc.iban  }}</div>
+          </div>
+
+          <div fxLayout="row" class="call-to-action" fxLayoutAlign="stretch center">
+            <button mat-stroked-button color="primary" id="select-acc" data-intercom-target="Select Account button">
+              {{ 'ACCOUNTING.CONNECT-PONTO.SELECT-BANK-ACC.SELECT-ACC-BTN' | transloco}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div  class="fill-sect" fxLayout="column" fxLayoutAlign="center stretch">
+      <!-- <app-generic-loading-screen [loadingTitle]="'ACCOUNTING.CONNECTING-LOADING' | transloco | uppercase "
+                                  [waitingDescription]="'ACCOUNTING.BANK-WAITING-DESCRIPTION' | transloco"
+                                  [loadingImgUrl]="'assets/images/banking-onboarding/wait-screen-2.png'">
+      </app-generic-loading-screen> -->
+    </div>
+  </ng-template>
+</app-page>
