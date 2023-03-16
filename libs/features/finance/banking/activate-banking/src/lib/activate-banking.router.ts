@@ -3,18 +3,19 @@ import { Route, RouterModule } from '@angular/router';
 
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
-import { OperationsPageComponent } from './pages/operations-page/operations-page.component';
+import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.component';
+
+import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
 const OPERATIONS_ROUTES: Route[] = [
   {
     path: '',
-    component: OperationsPageComponent,
+    component: BankingPageComponent,
     
   },
   {
-    path: 'banking',
-    loadChildren: () => import('@app/features/finance/banking/activate-banking').then(m => m.ActivateBankingModule),
-    canActivate: [IsLoggedInGuard]
+    path: 'connect-ponto',
+    component: ConnectPontoComponent
   },
 ];
 
