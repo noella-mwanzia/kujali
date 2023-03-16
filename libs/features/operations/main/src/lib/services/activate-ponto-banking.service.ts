@@ -25,13 +25,15 @@ export class ActivatePontoBankingService {
    *
   */
   pontoConstructRedirectLink(data: any, org: Organisation, acc: FAccount, onboardingId: string) {
+
+    debugger
     const challengeString = '';
     const reconnectParam = data.isReconnect ? '>reconnect' : '';
 
     const queryParams =
       new HttpParams()
-        .set('client_id', this._env.ponto.ibanity.clientId)
-        .set('redirect_uri', `${this._env.baseUrl}accounting/ponto-landing`)
+        .set('client_id', '4c2790ba-5c8f-44e8-aa0f-d7409cc11b1c')
+        .set('redirect_uri', `http://localhost:4200/operations/ponto-complete`)
         .set('response_type', 'code')
         // Specified by Ibanity
         .set('scope', 'ai pi name offline_access')
@@ -41,8 +43,9 @@ export class ActivatePontoBankingService {
         .set('onboarding_details_id', onboardingId);
 
 
-    const generatedUrl = `${this._env.ponto.userOnboardUrl}?${queryParams.toString()}`;
+    const generatedUrl = `https://sandbox-authorization.myponto.com/oauth2/auth?${queryParams.toString()}`;
 
+    debugger
     return generatedUrl;
   }
 
@@ -56,7 +59,7 @@ export class ActivatePontoBankingService {
  */
   pontocreateOnboardingDetails(org: Organisation, user: KuUser) {
     const body = { user, org: org};
-    return this._backendService.httpsCallable('initializePontoOnboardingDetails')(body);
+    return this._backendService.httpsCallable('createPontoOnboardingDetails')(body);
   }
 
 

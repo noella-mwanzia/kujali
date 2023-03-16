@@ -7,6 +7,11 @@ const OPERATIONS_ROUTES: Route[] = [
   {
     path: '',
     component: OperationsPageComponent,
+    
+  },
+  {
+    path: 'ponto-complete',
+    component: OperationsPageComponent,
   }
 ];
 

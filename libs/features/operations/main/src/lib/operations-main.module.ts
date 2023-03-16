@@ -12,7 +12,11 @@ import { iTalPageModule } from '@app/elements/layout/page';
 
 
 import { OperationsPageComponent } from './pages/operations-page/operations-page.component';
+
+import { ActivatePontoBankingService } from './services/activate-ponto-banking.service';
+
 import { OperationsRouterModule } from './operations.router';
+
 
 @NgModule({
   imports: [
@@ -28,5 +32,6 @@ import { OperationsRouterModule } from './operations.router';
     OperationsRouterModule
   ],
   declarations: [OperationsPageComponent],
+  providers: [ActivatePontoBankingService]
 })
 export class OperationsModule {}

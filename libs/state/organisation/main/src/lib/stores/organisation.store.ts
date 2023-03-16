@@ -42,6 +42,7 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
                                         user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
                                     
                                     // If no organisations are set, set to the default org which is of uid
+                                    tap((orgs: Organisation[]) => this._logger.log(() => `Orgs: ${orgs.length}`)),
                                     map((orgs: Organisation[]) => orgs.length > 0 ? orgs : [this._getDefaultOrg(this._activeUser)]),
                                     
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
@@ -55,11 +56,15 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
   {
     let q = new Query();
 
-    if(!user.roles.admin)
-    {
-      // Default org has ID = User ID
-      q = q.where('id', '==', user.id);
-    }
+
+    // Default org has ID = User ID
+    q = q.where('id', '==', user.id);
+
+    // if(!user.roles.admin)
+    // {
+    //   // Default org has ID = User ID
+    //   q = q.where('id', '==', user.id);
+    // }
 
     return q;
   }
@@ -76,9 +81,7 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
         email: u.email
       },
       users: [],
-      bankingInfo: {
-        accounts: {}
-      }
+      bankingInfo: { accounts: {}}
     };
   }
 

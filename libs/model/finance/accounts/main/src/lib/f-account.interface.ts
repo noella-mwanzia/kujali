@@ -2,12 +2,8 @@ import { IObject } from '@iote/bricks';
 
 import { BankConnectionAccountType } from '@app/model/finance/banking';
 
-export enum AccountType {
-  property = 'property',
-  owner = 'owner',
-  supplier = 'supplier',
-  fictive = 'fictive'
-}
+export enum AccountType {}
+
 export type TransactionType = 'cash' | 'bank';
 
 /** Minimal account information for a specific financial account. */
