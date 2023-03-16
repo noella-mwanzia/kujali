@@ -1,1 +1,57 @@
-<p>banking-page works!</p>
+<app-page>
+  <div class="main-page" fxLayout="column" fxLayoutAlign="start start">
+
+    <div fxLayout="column" fxLayoutAlign="start start">
+
+      <p>Your Accounts</p>
+
+      <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
+
+        <mat-card *ngIf="hasReserveAccount" class="account">
+          <div class="account-name">
+            Name : {{ accounts.reserve.name }}
+          </div>
+          <div class="account-iban">
+            IBAN : {{ accounts.reserve.iban }}
+          </div>
+          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('reserve')">
+            Connect to Ponto
+          </button>
+        </mat-card>
+
+        <mat-card *ngIf="hasSavingsAccount" class="account">
+          <div class="account-name">
+            Name : {{ accounts.savings.name }}
+          </div>
+          <div class="account-iban">
+            IBAN : {{ accounts.savings.iban }}
+          </div>
+          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('savings')">
+            Connect to Ponto
+          </button>
+        </mat-card>
+
+        <mat-card *ngIf="hasWorkongAccount" class="account">
+          <div class="account-name">
+            Name : {{ accounts.working.name }}
+          </div>
+          <div class="account-iban">
+            IBAN : {{ accounts.working.iban }}
+          </div>
+          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('working')">
+            Connect to Ponto
+          </button>
+        </mat-card>
+
+
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start"></div>
+
+    <div *ngIf="startPontoOnboarding" class="onboarding">
+      
+    </div>
+
+  </div>
+</app-page>

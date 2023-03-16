@@ -9,7 +9,6 @@ const OPERATIONS_ROUTES: Route[] = [
   {
     path: '',
     component: OperationsPageComponent,
-    
   },
   {
     path: 'banking',

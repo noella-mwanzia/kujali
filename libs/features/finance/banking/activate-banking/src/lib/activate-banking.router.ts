@@ -7,7 +7,7 @@ import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.
 
 import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
-const OPERATIONS_ROUTES: Route[] = [
+const BANKING_ROUTES: Route[] = [
   {
     path: '',
     component: BankingPageComponent,
@@ -20,7 +20,7 @@ const OPERATIONS_ROUTES: Route[] = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(OPERATIONS_ROUTES)],
+  imports: [RouterModule.forChild(BANKING_ROUTES)],
   exports: [RouterModule]
 })
-export class OperationsRouterModule { }
+export class ActivateBankingRouterModule { }

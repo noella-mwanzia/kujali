@@ -27,17 +27,27 @@
       </a>
 
       <!-- Section Operations -->
-      <a routerLink="/operations" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center"
-        fxLayoutGap="10px">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>{{'SIDENAV.NAV.OPERATIONS' | transloco}}</span>
-      </a>
+      <div>
+        <a routerLink="/operations" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center"
+          fxLayoutGap="10px">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>{{'SIDENAV.NAV.OPERATIONS' | transloco}}</span>
+        </a>
+        <div class="sub-menu">
+          <a routerLink="/operations/banking" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center"
+            fxLayoutGap="10px">
+            <i class="fa-solid fa-chart-line"></i>
+            <span> Banking </span>
+          </a>
+        </div>
+      </div>
 
       <!-- Section Budgetting -->
       <a routerLink="/budgets" routerLinkActive="active" fxLayout=row fxLayoutAlign="start center" fxLayoutGap="10px">
         <i class="fa-solid fa-wallet"></i>
         <span>{{'SIDENAV.NAV.BUDGETTING' | transloco}}</span>
       </a>
+
     </div>
 
     <div>

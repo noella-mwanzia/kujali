@@ -13,6 +13,8 @@ import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.
 
 import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
+import { ActivateBankingRouterModule } from './activate-banking.router';
+
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { BankingPageComponent } from './pages/banking-page/banking-page.componen
     FormsModule, ReactiveFormsModule,
 
     iTalPageModule,
+
+    ActivateBankingRouterModule
   ],
   declarations: [BankingPageComponent, ConnectPontoComponent],
 })
