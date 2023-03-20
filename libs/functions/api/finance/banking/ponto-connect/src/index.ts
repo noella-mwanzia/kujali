@@ -1,5 +1,6 @@
 export * from './lib/providers/ponto-signature.provider';
 export * from './lib/base/ponto-util.service';
+export * from './lib/services/ponto-account.service';
 
 export * from './lib/handle-ponto-transactions/handlers/fetch-ponto-user-bank-trs.handler';
 

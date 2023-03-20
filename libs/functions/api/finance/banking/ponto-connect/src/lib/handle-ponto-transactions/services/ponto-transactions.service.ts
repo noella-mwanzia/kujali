@@ -79,12 +79,12 @@ export class PontoTransactionsService
   }
 
   /**
-   * Each customer(i.e property in this case) needs to activate payments in order to enable PaymentBase initiation
+   * Each customer(i.e org in this case) needs to activate payments in order to enable PaymentBase initiation
    * @see https://documentation.ibanity.com/ponto-connect/1/api/curl#payment-activation-request
    * */
   async activatePayments(token: any, redirectUrl: string)
   {
-    const endpoint = PONTO_IBANITY_API_ENDPOINT + 'payment-activation-requests';
+    const endpoint = PONTO_IBANITY_API_ENDPOINT + '/payment-activation-requests';
 
     const data = {
       type: "paymentActivationRequest",
@@ -106,7 +106,7 @@ export class PontoTransactionsService
   async initiateCreditTransfer(token: any, accId: string, transaction: PaymentBase, redirectUrl: string)
 
   {
-    const endpoint = PONTO_IBANITY_API_ENDPOINT + 'accounts/' + accId + '/payments';
+    const endpoint = PONTO_IBANITY_API_ENDPOINT + '/accounts/' + accId + '/payments';
 
     const data: PontoPayment = {
       type: "payment",
