@@ -8,7 +8,7 @@ import * as fs from 'fs';
 
 import * as path from 'path';
 
-import { PontoSignatureService } from '../providers/ponto-signature.provider';
+import { PontoSignatureService } from '../services/ponto-signature.provider';
 
 import { AccessToken, BankConnectionAccountType, FetchAccessTokenCmd } from "@app/model/finance/banking";
 
