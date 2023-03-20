@@ -3,7 +3,7 @@
 
     <div fxLayout="column" fxLayoutAlign="start start">
 
-      <p>Your Accounts</p>
+      <h1 class="page-header" >Your Accounts</h1>
 
       <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
 
@@ -14,7 +14,7 @@
           <div class="account-iban">
             IBAN : {{ accounts.reserve.iban }}
           </div>
-          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('reserve')">
+          <button [disabled]="isLoading || accounts.reserve.bankConnection == 2" mat-stroked-button color="primary" (click)="connectToPonto('reserve')">
             Connect to Ponto
           </button>
         </mat-card>
@@ -26,7 +26,7 @@
           <div class="account-iban">
             IBAN : {{ accounts.savings.iban }}
           </div>
-          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('savings')">
+          <button [disabled]="isLoading || accounts.savings.bankConnection == 2" mat-stroked-button color="primary" (click)="connectToPonto('savings')">
             Connect to Ponto
           </button>
         </mat-card>
@@ -38,16 +38,20 @@
           <div class="account-iban">
             IBAN : {{ accounts.working.iban }}
           </div>
-          <button [disabled]="isLoading" mat-stroked-button color="primary" (click)="connectToPonto('working')">
+          <button [disabled]="isLoading || accounts.working.bankConnection == 2" mat-stroked-button color="primary" (click)="connectToPonto('working')">
             Connect to Ponto
           </button>
         </mat-card>
-
-
       </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start start"></div>
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <h1 class="page-header" >Connected Banks Accounts</h1>
+
+      <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
+
+      </div>
+    </div>
 
     <div *ngIf="startPontoOnboarding" class="onboarding">
       

@@ -29,7 +29,14 @@ export class ConnectPontoComponent implements OnInit {
   bankAccName: string;
 
   bankAccounts: PontoAccount[];
+
+  newRenderAccounts: any[];
+
   selectedAccount: PontoAccount;
+
+  activeAccount: ActiveAccount;
+
+  settingBankAccount: boolean = false;
 
   constructor(private _afFunctions: AngularFireFunctions,
               private _route: ActivatedRoute,
@@ -62,7 +69,6 @@ export class ConnectPontoComponent implements OnInit {
   }
 
   getBankAccounts(params: Params, org: Organisation) {
-    debugger
 
     const accountDetails = params['state'].split('>');
     this.orgId = accountDetails[0];
@@ -91,7 +97,6 @@ export class ConnectPontoComponent implements OnInit {
         .pipe(map(() => this.finalize()));
     }
 
-    debugger
 
     return this._afFunctions.httpsCallable('updatePontoConnection')(data);
   }
@@ -102,34 +107,69 @@ export class ConnectPontoComponent implements OnInit {
     if (this.bankAccounts.length > 0) {
       this.bankAccName = this.bankAccounts[0].sysAccName!;
     }
-    debugger
+
+    this.newRenderAccounts = this.bankAccounts.map((acc) => {return {...acc, displayData: this.createBankAccoutObject(acc)}});
   }
 
   setSelectedAccount(acc: PontoAccount) {
+    this.settingBankAccount = true;
+    delete acc['displayData'];
 
     let data = {
       orgId: this.orgId,
       newBankAccount: acc,
     }
-    console.log(data);
 
-    // this._dialog.open(ConfirmBankConDialogComponent, {
-    //   width: '550px',
-    //   height: '550px',
-    //   position: { top: '20px'},
-    //   data: {
-    //     orgId: this.orgId,
-    //     newBankAccount: acc,
-    //   }
-    // })
+    this.confirmBankConnection(data);
   }
 
+    //Confirm account user is selecting to connect the transactions
+    confirmBankConnection(data: any)
+    {
+      // this.isConnecting = true;
+
+      this._sbS.sink = this._afFunctions.httpsCallable('setSelectedBankAccount')(data)
+                                           .subscribe(()=> this.finalize());
+    }
+
   finalize() {
-    this._router.navigate(['/accounting', this.orgId, 'transfers', 'currents']);
+    this.settingBankAccount = false;
+    this._router.navigate(['operations/banking']);
+  }
+
+  createBankAccoutObject(acc: any): ActiveAccount {
+    this.activeAccount = acc['originalAccountInstance']['attributes'];
+    return this.activeAccount;
   }
 
   ngOnDestroy() {
     this._sbS.unsubscribe();
   }
 
+}
+
+interface ActiveAccount extends PontoAccount {
+  displayData: D;
+}
+
+interface D {
+  authorizationExpirationExpectedAt : string,
+  authorizedAt : string,
+  availableBalance : number,
+  availableBalanceChangedAt: string,
+  availableBalanceReferenceDate : string,
+  availableBalanceVariationObservedAt : string,
+  currency : string,
+  currentBalance : number,
+  currentBalanceChangedAt : string,
+  currentBalanceReferenceDate : string,
+  currentBalanceVariationObservedAt : string,
+  deprecated : boolean,
+  description : string,
+  holderName : string,
+  internalReference : string,
+  product: string,
+  reference : string,
+  referenceType : string,
+  subtype : string
 }

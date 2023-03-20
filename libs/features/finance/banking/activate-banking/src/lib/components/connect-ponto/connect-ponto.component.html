@@ -1,34 +1,87 @@
 <app-page>
-  <div class="main-page" fxLayout="column" fxLayoutAlign="start start">
-    <div *ngIf="!loadingAccounts else loading" fxLayout="column" fxLayoutAlign="center" fxFlex="50" class="bank-selection">
-      <div class="title">
-        {{ 'ACCOUNTING.CONNECT-PONTO.SELECT-BANK-ACC.TITLE' | transloco }} : {{ bankAccName }}
-      </div>
-      <div class="accounts-container">
-        <div class="bank-acc-card mat-elevation-z1" *ngFor="let bankAcc of bankAccounts"(click)="setSelectedAccount(bankAcc)"
-            fxLayout="column" fxLayoutGap="10px"  fxLayoutAlign="center center" [class.selected]="selectedAccount === bankAcc">
-          <div fxLayout="row" class="card-top" fxLayoutGap="10px">
-            <div class="bank-icon"><i class="far fa-credit-card"></i></div>
-            <div class="acc-iban">{{ bankAcc.iban  }}</div>
+  <div class="main-page">
+    <mat-card class="main-card">
+
+      <!-- <div class="title">
+        Connect your bank account(s)
+      </div> -->
+
+      <div *ngIf="!loadingAccounts else loading" class="accounts-container">
+        <mat-card class="bank-acc-card mat-elevation-z1" *ngFor="let bankAcc of newRenderAccounts" fxLayout="column"
+          fxLayoutGap="10px" fxLayoutAlign="center center">
+
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+
+            <div fxFlex="40" fxFlexFill>
+              <img src="https://images.pexels.com/photos/5849577/pexels-photo-5849577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+            </div>
+
+            <div class="account-details" fxLayout="column" fxFlex>
+
+              <div class="my-account">
+                <p class="account-title" >My Account</p>
+                <span>{{ bankAccName }}</span>
+              </div>
+
+              <p class="account-title">Bank Account Details</p>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Holder Name : </p>
+                <p> {{ bankAcc.displayData.holderName }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Description : </p>
+                <p> {{ bankAcc.displayData.description }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Currency : </p>
+                <p> {{ bankAcc.displayData.currency }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Current Balance : </p>
+                <p> {{ bankAcc.displayData.currentBalance }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Available Balance : </p>
+                <p> {{ bankAcc.displayData.availableBalance }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Product : </p>
+                <p> {{ bankAcc.displayData.product }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Reference Type : </p>
+                <p> {{ bankAcc.displayData.referenceType }} </p>
+              </div>
+
+              <div class="account-data" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
+                <p> Reference : </p>
+                <p> {{ bankAcc.displayData.reference }} </p>
+              </div>
+
+              <button [disabled]="settingBankAccount" mat-raised-button color="primary" class="select-acc" (click)="setSelectedAccount(bankAcc)">
+                Connect Account
+              </button>
+            </div>
           </div>
 
-          <div fxLayout="row" class="call-to-action" fxLayoutAlign="stretch center">
-            <button mat-stroked-button color="primary" id="select-acc" data-intercom-target="Select Account button">
-              {{ 'ACCOUNTING.CONNECT-PONTO.SELECT-BANK-ACC.SELECT-ACC-BTN' | transloco}}
-            </button>
-          </div>
-        </div>
+        </mat-card>
       </div>
 
-    </div>
+    </mat-card>
   </div>
 
   <ng-template #loading>
-    <div  class="fill-sect" fxLayout="column" fxLayoutAlign="center stretch">
-      <!-- <app-generic-loading-screen [loadingTitle]="'ACCOUNTING.CONNECTING-LOADING' | transloco | uppercase "
-                                  [waitingDescription]="'ACCOUNTING.BANK-WAITING-DESCRIPTION' | transloco"
-                                  [loadingImgUrl]="'assets/images/banking-onboarding/wait-screen-2.png'">
-      </app-generic-loading-screen> -->
-    </div>
+    <mat-card fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="loading">
+      <p>Loading account(s), Please wait....</p>
+
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" alt="">
+    </mat-card>
   </ng-template>
 </app-page>
