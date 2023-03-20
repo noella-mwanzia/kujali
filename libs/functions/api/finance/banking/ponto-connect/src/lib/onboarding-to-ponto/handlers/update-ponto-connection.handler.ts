@@ -26,7 +26,7 @@ const PONTO_IBANITY_API_ENDPOINT = 'https://api.ibanity.com/ponto-connect/';
  *
  * // Step 3. Fetch all authorized Ponto Accounts
  *
- * // Step 4. Transform into S4Y - relevant accounts and return transformed accounts list
+ * // Step 4. Transform into Kujali - relevant accounts and return transformed accounts list
  *
  * @returns PontoConnection
  *
@@ -59,7 +59,7 @@ export class UpdatePontoConnectionHandler extends FunctionHandler<UpdatePontoCon
     const accObjects: any[] = await onboardingService.getPontoFAccounts(userAccess.access_token);
     tools.Logger.log(() => `[UpdatePontoConnectionHandler].execute: Fetched Ponto accounts: ${ accObjects?.length }`);
 
-    // Step 4. Transform into S4Y - relevant accounts
+    // Step 4. Transform into Kujali - relevant accounts
     const pontoAccounts = await this._toFAccounts(accObjects, data, tools);
 
     return pontoAccounts as any;

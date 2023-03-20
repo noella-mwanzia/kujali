@@ -3,7 +3,7 @@ import { IObject } from '@iote/bricks';
 import { BankConnectionAccountType } from "./bank-connection-account-type.enum";
 
 /**
- * A single connection between an s4y FAccount and a third party integrator bank account
+ * A single connection between an kujali FAccount and a third party integrator bank account
  */
 export interface BankConnectionAccount extends IObject
 {
@@ -26,7 +26,7 @@ export interface BankConnectionAccount extends IObject
   active: boolean;
   /** When the bank account was created **/
   activationDate: Timestamp;
-  /** The original account object before mapping to S4Y account  */
+  /** The original account object before mapping to Kujali account  */
   originalAccountInstance: any;
 
   /** Account balances as per the bank */

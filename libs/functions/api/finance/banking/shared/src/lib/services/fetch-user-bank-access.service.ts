@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 
 import { AccessTokenWrapper, BankConnection, BankConnectionStatus, RefreshTokenStatus } from '@app/model/finance/banking';
 
-// import { SwanFunctionCallsService } from '@s4y/functions/api/banking/swan';
+// import { SwanFunctionCallsService } from '@app/functions/api/banking/swan';
 
 import { PontoConnectUtilityService } from '@app/functions/api/finance/banking/ponto-connect';
 

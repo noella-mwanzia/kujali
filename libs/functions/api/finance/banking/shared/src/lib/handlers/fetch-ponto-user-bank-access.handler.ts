@@ -5,7 +5,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { BankConnection, BankConnectionAccount, BankConnectionAccountType, FetchAccessTokenCmd } from '@app/model/finance/banking';
 
 // to add swan support in future
-// import { SwanFunctionCallsService } from '@s4y/functions/api/banking/swan';
+// import { SwanFunctionCallsService } from '@app/functions/api/banking/swan';
 
 import { PontoConnectUtilityService } from '@app/functions/api/finance/banking/ponto-connect';
 

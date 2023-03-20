@@ -131,7 +131,7 @@ export class PontoConnectUtilityService
    *
    * @see https://github.com/request/request-promise/issues/251 - adding certificate, key, etc
    *
-   * @param authCode -The OAuth code sent back when linking user accounts between s4y and Ponto
+   * @param authCode -The OAuth code sent back when linking user accounts between kujali and Ponto
    *
    * @param redirectUrl -The url to send the user back to
    *

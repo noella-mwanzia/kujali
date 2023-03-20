@@ -49,7 +49,7 @@ export class FetchPontoUserBankTrsHandler extends FunctionHandler<{ orgId: strin
     const pontoAccount = pontoConnection.accounts.find(acc => acc.sysAccId === data.orgAccId);
 
     if(!pontoAccount) {
-      tools.Logger.log(() => `[FetchPontoTrsHandler].execute: No associated account found for property ${data.orgId}, bankAccId ${data.orgAccId}`);
+      tools.Logger.log(() => `[FetchPontoTrsHandler].execute: No associated account found for org ${data.orgId}, bankAccId ${data.orgAccId}`);
       return;
     }
 
