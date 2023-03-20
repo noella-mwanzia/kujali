@@ -6,18 +6,19 @@ import { BankConnection, BankConnectionAccount } from "@app/model/finance/bankin
 import { FAccount } from '@app/model/finance/accounts/main';
 
 import { __PubSubPublishAction } from "@app/functions/pubsub";
+import { Organisation } from "@app/model/organisation";
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
 /**
  * @class SetSelectedBankAccountHandler
  *
- * @description Updates the property's FAccount with new bank account details, and
+ * @description Updates the org's FAccount with new bank account details, and
  * adds the new bank account to the list of bank connection accounts
  *
  * Step 1. Trigger switch to bank payments function to clear any existing manual payments.
  *
- * Step 2. Update S4Y FAccount
+ * Step 2. Update Kujali FAccount
  *
  * Step 3. Update Bank connection
  *
@@ -34,19 +35,43 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
     tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Property: ${data.orgId}. New Bank account: ${ JSON.stringify(data.newBankAccount) }`);
 
     // Step 1. Trigger switch to bank payments function
-    const payload = { orgId: data.orgId, orgAccId: data.newBankAccount.sysAccId };
-    await __PubSubPublishAction<{ orgId: string}>('switchToBankPubSub', payload);
+    // const payload = { orgId: data.orgId, orgAccId: data.newBankAccount.sysAccId };
+    // await __PubSubPublishAction<{ orgId: string}>('switchToBankPubSub', payload);
 
-    // Step 1. Get corresponding S4Y Account
-    const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
-    const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
+    // Step 1. Get corresponding Kujali Account
+    // const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
+    // const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
 
-    // Step 2. Update S4Y FAccount
+    const _accRepo = tools.getRepository<Organisation>(`orgs`);
+    const orgData = await _accRepo.getDocumentById(data.orgId);
+
+    const typeOfAccount = data.newBankAccount.sysAccId.split('_')[0];
+
+    let acc = "";
+
+    switch (typeOfAccount) {
+      case 'wac':
+        acc = 'working';
+        break
+      case 'sac':
+        acc = 'savings';
+        break
+      case 'rac':
+        acc = 'reserve';
+        break
+    }
+
+    const account = orgData.bankingInfo.accounts[acc];
+
+    // Step 2. Update Kujali FAccount
     tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Updating iban for account: ${ account.name }.`);
     account.bic = data.newBankAccount.bic;
     account.iban = data.newBankAccount.iban;
     account.bankConnection = data.newBankAccount.type;
-    await _accRepo.update(account);
+
+    orgData.bankingInfo.accounts[acc] = account;
+
+    await _accRepo.update(orgData);
 
     // Step 3. Add newly-linked bank account to this connection's list of accounts and update Bank connection
     const _bankConnectionRepo = tools.getRepository<BankConnection>(BANK_ACCOUNT_CONNECTIONS_REPO(data.orgId));
@@ -61,7 +86,7 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
 
     // Step 4. Perform initial transactions fetch
     const fetchTrsPayload = { orgId: data.orgId, orgAccId: account.id};
-    await __PubSubPublishAction<{ orgId: string}>('fetchPontoTransactionsPubsub', fetchTrsPayload);
+    await __PubSubPublishAction<{ orgId: string}>('fetchPontoUserBankTransactionsPubsub', fetchTrsPayload);
 
     return conn;
   }
