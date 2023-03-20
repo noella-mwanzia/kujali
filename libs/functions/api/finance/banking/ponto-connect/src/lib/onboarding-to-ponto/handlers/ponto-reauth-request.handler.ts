@@ -48,7 +48,7 @@ export class ReauthorizePontoAccountHandler extends FunctionHandler<{ orgId: str
     const pontoAccount = pontoConnection.accounts.find(acc => acc.sysAccId === data.orgAccId);
 
     if(!pontoAccount) {
-      tools.Logger.log(() => `[ReauthorizePontoAccountHandler].execute: No associated account found for property ${data.orgId}, orgAccId ${data.orgAccId}`);
+      tools.Logger.log(() => `[ReauthorizePontoAccountHandler].execute: No associated account found for org ${data.orgId}, orgAccId ${data.orgAccId}`);
       return;
     }
 

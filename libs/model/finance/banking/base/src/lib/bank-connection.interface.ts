@@ -6,7 +6,7 @@ import { BankConnectionStatus } from "./bank-connection-status.enum";
 /**
  * @interface {BankConnection}
  *
- * The Bankconnection class represents the integration piece between a property and a Third-party banking API provider.
+ * The Bankconnection class represents the integration piece between a org and a Third-party banking API provider.
  *
  * The BankConnection is used to store information on provider configuration, which is used by our adapters to convert the
  * provider data to syndic4you compatible data.

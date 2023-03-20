@@ -17,7 +17,7 @@ export enum PaymentSources
 export interface Payment extends PaymentBase
 {
   mode: 1 | -1;
-  /** Account ID of the account with whom the payment is being done. The with is the opposite of a property account. */
+  /** Account ID of the account with whom the payment is being done. The with is the opposite of a org account. */
   with: 'self' | 'unknown' | string;
   /** Account name of with */
   withName: string;
