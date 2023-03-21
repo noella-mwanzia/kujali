@@ -1,21 +1,13 @@
-import { FunctionHandler, FunctionContext } from '@ngfi/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
-
-import * as request from 'request-promise';
-
-import { PontoConnection } from '@app/model/finance/banking/ponto';
-
-import { BankConnectionAccountType, FetchAccessTokenCmd } from '@app/model/finance/banking';
+import { Query } from '@ngfi/firestore-qbuilder';
+import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 
 import { BankTransaction } from '@app/model/finance/payments';
+import { PontoConnection } from '@app/model/finance/banking/ponto';
+import { BankConnectionAccountType } from '@app/model/finance/banking';
 
 import { PontoTransactionsService } from '../services/ponto-transactions.service';
-
 import { PontoTrReducerService } from '../services/ponto-trs-reducer.service';
-
-import { PontoConfig } from '../../model/ponto-config.interface';
-
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
