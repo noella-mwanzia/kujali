@@ -1,10 +1,8 @@
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 
-import { Organisation } from '@app/model/organisation';
-
 import { KuUser } from '@app/model/common/user';
-
+import { Organisation } from '@app/model/organisation';
 import { OnboardingDetailsObj } from '@app/model/finance/banking/ponto';
 
 import { PontoConnectOnboardingService } from '../services/ponto-connect-onboarding.service';
@@ -27,9 +25,7 @@ export class CreatePontoOnboardingDetailsHandler extends FunctionHandler<{ user:
     tools.Logger.log(() => `[CreatePontoOnboardingDetailsHandler].execute: processing request for onboarding link for: ${ data.org!.id }.`);
 
     // Step 1. Initialize Onboarding Service
-
-    const onboardingService = new PontoConnectOnboardingService(
-                                    tools.Logger);
+    const onboardingService = new PontoConnectOnboardingService(tools.Logger);
 
     // Step 2. Create onboarding session
     const result = await onboardingService.getOnboardingId(data.org!, data.user);
@@ -41,10 +37,9 @@ export class CreatePontoOnboardingDetailsHandler extends FunctionHandler<{ user:
       return result;
     }
 
-    tools.Logger.log(() => "SUCCESS!! 🙌🙌🎉🎉🎉🎉🎉");
+    tools.Logger.log(() => "SUCCESSFUl!! 🎉");
 
     // Step 3. Return OnboardingId
     return (result.data as OnboardingDetailsObj).id;
   }
-
 }

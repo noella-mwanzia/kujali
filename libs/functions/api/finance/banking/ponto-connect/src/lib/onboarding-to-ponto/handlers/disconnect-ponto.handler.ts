@@ -4,26 +4,17 @@ import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
 import * as firebaseTools from 'firebase-tools';
 
+import { FAccount } from '@app/model/finance/accounts/main';
+import { BankTransaction } from '@app/model/finance/payments';
+import { PontoConnection } from "@app/model/finance/banking/ponto";
 import { BankConnectionAccountType } from "@app/model/finance/banking";
 
-
-import { BankTransaction } from '@app/model/finance/payments';
-
-import { PontoConnection } from "@app/model/finance/banking/ponto";
-
-import { FAccount } from '@app/model/finance/accounts/main';
-
+import { PontoConnectUtilityService } from "../../base/ponto-util.service";
 import { PontoConnectOnboardingService } from "../services/ponto-connect-onboarding.service";
 
-import { PontoConnectUtilityService } from "../../base/ponto-util.service";
-
-
 const ACCOUNTS_REPO = (orgId: string) => `orgs/${orgId}/accounts`;
-
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
-
 const BANK_ACCOUNT_TRANSACTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-transactions`;
-
 const PONTO_ACCOUNT_TRANSACTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/ponto-transactions`;
 
 /**
@@ -105,19 +96,19 @@ export class DisconnectPontoHandler extends FunctionHandler<{ orgId: string, sys
     tools.Logger.log(() => `[DisconnectPontoHandler].execute: Deleted ponto bank connection completely`);
 
     // Step 4. Update bank account
-    tools.Logger.log(() => `[DisconnectPontoHandler].execute: Resetting propAccount ${ account.sysAccId } back to manual accounting.`);
-    const _propAccountsRepo = tools.getRepository<FAccount>(ACCOUNTS_REPO(data.orgId));
-    const propAcc = await _propAccountsRepo.getDocumentById(account.sysAccId);
+    tools.Logger.log(() => `[DisconnectPontoHandler].execute: Resetting orgAccount ${ account.sysAccId } back to manual accounting.`);
+    const _orgAccountsRepo = tools.getRepository<FAccount>(ACCOUNTS_REPO(data.orgId));
+    const orgAcc = await _orgAccountsRepo.getDocumentById(account.sysAccId);
 
-    if(!propAcc)
+    if(!orgAcc)
     {
       tools.Logger.log(() => `[DisconnectPontoHandler].execute: No org account found corresponding to the account Id: ${ account.sysAccId }`);
       return false;
     }
 
-    propAcc.bankConnection = BankConnectionAccountType.None;
-    _propAccountsRepo.update(propAcc);
-    tools.Logger.log(() => `[DisconnectPontoHandler].execute: PropAccount ${ account.sysAccId } has been reset back to manual accounting.`);
+    orgAcc.bankConnection = BankConnectionAccountType.None;
+    _orgAccountsRepo.update(orgAcc);
+    tools.Logger.log(() => `[DisconnectPontoHandler].execute: orgAccount ${ account.sysAccId } has been reset back to manual accounting.`);
 
     // Step 5. Revoke Ponto Integration (Might cause error in case the access tokens had been messed up via race conditions).
     try{

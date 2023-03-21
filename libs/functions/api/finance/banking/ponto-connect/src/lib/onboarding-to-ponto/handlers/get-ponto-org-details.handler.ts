@@ -1,21 +1,19 @@
 import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 import { Query } from '@ngfi/firestore-qbuilder';
+import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 import { PontoConnection } from '@app/model/finance/banking/ponto';
-
 import { BankConnectionAccountType } from '@app/model/finance/banking';
 
 import { PontoAccountService } from '../../services/ponto-account.service';
-
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
 /**
  * @class GetPontoOrgDetailsHandler
- * @extends {FunctionHandler<{ propId: string }, any>}
+ * @extends {FunctionHandler<{ orgId: string }, any>}
  *
- * @param propId: Property id
+ * @param orgId: Organisation id
  * @param transaction: The new payment to be created
  *
  * Step 1. Get Ponto Connection
@@ -24,13 +22,13 @@ const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-co
  * Step 4. Send payment activation request
  * Step 5. Update paymentsActivated field
  */
-export class GetPontoOrgDetailsHandler extends FunctionHandler<{ propId: string, propAccId: string }, any>
+export class GetPontoOrgDetailsHandler extends FunctionHandler<{ orgId: string, orgAccId: string }, any>
 {
-  public async execute(data: { propId: string, propAccId: string }, context: FunctionContext, tools: HandlerTools): Promise<any> {
+  public async execute(data: { orgId: string, orgAccId: string }, context: FunctionContext, tools: HandlerTools): Promise<any> {
     tools.Logger.log(() => `[GetPontoOrgDetailsHandler].execute: Data: ${JSON.stringify(data)}.`);
 
     // Step 1. Get Ponto Connection
-    const _bankConnectionRepo = tools.getRepository<PontoConnection>(BANK_ACCOUNT_CONNECTIONS_REPO(data.propId));
+    const _bankConnectionRepo = tools.getRepository<PontoConnection>(BANK_ACCOUNT_CONNECTIONS_REPO(data.orgId));
     const query = new Query().where('type', '==', BankConnectionAccountType.Ponto);
     const connections = await _bankConnectionRepo.getDocuments(query);
     const pontoConnection: PontoConnection = connections.length > 0 ? connections[0] : null as any;
@@ -41,7 +39,7 @@ export class GetPontoOrgDetailsHandler extends FunctionHandler<{ propId: string,
 
     // Step 3. Fetch and update user access token
     tools.Logger.log(() => `[GetPontoOrgDetailsHandler].execute: Fetching user access.`);
-    const userAccess = await _pontoAccService._utilityService.getPontoUserAccess(data.propId, data.propAccId);
+    const userAccess = await _pontoAccService._utilityService.getPontoUserAccess(data.orgId, data.orgAccId);
 
     if(!userAccess?.access_token){
       tools.Logger.error(() => `[GetPontoOrgDetailsHandler].execute: Error! User access is invalid: ${ JSON.stringify(userAccess) }.`);

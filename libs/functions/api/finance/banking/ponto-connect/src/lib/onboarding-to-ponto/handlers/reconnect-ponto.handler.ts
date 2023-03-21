@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
-import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { AdminRepositoryFactory } from "@ngfi/admin-data";
+import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
 import { chunk } from 'lodash';
 
@@ -80,7 +80,8 @@ export class ReconnectPontoHandler extends FunctionHandler<{ authCode: string, r
   }
 
   private async performAccessTokenDeletions(orgId: string, accountId: string){
-    const MAX_WRITES_PER_BATCH = 500; /** https://cloud.google.com/firestore/quotas#writes_and_transactions */
+    /** https://cloud.google.com/firestore/quotas#writes_and_transactions */
+    const MAX_WRITES_PER_BATCH = 500;
 
     const commitBatchPromises: any[] = [];
     const _db = (AdminRepositoryFactory as any).__getStore() as FirebaseFirestore.Firestore;

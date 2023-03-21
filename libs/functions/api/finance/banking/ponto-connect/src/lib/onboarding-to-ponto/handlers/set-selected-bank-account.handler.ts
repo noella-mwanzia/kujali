@@ -2,11 +2,10 @@ import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
+import { Organisation } from "@app/model/organisation";
 import { BankConnection, BankConnectionAccount } from "@app/model/finance/banking";
-import { FAccount } from '@app/model/finance/accounts/main';
 
 import { __PubSubPublishAction } from "@app/functions/pubsub";
-import { Organisation } from "@app/model/organisation";
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
@@ -34,11 +33,9 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
   {
     tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Property: ${data.orgId}. New Bank account: ${ JSON.stringify(data.newBankAccount) }`);
 
-    // Step 1. Trigger switch to bank payments function
-    // const payload = { orgId: data.orgId, orgAccId: data.newBankAccount.sysAccId };
-    // await __PubSubPublishAction<{ orgId: string}>('switchToBankPubSub', payload);
+    // Step 1. Get corresponding Kujali Account from Org Object
 
-    // Step 1. Get corresponding Kujali Account
+    // (IAN) update to allow unlimited bank accounts i.e accounts-repo
     // const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
     // const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
 

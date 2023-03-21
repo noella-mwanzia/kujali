@@ -1,16 +1,14 @@
-import { FunctionHandler, FunctionContext } from '@ngfi/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
+import { Query } from '@ngfi/firestore-qbuilder';
+import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 
 import { BankConnectionAccountType } from '@app/model/finance/banking';
 import { PontoConnection } from '@app/model/finance/banking/ponto';
 
-import { PontoConnectUtilityService } from '../../base/ponto-util.service';
-
 import { PontoReauthRequest } from '../../model/ponto-reauth-request.interface';
 
+import { PontoConnectUtilityService } from '../../base/ponto-util.service';
 import { PontoConnectOnboardingService } from '../services/ponto-connect-onboarding.service';
-
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
@@ -72,7 +70,7 @@ export class ReauthorizePontoAccountHandler extends FunctionHandler<{ orgId: str
       return result;
     }
 
-    tools.Logger.log(() => `[ReauthorizePontoAccountHandler].execute: SUCCESS!! 🙌🙌🎉🎉🎉🎉🎉. Redirect request object: ${JSON.stringify(result.data)}`);
+    tools.Logger.log(() => `[ReauthorizePontoAccountHandler].execute: SUCCESSFUL!!🎉. Redirect request object: ${JSON.stringify(result.data)}`);
 
     // Step 3. Return reAuthorize url
     return (result.data as PontoReauthRequest)?.links?.redirect;
