@@ -5,17 +5,15 @@ import * as moment from 'moment-timezone';
 
 import { PaymentSources } from '@app/model/finance/payments';
 import { BankTransaction } from '@app/model/finance/payments';
-
 import { FTransactionTypes } from '@app/model/finance/payments';
 
 import { PontoTransaction } from '../../model/ponto-transaction.interface';
 
 export class PontoTrReducerService
 {
-  constructor()
-  { }
+  constructor() { }
 
-  convertToS4YPayment(pontoTransactions: PontoTransaction[], accName: string, accId: string, iban: string)
+  convertToKujaliPayment(pontoTransactions: PontoTransaction[], accName: string, accId: string, iban: string)
   {
     return pontoTransactions.map(tr => this.convertToPayment(tr, accName, accId, iban));
   }

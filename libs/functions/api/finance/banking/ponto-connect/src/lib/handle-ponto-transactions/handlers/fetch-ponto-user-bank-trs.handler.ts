@@ -73,7 +73,7 @@ export class FetchPontoUserBankTrsHandler extends FunctionHandler<{ orgId: strin
     // Step 4. Add new transactions to database
     tools.Logger.log(() => `[FetchPontoTrsHandler].execute: Formatting ponto transactions.`);
     const _reducerService = new PontoTrReducerService();
-    const updatedTrs: BankTransaction[] = _reducerService.convertToS4YPayment(recentTransactions, pontoAccount.sysAccName!, pontoAccount.sysAccId, pontoAccount.iban);
+    const updatedTrs: BankTransaction[] = _reducerService.convertToKujaliPayment(recentTransactions, pontoAccount.sysAccName!, pontoAccount.sysAccId, pontoAccount.iban);
 
     if(updatedTrs.length > 0)
     {
