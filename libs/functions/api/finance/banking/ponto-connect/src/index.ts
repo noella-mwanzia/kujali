@@ -1,4 +1,4 @@
-export * from './lib/services/ponto-signature.provider';
+export * from './lib/services/ponto-signature.service';
 export * from './lib/base/ponto-util.service';
 export * from './lib/services/ponto-account.service';
 
