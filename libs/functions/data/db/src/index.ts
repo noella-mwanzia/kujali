@@ -1,1 +1,1 @@
-export * from './lib/functions-data-db.module';
+export * from './lib/handlers/create-payments.hander';
