@@ -17,7 +17,7 @@ export class PontoConnectUtilityService
   constructor(private _logger: Logger)
   {  }
 
-  async doCall(data: any, endpoint: string, accessToken?: AccessToken, useSignature = false)
+  async makePontoPostRequest(data: any, endpoint: string, accessToken?: AccessToken, useSignature = false)
   {
     const conn = accessToken ? accessToken : await this.establishConnection();
 
@@ -54,7 +54,7 @@ export class PontoConnectUtilityService
 
       return request.post(options);
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].doCall : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].makePontoPostRequest : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);
     }
   }

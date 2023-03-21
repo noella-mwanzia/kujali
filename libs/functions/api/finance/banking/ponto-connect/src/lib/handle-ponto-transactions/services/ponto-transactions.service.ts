@@ -4,14 +4,12 @@ import * as _ from 'lodash';
 
 import { PaymentBase, SANITIZE_TEXT_INPUT } from '@app/model/finance/payments';
 
-import { PontoConnectUtilityService } from '../.../../../base/ponto-util.service';
-
 import { PontoPayment } from '../../model/ponto-payment.interface';
-
 import { PontoTransaction } from '../../model/ponto-transaction.interface';
 
+import { PontoConnectUtilityService } from '../.../../../base/ponto-util.service';
 
-const PONTO_IBANITY_API_ENDPOINT = 'https://api.ibanity.com/ponto-connect';
+const PONTO_IBANITY_API_ENDPOINT = process.env['PONTO_IBANITY_API_ENDPOINT'];
 
 export class PontoTransactionsService
 {
@@ -24,8 +22,9 @@ export class PontoTransactionsService
 
   async fetchTransactions(token: string, accId: string, isInitialFetch: boolean, trId?: string): Promise<PontoTransaction[]>
   {
-    const limit = 100; // Maximum number allowed
-    let endpoint = PONTO_IBANITY_API_ENDPOINT + `/accounts/${accId}/transactions?page[limit]=${limit}`;
+    // Maximum number allowed by Ponto
+    const limit = 100;
+    let endpoint = PONTO_IBANITY_API_ENDPOINT + `accounts/${accId}/transactions?page[limit]=${limit}`;
 
     /*
      * Transactions from Ponto seem to be ordered by date Descending. (Last checked on: 18/10/2021)
@@ -38,7 +37,9 @@ export class PontoTransactionsService
     return await this._makeRecursiveCallToPonto(token, [], endpoint, isInitialFetch, limit);
   }
 
-  private async _makeRecursiveCallToPonto(token: string, transactions: any[] = [], endpoint: string, isInitialFetch: boolean, limit: number, index = 1): Promise<PontoTransaction[]>
+  private async _makeRecursiveCallToPonto(token: string, transactions: any[] = [],
+                                          endpoint: string, isInitialFetch: boolean,
+                                          limit: number, index = 1): Promise<PontoTransaction[]>
   {
     const result = await this._utilityService.performGetRequest(token, endpoint);
 
@@ -51,7 +52,6 @@ export class PontoTransactionsService
     if(newEndpoint)
     {
       this._logger.log(() => `[FetchPontoTrsHandler] _makeRecursiveCallToPonto(): Making call to fetch ${limit} more transactions`);
-
       return this._makeRecursiveCallToPonto(token, transactions, newEndpoint, isInitialFetch, index++, limit);
     }
     else
@@ -84,7 +84,7 @@ export class PontoTransactionsService
    * */
   async activatePayments(token: any, redirectUrl: string)
   {
-    const endpoint = PONTO_IBANITY_API_ENDPOINT + '/payment-activation-requests';
+    const endpoint = PONTO_IBANITY_API_ENDPOINT + 'payment-activation-requests';
 
     const data = {
       type: "paymentActivationRequest",
@@ -92,7 +92,7 @@ export class PontoTransactionsService
         redirectUri: redirectUrl
       }
     }
-    return this._utilityService.doCall(data, endpoint, token);
+    return this._utilityService.makePontoPostRequest(data, endpoint, token);
   }
 
   /**
@@ -106,7 +106,7 @@ export class PontoTransactionsService
   async initiateCreditTransfer(token: any, accId: string, transaction: PaymentBase, redirectUrl: string)
 
   {
-    const endpoint = PONTO_IBANITY_API_ENDPOINT + '/accounts/' + accId + '/payments';
+    const endpoint = PONTO_IBANITY_API_ENDPOINT + 'accounts/' + accId + '/payments';
 
     const data: PontoPayment = {
       type: "payment",
@@ -122,7 +122,6 @@ export class PontoTransactionsService
         redirectUri: redirectUrl
       }
     }
-    return this._utilityService.doCall(data, endpoint, token, true);
+    return this._utilityService.makePontoPostRequest(data, endpoint, token, true);
   }
-
 }

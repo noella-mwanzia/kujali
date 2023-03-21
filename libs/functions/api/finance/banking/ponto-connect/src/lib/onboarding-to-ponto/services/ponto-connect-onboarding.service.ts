@@ -23,7 +23,7 @@ export class PontoConnectOnboardingService
   getOnboardingId(org: Organisation, user: KuUser)
   {
     const data = this._createOnboardingDetails(org, user);
-    return this._utilityService.doCall(data, PONTO_IBANITY_ONBOARDING_ENDPOINT!);
+    return this._utilityService.makePontoPostRequest(data, PONTO_IBANITY_ONBOARDING_ENDPOINT!);
   }
 
   private _createOnboardingDetails(org: Organisation, user: KuUser): OnboardingDetailsObj
@@ -103,6 +103,6 @@ export class PontoConnectOnboardingService
     }
 
     const endpoint = PONTO_IBANITY_REAUTHORIZE_ENDPOINT!.replace('accountId', bankAccId);
-    return this._utilityService.doCall(data, endpoint, accessToken);
+    return this._utilityService.makePontoPostRequest(data, endpoint, accessToken);
   }
 }
