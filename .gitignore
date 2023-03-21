@@ -50,3 +50,8 @@ package-lock.json
 firestore-debug.log
 pubsub-debug.log
 ui-debug.log
+apps/kujali/src/assets/security/*
+apps/kujali-functions/src/assets/security/*
+
+project-kujali-secrets.json
+apps/kujali-functions/src/functions/.env.project-kujali-secret
