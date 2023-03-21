@@ -105,6 +105,7 @@
     "fs",
     "path",
     "crypto-js",
-    "axios"
+    "axios",
+    "dotenv"
   ]
 }
