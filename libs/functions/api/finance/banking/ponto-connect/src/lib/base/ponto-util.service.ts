@@ -1,21 +1,26 @@
 import { Logger } from "@iote/bricks-angular";
 
-import axios from 'axios';
-
-import * as request from 'request-promise';
-
 import * as fs from 'fs';
-
+import axios from 'axios';
 import * as path from 'path';
-
-import { PontoSignatureService } from '../services/ponto-signature.service';
+import * as request from 'request-promise';
 
 import { AccessToken, BankConnectionAccountType, FetchAccessTokenCmd } from "@app/model/finance/banking";
 
+import { PontoSignatureService } from '../services/ponto-signature.service';
+
+const PONTO_CONNECT_API_ENDPOINT = process.env['PONTO_CONNECT_API_ENDPOINT'];
+
+const PONTO_IBANITY_CERTIFICATE_PATH = process.env['PONTO_IBANITY_CERTIFICATE_PATH'];
+const PONTO_IBANITY_KEY_PATH = process.env['PONTO_IBANITY_KEY_PATH'];
+const PONTO_IBANITY_PASSPHRASE = process.env['PONTO_IBANITY_PASSPHRASE'];
+
+const PONTO_IBANITY_SIGNATURE_CERTIFICATE_PATH = process.env['PONTO_IBANITY_SIGNATURE_CERTIFICATE_PATH'];
+const PONTO_IBANITY_SIGNATURE_KEY_PATH = process.env['PONTO_IBANITY_SIGNATURE_KEY_PATH'];
+const PONTO_IBANITY_SIGNATURE_PASSPHRASE = process.env['PONTO_IBANITY_SIGNATURE_PASSPHRASE'];
 export class PontoConnectUtilityService
 {
-  constructor(private _logger: Logger)
-  {  }
+  constructor(private _logger: Logger) {}
 
   async makePontoPostRequest(data: any, endpoint: string, accessToken?: AccessToken, useSignature = false)
   {
@@ -25,8 +30,8 @@ export class PontoConnectUtilityService
     this._logger.log(() => `Ponto Connect Request body: ${ JSON.stringify(data) }`);
 
     // Files for auth purposes
-    const certFile = fs.readFileSync(path.resolve(__dirname, ['assets', 'security', 'certificates', 'ponto', 'certificate', 'certificate.pem'].join('/')));
-    const keyFile = fs.readFileSync(path.resolve(__dirname, ['assets', 'security', 'certificates', 'ponto', 'certificate', 'private_key.pem'].join('/')));
+    const certFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_CERTIFICATE_PATH!));
+    const keyFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_KEY_PATH!));
 
     const vals = useSignature ? this.getSignature(data, endpoint, accessToken) : null;
     const signature = vals?.signature ?? null;
@@ -47,14 +52,14 @@ export class PontoConnectUtilityService
         agentOptions: {
           cert: certFile,
           key: keyFile,
-          passphrase: '12Valene',
+          passphrase: PONTO_IBANITY_PASSPHRASE,
           securityOptions: 'SSL_OP_NO_SSLv3',
         }
       };
 
       return request.post(options);
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].makePontoPostRequest : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].makePontoPostRequest : ❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);
     }
   }
@@ -70,8 +75,8 @@ export class PontoConnectUtilityService
     this._logger.log(() => `Endpoint: ${url}`);
 
     // Files for auth purposes
-    const certFile = fs.readFileSync(path.resolve(__dirname, ['assets', 'security', 'certificates', 'ponto', 'certificate', 'certificate.pem'].join('/')));
-    const keyFile = fs.readFileSync(path.resolve(__dirname, ['assets', 'security', 'certificates', 'ponto', 'certificate', 'private_key.pem'].join('/')));
+    const certFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_CERTIFICATE_PATH!));
+    const keyFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_KEY_PATH!));
 
     return {
       url: url,
@@ -84,7 +89,7 @@ export class PontoConnectUtilityService
       agentOptions: {
         cert: certFile,
         key: keyFile,
-        passphrase: '12Valene',
+        passphrase: PONTO_IBANITY_PASSPHRASE,
         securityOptions: 'SSL_OP_NO_SSLv3',
       }
     };
@@ -144,10 +149,9 @@ export class PontoConnectUtilityService
   async getInitialUserAccessToken(authCode: string, redirectUrl: string): Promise<AccessToken>
   {
     const randomString = '';
-
     const body = {
       'code': authCode,
-      'client_id': '4c2790ba-5c8f-44e8-aa0f-d7409cc11b1c',
+      'client_id': process.env["PONTO_IBANITY_CLIENT_ID"],
       'redirect_uri': redirectUrl,
       'grant_type': 'authorization_code',
       'code_verifier': randomString
@@ -174,10 +178,9 @@ export class PontoConnectUtilityService
   async refreshUserAccessToken(refreshToken: string): Promise<{ "access_token": string, "expires_in": number, "refresh_token": string, "token_type": string, "scope": string }>
   {
     const randomString = '';
-
     const body = {
       'refresh_token': refreshToken,
-      'client_id': '4c2790ba-5c8f-44e8-aa0f-d7409cc11b1c',
+      'client_id': process.env["PONTO_IBANITY_CLIENT_ID"],
       'code_verifier': randomString,
       'grant_type': 'refresh_token'
     };
@@ -188,17 +191,15 @@ export class PontoConnectUtilityService
   private _makeTokenRequest(data: any, apiEndpoint?: string)
   {
     // Authorization string as specified
-    const authEncoded = Buffer.from('4c2790ba-5c8f-44e8-aa0f-d7409cc11b1c' + ':' + 'be5a95c6-6416-4d41-b52e-7fde64050e8e').toString('base64');
-
+    const authEncoded = Buffer.from(process.env["PONTO_IBANITY_CLIENT_ID"] + ':' + process.env["PONTO_IBANITY_CLIENT_SECRET"]).toString('base64');
     const url = apiEndpoint ?? `https://api.ibanity.com/ponto-connect/oauth2/token`;
     const auth = `Basic ${authEncoded}`;
-
     const options = this.getRequestOptions(auth, url, data);
 
     try{
       return request.post(options);
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);
     }
   }
@@ -206,13 +207,12 @@ export class PontoConnectUtilityService
   performGetRequest(token: string, endpoint:string, data?: any)
   {
     const auth = `Bearer ${token}`;
-
     const options = this.getRequestOptions(auth, endpoint, data);
 
     try{
       return request.get(options);
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].performGetRequest : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].performGetRequest : ❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);
     }
   }
@@ -220,13 +220,12 @@ export class PontoConnectUtilityService
   performDeleteRequest(token: string, endpoint:string, data?: any)
   {
     const auth = `Bearer ${token}`;
-
     const options = this.getRequestOptions(auth, endpoint, data);
 
     try{
       return request.delete(options);
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].performDeleteRequest : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].performDeleteRequest : ❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
       throw(err);
     }
   }
@@ -251,8 +250,8 @@ export class PontoConnectUtilityService
                             body
                           });
     } catch (err){
-      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌❌❌❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
-      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌❌❌❌ Cannot proceed with Ponto execution!`);
+      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌ Error executing Ponto Call: ${JSON.stringify(err)}`);
+      this._logger.log(() => `[PontoConnectUtilityService].getPontoUserAccess : ❌ Cannot proceed with Ponto execution!`);
     }
   }
 }
