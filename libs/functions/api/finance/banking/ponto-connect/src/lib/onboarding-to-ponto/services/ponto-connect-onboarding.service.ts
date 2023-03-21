@@ -1,15 +1,15 @@
 import { Logger } from '@iote/cqrs';
+
 import { KuUser } from '@app/model/common/user';
 import { Organisation } from '@app/model/organisation';
-
+import { AccessToken } from '@app/model/finance/banking';
 import { OnboardingDetailsObj } from '@app/model/finance/banking/ponto';
 
 import { PontoConnectUtilityService } from "../../base/ponto-util.service";
-import { AccessToken } from '@app/model/finance/banking';
 
-const PONTO_IBANITY_API_ENDPOINT = 'https://api.ibanity.com/ponto-connect/';
-const PONTO_IBANITY_ONBOARDING_ENDPOINT = 'https://api.ibanity.com/ponto-connect/onboarding-details';
-const PONTO_IBANITY_REAUTHORIZE_ENDPOINT = 'https://api.ibanity.com/ponto-connect/accounts/accountId/reauthorization-requests';
+const PONTO_IBANITY_API_ENDPOINT = process.env['PONTO_IBANITY_API_ENDPOINT'];
+const PONTO_IBANITY_ONBOARDING_ENDPOINT = process.env['PONTO_IBANITY_ONBOARDING_ENDPOINT'];
+const PONTO_IBANITY_REAUTHORIZE_ENDPOINT = process.env['PONTO_IBANITY_REAUTHORIZE_ENDPOINT'];
 
 export class PontoConnectOnboardingService
 {
@@ -23,8 +23,7 @@ export class PontoConnectOnboardingService
   getOnboardingId(org: Organisation, user: KuUser)
   {
     const data = this._createOnboardingDetails(org, user);
-
-    return this._utilityService.doCall(data, PONTO_IBANITY_ONBOARDING_ENDPOINT);
+    return this._utilityService.doCall(data, PONTO_IBANITY_ONBOARDING_ENDPOINT!);
   }
 
   private _createOnboardingDetails(org: Organisation, user: KuUser): OnboardingDetailsObj
@@ -52,7 +51,6 @@ export class PontoConnectOnboardingService
   {
     const endpoint = PONTO_IBANITY_API_ENDPOINT + 'accounts';
     const res = await this._utilityService.performGetRequest(token, endpoint);
-
     const accounts = res.data;
 
     return accounts;
@@ -68,7 +66,6 @@ export class PontoConnectOnboardingService
   async getUserInfo(token:string): Promise<{sub: string, paymentsActivated: boolean, onboardingComplete: boolean, name: string}>
   {
     const endpoint = PONTO_IBANITY_API_ENDPOINT + `userinfo`;
-
     return this._utilityService.performGetRequest(token, endpoint, {});
   }
 
@@ -105,7 +102,7 @@ export class PontoConnectOnboardingService
       }
     }
 
-    const endpoint = PONTO_IBANITY_REAUTHORIZE_ENDPOINT.replace('accountId', bankAccId);
+    const endpoint = PONTO_IBANITY_REAUTHORIZE_ENDPOINT!.replace('accountId', bankAccId);
     return this._utilityService.doCall(data, endpoint, accessToken);
   }
 }

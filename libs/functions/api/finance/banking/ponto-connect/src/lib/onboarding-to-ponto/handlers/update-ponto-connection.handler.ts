@@ -1,7 +1,8 @@
 import { __DateToStorage } from '@iote/time';
 import { HandlerTools, Repository } from '@iote/cqrs';
-import { FunctionHandler, FunctionContext } from '@ngfi/functions';
+
 import { Query } from "@ngfi/firestore-qbuilder";
+import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 
 import * as moment from 'moment';
 
@@ -13,7 +14,7 @@ import { PontoConnectOnboardingService } from '../services/ponto-connect-onboard
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
-const PONTO_IBANITY_API_ENDPOINT = 'https://api.ibanity.com/ponto-connect/';
+const PONTO_IBANITY_API_ENDPOINT = process.env['PONTO_IBANITY_API_ENDPOINT'];
 
 /**
  * @class UpdatePontoConnectionHandler
@@ -103,7 +104,7 @@ export class UpdatePontoConnectionHandler extends FunctionHandler<UpdatePontoCon
       type: BankConnectionAccountType.Ponto,
       status: BankConnectionStatus.ENABLED,
       userAccess: {} as any,
-      paymentsActivated: PONTO_IBANITY_API_ENDPOINT.includes('sandbox'),
+      paymentsActivated: PONTO_IBANITY_API_ENDPOINT!.includes('sandbox'),
       paymentActivationUrl: '',
     } as PontoConnection;
   }
@@ -134,5 +135,4 @@ export class UpdatePontoConnectionHandler extends FunctionHandler<UpdatePontoCon
       originalAccountInstance: pontoAccObject
     };
   }
-
 }
