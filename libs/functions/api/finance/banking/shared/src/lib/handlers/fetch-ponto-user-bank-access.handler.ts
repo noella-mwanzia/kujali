@@ -1,6 +1,5 @@
-import { FunctionContext, FunctionHandler } from '@ngfi/functions';
-
 import { HandlerTools } from '@iote/cqrs';
+import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 import { BankConnection, BankConnectionAccount, BankConnectionAccountType, FetchAccessTokenCmd } from '@app/model/finance/banking';
 
@@ -10,7 +9,6 @@ import { BankConnection, BankConnectionAccount, BankConnectionAccountType, Fetch
 import { PontoConnectUtilityService } from '@app/functions/api/finance/banking/ponto-connect';
 
 import { __FETCH_USER_BANK_ACCESS } from '../services/fetch-user-bank-access.service';
-
 import { _HaltForMiliseconds } from '../providers/halt-for-milliseconds.function';
 
 
