@@ -1,21 +1,19 @@
 import { HandlerTools } from '@iote/cqrs';
+import { Query } from '@ngfi/firestore-qbuilder';
 
-import * as moment from 'moment';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 import { AccessTokenWrapper, BankConnection, BankConnectionStatus, RefreshTokenStatus } from '@app/model/finance/banking';
 
 // import { SwanFunctionCallsService } from '@app/functions/api/banking/swan';
-
 import { PontoConnectUtilityService } from '@app/functions/api/finance/banking/ponto-connect';
 
-import { Query } from '@ngfi/firestore-qbuilder';
-
-const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) => `orgs/${orgId}/bank-connections`;
-
-const USER_ACCOUNT_ACCESS_REPO = (orgId: string, connectionId: string) => `orgs/${orgId}/bank-connections/${connectionId}/access-info`;
+import { AccessStatus, AccessStatusOption, PontoUserAccessError } from '../model/ponto-user-access-status.interface';
 
 const USER_ACCOUNT_STATUS_REPO = () => `bank-disconnections`;
+const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) => `orgs/${orgId}/bank-connections`;
+const USER_ACCOUNT_ACCESS_REPO = (orgId: string, connectionId: string) => `orgs/${orgId}/bank-connections/${connectionId}/access-info`;
 
  /**
  * Fetches the access_token from the respective Banking API and updates the Database
@@ -27,7 +25,7 @@ const USER_ACCOUNT_STATUS_REPO = () => `bank-disconnections`;
  * Step 4. Update previous token status to invalidate it and prevent attempting to use the same refresh token twice
  *
  * @param _utilityService Bank Service that communicates with/utilizes the respective Banking API
- * @param orgId The Property id
+ * @param orgId The Organisation id
  * @param connectionId bank conneciton is (Same id as the wac_ or sac_ id that it connects to the bank)
  * @param tools HandlerTools
  * @param authCode (optional) authCode returned in the url - only retrieved during onboarding
@@ -58,7 +56,7 @@ export async function __FETCH_USER_BANK_ACCESS(
       const newAccessToken = await _utilityService.getAccessToken(previousTokenWrapper?.userAccess?.refresh_token!, authCode ?? '', redirectUrl ?? '');
 
       if(newAccessToken?.access_token){
-        tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS SUCCESS!! 🙌🙌🎉🎉🎉🎉🎉]: Step 3. Add the new access token to db: ${ JSON.stringify(newAccessToken)}`);
+        tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS SUCCESSFUL!! 🎉]: Step 3. Add the new access token to db: ${ JSON.stringify(newAccessToken)}`);
         const newTokenWrapper = {} as any;
         newTokenWrapper.userAccess = newAccessToken;
         newTokenWrapper.createdOn = new Date();
@@ -67,13 +65,13 @@ export async function __FETCH_USER_BANK_ACCESS(
         newTokenWrapper.status = RefreshTokenStatus.VALID;
 
         await _accessTokensRepo.create(newTokenWrapper, newTokenWrapper.id);
-        tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: 🙌🙌🎉🎉🎉🎉🎉. New token successfully added to db.`);
+        tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: 🎉. New token SUCCESSFULfully added to db.`);
         return newAccessToken;
       }
     } catch (err) {
       LOG_ACCESS_STATUS(orgId, connectionId, tools, AccessStatusOption.ERROR, err as PontoUserAccessError);
-      tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌❌❌❌ Error fetching user access object. Request might have been initiated from the wrong url.`);
-      tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌❌❌❌ Error: ${JSON.stringify(err)}`);
+      tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌ Error fetching user access object. Request might have been initiated from the wrong url.`);
+      tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌ Error: ${JSON.stringify(err)}`);
     } finally {
       if(previousTokenWrapper) {
         // NOTE: In production, requesting an access_token using the same refresh_token
@@ -84,7 +82,7 @@ export async function __FETCH_USER_BANK_ACCESS(
       }
     }
   } else {
-    tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌❌❌❌ Previous refresh token is invalid: ${ JSON.stringify(previousTokenWrapper)}. Exiting function execution.`);
+    tools.Logger.log(() => `[__FETCH_BANK_USER_ACCESS]: ❌ Previous refresh token is invalid: ${ JSON.stringify(previousTokenWrapper)}. Exiting function execution.`);
   }
 
 }
@@ -130,32 +128,4 @@ export async function LOG_ACCESS_STATUS(
   bankConnection.status = BankConnectionStatus.REVOKED;
 
   await _bankConnectionRepo.update(bankConnection);
-}
-
-export interface AccessStatus{
-  createdOn: Date,
-  status: AccessStatusOption,
-  orgId: string,
-  connectionId: string,
-  accountId: string,
-  error: {
-    name: string,
-    statusCode: number,
-    description: string,
-  }
-}
-
-export enum AccessStatusOption{
-  ERROR,
-  RESOLVED
-}
-
-export interface PontoUserAccessError {
-  name: string,
-  statusCode: number,
-  message: string,
-  error: {
-    error: string,
-    error_description: string
-  }
 }
