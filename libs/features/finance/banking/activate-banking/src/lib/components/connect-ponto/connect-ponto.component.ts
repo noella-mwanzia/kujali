@@ -38,6 +38,8 @@ export class ConnectPontoComponent implements OnInit {
 
   settingBankAccount: boolean = false;
 
+  accs: any;
+
   constructor(private _afFunctions: AngularFireFunctions,
               private _route: ActivatedRoute,
               private _router: Router,
@@ -57,13 +59,7 @@ export class ConnectPontoComponent implements OnInit {
         filter((val) => !!val),
         tap((accounts: any) => this.setData(accounts)),
         tap(() => this.loadingAccounts = false),
-        tap(accs => {
-
-          debugger
-          if (accs.length === 1) {
-            this.setSelectedAccount(accs[0]);
-          }
-        })
+        tap(accs => {this.accs = accs})
       )
       .subscribe();
   }
@@ -111,13 +107,17 @@ export class ConnectPontoComponent implements OnInit {
     this.newRenderAccounts = this.bankAccounts.map((acc) => {return {...acc, displayData: this.createBankAccoutObject(acc)}});
   }
 
-  setSelectedAccount(acc: PontoAccount) {
+  setSelectedAccount(selectedAcc: PontoAccount) {
+    // if (this.accs.length === 1) {
+    //   this.setSelectedAccount(this.accs[0]);
+    // }
+    
     this.settingBankAccount = true;
-    delete acc['displayData'];
+    delete selectedAcc['displayData'];
 
     let data = {
       orgId: this.orgId,
-      newBankAccount: acc,
+      newBankAccount: selectedAcc,
     }
 
     this.confirmBankConnection(data);
