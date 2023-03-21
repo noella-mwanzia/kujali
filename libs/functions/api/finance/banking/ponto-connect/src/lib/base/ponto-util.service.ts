@@ -18,6 +18,7 @@ const PONTO_IBANITY_PASSPHRASE = process.env['PONTO_IBANITY_PASSPHRASE'];
 const PONTO_IBANITY_SIGNATURE_CERTIFICATE_PATH = process.env['PONTO_IBANITY_SIGNATURE_CERTIFICATE_PATH'];
 const PONTO_IBANITY_SIGNATURE_KEY_PATH = process.env['PONTO_IBANITY_SIGNATURE_KEY_PATH'];
 const PONTO_IBANITY_SIGNATURE_PASSPHRASE = process.env['PONTO_IBANITY_SIGNATURE_PASSPHRASE'];
+
 export class PontoConnectUtilityService
 {
   constructor(private _logger: Logger) {}
@@ -75,6 +76,9 @@ export class PontoConnectUtilityService
     this._logger.log(() => `Endpoint: ${url}`);
 
     // Files for auth purposes
+
+    this._logger.log(() => `cert: ${PONTO_IBANITY_CERTIFICATE_PATH!}`);
+
     const certFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_CERTIFICATE_PATH!));
     const keyFile = fs.readFileSync(path.resolve(__dirname, PONTO_IBANITY_KEY_PATH!));
 
@@ -240,7 +244,7 @@ export class PontoConnectUtilityService
       redirectUrl
     };
 
-    const endpoint = 'https://europe-west1-kujali-1be70.cloudfunctions.net/fetchPontoUserBankAccess';
+    const endpoint = 'https://europe-west1-project-kujali.cloudfunctions.net/fetchPontoUserBankAccess';
 
     try{
       return request.post(endpoint,
