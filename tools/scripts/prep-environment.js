@@ -8,7 +8,7 @@ require('dotenv').config({
 const action$ = new Promise((resolve, error) => 
   
   // Copy loaded env file (from Google Secret manager) to the build before deploying.
-  fs.copyFile(`apps/kujali-functions/src/functions/.env.${process.env.GOOGLE_PROJECT_ID}-secret`, 
+  fs.copyFile(`apps/kujali-functions/src/functions/.env.project-kujali-secret`, 
               `dist/apps/kujali-functions/.env`,     
   (err) => { if (err) error(err);
              else (resolve()); }));
