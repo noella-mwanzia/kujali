@@ -9,6 +9,7 @@ import { Budget } from '@app/model/finance/planning/budgets';
 import { AccountsStateService } from '@app/state/finance/banking';
 
 import { CreateNewBankAccountForm } from '../../providers/create-new-bank-account-form.function';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-new-bank-account-modal',
@@ -21,13 +22,10 @@ export class CreateNewBankAccountModalComponent implements OnInit {
 
   addNewBankAccountFormGroup: FormGroup;
 
-  budgetsList: Budget[];
-  categories: any;
-  types: any;
-
-  activeCategory: any;
+  isCreatingNewBankAccount = false;
   
   constructor(private _fb: FormBuilder,
+              private _dialogRef: MatDialogRef<CreateNewBankAccountModalComponent>,
               private _accountsService: AccountsStateService,
   ) {}
 
@@ -37,7 +35,13 @@ export class CreateNewBankAccountModalComponent implements OnInit {
 
 
   createBankAccount() {    
+    this.isCreatingNewBankAccount = true;
     this._sbS.sink = this._accountsService.createNewAccount(this.addNewBankAccountFormGroup.value)
-                                          .subscribe();
+                                          .subscribe(() => this.completeCreateActions());
+  }
+
+  completeCreateActions() {
+    this.isCreatingNewBankAccount = false;
+    this._dialogRef.close();
   }
 }

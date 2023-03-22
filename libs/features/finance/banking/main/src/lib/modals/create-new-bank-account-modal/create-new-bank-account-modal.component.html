@@ -7,14 +7,14 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" fxFlex>
           <div fxLayout="column" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.NAME' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="name" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.ACCOUNT-HOLDER' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="accountHolder" />
             </mat-form-field>
           </div>
@@ -23,14 +23,14 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
           <div fxLayout="column" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.PHONE' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="accountHolderPhone" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.EMAIL' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="accountHolderEmail" />
             </mat-form-field>
           </div>
@@ -39,25 +39,25 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
           <div fxLayout="column" fxFlex="40">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.IBAN' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="iban" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxFlex="40">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.BIC' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="bic" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="20">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.CURRENCY' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <mat-select formControlName="currency">
                 <mat-option value=""></mat-option>
-                <mat-option value="KES"></mat-option>
-                <mat-option value="USD"></mat-option>
+                <mat-option value="KES">KES</mat-option>
+                <mat-option value="USD">USD</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -69,14 +69,14 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.STREET-NAME' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="streetName" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.PHYSICAL-ADDRESS' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="physicalAddress" />
             </mat-form-field>
           </div>
@@ -85,14 +85,14 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.POSTAL-ADDRESS' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="postalAddress" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.POSTAL-CODE' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="postalCode" />
             </mat-form-field>
           </div>
@@ -101,14 +101,14 @@
         <div class="full-width" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.CITY' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="city" />
             </mat-form-field>
           </div>
     
           <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
             <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.COUNTRY' | transloco }}</h4>
-            <mat-form-field appearance="fill" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <input matInput type="text" formControlName="country" />
             </mat-form-field>
           </div>
@@ -118,7 +118,9 @@
       <div class="full-width">
         <div fxLayout="column" fxLayoutAlign="start" fxFlex>
           <h4>{{ 'MODALS.CREATE-BANK-ACCOUNT.DESCRIPTION' | transloco }}</h4>
-          <textarea formControlName="desc" name="" id="" rows="5"></textarea>
+          <mat-form-field appearance="outline" fxFlex>
+            <textarea matInput formControlName="desc" name="" id="" rows="5"></textarea>
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -136,8 +138,10 @@
   </mat-dialog-content>
 
   <mat-dialog-actions class="padd-top" align="end">
-    <button mat-button mat-dialog-close>{{ 'MODAL.CLOSE' | transloco }}</button>
-    <button class="submit-btn" type="submit" class="create-contact-btn" mat-raised-button color="primary"
-      cdkFocusInitial>{{ 'MODALS.CREATE-BANK-ACCOUNT.CREATE-NEW-BANK-ACCOUNT' | transloco }}</button>
+    <div class="action-buttons">
+      <button [disabled]="isCreatingNewBankAccount" mat-stroked-button mat-dialog-close>{{ 'MODAL.CLOSE' | transloco }}</button>
+      <button [disabled]="isCreatingNewBankAccount" class="submit-btn" type="submit" class="create-contact-btn" mat-raised-button color="primary"
+        cdkFocusInitial>{{ 'MODALS.CREATE-BANK-ACCOUNT.CREATE-NEW-BANK-ACCOUNT' | transloco }}</button>
+    </div>
   </mat-dialog-actions>
 </form>
