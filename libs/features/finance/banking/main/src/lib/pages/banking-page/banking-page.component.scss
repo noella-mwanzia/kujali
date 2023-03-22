@@ -2,10 +2,58 @@
   padding: 30px;
 }
 
-.account { 
-  padding: 20px;
+.mat-elevation-z8 {
+  width: 100%!important;
+  box-shadow: none!important;
 }
 
-.account > div {
-  margin-bottom: 20px;
+.mat-mdc-form-field {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.table {
+  width: 100%!important;
+}
+
+.img-url {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+}
+
+td.mat-column-bankIcon {
+  padding-top: 5px;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue)!important;
+  color: white!important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+ border-bottom: solid var(--kujali-color-primary-blue) 1px!important;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #0047AB, $alpha: 0.1);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+td.mat-column-name,
+td.mat-column-accountHolder,
+td.mat-column-iban,
+td.mat-column-bic,
+td.mat-column-currency,
+td.mat-column-bankConnection,
+td.mat-column-trType {
+  font-weight: 400;
 }

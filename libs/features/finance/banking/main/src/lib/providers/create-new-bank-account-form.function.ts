@@ -20,6 +20,7 @@ export function CreateNewBankAccountForm (_fb: FormBuilder): FormGroup {
       postalCode: [''],
     }),
 
-    bankConnection : [0]
+    bankConnection : [0],
+    trType: ['bank']
   })
 }
