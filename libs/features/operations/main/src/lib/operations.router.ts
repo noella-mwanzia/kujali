@@ -12,7 +12,7 @@ const OPERATIONS_ROUTES: Route[] = [
   },
   {
     path: 'banking',
-    loadChildren: () => import('@app/features/finance/banking/activate-banking').then(m => m.ActivateBankingModule),
+    loadChildren: () => import('@app/features/finance/banking/main').then(m => m.FinanceBankingModule),
     canActivate: [IsLoggedInGuard]
   },
 ];

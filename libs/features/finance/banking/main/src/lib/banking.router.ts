@@ -3,17 +3,18 @@ import { Route, RouterModule } from '@angular/router';
 
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
+import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
 const BANKING_ROUTES: Route[] = [
-  // {
-  //   path: '',
-  //   component: OperationsPageComponent,
-  // },
-  // {
-  //   path: 'banking',
-  //   loadChildren: () => import('@app/features/finance/banking/activate-banking').then(m => m.ActivateBankingModule),
-  //   canActivate: [IsLoggedInGuard]
-  // },
+  {
+    path: '',
+    component: BankingPageComponent,
+  },
+  {
+    path: 'connect-ponto',
+    loadChildren: () => import('@app/features/finance/banking/activate-banking').then(m => m.ActivateBankingModule),
+    canActivate: [IsLoggedInGuard]
+  },
 ];
 
 @NgModule({

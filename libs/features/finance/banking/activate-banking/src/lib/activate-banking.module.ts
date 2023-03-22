@@ -11,8 +11,6 @@ import { iTalPageModule } from '@app/elements/layout/page';
 
 import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.component';
 
-import { BankingPageComponent } from './pages/banking-page/banking-page.component';
-
 import { ActivateBankingRouterModule } from './activate-banking.router';
 
 
@@ -30,6 +28,6 @@ import { ActivateBankingRouterModule } from './activate-banking.router';
 
     ActivateBankingRouterModule
   ],
-  declarations: [BankingPageComponent, ConnectPontoComponent],
+  declarations: [ConnectPontoComponent],
 })
 export class ActivateBankingModule {}

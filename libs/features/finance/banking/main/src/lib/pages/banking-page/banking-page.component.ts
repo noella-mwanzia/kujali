@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { SubSink } from 'subsink';
 import { combineLatest, map, switchMap, take } from 'rxjs';
@@ -40,6 +41,7 @@ export class BankingPageComponent {
   hasWorkongAccount: boolean = false;
 
   constructor(private _dialog: MatDialog,
+              private _aff: AngularFireFunctions,
               private __userService: UserService<KuUser>,
               private _bankActivateService: ActivatePontoBankingService,
               private _activeOrg: ActiveOrgStore
@@ -90,6 +92,13 @@ export class BankingPageComponent {
         actionUrl: this.redirectUrl,
       },
     });
+  }
+
+  test() {
+    this._aff.httpsCallable('createSurrealDbPayments')('SELECT * FROM company;').subscribe(res => {
+      console.log('done');
+      
+    })
   }
 
 }

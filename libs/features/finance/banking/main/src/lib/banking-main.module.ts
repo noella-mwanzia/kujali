@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
+import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 import { BankingRouterModule } from './banking.router';
 
 @NgModule({
@@ -26,5 +27,6 @@ import { BankingRouterModule } from './banking.router';
 
     BankingRouterModule
   ],
+  declarations: [BankingPageComponent]
 })
 export class FinanceBankingModule {}

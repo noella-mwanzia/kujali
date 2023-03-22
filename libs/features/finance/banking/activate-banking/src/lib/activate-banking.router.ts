@@ -5,16 +5,10 @@ import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
 import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.component';
 
-import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
 const BANKING_ROUTES: Route[] = [
   {
-    path: '',
-    component: BankingPageComponent,
-    
-  },
-  {
-    path: 'connect-ponto',
+    path: ' ',
     component: ConnectPontoComponent
   },
 ];
