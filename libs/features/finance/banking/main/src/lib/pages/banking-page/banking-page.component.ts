@@ -94,11 +94,7 @@ export class BankingPageComponent {
     });
   }
 
-  test() {
-    this._aff.httpsCallable('createSurrealDbPayments')('SELECT * FROM company;').subscribe(res => {
-      console.log('done');
-      
-    })
+  addAnAccount() {
   }
 
 }

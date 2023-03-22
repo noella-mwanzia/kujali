@@ -1,11 +1,21 @@
 <app-page>
-  <div class="main-page" fxLayout="column" fxLayoutAlign="start start">
+  <div class="main-page full-width" fxLayout="column" fxLayoutAlign="start start">
 
-    <div fxLayout="column" fxLayoutAlign="start start">
+    <div class="full-width" fxLayout="column" fxLayoutAlign="start start" fxFlex>
 
-      <h1 class="page-header" >Your Accounts</h1>
-
-      <button mat-raised-button color="primary" (click)="test()" >Test Surreal data</button>
+      <div class="full-width" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <h1 class="page-header" >Your Accounts</h1>
+          <button style="margin-left: 30px;" mat-raised-button color="primary" (click)="addAnAccount()">
+            <span fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon>add</mat-icon>
+              <span>Add an account</span>
+            </span>
+          </button>
+        </div>
+        <div>
+        </div>
+      </div>
 
       <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
 
