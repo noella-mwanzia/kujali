@@ -1,6 +1,8 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AccountsStore } from './stores/accounts.store';
+import { AccountsStateService } from './services/accounts-state.service';
 
 @NgModule({
   imports: [
@@ -14,7 +16,7 @@ export class BankingStateModule
   {
     return {
       ngModule: BankingStateModule,
-      providers: []
+      providers: [AccountsStore, AccountsStateService]
     };
   }
 }
