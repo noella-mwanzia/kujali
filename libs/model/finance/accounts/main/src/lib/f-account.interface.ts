@@ -1,35 +1,30 @@
 import { IObject } from '@iote/bricks';
 
 import { BankConnectionAccountType } from '@app/model/finance/banking';
-
-export enum AccountType {}
-
-export type TransactionType = 'cash' | 'bank';
-
-/** Minimal account information for a specific financial account. */
-export interface FAccountInfo 
-{
-  /** Account ID */
-  accId:   string; 
-  /** Account name */
-  accName: string;
-}
+import { StringLike } from '@firebase/util';
 
 /**
  * Financial Account.
  *
  * Accounts are considered transactable i.e. can perform and receive transactions.
  */
-
 export interface FAccount extends IObject
 {
   name: string;
+  desc: String;
+
+  accountHolder: string,
+  accountHolderPhone: string,
+  accountHolderEmail: string,
+
+  accountHolderAddress: AccountAddress;
 
   type: AccountType;
-
   trType: TransactionType;
   iban?: string;
   bic?: string;
+
+  currency: string,
 
   /** Child accounts
    *  - Transactions to and from child accounts are calculated in the master account.
@@ -41,12 +36,23 @@ export interface FAccount extends IObject
   bankConnection?: BankConnectionAccountType;
 
 }
+export interface AccountAddress {
+  city: string,
+  country: string,
+  streetName: string,
+  physicalAddress: string,
+  postalAddress: string,
+  postalCode: string,
+}
+export interface AccountOptions {
+  savings: FAccount;
+  currents: FAccount;
+}
 
 export enum BankAccount {
   savings, currents
 }
 
-export interface AccountOptions {
-  savings: FAccount;
-  currents: FAccount;
-}
+export enum AccountType {}
+
+export type TransactionType = 'cash' | 'bank';
