@@ -11,6 +11,10 @@ export class AccountsStateService {
 
   constructor(private _accounts$$: AccountsStore) { }
 
+  getFAccounts() {
+    return this._accounts$$.get();
+  }
+  
   createNewAccount(account: FAccount) {
     return this._accounts$$.add((account as FAccount));
   }

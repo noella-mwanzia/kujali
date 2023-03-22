@@ -18,6 +18,8 @@ export function CreateNewBankAccountForm (_fb: FormBuilder): FormGroup {
       physicalAddress: [''],
       postalAddress: [''],
       postalCode: [''],
-    })
+    }),
+
+    bankConnection : [0]
   })
 }

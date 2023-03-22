@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { combineLatest, map, switchMap, take } from 'rxjs';
+import { combineLatest, map, switchMap, take, Observable, tap} from 'rxjs';
 
 import { UserService } from '@ngfi/angular';
 
@@ -11,6 +11,7 @@ import { FAccount } from '@app/model/finance/accounts/main';
 import { Organisation } from '@app/model/organisation';
 
 import { ActiveOrgStore } from '@app/state/organisation';
+import { AccountsStateService } from '@app/state/finance/banking';
 
 import { SingleActionMessageModalComponent } from '@app/features/shared/components/modals';
 
@@ -22,55 +23,46 @@ import { ActivatePontoBankingService } from '../../services/activate-ponto-banki
   templateUrl: './banking-page.component.html',
   styleUrls: ['./banking-page.component.scss'],
 })
-export class BankingPageComponent {
+
+export class BankingPageComponent implements OnInit {
 
   private _sbS = new SubSink();
 
   startPontoOnboarding = false;
 
-  acc: FAccount;
   org: Organisation;
 
   isLoading: boolean = false;
   redirectUrl: string = '';
 
-  accounts: any;
+  accounts$: Observable<FAccount[]>;
 
   constructor(private _dialog: MatDialog,
               private __userService: UserService<KuUser>,
               private _activeOrg: ActiveOrgStore,
+              private _accontsState: AccountsStateService,
               private _bankActivateService: ActivatePontoBankingService
   ) {}
 
   ngOnInit() {
-    this.getOrgAndUserDetails();
+    this.accounts$ = this._accontsState.getFAccounts();
   }
 
-  getOrgAndUserDetails() {
-    this._sbS.sink = combineLatest([this._activeOrg.get(), this.__userService.getUser()]).pipe(take(1)).subscribe(([org, user]) => {
-      if (org && user) {
-        this.org = org;
-        this.accounts = org.bankingInfo.accounts;
-      }
-    })
-  }
-
-  connectToPonto(account: string) {
+  connectToPonto(account: FAccount) {
     this.isLoading = true;
     this.startPontoOnboarding = true;
 
     this.org = this.org;
-    this.acc = this.accounts[account];
 
-    let data = { org: this.org, acc: this.acc, isReconnect: false }
+    let data = { org: this.org, acc: account, isReconnect: false }
 
-    this._sbS.sink = this.__userService.getUser()
+    this._sbS.sink = combineLatest([this._activeOrg.get(), this.__userService.getUser()])
                           .pipe(take(1),
-                                switchMap((user) => this._bankActivateService.pontocreateOnboardingDetails(this.org, user)),
-                                map((res) => { console.log(res);
-                                 return this._bankActivateService.pontoConstructRedirectLink(data, this.org, this.acc,res)}))
+                                tap(([org, user]) => {this.org = org}),
+                                switchMap(([org, user]) => this._bankActivateService.pontocreateOnboardingDetails(org, user)),
+                                map((res) => this._bankActivateService.pontoConstructRedirectLink(data, this.org, account, res)))
                           .subscribe(url => {
-                            this.redirectUrl = url;                                            
+                            this.redirectUrl = url;                                        
                             this.openPontoDialog();
                             this.isLoading = false;
                           });
