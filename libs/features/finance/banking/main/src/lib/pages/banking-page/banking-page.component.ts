@@ -83,7 +83,6 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
   connectToPonto(account: FAccount) {
     this.isLoading = true;
     this.startPontoOnboarding = true;
-
     this.org = this.org;
 
     let data = { org: this.org, acc: account, isReconnect: false }
@@ -104,9 +103,10 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
     this._dialog.open(SingleActionMessageModalComponent, {
       data: {
         dialogTitle: 'Finish setup on Ponto',
-        actionMessage: 'Click the button below to finish setting up your Ponto account.',
+        actionMessage: 'Click continue to finish the setup on Ponto',
         actionUrl: this.redirectUrl,
       },
+      minWidth: '500px'
     });
   }
 
@@ -117,4 +117,17 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
 
   editAccount(account: FAccount) {}
   deleteAccount(account: FAccount) {}
+
+  getBankAccount(bankConnection: number): string {
+    switch (bankConnection) {
+      case 0:
+        return 'Not connected';
+      case 1:
+        return 'Swan';
+      case 2:
+        return 'Ponto'
+      default:
+        return 'Not connected'
+    }
+  }
 }

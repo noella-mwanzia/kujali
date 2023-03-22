@@ -8,7 +8,7 @@ import { ConnectPontoComponent } from './components/connect-ponto/connect-ponto.
 
 const BANKING_ROUTES: Route[] = [
   {
-    path: ' ',
+    path: '',
     component: ConnectPontoComponent
   },
 ];

@@ -55,7 +55,7 @@ export class ConnectPontoComponent implements OnInit {
     this._sbS.sink = combineLatest([this._route.queryParams, activeOrg$])
       .pipe(
         take(2),
-        switchMap(([params, prop]) => this.getBankAccounts(params, prop)!),
+        switchMap(([params, org]) => this.getBankAccounts(params, org)!),
         filter((val) => !!val),
         tap((accounts: any) => this.setData(accounts)),
         tap(() => this.loadingAccounts = false),
@@ -67,6 +67,7 @@ export class ConnectPontoComponent implements OnInit {
   getBankAccounts(params: Params, org: Organisation) {
 
     const accountDetails = params['state'].split('>');
+    
     this.orgId = accountDetails[0];
 
     if (params['error']) {

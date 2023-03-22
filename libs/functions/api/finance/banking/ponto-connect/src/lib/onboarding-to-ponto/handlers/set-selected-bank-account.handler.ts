@@ -6,6 +6,7 @@ import { Organisation } from "@app/model/organisation";
 import { BankConnection, BankConnectionAccount } from "@app/model/finance/banking";
 
 import { __PubSubPublishAction } from "@app/functions/pubsub";
+import { FAccount } from "@app/model/finance/accounts/main";
 
 const BANK_ACCOUNT_CONNECTIONS_REPO = (orgId: string) =>  `orgs/${orgId}/bank-connections`;
 
@@ -31,44 +32,22 @@ export class SetSelectedBankAccountHandler extends FunctionHandler<{ newBankAcco
 
   public async execute(data: { newBankAccount: BankConnectionAccount, orgId: string }, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Property: ${data.orgId}. New Bank account: ${ JSON.stringify(data.newBankAccount) }`);
+    tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Organisation: ${data.orgId}. New Bank account: ${ JSON.stringify(data.newBankAccount) }`);
 
     // Step 1. Get corresponding Kujali Account from Org Object
 
-    // (IAN) update to allow unlimited bank accounts i.e accounts-repo
-    // const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
-    // const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
+    const _accRepo = tools.getRepository<FAccount>(`orgs/${data.orgId}/accounts`);
+    const account = await _accRepo.getDocumentById(data.newBankAccount.sysAccId);
 
-    const _accRepo = tools.getRepository<Organisation>(`orgs`);
-    const orgData = await _accRepo.getDocumentById(data.orgId);
-
-    const typeOfAccount = data.newBankAccount.sysAccId.split('_')[0];
-
-    let acc = "";
-
-    switch (typeOfAccount) {
-      case 'wac':
-        acc = 'working';
-        break
-      case 'sac':
-        acc = 'savings';
-        break
-      case 'rac':
-        acc = 'reserve';
-        break
-    }
-
-    const account = orgData.bankingInfo.accounts[acc];
+    tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Selected account: ${account.id}}`);
 
     // Step 2. Update Kujali FAccount
     tools.Logger.log(() => `[SetSelectedBankAccountHandler].execute: Updating iban for account: ${ account.name }.`);
     account.bic = data.newBankAccount.bic;
     account.iban = data.newBankAccount.iban;
     account.bankConnection = data.newBankAccount.type;
-
-    orgData.bankingInfo.accounts[acc] = account;
-
-    await _accRepo.update(orgData);
+    
+    await _accRepo.update(account);
 
     // Step 3. Add newly-linked bank account to this connection's list of accounts and update Bank connection
     const _bankConnectionRepo = tools.getRepository<BankConnection>(BANK_ACCOUNT_CONNECTIONS_REPO(data.orgId));
