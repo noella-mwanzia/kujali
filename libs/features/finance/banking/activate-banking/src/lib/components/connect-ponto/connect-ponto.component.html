@@ -1,20 +1,16 @@
 <app-page>
   <div class="main-page">
-    <mat-card class="main-card">
+    <div class="main-card">
 
       <!-- <div class="title">
         Connect your bank account(s)
       </div> -->
 
       <div *ngIf="!loadingAccounts else loading" class="accounts-container">
-        <mat-card class="bank-acc-card mat-elevation-z1" *ngFor="let bankAcc of newRenderAccounts" fxLayout="column"
-          fxLayoutGap="10px" fxLayoutAlign="center center">
+        <div class="bank-acc-card mat-elevation-z1" *ngFor="let bankAcc of newRenderAccounts" fxLayout="row"
+          fxLayoutGap="10px" fxLayoutAlign="center center" fxFlex>
 
-          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start">
-
-            <div fxFlex="40" fxFlexFill>
-              <img src="https://images.pexels.com/photos/5849577/pexels-photo-5849577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-            </div>
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" fxFlex>
 
             <div class="account-details" fxLayout="column" fxFlex>
 
@@ -71,10 +67,10 @@
             </div>
           </div>
 
-        </mat-card>
+        </div>
       </div>
 
-    </mat-card>
+    </div>
   </div>
 
   <ng-template #loading>
