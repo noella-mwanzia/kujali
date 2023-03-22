@@ -17,9 +17,9 @@
         </div>
       </div>
 
-      <div  fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
+      <div *ngIf="accounts" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="accounts">
 
-        <mat-card *ngIf="hasReserveAccount" class="account">
+        <mat-card class="account">
           <div class="account-name">
             Name : {{ accounts.reserve.name }}
           </div>
@@ -31,7 +31,7 @@
           </button>
         </mat-card>
 
-        <mat-card *ngIf="hasSavingsAccount" class="account">
+        <mat-card class="account">
           <div class="account-name">
             Name : {{ accounts.savings.name }}
           </div>
@@ -43,7 +43,7 @@
           </button>
         </mat-card>
 
-        <mat-card *ngIf="hasWorkongAccount" class="account">
+        <mat-card class="account">
           <div class="account-name">
             Name : {{ accounts.working.name }}
           </div>

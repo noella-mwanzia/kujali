@@ -54,6 +54,25 @@
   "MODAL": {
     "CLOSE": "Close"
   },
+  "MODALS" : {
+    "CREATE-BANK-ACCOUNT" : {
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "ACCOUNT-HOLDER": "Account Holder",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "IBAN": "IBAN",
+      "BIC": "BIC",
+      "CURRENCY": "Currency",
+      "STREET-NAME": "Street Name",
+      "POSTAL-ADDRESS": "Postal Address",
+      "POSTAL-CODE": "Postal Code",
+      "PHYSICAL-ADDRESS": "Physical Address",
+      "COUNTRY": "Country",
+      "CITY": "City",
+      "CREATE-NEW-BANK-ACCOUNT": "Create New Bank Account"
+    }
+  },
   "PAGE-CONTENT": {
     "BLOCKS": {
       "TITLES": {

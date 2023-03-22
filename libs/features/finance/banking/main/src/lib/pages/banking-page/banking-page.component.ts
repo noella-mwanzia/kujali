@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { SubSink } from 'subsink';
 import { combineLatest, map, switchMap, take } from 'rxjs';
@@ -15,8 +14,9 @@ import { ActiveOrgStore } from '@app/state/organisation';
 
 import { SingleActionMessageModalComponent } from '@app/features/shared/components/modals';
 
-import { ActivatePontoBankingService } from '../../services/activate-ponto-banking.service';
+import { CreateNewBankAccountModalComponent } from '../../modals/create-new-bank-account-modal/create-new-bank-account-modal.component';
 
+import { ActivatePontoBankingService } from '../../services/activate-ponto-banking.service';
 @Component({
   selector: 'app-banking-page',
   templateUrl: './banking-page.component.html',
@@ -36,15 +36,10 @@ export class BankingPageComponent {
 
   accounts: any;
 
-  hasReserveAccount: boolean = false;
-  hasSavingsAccount: boolean = false;
-  hasWorkongAccount: boolean = false;
-
   constructor(private _dialog: MatDialog,
-              private _aff: AngularFireFunctions,
               private __userService: UserService<KuUser>,
-              private _bankActivateService: ActivatePontoBankingService,
-              private _activeOrg: ActiveOrgStore
+              private _activeOrg: ActiveOrgStore,
+              private _bankActivateService: ActivatePontoBankingService
   ) {}
 
   ngOnInit() {
@@ -56,9 +51,6 @@ export class BankingPageComponent {
       if (org && user) {
         this.org = org;
         this.accounts = org.bankingInfo.accounts;
-        this.hasReserveAccount = org.bankingInfo.accounts.reserve ? true : false;
-        this.hasSavingsAccount = org.bankingInfo.accounts.savings ? true : false;
-        this.hasWorkongAccount = org.bankingInfo.accounts.working ? true : false;
       }
     })
   }
@@ -95,6 +87,7 @@ export class BankingPageComponent {
   }
 
   addAnAccount() {
+    this._dialog.open(CreateNewBankAccountModalComponent, {minWidth: '700px'})
+                .afterClosed().subscribe((res) => {})
   }
-
 }
