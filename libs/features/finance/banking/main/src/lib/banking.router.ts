@@ -3,12 +3,18 @@ import { Route, RouterModule } from '@angular/router';
 
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
+import { SingleAccountPageComponent } from './components/single-account-page/single-account-page.component';
+
 import { BankingPageComponent } from './pages/banking-page/banking-page.component';
 
 const BANKING_ROUTES: Route[] = [
   {
     path: '',
     component: BankingPageComponent,
+  },
+  {
+    path: 'accounts/:id',
+    component: SingleAccountPageComponent,
   },
   {
     path: 'connect-ponto',

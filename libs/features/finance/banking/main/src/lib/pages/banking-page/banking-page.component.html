@@ -36,7 +36,7 @@
         <!-- accountHolder Column -->
         <ng-container matColumnDef="accountHolder">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Holder </th>
-          <td mat-cell *matCellDef="let row"> {{row.accountHolder ? row.accountHolder : '-' }} </td>
+          <td mat-cell *matCellDef="let row" (click)="goToDetails(row.id)" > {{row.accountHolder ? row.accountHolder : '-' }} </td>
         </ng-container>
 
         <!-- IBAN Column -->

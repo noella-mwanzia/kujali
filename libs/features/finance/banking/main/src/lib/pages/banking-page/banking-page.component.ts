@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -51,6 +52,7 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
   accounts$: Observable<FAccount[]>;
 
   constructor(private _dialog: MatDialog,
+              private _router$$: Router,
               private _cdref: ChangeDetectorRef,
               private __userService: UserService<KuUser>,
               private _activeOrg: ActiveOrgStore,
@@ -129,5 +131,9 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
       default:
         return 'Not connected'
     }
+  }
+
+  goToDetails(accountId: string) {
+    this._router$$.navigate([ 'operations', 'banking', 'accounts', accountId]);
   }
 }

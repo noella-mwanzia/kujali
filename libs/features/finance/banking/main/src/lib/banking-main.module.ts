@@ -14,9 +14,13 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
+import { SingleAccountPageComponent } from './components/single-account-page/single-account-page.component';
+
 import { BankingPageComponent } from './pages/banking-page/banking-page.component';
-import { BankingRouterModule } from './banking.router';
+
 import { CreateNewBankAccountModalComponent } from './modals/create-new-bank-account-modal/create-new-bank-account-modal.component';
+
+import { BankingRouterModule } from './banking.router';
 
 @NgModule({
   imports: [
@@ -35,6 +39,10 @@ import { CreateNewBankAccountModalComponent } from './modals/create-new-bank-acc
 
     BankingRouterModule,
   ],
-  declarations: [BankingPageComponent, CreateNewBankAccountModalComponent],
+  declarations: [
+    BankingPageComponent,
+    CreateNewBankAccountModalComponent,
+    SingleAccountPageComponent,
+  ],
 })
 export class FinanceBankingModule {}
