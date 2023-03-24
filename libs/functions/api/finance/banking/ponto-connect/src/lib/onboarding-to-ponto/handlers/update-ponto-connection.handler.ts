@@ -73,11 +73,12 @@ export class UpdatePontoConnectionHandler extends FunctionHandler<UpdatePontoCon
     let pontoConnection: PontoConnection = connections.length > 0 ? connections[0] : null as any;
     let existingToken;
 
+    // TODO: IAN review use case for this
     // If there's an existing Ponto Connection, delete it
-    if(pontoConnection){
-      existingToken = pontoConnection.userAccess;
-      await _bankConnectionRepo.delete(pontoConnection.id!)
-    }
+    // if(pontoConnection){
+    //   existingToken = pontoConnection.userAccess;
+    //   await _bankConnectionRepo.delete(pontoConnection.id!)
+    // }
 
     // Create a new ponto conn
     pontoConnection = this._createPontoConn(data.orgId, data.accountName, data.accountId);
