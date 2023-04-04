@@ -45,3 +45,5 @@ apps/kujali-functions/src/environments/environment.ts
 
 firebase-debug.log
 package-lock.json
+*.log
+.firebaserc
