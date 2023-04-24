@@ -5,13 +5,16 @@ SELECT
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
   CAST(JSON_EXTRACT(data, '$.baseAmount') as FLOAT64) AS base_amount,
   CAST(JSON_EXTRACT(data, '$.isOccurenceStart') as BOOL) AS is_occurrence_start,
-  JSON_EXTRACT_SCALAR(data, '$.occurenceId') AS occurrence_id,
+  
 
-  JSON_EXTRACT_SCALAR(data, '$.plan.id') AS plan_id,
-  JSON_EXTRACT_SCALAR(data, '$.plan.lineId') AS line_id,
-  JSON_EXTRACT_SCALAR(data, '$.plan.budgetId') AS budget_id,
+  JSON_EXTRACT_SCALAR(data, '$.planId') AS plan_id,
+  JSON_EXTRACT_SCALAR(data, '$.lineId') AS line_id,
+  JSON_EXTRACT_SCALAR(data, '$.budgetId') AS budget_id,
 
   CAST(JSON_EXTRACT(data, '$.units') as INT64) AS units,
+
+  CAST(JSON_EXTRACT(data, '$.month') as INT64) AS month,
+  CAST(JSON_EXTRACT(data, '$.year') as INT64) AS year,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
