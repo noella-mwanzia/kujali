@@ -1,4 +1,4 @@
---TO BE UPDATED ONCE THE budget_headers collection is normalized
+--TO BE UPDATED ONCE THE "budget_headers" COLLECTION HAS BEEN NORMALIZED
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   JSON_EXTRACT_SCALAR(path_params, '$.budgetid') AS budget_id,
