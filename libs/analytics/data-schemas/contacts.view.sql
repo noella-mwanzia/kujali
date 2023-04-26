@@ -20,5 +20,5 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
 
 FROM `project-kujali.kdev.kdev_contacts_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH SAFE_OFFSET
-JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH SAFE_OFFSET USING(SAFE_OFFSET)
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH OFFSET
+CROSS JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET USING(OFFSET)
