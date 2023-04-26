@@ -4,6 +4,7 @@ SELECT
 
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
   CAST(JSON_EXTRACT(data, '$.baseAmount') as FLOAT64) AS base_amount,
+  JSON_EXTRACT_SCALAR(data, '$.allocatedTo') AS allocated_to,
   CAST(JSON_EXTRACT(data, '$.isOccurenceStart') as BOOL) AS is_occurrence_start,
   
 
