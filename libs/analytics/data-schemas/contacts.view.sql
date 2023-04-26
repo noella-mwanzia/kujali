@@ -21,4 +21,4 @@ SELECT
 
 FROM `project-kujali.kdev.kdev_contacts_raw_latest`,
 UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH OFFSET
-CROSS JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET USING(OFFSET)
+JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET USING(OFFSET)
