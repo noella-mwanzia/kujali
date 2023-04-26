@@ -10,7 +10,7 @@ SELECT
   CAST(JSON_EXTRACT(data, '$.status') as INT64) AS status,
 
   children AS child,
-  amounts AS amount,
+  amounts_in_year AS amount_in_year,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
@@ -19,7 +19,7 @@ SELECT
 
 FROM `project-kujali.kdev.kdev_budgets_raw_latest`,
 UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children
-JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts
+JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts_in_year
 
 
 
