@@ -1,7 +1,7 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
+  
   JSON_EXTRACT_SCALAR(data, '$.notes') AS notes,
   CAST(JSON_EXTRACT(data, '$.amount') as INT64) AS amount,
 
