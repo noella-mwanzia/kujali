@@ -1,5 +1,7 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
+  document_id AS id,
+
   JSON_EXTRACT_SCALAR(data, '$.name') AS name,
   JSON_EXTRACT_SCALAR(data, '$.hq') AS headquarters,
   JSON_EXTRACT_SCALAR(data, '$.logoImgUrl') as logo_img_url,
