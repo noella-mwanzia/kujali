@@ -1,5 +1,7 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
+  document_id AS id,
+
   JSON_EXTRACT_SCALAR(data, '$.fName') AS firstname,
   JSON_EXTRACT_SCALAR(data, '$.lName') AS lastname,
   JSON_EXTRACT_SCALAR(data, '$.email') AS email,
