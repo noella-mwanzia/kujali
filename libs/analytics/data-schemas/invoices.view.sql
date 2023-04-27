@@ -1,5 +1,6 @@
 SELECT
-  JSON_EXTRACT(data, '$.id') AS id,
+  JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
+  document_id AS id,
 
   JSON_EXTRACT_SCALAR(data, '$.number') AS number,
   JSON_EXTRACT_SCALAR(data, '$.title') AS title,
@@ -14,7 +15,7 @@ SELECT
   JSON_EXTRACT_SCALAR(products, '$.desc') AS product_desc,
   CAST(JSON_EXTRACT(products, '$.qty') as INT64) AS product_quantity,
   CAST(JSON_EXTRACT(products, '$.vat') as INT64) AS product_vat,
-  JSON_EXTRACT_ARRAY(products, '$.discount') AS discount,
+  discounts AS discount,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
@@ -24,5 +25,4 @@ SELECT
 
 FROM `project-kujali.kdev.kdev_invoices_raw_latest`,
 UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products
-
-
+JOIN UNNEST(JSON_EXTRACT_ARRAY(products, '$.discount')) AS discounts
