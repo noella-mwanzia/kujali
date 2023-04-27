@@ -1,6 +1,6 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
 
   JSON_EXTRACT_SCALAR(data, '$.label') AS label,
 
