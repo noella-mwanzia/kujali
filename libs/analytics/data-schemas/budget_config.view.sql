@@ -2,7 +2,7 @@ SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   JSON_EXTRACT_SCALAR(path_params, '$.budgetid') AS budget_id,
 
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
   CAST(JSON_EXTRACT(data, '$.isbudgetLocked') as BOOL) AS is_budget_locked,
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
