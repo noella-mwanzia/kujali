@@ -1,7 +1,8 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
+  document_id AS id,
   
-  CAST(JSON_EXTRACT( data , '$.amount') as FLOAT64) AS amount,
+  CAST(JSON_EXTRACT(data , '$.amount') as FLOAT64) AS amount,
 
   JSON_EXTRACT_SCALAR(data, '$.invId') AS invoice_id,
   JSON_EXTRACT_SCALAR(data, '$.pId') AS payment_id,
