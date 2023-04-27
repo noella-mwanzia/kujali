@@ -1,6 +1,6 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
 
   CAST(JSON_EXTRACT(data, '$.credit') as FLOAT64) AS credit,
   CAST(JSON_EXTRACT(data, '$.allocStatus') as INT64) AS allocation_status,
