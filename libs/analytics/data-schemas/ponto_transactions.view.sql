@@ -1,6 +1,6 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
   JSON_EXTRACT_SCALAR(data, '$.description') AS description,
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
 
@@ -24,4 +24,4 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
-FROM `project-kujali.kdev.kdev_ponto_transactions_raw_latest`,
+FROM `project-kujali.kdev.kdev_ponto_transactions_raw_latest`
