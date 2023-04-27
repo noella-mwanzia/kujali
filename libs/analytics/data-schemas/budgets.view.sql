@@ -1,7 +1,7 @@
 -- TO BE UPDATED ONCE THE "budgets" COLLECTION HAS BEEN NORMALIZED
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
   JSON_EXTRACT_SCALAR(data, '$.name') AS name,
 
   CAST(JSON_EXTRACT(data, '$.duration') as INT64) AS duration,
@@ -18,8 +18,8 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
 FROM `project-kujali.kdev.kdev_budgets_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children
-JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts_in_year
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children WITH OFFSET
+JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts_in_year WITH OFFSET USING(OFFSET)
 
 
 
