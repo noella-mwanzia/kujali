@@ -3,7 +3,6 @@ SELECT
   document_id AS id,
   
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
-  JSON_EXTRACT_SCALAR(data, '$.allocatedTo') AS allocated_to,
 
   JSON_EXTRACT_SCALAR(data, '$.note') AS note,
 
@@ -19,7 +18,6 @@ SELECT
   TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.date._seconds') as INT64)) AS date,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
-  TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
-  TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
+  TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on
 
 FROM `project-kujali.kdev.kdev_expenses_raw_latest`
