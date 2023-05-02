@@ -15,14 +15,8 @@ SELECT
   JSON_EXTRACT_SCALAR(data, '$.company') AS company,
   JSON_EXTRACT_SCALAR(data, '$.mainLanguage') AS main_language,
 
-  JSON_EXTRACT_SCALAR(roles) AS role,
-  JSON_EXTRACT_SCALAR(tags) AS tag,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
 
-  offset AS role_index
-
-FROM `project-kujali.kdev.kdev_contacts_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH OFFSET AS offset
-JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET USING(offset) ORDER BY offset
+FROM `project-kujali.kdev.kdev_contacts_raw_latest`
