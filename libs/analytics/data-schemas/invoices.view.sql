@@ -23,6 +23,8 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.dueDate._seconds') as INT64)) AS due_date,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
 
+  offset AS product_index
+
 FROM `project-kujali.kdev.kdev_invoices_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products
-JOIN UNNEST(JSON_EXTRACT_ARRAY(products, '$.discount')) AS discounts
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products WITH OFFSET AS offset
+JOIN UNNEST(JSON_EXTRACT_ARRAY(products, '$.discount')) AS discounts WITH OFFSET USING(OFFSET) ORDER BY offset
