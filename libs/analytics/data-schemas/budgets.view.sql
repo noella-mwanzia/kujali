@@ -17,9 +17,11 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
+  offset AS budget_child_index
+
 FROM `project-kujali.kdev.kdev_budgets_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children WITH OFFSET
-JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts_in_year WITH OFFSET USING(OFFSET)
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children WITH OFFSET AS offset
+JOIN UNNEST(JSON_EXTRACT_ARRAY(data, '$.result.amountsYear')) AS amounts_in_year WITH OFFSET USING(OFFSET) ORDER BY offset
 
 
 
