@@ -1,6 +1,9 @@
 SELECT
+  CONCAT(document_id, '_r_', offset) as id,
+
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   document_id AS contact_id,
+
 
   JSON_EXTRACT_SCALAR(roles) AS role,
 
