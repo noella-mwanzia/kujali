@@ -24,5 +24,7 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
+  offset AS account_index
+
 FROM `project-kujali.kdev.kdev_bank_connections_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.accounts')) AS accounts
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.accounts')) AS accounts WITH OFFSET AS offset ORDER BY offset
