@@ -27,5 +27,7 @@ SELECT
 
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
 
+  offset AS element_index
+
 FROM `project-kujali.kdev.kdev_invoices_allocs_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.elements')) AS elements
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.elements')) AS elements WITH OFFSET AS offset ORDER BY offset
