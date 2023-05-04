@@ -1,4 +1,3 @@
---TO BE UPDATED ONCE THE "budget_headers" COLLECTION HAS BEEN NORMALIZED
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   JSON_EXTRACT_SCALAR(path_params, '$.budgetid') AS budget_id,
@@ -7,9 +6,6 @@ SELECT
   JSON_EXTRACT_SCALAR(data, '$.name') AS name,
   CAST(JSON_EXTRACT(data, '$.startY') as INT64) AS start_year,
   CAST(JSON_EXTRACT(data, '$.duration') as INT64) AS duration,
-  
-  JSON_EXTRACT(data, '$.headers') AS headers,
-  JSON_EXTRACT(data, '$.years') AS years,
   
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
