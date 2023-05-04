@@ -10,23 +10,17 @@ SELECT
   CAST(JSON_EXTRACT( data , '$.amount') as FLOAT64) AS amount,
 
   -- String type
-  JSON_EXTRACT_SCALAR(data, '$.notes') AS notes,
+  JSON_EXTRACT_SCALAR(data, '$.notes') AS notes, 
   JSON_EXTRACT_SCALAR(data, '$.description') AS descr,
-  JSON_EXTRACT_SCALAR(data, '$.from') AS from_id,
-  JSON_EXTRACT_SCALAR(data, '$.fromAccName') AS from_name,
-  JSON_EXTRACT_SCALAR(data, '$.ibanFrom') AS iban_from,
-  JSON_EXTRACT_SCALAR(data, '$.to') AS to_id,
-  JSON_EXTRACT_SCALAR(data, '$.toAccName') AS to_name,
-  JSON_EXTRACT_SCALAR(data, '$.ibanTo') AS iban_to,
+  JSON_EXTRACT_SCALAR(data, '$.from') AS from_account_id,
+  JSON_EXTRACT_SCALAR(data, '$.to') AS to_account_id,
   
-  JSON_EXTRACT_SCALAR(data, '$.source') AS tr_source,
-  JSON_EXTRACT_SCALAR(data, '$.trStatus') AS transaction_status,
-
-  for_list AS for_text,
+  JSON_EXTRACT_SCALAR(data, '$.source') AS tr_source, 
+  JSON_EXTRACT_SCALAR(data, '$.trStatus') AS transaction_status,  
 
   -- Integer type
-  CAST(JSON_EXTRACT( data , '$.mode') as INT64) AS mode,
-  CAST(JSON_EXTRACT( data , '$.type') as INT64) AS type,
+  CAST(JSON_EXTRACT( data , '$.mode') as INT64) AS mode, 
+  CAST(JSON_EXTRACT( data , '$.type') as INT64) AS type, 
 
   CAST(JSON_EXTRACT(data, '$.verified') as BOOL) as verified,
 
@@ -35,7 +29,4 @@ SELECT
   TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
   TIMESTAMP_SECONDS(cast(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
-  offset AS for_list_index
-
-FROM `project-kujali.kdev.kdev_payments_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.for')) AS for_list WITH OFFSET AS offset ORDER BY offset
+FROM `project-kujali.kdev.kdev_payments_raw_latest`
