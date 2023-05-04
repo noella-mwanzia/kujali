@@ -10,21 +10,12 @@ SELECT
   JSON_EXTRACT_SCALAR(data, '$.customer') AS customer,
   JSON_EXTRACT_SCALAR(data, '$.contact') AS contact,
   JSON_EXTRACT_SCALAR(data, '$.company') AS company,
-  
-  CAST(JSON_EXTRACT(products, '$.cost') as INT64) AS product_cost,
-  JSON_EXTRACT_SCALAR(products, '$.desc') AS product_desc,
-  CAST(JSON_EXTRACT(products, '$.qty') as INT64) AS product_quantity,
-  CAST(JSON_EXTRACT(products, '$.vat') as INT64) AS product_vat,
-  discounts AS discount,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.date._seconds') as INT64)) AS date,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.dueDate._seconds') as INT64)) AS due_date,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
+  TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
-  offset AS product_index
-
-FROM `project-kujali.kdev.kdev_invoices_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products WITH OFFSET AS offset
-JOIN UNNEST(JSON_EXTRACT_ARRAY(products, '$.discount')) AS discounts WITH OFFSET USING(OFFSET) ORDER BY offset
+FROM `project-kujali.kdev.kdev_invoices_raw_latest`
