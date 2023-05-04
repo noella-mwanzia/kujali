@@ -5,10 +5,8 @@ SELECT
   JSON_EXTRACT_SCALAR(data, '$.notes') AS notes,
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
 
-  JSON_EXTRACT_SCALAR(data, '$.to') AS to_name,
-  JSON_EXTRACT_SCALAR(data, '$.from') AS from_name,
-  JSON_EXTRACT_SCALAR(data, '$.toAccName') AS to_account_name,
-  JSON_EXTRACT_SCALAR(data, '$.fromAccName') AS from_account_name,
+  JSON_EXTRACT_SCALAR(data, '$.to') AS to_account_id,
+  JSON_EXTRACT_SCALAR(data, '$.from') AS from_account_id,
 
   JSON_EXTRACT_SCALAR(data, '$.allocId') AS allocation_id,
   CAST(JSON_EXTRACT(data, '$.allocStatus') as INT64) AS allocation_status,
