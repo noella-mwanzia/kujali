@@ -9,4 +9,4 @@ SELECT
   offset AS role_index
 
 FROM `project-kujali.kdev.kdev_contacts_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH OFFSET AS offset
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.role')) AS roles WITH OFFSET AS offset ORDER BY offset, contact_id

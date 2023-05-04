@@ -9,4 +9,4 @@ SELECT
   offset AS tag_index
 
 FROM `project-kujali.kdev.kdev_contacts_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET AS offset ORDER BY offset
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.tags')) AS tags WITH OFFSET AS offset ORDER BY offset, contact_id

@@ -9,4 +9,4 @@ SELECT
   offset AS budget_child_index
 
 FROM `project-kujali.kdev.kdev_budgets_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children WITH OFFSET AS offset
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.childrenList')) AS children WITH OFFSET AS offset ORDER BY  budget_id, offset

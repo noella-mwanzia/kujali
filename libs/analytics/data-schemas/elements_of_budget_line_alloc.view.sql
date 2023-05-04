@@ -12,4 +12,4 @@ SELECT
   offset AS element_index
 
 FROM `project-kujali.kdev.kdev_budget_lines_allocs_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.elements')) AS elements WITH OFFSET AS offset ORDER BY offset
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.elements')) AS elements WITH OFFSET AS offset ORDER BY offset, budget_line_alloc_id

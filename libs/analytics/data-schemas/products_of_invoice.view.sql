@@ -15,4 +15,4 @@ SELECT
 
   offset AS product_index
 FROM `project-kujali.kdev.kdev_invoices_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products WITH OFFSET AS offset
+UNNEST(JSON_EXTRACT_ARRAY(data, '$.products')) AS products WITH OFFSET AS offset ORDER BY offset, invoice_id
