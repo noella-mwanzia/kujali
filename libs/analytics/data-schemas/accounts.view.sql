@@ -1,11 +1,11 @@
 
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
 
-  JSON_EXTRACT_SCALAR(data, '$.accountHolder') AS holder_name,
-  JSON_EXTRACT_SCALAR(data, '$.accountHolderEmail') AS holder_email,
-  JSON_EXTRACT_SCALAR(data, '$.accountHolderPhone') AS holder_phone,
+  JSON_EXTRACT_SCALAR(data, '$.accountHolder') AS account_holder,
+  JSON_EXTRACT_SCALAR(data, '$.accountHolderEmail') AS account_holder_email,
+  JSON_EXTRACT_SCALAR(data, '$.accountHolderPhone') AS account_holder_phone,
 
   JSON_EXTRACT_SCALAR(data, '$.name') AS account_name,
   JSON_EXTRACT_SCALAR(data, '$.desc') AS account_desc,

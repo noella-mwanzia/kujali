@@ -1,10 +1,12 @@
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  JSON_EXTRACT_SCALAR(data, '$.id') AS id,
+  document_id AS id,
 
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
   CAST(JSON_EXTRACT(data, '$.baseAmount') as FLOAT64) AS base_amount,
   JSON_EXTRACT_SCALAR(data, '$.allocatedTo') AS allocated_to,
+
+  JSON_EXTRACT_SCALAR(data, '$.occurenceId') AS occurrence_id,
   CAST(JSON_EXTRACT(data, '$.isOccurenceStart') as BOOL) AS is_occurrence_start,
   
 
