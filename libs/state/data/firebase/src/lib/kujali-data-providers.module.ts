@@ -5,7 +5,7 @@ import { DataProvider }  from './data/data.provider';
 
 
 /**
- * Syndic Providers Module. Collection of service links to the backend.
+ * kujali Providers Module. Collection of service links to the backend.
  */
 @NgModule({
   imports: [CommonModule],

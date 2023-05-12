@@ -22,8 +22,24 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
+import { BankingStateModule } from '@app/state/finance/banking';
 import { CostTypesStateModule } from '@app/state/finance/cost-types';
 import { BudgetsStateModule } from '@app/state/finance/budgetting/budgets';
+import { AllocationsStateModule } from '@app/state/finance/allocations';
+import { PaymentsStateModule } from '@app/state/finance/payments';
+import { ExpensesStateModule } from '@app/state/finance/operations/expenses';
+
+import { FinanceBaseModule } from '@app/state/finance/base';
+import { ActivitiesStateModule } from '@app/state/finance/activities';
+import { CompaniesStateModule } from '@app/state/finance/companies';
+import { ContactsStateModule } from '@app/state/finance/contacts';
+import { InvoicesStateModule } from '@app/state/finance/invoices';
+import { NotesStateModule } from '@app/state/finance/notes';
+import { OpportunitiesStateModule } from '@app/state/finance/opportunities';
+import { TagsStateModule } from '@app/state/tags';
+import { RolesStateModule } from '@app/state/roles';
+import { FilesStateModule } from '@app/state/files';
+
 
 import { environment } from '../environments/environment';
 
@@ -56,10 +72,28 @@ import { AppRoutingModule } from './app.routing.module';
 
     // AppConfigModule.forRoot(),
 
+
+    //banking
+    BankingStateModule.forRoot(),
+    AllocationsStateModule.forRoot(),
+    PaymentsStateModule.forRoot(),
+
+    ExpensesStateModule.forRoot(),
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
     BudgetsStateModule.forRoot(),
     CostTypesStateModule.forRoot(),
+
+    FinanceBaseModule.forRoot(),
+    ActivitiesStateModule.forRoot(),
+    CompaniesStateModule.forRoot(),
+    ContactsStateModule.forRoot(),
+    InvoicesStateModule.forRoot(),
+    NotesStateModule.forRoot(),
+    OpportunitiesStateModule.forRoot(),
+    TagsStateModule.forRoot(),
+    RolesStateModule.forRoot(),
+    FilesStateModule.forRoot(),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

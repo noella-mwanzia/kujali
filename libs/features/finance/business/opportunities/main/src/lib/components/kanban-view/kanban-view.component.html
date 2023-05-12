@@ -1,0 +1,248 @@
+<div class="grid-design">
+  <div *ngIf="pageDataLoaded" fxLayout="row" fxLayoutAlign="space-between start" cdkDropListGroup>
+    <mat-card class="mat-card-container" fxFlex="25%">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>New</h3>
+        <i class="bi bi-three-dots-vertical"></i>
+      </div>
+      <div cdkDropList [cdkDropListData]="newOpportunityList" class="mat-card-list" cdkDropListSortingDisabled
+        (cdkDropListDropped)="drop($event, '0')">
+        <mat-card class="ops-card" *ngFor="let ops of newOpportunityList" cdkDrag>
+          <div class="move" fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="bg-title" [ngStyle]="{'background-color': generateColors(ops.type)}">{{ops?.type?.charAt(0)}}{{ops?.type?.charAt(1)}}</p>
+            <div class="date" fxLayout="row" fxLayoutAlign="start center">
+              <i class="bi bi-stopwatch"></i>
+              <p>{{getDate(ops.deadline)}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title" (click)="goToOpps(ops.id!)">{{ops.title}}</p>
+            <p class="desc" *ngIf="ops.desc.length < 155; else restrict">{{ops.desc}}</p>
+            <ng-template #restrict>
+              <p class="desc">{{ops.desc.substring(0, 155)}}...</p>
+            </ng-template>
+          </div>
+
+          <div class="ref">
+            <p (click)="goToCompany(ops.company)" *ngIf="ops.company; else dash">{{getCompanyName(ops.company)}}</p>
+            <p (click)="goToContact(ops.contact)" *ngIf="ops.contact; else dash">{{getContactName(ops.contact)}}</p>
+          </div>
+
+          <div class="border-top" fxLayout="row" fxLayoutAlign="space-between center">
+            <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" *ngIf="ops?.assignTo?.length! > 0">
+              <div *ngFor="let ass of getOppsAssignedTo(ops?.assignTo!) | slice:0:4; let i = index">
+                <img *ngIf="ass.photoUrl; else text" class="icon" [src]="ass.photoUrl" alt="">
+                <ng-template #text>
+                  <p class="icon">{{getInitials(ass.displayName)}}</p>
+                </ng-template>
+                <div class="hide">{{ass.displayName}}</div>
+              </div>
+              <p *ngIf="ops?.assignTo?.length! > 5" class="icon"> +{{ops?.assignTo?.length! - 4}}</p>
+            </span>
+
+            <div>
+              <div *ngIf="ops.tags; else dash">
+                <ng-template [ngIf]="ops.tags.length === 1">
+                  <div>
+                    <p class="tag">{{ops.tags[0]}}</p>
+                  </div>
+                </ng-template>
+
+                <ng-template [ngIf]="ops.tags.length >= 2">
+                  <div class="mydiv" fxLayout="row">
+                    <p class="tag">{{ops.tags[0]}}</p>
+                    <p class="tag"> {{ops.tags[1]}}</p>
+                    <p *ngIf="ops?.tags?.length! > 2" class="extra-tag"> +{{ops.tags.length-2}}</p>
+                  </div>
+                  <div class="hide">{{ops.tags}}</div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+    <mat-card class="mat-card-container" fxFlex="25%">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>In progress</h3>
+        <i class="bi bi-three-dots-vertical"></i>
+      </div>
+      <div cdkDropList [cdkDropListData]="inProgressOpsList" class="mat-card-list"
+        (cdkDropListDropped)="drop($event, '1')">
+        <mat-card class="ops-card" *ngFor="let ops of inProgressOpsList" cdkDrag>
+          <div class="move" fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="bg-title" [ngStyle]="{'background-color': generateColors(ops.type)}">{{ops?.type?.charAt(0)}}{{ops?.type?.charAt(1)}}</p>
+            <div class="date" fxLayout="row" fxLayoutAlign="start center">
+              <i class="bi bi-stopwatch"></i>
+              <p>{{getDate(ops.deadline)}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title" (click)="goToOpps(ops.id!)">{{ops.title}}</p>
+            <p class="desc">{{ops.desc}}</p>
+          </div>
+
+          <div class="ref">
+            <p (click)="goToCompany(ops.company)" *ngIf="ops.company; else dash">{{getCompanyName(ops.company)}}</p>
+            <p (click)="goToContact(ops.contact)" *ngIf="ops.contact; else dash">{{getContactName(ops.contact)}}</p>
+          </div>
+
+          <div class="border-top" fxLayout="row" fxLayoutAlign="space-between center">
+            <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" *ngIf="ops?.assignTo?.length! > 0">
+              <div *ngFor="let ass of getOppsAssignedTo(ops?.assignTo!) | slice:0:4; let i = index">
+                <img *ngIf="ass.photoUrl; else text" class="icon" [src]="ass.photoUrl" alt="">
+                <ng-template #text>
+                  <p class="icon">{{getInitials(ass.displayName)}}</p>
+                </ng-template>
+                <div class="hide">{{ass.displayName}}</div>
+              </div>
+              <p *ngIf="ops?.assignTo?.length! > 5" class="icon"> +{{ops?.assignTo?.length! - 4}}</p>
+            </span>
+            <div>
+              <div *ngIf="ops.tags; else dash">
+                <ng-template [ngIf]="ops.tags.length === 1">
+                  <div>
+                    <p class="tag">{{ops.tags[0]}}</p>
+                  </div>
+                </ng-template>
+
+                <ng-template [ngIf]="ops.tags.length >= 2">
+                  <div class="mydiv" fxLayout="row">
+                    <p class="tag">{{ops.tags[0]}}</p>
+                    <p class="tag"> {{ops.tags[1]}}</p>
+                    <p *ngIf="ops?.tags?.length! > 2" class="extra-tag"> +{{ops.tags.length-2}}</p>
+                  </div>
+                  <div class="hide">{{ops.tags}}</div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+    <mat-card class="mat-card-container" fxFlex="25%">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Won</h3>
+        <i class="bi bi-three-dots-vertical"></i>
+      </div>
+
+      <div cdkDropList [cdkDropListData]="wonOpsList" class="mat-card-list" cdkDropListSortingDisabled
+        (cdkDropListDropped)="drop($event, '2')">
+        <mat-card class="ops-card" *ngFor="let ops of wonOpsList" cdkDrag>
+          <div class="move" fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="bg-title" [ngStyle]="{'background-color': generateColors(ops.type)}">{{ops?.type?.charAt(0)}}{{ops?.type?.charAt(1)}}</p>
+            <div class="date" fxLayout="row" fxLayoutAlign="start center">
+              <i class="bi bi-stopwatch"></i>
+              <p>{{getDate(ops.deadline)}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title" (click)="goToOpps(ops.id!)">{{ops.title}}</p>
+            <p class="desc">{{ops.desc}}</p>
+          </div>
+
+          <div class="ref">
+            <p (click)="goToCompany(ops.company)" *ngIf="ops.company; else dash">{{getCompanyName(ops.company)}}</p>
+            <p (click)="goToContact(ops.contact)" *ngIf="ops.contact; else dash">{{getContactName(ops.contact)}}</p>
+          </div>
+
+          <div class="border-top" fxLayout="row" fxLayoutAlign="space-between center">
+            <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" *ngIf="ops?.assignTo?.length! > 0">
+              <div *ngFor="let ass of getOppsAssignedTo(ops?.assignTo!) | slice:0:4; let i = index">
+                <img *ngIf="ass.photoUrl; else text" class="icon" [src]="ass.photoUrl" alt="">
+                <ng-template #text>
+                  <p class="icon">{{getInitials(ass.displayName)}}</p>
+                </ng-template>
+                <div class="hide">{{ass.displayName}}</div>
+              </div>
+              <p *ngIf="ops?.assignTo?.length! > 5" class="icon"> +{{ops?.assignTo?.length! - 4}}</p>
+            </span>
+            <div>
+              <div *ngIf="ops.tags; else dash">
+                <ng-template [ngIf]="ops.tags.length === 1">
+                  <div>
+                    <p class="tag">{{ops.tags[0]}}</p>
+                  </div>
+                </ng-template>
+
+                <ng-template [ngIf]="ops.tags.length >= 2">
+                  <div class="mydiv" fxLayout="row">
+                    <p class="tag">{{ops.tags[0]}}</p>
+                    <p class="tag"> {{ops.tags[1]}}</p>
+                    <p *ngIf="ops?.tags?.length! > 2" class="extra-tag"> +{{ops.tags.length-2}}</p>
+                  </div>
+                  <div class="hide">{{ops.tags}}</div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+    <mat-card class="mat-card-container" fxFlex="25%">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>Lost</h3>
+        <i class="bi bi-three-dots-vertical"></i>
+      </div>
+      <div cdkDropList [cdkDropListData]="lostOpsList" class="mat-card-list" (cdkDropListDropped)="drop($event, '3')">
+        <mat-card class="ops-card" *ngFor="let ops of lostOpsList" cdkDrag>
+          <div class="move" fxLayout="row" fxLayoutAlign="space-between center">
+            <p class="bg-title" [ngStyle]="{'background-color': generateColors(ops.type)}">{{ops?.type?.charAt(0)}}{{ops?.type?.charAt(1)}}</p>
+            <div class="date" fxLayout="row" fxLayoutAlign="start center">
+              <i class="bi bi-stopwatch"></i>
+              <p>{{getDate(ops.deadline)}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title" (click)="goToOpps(ops.id!)">{{ops.title}}</p>
+            <p class="desc">{{ops.desc}}</p>
+          </div>
+
+          <div class="ref">
+            <p (click)="goToCompany(ops.company)" *ngIf="ops.company; else dash">{{getCompanyName(ops.company)}}</p>
+            <p (click)="goToContact(ops.contact)" *ngIf="ops.contact; else dash">{{getContactName(ops.contact)}}</p>
+          </div>
+
+          <div class="border-top" fxLayout="row" fxLayoutAlign="space-between center">
+            <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" *ngIf="ops?.assignTo?.length! > 0">
+              <div *ngFor="let ass of getOppsAssignedTo(ops?.assignTo!) | slice:0:4; let i = index">
+                <img *ngIf="ass.photoUrl; else text" class="icon" [src]="ass.photoUrl" alt="">
+                <ng-template #text>
+                  <p class="icon">{{getInitials(ass.displayName)}}</p>
+                </ng-template>
+                <div class="hide">{{ass.displayName}}</div>
+              </div>
+              <p *ngIf="ops?.assignTo?.length! > 5" class="icon"> +{{ops?.assignTo?.length! - 4}}</p>
+            </span>
+
+            <div>
+              <div *ngIf="ops.tags; else dash">
+                <ng-template [ngIf]="ops.tags.length === 1">
+                  <div>
+                    <p class="tag">{{ops.tags[0]}}</p>
+                  </div>
+                </ng-template>
+
+                <ng-template [ngIf]="ops.tags.length >= 2">
+                  <div class="mydiv" fxLayout="row">
+                    <p class="tag">{{ops.tags[0]}}</p>
+                    <p class="tag"> {{ops.tags[1]}}</p>
+                    <p *ngIf="ops?.tags?.length! > 2" class="extra-tag"> +{{ops.tags.length-2}}</p>
+                  </div>
+                  <div class="hide">{{ops.tags}}</div>
+                </ng-template>
+              </div>
+            </div>
+
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+
+    <ng-template #dash>
+      <p>-</p>
+    </ng-template>
+  </div>
+</div>

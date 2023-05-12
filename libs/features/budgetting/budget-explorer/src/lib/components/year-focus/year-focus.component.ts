@@ -31,7 +31,7 @@ export class YearFocusComponent {
   addCostOrIncome() {
     this.dialog.open(PlanTransactionModalComponent,
       {
-        data: this.getTransactionPlanInput(),
+        data: {data: this.getTransactionPlanInput(), column: MONTHS[0]},
         minHeight: '600px'
       })
   }

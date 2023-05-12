@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -15,11 +15,10 @@ import { OrgStore } from './organisation.store';
 export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
 {
   protected store = 'active-org-store';
-  protected _activeOrg : string;
+  private _activeOrg : string;
 
   constructor(_orgStore: OrgStore,
-              _user$$: UserStore,
-              @Inject('ELEWA_PRIV') _noInit: boolean = false)
+              _user$$: UserStore)
               // _router: Router)
   {
     super(null as any);
@@ -28,46 +27,31 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
     // const route$ = _router.events.pipe(filter((ev: Event) => ev instanceof NavigationEnd),
     //                                    map(ev => ev as NavigationEnd));
 
-    if(!_noInit)
+    this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
+                        .subscribe(([orgs, user]) => //route
     {
-      this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
-                          .subscribe(([orgs, user]) => //route
-      {
-        const orgId = (user as User).id as string;
+      const orgId = (user as User).id as string;
 
-        
-        const org = orgs.find(o => o.id === orgId);
-        if(org && this._activeOrg !== orgId)
-        {
-          this._activeOrg = orgId;
-          this.set(org, 'UPDATE - FROM DB || ROUTE');
-        }
-      });
-    }
+      const org = orgs.find(o => o.id === orgId);
+      if(org && this._activeOrg !== orgId)
+      {
+        this._activeOrg = orgId;
+        this.set(org, 'UPDATE - FROM DB || ROUTE');
+      }
+    });
   }
 
   override get = () => super.get().pipe(filter(val => val != null));
+
+  setOrg(org: Organisation) {
+    this.set({
+      id: org.id,
+      logoUrl: org?.logoUrl,
+      name: org?.name,
+      roles: org?.roles,
+      users: org?.users,
+    } as Organisation, 'UPDATE - FROM USER');
+  }
   
   ngOnDestroy = () => this._sbS.unsubscribe();
 }
-
-// private _getRoute(route: NavigationEnd) : string
-// {
-//   const elements = route.url.split('/');
-//   const propId = elements.length >= 3 ? elements[2] : '__noop__';
-
-//   return propId;
-// }
-
-// const orgId = this._getRoute(route);
-
-// if(orgId !== '__noop__')
-// {
-//   const org = orgs.find(o => o.id === orgId);
-
-//   if(org && this._activeOrg !== orgId)
-//   {
-//     this._activeOrg = orgId;
-//     this.set(org, 'UPDATE - FROM DB || ROUTE');
-//   }
-// }

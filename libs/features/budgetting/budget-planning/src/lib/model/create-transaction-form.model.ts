@@ -46,8 +46,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
   })
 }
 
-export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean): FormGroup {
-  debugger
+export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean, month: any): FormGroup {  
   return _fb.group({
     // Section 1: Transaction
     pTNameFormGroup: _fb.group({
@@ -69,7 +68,7 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: Transa
     // Section 3: Occurence
     pTOccurenceFormGroup: _fb.group({
       fromYear: [plan.fromYear, Validators.required],
-      fromMonth: [plan.fromMonth ?? MONTHS[0], Validators.required],
+      fromMonth: [isEdit ? plan.fromMonth : month ?? MONTHS[0], Validators.required],
       frequency: [plan.frequency, Validators.required],
       xTimesInterval: [plan.xTimesInterval]
     }),

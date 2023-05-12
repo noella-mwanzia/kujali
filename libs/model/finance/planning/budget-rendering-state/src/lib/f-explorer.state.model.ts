@@ -61,7 +61,8 @@ export const _DEFAULT_FINANCIAL_EXPLORER_STATE = () => ({
 */
 export function _FIRST_YEAR_OF_BUDGET(b: Budget): number 
 {
-  return (new Date().getFullYear() >= b.startYear ? new Date().getFullYear() : b.startYear);
+  // Should always start on budget start year
+  return b.startYear;
 }
 
 /** 

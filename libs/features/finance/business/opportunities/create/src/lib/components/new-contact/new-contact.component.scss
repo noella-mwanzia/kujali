@@ -1,0 +1,69 @@
+h2,
+h4,
+p,
+input,
+textarea {
+  font-family: var(--kujali-font-poppins-family);
+  caret-color: black;
+}
+
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 1.125rem;
+}
+
+h4 {
+  margin: 0;
+}
+
+button {
+  color: var(--kujali-color-text-white) !important;
+}
+
+.company .company-fields, .contact .contact-fields {
+  width: 100%;
+}
+
+.company-fields-extra {
+  width: 96%;
+  margin-bottom: 20px;
+}
+
+.blue-border {
+  padding: 10px;
+  border: solid var(--kujali-color-primary) 1px;
+  border-radius: 5px;
+}
+::ng-deep .mat-form-field-infix {
+  border-top-width: 2px !important;
+}
+
+::ng-deep .mat-input-element {
+  caret-color: white;
+}
+
+.extra-label {
+  color: var(--kujali-color-nav-inactive);
+  font-size: 0.825rem;
+  margin: 0px 0px 0px 7px;
+  padding: 0;
+}
+.or {
+  color: var(--kujali-color-nav-inactive);
+  font-size: 0.825rem;
+  margin: 0px 0px 0px 5px;
+  padding: 0;
+}
+
+.new-btn {
+  height: 44px;
+  border: solid black 1px;
+  color: black !important;
+}
+
+.secondary {
+  background-color: var(--kujali-color-text-white) !important;
+  color: var(--kujali-color-text-black) !important;
+}

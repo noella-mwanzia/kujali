@@ -2,6 +2,7 @@ import { uniqueId as ___uniqueId } from "lodash";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid'
 
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
@@ -53,7 +54,7 @@ export class TransactionPlannerManager
   add(plan: TransactionPlan)
   {
     // uid makes sure the Id is not repeated even when the project restarts
-    plan.id = plan.id && plan.lineId ? plan.id : uuidv4();
+    plan.id = plan.id && plan.lineId ? plan.id : nanoid();
     plan.lineId = plan.lineId ? plan.lineId : plan.id!;
 
     // 1. Validate! We can't add a second king

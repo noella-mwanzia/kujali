@@ -8,7 +8,7 @@ import { TranslateService} from '@ngfi/multi-lang';
  *
  * For no-pad mode,
  *    - inject { panelClass: 'modal-no-pad' } from calling parent.
- *    - inject data property noPad as true
+ *    - inject data org noPad as true
  *    - Ensure .modal-no-pad .mat-dialog-container { padding: 0 } is part of theme
  *
  * @class ConfirmationDialogComponent

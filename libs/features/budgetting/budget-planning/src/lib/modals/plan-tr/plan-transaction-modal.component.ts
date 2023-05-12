@@ -61,7 +61,7 @@ export class PlanTransactionModalComponent  // implements OnInit
   units  = 1; 
 
   constructor(private _fb: FormBuilder,
-              @Inject(MAT_DIALOG_DATA) data: PlanTrInput,
+              @Inject(MAT_DIALOG_DATA) data: {data: PlanTrInput, column: any},
               private _dialog: MatDialogRef<PlanTransactionModalComponent>,
               private _translation: TranslateService,
               private _costTypes$$: CostTypesStore,
@@ -70,9 +70,9 @@ export class PlanTransactionModalComponent  // implements OnInit
   ) 
   {    
     this._translation.initialise();
-    this.budgetId = data.budgetId as string;
+    this.budgetId = data.data.budgetId as string;
 
-    const cmd = this._fYExplorer$$.loadTransactionPlannerData(data);
+    const cmd = this._fYExplorer$$.loadTransactionPlannerData(data.data);
 
     this.type = cmd.type;
     this.categories = this._costTypes$$.getOfType(this.type); 
@@ -81,19 +81,20 @@ export class PlanTransactionModalComponent  // implements OnInit
     this.isCreate  = !this.isNewLine && cmd.trMode === 'create';
     this.isEdit    = !this.isNewLine && !this.isCreate;
 
-    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data, data.fromMonth);
+    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data.data, data.column);
 
-    this.lblAction = !this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
+    this.lblAction = this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
                                     : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
 
     this.title  = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.TITLE-COST' 
                                                        : 'PL-EXPLORER.TRPLANNER.TITLE-INCOME';
     this.lblType = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.COST-TYPE' 
                                                         : 'PL-EXPLORER.TRPLANNER.INCOME-TYPE';
+
   }
 
-  createPlanTransactionForm(plan?: any, month?: number): FormGroup {
-    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit)
+  createPlanTransactionForm(plan: PlanTrInput, month: any): FormGroup {
+    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit, month)
                           : CreateTransactionFormGroup(this._fb, month!);
   }
 
@@ -111,7 +112,7 @@ export class PlanTransactionModalComponent  // implements OnInit
     const transaciton = this._transactionPlService.createTransactionPlan(transactionForm, this.budgetId, this.type, this.isEdit);
     
     // Process the changes and recalculate the budget.
-    if ((this.isNewLine || this.isCreate)) {
+    if ((this.isNewLine || this.isCreate)) {      
       this._fYExplorer$$.addTransaction(transaciton)
     } else {
       this._fYExplorer$$.updateTransaction(transaciton);

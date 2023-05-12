@@ -1,0 +1,1 @@
+export * from './lib/handlers/fetch-ponto-user-bank-access.handler';

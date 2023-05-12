@@ -4,13 +4,45 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "FORMS" : {
+    "FIELDS" : {
+      "TITLE": "Title",
+      "TYPE": "Type",
+      "CATEGORY": "Category",
+      "AMOUNT": "Amount",
+      "DATE": "Date",
+      "VAT": "VAT",
+      "NOTE": "Note",
+      "BUDGET": "Budget",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "DESC": "Description",
+      "ACCOUNT-HOLDER": "Account Holder",
+      "DEADLINE": "Deadline",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "IBAN": "IBAN",
+      "ASSIGNED-TO": "Assigned To"
+    }
+  },
+  "HEADER-SEARCH": "Search",
+  "HEADER-FILTER": "Filter",
+  "HEADER-ADD-NEW": "Add new",
   "SIDENAV": {
     "NAV": {
       "DASHBOARD": "Dashboard",
       "BUSINESS": "Business",
       "OPERATIONS": "Operations",
-      "BUDGETTING": "Budgetting",
-      "SETTINGS": "Settings"
+      "BUDGETTING": "Budgeting",
+      "SETTINGS": "Settings",
+      "INVOICES": "Invoices",
+      "CONTACTS": "Contacts",
+      "COMPANIES": "Companies",
+      "BANKING":"Bank Accounts",
+      "PAYMENTS": "Payments",
+      "EXPENSES": "Expenses",
+      "BUDGETS": "Budgets",
+      "OPPORTUNITIES": "Opportunities"
     }
   },
   "LOGIN": {
@@ -53,6 +85,35 @@
   },
   "MODAL": {
     "CLOSE": "Close"
+  },
+  "MODALS" : {
+    "CREATE-EXPENSE" : {
+      "CREATE-EXPENSE" : "Create New Expense",
+      "BUDGET" : "Budget",
+      "AMOUNT" : "Amount",
+      "DATE" : "Date",
+      "CATEGORY" : "Category",
+      "TYPE" : "Type",
+      "VAT" : "Vat",
+      "NOTE" : "Note"
+    },
+    "CREATE-BANK-ACCOUNT" : {
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "ACCOUNT-HOLDER": "Account Holder",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "IBAN": "IBAN",
+      "BIC": "BIC",
+      "CURRENCY": "Currency",
+      "STREET-NAME": "Street Name",
+      "POSTAL-ADDRESS": "Postal Address",
+      "POSTAL-CODE": "Postal Code",
+      "PHYSICAL-ADDRESS": "Physical Address",
+      "COUNTRY": "Country",
+      "CITY": "City",
+      "CREATE-NEW-BANK-ACCOUNT": "Create New Bank Account"
+    }
   },
   "PAGE-CONTENT": {
     "BLOCKS": {
@@ -236,6 +297,151 @@
         "SHARE": "Share",
         "CLONE": "Clone"
       }
+    }
+  },
+  "BANKING": {
+    "HEADER": {
+      "BANKING": "Bank Accounts"
+    }
+  },
+  "CONTACT": {
+    "HEADER": {
+      "CONTACTS": "Contacts"
+    },
+    "TABLE": {
+      "NAME": "Name",
+      "PHONE": "Phone",
+      "EMAIL": "Email",
+      "COMPANY": "Company",
+      "TAGS": "Tags",
+      "ROLES": "Roles"
+    },
+    "ADDNEWCONTACT" : {
+      "ADD-NEW-CONTACT": "Add New Contact",
+      "OR": "or",
+      "FIRST-NAME": "First Name",
+      "LAST-NAME": "Last Name",
+      "EMAIL": "Email",
+      "DEF-FIRST-NAME": "Jack",
+      "DEF-LAST-NAME": "Sparrow",
+      "DEF-EMAIL": "jacksparrow@company.xyz",
+      "PHONE-NUMBER": "Phone",
+      "COMPANY": "Company",
+      "ROLE": "Role",
+      "DEF-NEW-TAGS": "New tags",
+      "CREATE-CONTACT": "Create Contact",
+      "CANCEL": "Cancel",
+      "OPTIONAL": "Optional",
+      "CREATE-ROLE": "Create Role",
+      "CREATE": "Create",
+      "ADD-NEW-ROLE": "Add New Role",
+      "OTHER": "Other",
+      "OTHERS": "Others",
+      "SEPARATE": "(Separate tags with space)",
+      "TAGS": "Tags"
+    }
+  },
+  "COMPANY": {
+    "HEADER": {
+      "COMPANIES": "Companies"
+    },
+    "NEW-COMPANY": "New Company",
+    "TABLE": {
+      "NAME": "Name",
+      "ACCMANAGER": "Account Manager",
+      "HQ": "Headquarters",
+      "ACTIVE-OPPORTUNITIES": "Active Opportunities",
+      "TAGS": "Tags"
+    },
+    "ADD-NEW-COMPANY" : {
+      "ADD-NEW-COMPANY": "Add New Company",
+      "OR": "or",
+      "COMPANY-NAME": "Name",
+      "COMPANY-NAME-PLACEHOLDER": "Company XYZ",
+      "ADDRESS": "Physical Address",
+      "ADDRESS-PLACEHOLDER": "Physical Address",
+      "COMPANY-CONTACT": "Company Contact",
+      "OPTIONAL": "Optional",
+      "NEW-CONTACT": "New Contact",
+      "CANCEL": "Cancel",
+      "CREATE-COMPANY": "Create Company"
+    }
+  },
+  "EXPENSES" : {
+    "HEADER": {
+      "EXPENSES": "Expenses"
+    }
+  },
+  "INVOICES" : {
+    "HEADER" : {
+      "INVOICE" : "Invoice",
+      "INVOICES" : "Invoices",
+      "SAVE-PROGRESS": "Save Progress",
+      "COPY": "Copy",
+      "DELETE": "Delete"
+    },
+    "TABLE": {
+      "INV-NUMBER": "Invoice Number",
+      "AMOUNT": "Amount",
+      "DATE": "Date",
+      "DUE-DATE": "Due Date",
+      "STATUS": "Status",
+      "COMPANY": "Company",
+      "CONTACT": "Contact",
+      "ACTIONS": "Actions"
+    },
+    "DETAIL": {
+      "TITLE": "Title",
+      "DATE": "Date",
+      "DUE-DATE": "Due Date",
+      "STATUS": "Status",
+      "COMPANY-DETAILS": "Company Details",
+      "COMPANY-NAME": "Company Name",
+      "ADDRESS": "Address",
+      "VAT": "VAT(%)",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "CUSTOMER-DETAILS": "Customer Details",
+      "CUSTOMER-NAME": "Customer Name",
+      "CUSTOMER-CONTACT": "Customer Contact",
+      "DESC": "Description",
+      "COST": "Cost",
+      "QTY": "Quantity",
+      "TOTAL": "Total",
+      "ACTIONS": "Actions",
+      "ADD-ITEM": "Add Item",
+      "SUBTOTAL": "Subtotal",
+      "TAX": "Tax",
+      "VAT-TOTAL": "VAT Total"
+    },
+    "SIDEBAR" : {
+      "SEND-INVOICE": "Send Invoice",
+      "PREVIEW": "Preview",
+      "DOWNLOAD": "Download",
+      "CURRENCY": "Currency",
+      "ADD-MESSAGE": "Add Message"
+    }
+  },
+  "OPPORTUNITIES": {
+    "HEADER" : {
+      "OPPORTUNITIES" : "Opportunities"
+    },
+    "TABLE" : {
+      "TITLE": "Title",
+      "ASSIGNED-TO": "Assigned To",
+      "COMPANY": "Company",
+      "CONTACT": "Contact",
+      "STATUS": "Status",
+      "AMOUNT": "Amount",
+      "CURRENCY": "Currency",
+      "TYPE":"Type",
+      "TAGS": "Tags",
+      "DEADLINE": "Deadline"
+    },
+    "ADD-NEW-OPPORTUNITY" : {
+      "ADD-NEW-OPPORTUNITY": "Add New Opportunity",
+      "TITLE": "New Company",
+      "DESCRIPTION": "Description"
     }
   }
 }

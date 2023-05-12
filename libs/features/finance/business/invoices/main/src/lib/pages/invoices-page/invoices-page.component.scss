@@ -1,0 +1,85 @@
+.main-page {
+  padding-bottom: 50px;
+}
+
+.filter-section {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.table-container {
+  margin-top: 50px;
+  position: relative;
+  min-height: 200px;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+td.mat-column-title {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+td.mat-column-imageurl {
+  padding-top: 5px;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue)!important;
+  color: white!important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+
+.partial-allocate-btn {
+  background-color: orange!important;
+  color: white!important;
+}
+
+.full-allocate-btn {
+  background-color: green!important;
+  color: white!important;
+}
+
+.unallocated-btn {
+  border: solid var(--kujali-color-primary-blue) 1px!important;
+}
+
+// Custom Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--kujali-color-primary-background); 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--kujali-color-text-inactive-bolder);
+  border-radius: 3px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

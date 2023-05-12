@@ -1,0 +1,103 @@
+<h2>{{"OPPORTUNITIES.ADD-NEW-OPPORTUNITY.ADD-NEW-OPPORTUNITY" | transloco}}</h2>
+<mat-stepper #stepper linear="true">
+  <mat-step [stepControl]="model.addNewOpportunityForm">
+    <form [formGroup]="model.addNewOpportunityForm">
+      <ng-template matStepLabel>Opportunity details</ng-template>
+      <div fxLayout="column" fxLayoutGap="10px">
+
+        <div fxLayout="column">
+          <!-- title fields -->
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxLayout="column" fxFlex="70%">
+
+              <h4>{{"FORMS.FIELDS.TITLE" | transloco}}</h4>
+              <mat-form-field appearance="outline" fxFlex>
+                <input matInput name="title" formControlName="title" type="text"
+                  [placeholder]=" 'OPPORTUNITIES.ADD-NEW-OPPORTUNITY.TITLE' | transloco">
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="start">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <h4>{{"FORMS.FIELDS.TYPE" | transloco}}</h4>
+              </div>
+              <mat-form-field appearance="outline" *ngIf="opportunityTypes$ | async as types">
+                <mat-select formControlName="type" name="type">
+                  <mat-option *ngFor="let type of types.labels" value="Project" [value]="type.label"> {{type.label}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- description field -->
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxLayout="column" fxFill>
+              <h4>{{"FORMS.FIELDS.DESC" | transloco}}</h4>
+              <mat-form-field appearance="outline" fxFlex>
+                <textarea matInput rows="8" name="desc" formControlName="desc" type="text"
+                  [placeholder]=" 'OPPORTUNITIES.ADD-NEW-OPPORTUNITY.DESCRIPTION' | transloco">
+                </textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- deadline fields -->
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+            <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+              <h4>{{"FORMS.FIELDS.DEADLINE" | transloco}}</h4>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="deadline" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <!-- Assign to field  -->
+            <div  fxFlex="50">
+              <kujali-org-users [parentForm]="model.addNewOpportunityForm"></kujali-org-users>
+            </div>
+          </div>
+
+          <div>
+            <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
+          </div>
+        </div> 
+      </div>
+      <div class="padd-top" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="pageIcons">
+          <i class="bi bi-circle-fill"></i>
+          <i class="bi bi-circle-fill"></i>
+        </div>
+        <div>
+          <button mat-dialog-close class="secondary" mat-flat-button matStepperNext>Cancel</button>
+          <button mat-flat-button color="primary" matStepperNext>Next</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <new-company [companyFormGroup]="model.companyFormGroup" [activeContact]="model.selectedContactId$"></new-company>
+
+    <new-contact [contactFormGroup]="model.contactFormGroup" [activeCompany$]="model.selectedCompanyId$"></new-contact>
+
+    <div class="errors">
+      <div *ngIf="!model.addNewOpportunityForm.valid">
+        <mat-error>
+          {{"FORMS.ERRORS.OPPS-REQ-FIELDS" | transloco}}
+        </mat-error>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="pageIconsLast">
+        <i class="bi bi-circle-fill"></i>
+        <i class="bi bi-circle-fill"></i>
+      </div>
+      <div>
+        <button mat-flat-button class="secondary" matStepperPrevious>Back</button>
+        <button mat-dialog-close mat-flat-button color="primary" (click)="addNewOpportunity()">Submit</button>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>

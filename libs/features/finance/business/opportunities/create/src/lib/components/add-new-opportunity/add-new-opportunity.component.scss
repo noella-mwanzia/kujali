@@ -1,0 +1,171 @@
+h2,
+h4,
+p,
+input,
+textarea {
+  font-family: var(--kujali-font-poppins-family);
+  caret-color: black;
+}
+
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 1.125rem;
+}
+
+h2 {
+  padding: 10px 10px;
+}
+h4 {
+  margin: 0;
+}
+
+button {
+  color: var(--kujali-color-text-white) !important;
+  margin-left: 20px;
+}
+
+.padd-top {
+  padding-top: 20px;
+}
+
+.company .company-fields, .contact .contact-fields {
+  width: 100%;
+}
+
+.company-fields-extra {
+  width: 96%;
+  margin-bottom: 20px;
+}
+
+.blue-border {
+  padding: 10px;
+  border: solid var(--kujali-color-primary) 1px;
+  border-radius: 5px;
+}
+
+// ::ng-deep .mat-chip.mat-standard-chip {
+//   background-color: var(--kujali-color-text-background);
+//   color: var(--kujali-color-primary);
+//   border-radius: 5px;
+// }
+
+.extra-label {
+  color: var(--kujali-color-nav-inactive);
+  font-size: 0.825rem;
+  margin: 0px 0px 0px 7px;
+  padding: 0;
+}
+.or {
+  color: var(--kujali-color-nav-inactive);
+  font-size: 0.825rem;
+  margin: 0px 0px 0px 5px;
+  padding: 0;
+}
+
+.new-btn {
+  height: 44px;
+  border: solid black 1px;
+  color: black !important;
+}
+
+.pageIcons, .pageIconsLast {
+  font-size: 12px;
+  margin-left: 45%;
+}
+.pageIcons i:first-of-type {
+  color: var(--kujali-color-primary);
+  margin-right: 15px;
+}
+
+.pageIcons i:last-of-type {
+  color: var(--kujali-color-nav-inactive);
+}
+.pageIconsLast i:last-of-type {
+  color: var(--kujali-color-primary);
+}
+
+.pageIconsLast i:first-of-type {
+  color: var(--kujali-color-nav-inactive);
+  margin-right: 15px;
+}
+
+.secondary {
+  background-color: var(--kujali-color-text-white) !important;
+  color: var(--kujali-color-text-black) !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+  display: none !important;
+  padding: 0px 0px !important;
+}
+::ng-deep .mat-stepper-horizontal-line {
+  display: none !important;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  padding: 24px 20px 24px 20px !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  color: white;
+}
+
+::ng-deep  .mat-chip.mat-standard-chip {
+  background-color: var(--kujali-color-text-background);
+  color: var(--kujali-color-primary);
+  border-radius: 5px;
+}
+
+input {
+  caret-color: black;
+}
+
+::ng-deep  .mat-autocom {
+  margin-top: 10px;
+  padding: 5px 0px;
+  display: flex;
+  box-shadow: none;
+}
+
+::ng-deep  .mat-autocom:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+
+::ng-deep  .test {
+  min-width: fit-content;
+  height: 20px;
+  padding: 5px 5px; 
+}
+
+::ng-deep .test span {
+  line-height: 20px;
+  padding: 2px;
+  border-radius: 5px;
+  background-color: var(--kujali-color-text-background);
+  color: var(--kujali-color-primary);
+  margin-right: 10px;
+}
+
+// Custom Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--kujali-color-primary-background);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--kujali-color-text-inactive-bolder);
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

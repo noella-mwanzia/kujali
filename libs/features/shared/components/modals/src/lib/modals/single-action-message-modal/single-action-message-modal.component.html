@@ -1,0 +1,45 @@
+<h2 mat-dialog-title> {{ data.dialogTitle }} </h2>
+
+<mat-dialog-content class="mat-typography">
+
+  <div class="info-section">
+    
+    <img src="assets/images/kujali-no-connection.png" alt="">
+    <p class="info-header">Kujali Uses Ponto to connect to your account</p>
+
+    <span class="info-span">
+      <i class="fas fa-link"></i>
+
+      <span class="info-desc">
+        <span class="info-title">Connect effortlessly</span>
+        Ponto lets you securely connect your
+        financial accounts in seconds
+      </span>
+    </span>
+
+    <span class="info-span">
+
+      <i class="fas fa-user-shield"></i>
+
+      <span class="info-desc">
+        <span class="info-title">Your data belongs to you</span>
+        Ponto doesn't sell personal info, and
+        will only use it with your permission
+      </span>
+    </span>
+
+    <hr>
+
+    <span class="policy">
+      By selecting “Continue” you agree to the
+        Ponto End User Privacy Policy
+    </span>
+
+  </div>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="navigatetToAction()">Continue</button>
+</mat-dialog-actions>

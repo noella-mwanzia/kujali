@@ -1,0 +1,178 @@
+.grid-design {
+  width: 100%;
+  margin-top: 50px;
+}
+
+mat-card h3 {
+  color: #88949E;
+  font-family: 'Poppins';
+  padding: 10px;
+}
+
+.mat-card-container {
+  margin: 0 25px 25px 0!important;
+  display: inline-block;
+  vertical-align: top;
+  background-color: #F4F8FB;
+}
+
+.mat-card-list {
+  min-height: 60px;
+  background: #F4F8FB;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+  padding: 10px;
+}
+
+.ops-card {
+  padding: 20px 10px!important;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  background: white;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.ops-card .move {
+  cursor: move;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.ops-card:last-child {
+  border: none;
+}
+.ops-card p {
+  margin: 0;
+}
+.ops-card > div {
+  margin-bottom: 20px;
+}
+.ops-card  div:last-of-type {
+  margin-bottom: 0px;
+}
+.mat-card-list.cdk-drop-list-dragging .ops-card:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.bg-title{
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.Project {
+  background-color: #49C496;
+}
+.Vacancy {
+  background-color: #4198F7;
+}
+.Recruitment {
+ background-color: #C4A849;
+}
+.date {
+  font-size: 14px;
+  color: #C6CDD8;
+  background-color: rgba(198,205,216, 0.2);
+  padding: 2px;
+  border-radius: 5px;
+} 
+
+.title{
+  color: #263446;
+  font-size: 18px;
+  cursor: pointer;
+}
+.title:hover {
+  text-decoration: underline;
+}
+
+.ref > p {
+  width: fit-content;
+  cursor: pointer;
+}
+.ref > p:hover {
+  text-decoration: underline;
+}
+
+.desc {
+  color: #88949E;
+  font-size: 14px;
+}
+
+.border-top {
+  border-top: solid #DFE5F0 1px;
+  padding-top: 10px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(65,152,247, 0.2);
+  color: var(--kujali-color-primary);
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.hide {
+  display: none;
+  position: absolute;
+  width: fit-content;
+  background-color: var(--kujali-color-text-black);
+}
+
+.icon:hover + .hide {
+  padding: 2px;
+  border-radius: 5px;
+  display: block;
+  color: var(--kujali-color-text-black);
+  font-size: 8px;
+  color: var(--kujali-color-text-white);
+}
+
+.mydiv:hover + .hide {
+  padding: 2px;
+  border-radius: 5px;
+  display: block;
+  color: var(--kujali-color-text-black);
+  font-size: 8px;
+  color: var(--kujali-color-text-white);
+}
+.tag,
+.extra-tag {
+  padding: 2px;
+  margin-right: 10px!important;
+  border-radius: 5px;
+  margin: 0px 5px 0px 0px;
+  background-color: var(--kujali-color-text-background);
+  width: fit-content;
+  color: var(--kujali-color-primary);
+}
+.vl {
+  border-left: 5px solid white;
+  height: 20px;
+}
+.extra-tag {
+  color: var(--kujali-color-primary);
+}

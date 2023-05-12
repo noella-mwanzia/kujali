@@ -1,0 +1,53 @@
+h2 {
+  font-weight: 600!important;
+  color: var(--kujali-color-primary-blue)!important;
+  font-size: 2rem!important;
+  margin-top: 20px!important;
+  padding: 0!important;
+  text-align: center;
+}
+
+* {
+  color: black;
+}
+
+.info-span {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+}
+
+.info-section {
+  text-align: center;
+  width: 90%;
+  margin: auto;
+}
+
+.info-header {
+  font-size: 1.2rem;
+}
+
+.info-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.info-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-align: left!important;
+}
+
+.policy {
+  margin-top: 20px;
+  color: rgba($color: #000000, $alpha: 0.6);
+  font-size: 0.7rem;
+}

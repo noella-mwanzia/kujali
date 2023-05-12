@@ -13,7 +13,7 @@
       </mat-form-field>
   
       <mat-form-field>
-        <mat-select formControlName="fromMonth" name="monthFrom" placeholder="From (Month)">
+        <mat-select formControlName="fromMonth" name="monthFrom" placeholder="From (Month)" [compareWith]="compareFn">
           <mat-option *ngFor="let month of months" [value]="month">
             {{ month.name | transloco}}
           </mat-option>

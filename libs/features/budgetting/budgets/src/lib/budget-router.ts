@@ -9,11 +9,11 @@ const BUDGET_EXPL_ROUTES: Route[] = [
   },
   {
     path: ':budgetId/edit',
-    loadChildren: () => import('@app/features/budgetting/budget-explorer').then(m => m.BudgetExplorerFeatureModule),
+    loadChildren: () => import('libs/features/budgetting/budget-explorer/src/lib/budget-explorer.module').then(m => m.BudgetExplorerFeatureModule),
   },
   {
     path: ':budgetId/view',
-    loadChildren: () => import('@app/features/budgetting/budget-explorer').then(m => m.BudgetExplorerFeatureModule),
+    loadChildren: () => import('libs/features/budgetting/budget-explorer/src/lib/budget-explorer.module').then(m => m.BudgetExplorerFeatureModule),
   }
 ];
 

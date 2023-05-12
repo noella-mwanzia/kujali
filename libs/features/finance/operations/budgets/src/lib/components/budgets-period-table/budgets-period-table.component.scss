@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue)!important;
+  color: white!important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}

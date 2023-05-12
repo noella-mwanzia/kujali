@@ -1,0 +1,60 @@
+<form [formGroup]="companyFormGroup">
+  <!-- company fields  -->
+  <div class="company" fxLayout="column" fxLayoutAlign="start start">
+    <div class="company-fields" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutAlign="start" fxFlex="50%">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <h4>{{"CONTACT.ADDNEWCONTACT.COMPANY" | transloco}}</h4>
+          <p class="extra-label">{{"COMPANY.ADD-NEW-COMPANY.OPTIONAL" | transloco}}</p>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="company" [compareWith]="compareFn">
+            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="companyList" (filteredReturn)="filteredCompanies =$event"></mat-select-filter>
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let company of filteredCompanies" [value]="company.id">
+              {{company.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+        <div>
+          <p class="or">{{"COMPANY.ADD-NEW-COMPANY.OR" | transloco}}</p>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+          <button mat-stroked-button (click)="toggleCompany()" class="new-btn"
+            fxLayout="row" fxLayoutAlign="center center" [disabled]="isCompanyFilled">
+            <i *ngIf="!showCompany; else dash" class="bi bi-plus-circle-fill"></i>
+            <ng-template #dash><i class="bi bi-dash-circle-fill"></i></ng-template>
+            {{"COMPANY.NEW-COMPANY" | transloco}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="company-fields-extra blue-border" *ngIf="showCompany">
+      <div fxLayout="column">
+        <div fxLayout="column" fxFlex="45">
+          <h4>{{"COMPANY.ADD-NEW-COMPANY.COMPANY-NAME" | transloco}}</h4>
+          <mat-form-field appearance="outline" fxFlex>
+            <input matInput name="name" type="text" formControlName="name"
+              [placeholder]="'COMPANY.ADD-NEW-COMPANY.COMPANY-NAME-PLACEHOLDER' | transloco">
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+          <h4>
+            {{"COMPANY.ADD-NEW-COMPANY.ADDRESS" | transloco}}
+          </h4>
+          <mat-form-field appearance="outline" fxFlex>
+            <input matInput name="lName" type="text" formControlName="hq"
+              [placeholder]="'COMPANY.ADD-NEW-COMPANY.ADDRESS-PLACEHOLDER' | transloco">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
