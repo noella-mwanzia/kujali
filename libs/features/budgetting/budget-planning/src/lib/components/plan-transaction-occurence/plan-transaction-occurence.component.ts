@@ -35,4 +35,8 @@ export class PlanTransactionOccurenceComponent implements OnInit {
   frequencyChanged(frequency: MatRadioChange) {
     this.frequency = frequency.value;
   }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1.month && c2.month ? c1.month === c2.month : c1 === c2 ;
+  }
 }

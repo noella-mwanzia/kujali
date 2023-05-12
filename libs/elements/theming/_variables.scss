@@ -103,8 +103,33 @@
   --kujali-segoe-ui-semi-bold: 'segoe-ui-semi-bold';
   --kujali-segoe-ui-bold-italic: 'segoe-ui-bold-italic';
 
+
+  .min-full-width {
+    min-width: 100%;
+  }
+
+  .max-full-width {
+    max-width: 100%;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .min-full-height {
+    min-height: 100%;
+  }
+
+  .max-full-height {
+    max-height: 100%;
+  }
+
+  .full-height {
+    height: 100%;
+  }
+
   /** modal **/
-  .close-modal-icon {
+  .close-modal-icon, .fa-circle-xmark{
     color: var(--kujali-color-danger);
     font-size: 1.2rem;
     cursor: pointer;
@@ -119,4 +144,11 @@
     color: white;
     margin-bottom: 20px;
   }
+
+  .page-header {
+    font-family: var(--kujali-segoe-ui-bold);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--kujali-color-primary-blue);
+  }  
 }

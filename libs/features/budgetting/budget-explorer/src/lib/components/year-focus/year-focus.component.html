@@ -4,7 +4,7 @@
 
   <div style="margin-bottom: 20px;" fxLayout="row" fxLayoutALign="space-between center" fxFlex>
 
-    <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px" fxFlex>
+    <div *ngIf="title" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="20px" fxFlex>
       <div fxLayoutAlign="center center">
         <button (click)="navigateYear('prev')" mat-stroked-button> {{"BUDGET.PREVIOUS-YEAR" | transloco}} </button>
       </div>

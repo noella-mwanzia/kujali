@@ -1,16 +1,15 @@
 .user-image {
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
   clip-path: circle();
-  margin-right: 10px;
-}
-
-img {
-  margin-top: 5px;
 }
 
 .user-btn{
   color: white;
   background-color: var(--kujali-color-primary-blue);
+}
+
+button {
+  color: white!important;
 }

@@ -1,0 +1,90 @@
+table {
+  width: 100%;
+}
+
+.table-container {
+  margin-top: 50px;
+  position: relative;
+  min-height: 200px;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue)!important;
+  color: white!important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+#activate-div{display:none}    
+
+.grid-list {
+  background-color: #DEE5F1;
+  padding: 5px;
+  color: #C6CDD8;
+  border-radius: 5px;
+}
+.grid-list i{
+  font-size: 20px;
+}
+.grid-list i:first-of-type{
+  background-color: #C5E0FD;
+  color: var(--kujali-color-primary);
+}
+#activate-div:checked ~ label 
+.grid-list i:last-of-type   {
+  background-color: #C5E0FD;
+  color: var(--kujali-color-primary);
+}
+#activate-div:checked ~ label 
+.grid-list i:first-of-type   {
+  background-color: #DEE5F1;
+  color: #C6CDD8;
+}
+
+.hide {
+  display: none;
+  position: absolute;
+  width: fit-content;
+  background-color: var(--kujali-color-text-black);
+}
+
+.mydiv:hover + .hide {
+  padding: 2px;
+  border-radius: 5px;
+  display: block;
+  color: var(--kujali-color-text-black);
+  font-size: 8px;
+  color: var(--kujali-color-text-white);
+}
+
+.tag,
+.extra-tag {
+  padding: 2px;
+  border-radius: 5px;
+  margin: 0px 5px 0px 0px;
+  background-color: var(--kujali-color-text-background);
+  width: fit-content;
+  color: var(--kujali-color-primary);
+}
+.vl {
+  border-left: 5px solid white;
+  height: 20px;
+}
+.extra-tag {
+  color: var(--kujali-color-primary);
+}

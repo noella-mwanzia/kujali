@@ -8,7 +8,11 @@ import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
 import { BudgetRowYear } from '@app/model/finance/planning/budget-lines-by-year';
 import { FinancialExplorerState } from '@app/model/finance/planning/budget-rendering-state';
 
+import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
+
 import { LinkBudgetModalComponent } from '../link-budget-modal/link-budget-modal.component';
+import { BackendService } from '@ngfi/angular';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Component({
   selector: 'app-financial-plan-result-table',
@@ -29,7 +33,10 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   tableType = BudgetRowType.Result;
 
-  constructor(private _dialog: MatDialog)
+  budgetSubmitting: boolean = false;
+  budgetActivating: boolean = false;
+
+  constructor(private _dialog: MatDialog, private _bs: FinancialExplorerStateService)
   { }
 
   ngOnInit() {
@@ -48,9 +55,23 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
     console.log('Service does not exist');
   }
 
-  submitBudget() {
-    this.budgetSubmitted.emit();
+  activateBudget() {
+    this.budgetActivating = true;
+    this._bs.activateBudget().subscribe(() => this.budgetActivating = false);
   }
+
+  submitBudget() {
+    this.budgetSubmitting = true;
+    this.budgetSubmitted.emit();
+
+    setTimeout(() => {
+      this.budgetSubmitting = false;
+    }, 2000);
+  }
+
+  // fecthPontoTrs() {
+  //   this._bs.httpsCallable('fetchPontoUserBankTransactions')({ orgId: '24og1rpbhzXTkw8NJY7WGuHmGWN2', orgAccId: 'asnfslakndfsalfd' }).subscribe(() => {});
+  // }
 
   ngOnDestroy(): void {
     if(this._sBs)

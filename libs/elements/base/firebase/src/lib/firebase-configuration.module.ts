@@ -24,7 +24,7 @@ export class FirebaseConfigurationModule
         // https://github.com/angular/angularfire/blob/master/docs/emulators/emulators.md
         { provide: USE_AUTH_EMULATOR, useValue:(isDev && useEmulators) ? ['http://localhost:9082'] : undefined },
         { provide: USE_FIRESTORE_EMULATOR, useValue: (isDev && useEmulators) ? ['localhost', 8081] : undefined },
-        { provide: USE_FUNCTIONS_EMULATOR, useValue: (isDev && useEmulators) ? ['http://localhost:5003'] : undefined },
+        { provide: USE_FUNCTIONS_EMULATOR, useValue: (isDev && useEmulators) ? ['localhost', 5002] : undefined },
         UserTrackingService,
         ScreenTrackingService,
       ]

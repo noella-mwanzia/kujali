@@ -14,7 +14,8 @@
       ],
       "predeploy": [
         "nx build kujali-functions",
-        "node tools/scripts/build-gc-functions-package.js"
+        "node tools/scripts/build-gc-functions-package.js",
+        "node tools/scripts/prep-environment.js"
       ],
       "runtime": "nodejs16"
     }
@@ -53,11 +54,14 @@
       "port": 9199
     },
     "hosting": {
-      "port": 5001
+      "port": 5010
     },
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "database": {
+      "port": 9000
+    }
   }
 }

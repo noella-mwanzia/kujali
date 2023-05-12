@@ -1,12 +1,7 @@
-<div *ngIf="user$ | async as user">
+<div *ngIf="user$ | async as user" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
+
   <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu" fxLayout="row" fxLayoutALign="start center"
     fxLayoutGap="10px">
-    <span *ngIf="user.photoUrl; else avatar">
-      <img class="user-image" [src]="user.photoUrl">
-    </span>
-    <ng-template #avatar>
-      <i class="far fa-user-circle user-image"></i>
-    </ng-template>
     <span>
       {{ user.displayName }}
     </span>
@@ -18,4 +13,12 @@
     <button mat-menu-item (click)="logout()">Log out</button>
   </mat-menu>
 
+  <div fxFlex>
+    <div *ngIf="user.photoUrl">
+      <img class="user-image" [src]="user.photoUrl">
+    </div>
+    <ng-template #avatar>
+      <i class="far fa-user-circle user-image"></i>
+    </ng-template>
+  </div>
 </div>

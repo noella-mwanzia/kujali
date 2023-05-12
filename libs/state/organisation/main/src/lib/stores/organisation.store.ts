@@ -42,12 +42,13 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
                                         user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
                                     
                                     // If no organisations are set, set to the default org which is of uid
+                                    tap((orgs: Organisation[]) => this._logger.log(() => `Orgs: ${orgs.length}`)),
                                     map((orgs: Organisation[]) => orgs.length > 0 ? orgs : [this._getDefaultOrg(this._activeUser)]),
                                     
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
 
-    this._sbS.sink = data$.subscribe(properties => {
-      this.set(properties, 'UPDATE - FROM DB');
+    this._sbS.sink = data$.subscribe(orgs => {
+      this.set(orgs, 'UPDATE - FROM DB');
     });
   }
 
@@ -55,11 +56,15 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
   {
     let q = new Query();
 
-    if(!user.roles.admin)
-    {
-      // Default org has ID = User ID
-      q = q.where('id', '==', user.id);
-    }
+
+    // Default org has ID = User ID
+    q = q.where('id', '==', user.id);
+
+    // if(!user.roles.admin)
+    // {
+    //   // Default org has ID = User ID
+    //   q = q.where('id', '==', user.id);
+    // }
 
     return q;
   }
@@ -74,7 +79,11 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
       contact: {
         name: u.displayName ?? 'Unidentified',
         email: u.email
-      }
+      },
+      users: [],
+      bankingInfo: { accounts: {}},
+      roles: [],
+      permissions: {}
     };
   }
 

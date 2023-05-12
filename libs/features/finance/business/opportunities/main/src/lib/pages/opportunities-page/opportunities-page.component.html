@@ -1,0 +1,140 @@
+<app-page>
+  <div pageContent>
+
+    <kujali-finance-toolbar>
+      <kujali-finance-search-header-card header (toogleFilterEvent)='toogleFilter($event)'
+        (searchTableEvent)='applyFilter($event)' [tableData]="allTableData">
+        <div add-new>
+          <button mat-flat-button (click)="openAddNewDialog()" class="add-new"> 
+              <i class="bi bi-plus-circle-fill"></i> 
+              {{'HEADER-ADD-NEW' | transloco}}
+          </button>
+        </div>
+        <div grid-list>
+          <input type="checkbox" id="activate-div">
+          <label for="activate-div">
+            <div class="">
+              <div class="grid-list" (click)="showGridFn()" fxLayout="row" fxLayoutAlign="start center"
+                fxLayoutGap="10px">
+                <i class="fas fa-list"></i>
+                <i class="fas fa-th"></i>
+              </div>
+            </div>
+          </label>
+        </div>
+      </kujali-finance-search-header-card>
+    </kujali-finance-toolbar>
+
+    <div *ngIf="showFilter" class="filter-section">
+      <kujali-opportunities-filter (searchTableEvent)='applyFilter($event)' (filterChanged)='fieldsFilter($event)'>
+      </kujali-opportunities-filter>
+    </div>
+
+    <div *ngIf="!showGrid; else grid" class="table-container" fxLayout="column" fxLayoutAlign="start center"
+      fxLayoutGap="20px">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- title Column -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.TITLE" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.title; else dash">{{ops.title}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.TYPE" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.type; else dash">{{ops.type}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Assigned to Column -->
+        <ng-container matColumnDef="assigned-to">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.ASSIGNED-TO" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.assignTo; else dash"> {{getAssignedTo(ops?.assignTo!)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Company Column -->
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.COMPANY" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.company != ''; else dash">{{getCompanyNames(ops.company)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- contact Column -->
+        <ng-container matColumnDef="contact">
+          <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.CONTACT" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.contact != ''; else dash">{{getContactNames(ops.contact)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- deadline Column -->
+        <ng-container matColumnDef="deadline">
+          <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.DEADLINE" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.deadline; else dash">{{getDate(ops.deadline)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- status column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.STATUS" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+            <div *ngIf="ops.status; else dash"> {{ops.status}} </div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Tags Column -->
+        <ng-container matColumnDef="tags">
+          <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.TAGS" | transloco}} </th>
+          <td mat-cell *matCellDef="let ops" (click)="viewOps(ops.id)">
+
+            <div *ngIf="ops.tags; else dash">
+
+              <ng-template [ngIf]="ops.tags.length === 1">
+                <div>
+                  <p class="tag" (click)="viewOps(ops.id)">{{ops.tags[0]}}</p>
+                </div>
+              </ng-template>
+
+              <ng-template [ngIf]="ops.tags.length >= 2">
+                <div class="mydiv" fxLayout="row">
+                  <p class="tag">{{ops.tags[0]}}</p>
+                  <!-- <p class="tag"> {{ops.tags[1]}}</p> -->
+                  <p class="extra-tag"> +{{ops.tags.length-1}}</p>
+                </div>
+                <div class="hide">{{ops.tags}}</div>
+              </ng-template>
+
+            </div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[20, 30]" showFirstLastButtons>
+    </mat-paginator>
+
+    <!-- kanban view component -->
+    <ng-template #grid>
+      <kanban-view [filter$$]="filterValueSubject.asObservable()"></kanban-view>
+    </ng-template>
+  </div>
+</app-page>

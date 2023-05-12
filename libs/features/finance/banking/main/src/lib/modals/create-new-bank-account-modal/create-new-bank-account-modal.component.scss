@@ -1,0 +1,22 @@
+h2 {
+  font-weight: 600!important;
+  color: var(--kujali-color-primary-blue)!important;
+  font-size: 2rem!important;
+  margin: 20px 0 40px 16px!important;
+  padding: 0!important;
+}
+
+h4 {
+  font-weight: 600;
+  color: black;
+  font-size: 1.1rem;
+  margin: 0px 0px 10px 0;
+}
+
+.action-buttons {
+  padding: 20px 0px;
+}
+
+::ng-deep .mat-mdc-form-field {
+  width: 100%
+}

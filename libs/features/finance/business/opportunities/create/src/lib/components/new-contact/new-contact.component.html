@@ -1,0 +1,40 @@
+<form [formGroup]="contactFormGroup">
+  <div class="contact" fxLayout="column" fxLayoutAlign="start start">
+    <div class="contact-fields" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutAlign="start" fxFlex="50%">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <h4>{{"CONTACT.CONTACT" | transloco}}</h4>
+          <p class="extra-label">{{"COMPANY.ADD-NEW-COMPANY.OPTIONAL" | transloco}}</p>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="contact" [compareWith]="compareFn">
+            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'fullName'" [array]="contactList" (filteredReturn)="filteredContacts =$event"></mat-select-filter>
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let contact of filteredContacts" [value]="contact.id">
+              {{contact.fullName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+        <div>
+          <p class="or">{{"COMPANY.ADD-NEW-COMPANY.OR" | transloco}}</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+          <button mat-stroked-button [disabled]="isContactFilled" (click)="toggleContact()" class="new-btn" fxLayout="row"
+            fxLayoutAlign="center center">
+            <i *ngIf="!showContact; else dash" class="bi bi-plus-circle-fill"></i>
+            <ng-template #dash><i class="bi bi-dash-circle-fill"></i></ng-template>
+            {{"COMPANY.ADD-NEW-COMPANY.NEW-CONTACT" | transloco}}
+        </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showContact" class="company-fields-extra blue-border">
+      <add-new-contact [contact]="contactFormGroup"></add-new-contact>
+    </div>
+  </div>
+</form>

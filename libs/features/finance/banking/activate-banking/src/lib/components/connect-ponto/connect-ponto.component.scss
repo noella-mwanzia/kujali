@@ -1,0 +1,63 @@
+.main-page {
+  max-width: 100vw;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bank-acc-card {
+  margin-right: 30px;
+  padding: 20px;
+}
+
+img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: cover;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.main-card {
+  max-width: 80%;
+}
+
+.title {
+  color: var(--kujali-color-primary-blue);
+  font-weight: 400;
+  font-size: 1.5rem;
+
+  padding: 20px;
+}
+
+.account-details > div > p , .account-details > p{
+  margin-bottom: 5px;
+}
+
+.loading {
+  padding: 30px;
+}
+
+.loading img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.select-acc {
+  max-width: fit-content;
+  margin: 20px 20px 20px 0;
+}
+
+.account-title {
+  color: var(--kujali-color-primary-blue);
+  font-weight: bolder;
+  font-size: 1.3rem;
+}
+
+.account-data p:first-of-type {
+  font-weight: bold;
+  font-size: 1rem;
+}

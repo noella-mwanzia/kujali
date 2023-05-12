@@ -7,6 +7,8 @@ import { DataService } from "@ngfi/angular";
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
+import { CalculateBudgetHeaderService } from "../services/calculate-budget-header.service";
+
 /**
  * This service is responsible for rendering budgets by counting up their 
  *  internal lines with their results.
@@ -17,7 +19,8 @@ import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 @Injectable()
 export class BudgetPlansQuery
 {
-  constructor(private _db: DataService
+  constructor(private _db: DataService,
+              private _budgetHeaderService: CalculateBudgetHeaderService
   ) { }
 
   /**
@@ -54,6 +57,12 @@ export class BudgetPlansQuery
         },
       });
     })
+
+    this._updateHeaders(budget, plans);
+  }
+
+  private _updateHeaders(budget: Budget, plans: TransactionPlan[]) {
+    this._budgetHeaderService._bdgtCalculateHeader(budget, plans);
   }
 
   // TODO(jrosseel): Add back override functionality

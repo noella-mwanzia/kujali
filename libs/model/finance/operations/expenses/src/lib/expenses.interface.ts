@@ -1,0 +1,32 @@
+import { Timestamp } from "@firebase/firestore-types";
+
+import { IObject } from "@iote/bricks";
+
+export interface Expenses extends IObject {
+  // The amount of the expense.
+  amount: number;
+
+  // The budgetId that this expense belongs to.
+  budgetId: string;
+
+  // Transaction this expense belongs to.
+  planId: string;
+
+  // The lineId that this expense belongs to.
+  lineId?: string;
+
+  // Date for the expense
+  date: Timestamp
+
+  // vat number
+  vat: number;
+
+  // trs category
+  trCat: string;
+
+  // trs type
+  trType: string;
+
+  // Extra expense information
+  note: string
+}
