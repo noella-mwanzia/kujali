@@ -15,33 +15,30 @@ form {
   margin-bottom: 10px;
 }
 
-button {
-  margin-top: 15px;
+.btn-modal {
+  margin-left: 15px;
+  float: right;
 }
-  .btn-modal {
-    margin-left: 15px;
-    float: right;
-  }
 
-  .btn-submit-grey {
-    background: rgba(0,0,0,.12);
-    color: rgba(0,0,0,.26);
-  }
+.btn-submit-grey {
+  background: rgba(0, 0, 0, .12);
+  color: rgba(0, 0, 0, .26);
+}
 
-  .close-modal-btn {
-    color: rgba(0,0,0,.54); 
-    cursor: pointer; 
-  }
+.close-modal-btn {
+  color: rgba(0, 0, 0, .54);
+  cursor: pointer;
+}
 
 form {
   min-width: 780px;
-  margin-left: auto; margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /** Special selector to go inside of child components - Only use for third-party libraries in very special cases!! */
 ::ng-deep .mat-horizontal-stepper-header,
-::ng-deep .mat-horizontal-content-container 
-{
+::ng-deep .mat-horizontal-content-container {
   padding: 0 !important;
 }
 
@@ -49,11 +46,12 @@ form {
   display: none !important;
   padding: 0px 0px !important;
 }
+
 ::ng-deep .mat-stepper-horizontal-line {
   display: none !important;
 }
 
 .btn-submit {
   margin-top: 0;
-  color: white!important
+  color: white !important
 }
