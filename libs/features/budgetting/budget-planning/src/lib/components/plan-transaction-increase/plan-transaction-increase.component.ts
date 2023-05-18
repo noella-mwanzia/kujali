@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-
 import { BudgetItemFrequency } from '@app/model/finance/planning/budget-items';
 
 @Component({
@@ -17,7 +17,7 @@ export class PlanTransactionIncreaseComponent implements OnInit
   @Input() type!: 'cost' | 'income';
 
   // Occurence Frequency
-  @Input() frequency: string;
+  @Input() frequency: number;
   @Input() hasIncrease: boolean;
 
   @Input() amountIncreaseRate: number;
@@ -27,9 +27,6 @@ export class PlanTransactionIncreaseComponent implements OnInit
   @Input() unitIncreaseRate: number;
   @Input() unitIncreaseConfig: 'percentage' | 'value' = 'value';
   @Input() xTimesUnitIncreaseInterval: number;
-
-  // @Input() amountIncreaseFrequency: Frequency = 'never';
-  // @Input() unitIncreaseFrequency: Frequency = 'never';
 
   amountIncreaseFrequency: number;
   unitIncreaseFrequency: number;
@@ -52,12 +49,30 @@ export class PlanTransactionIncreaseComponent implements OnInit
     this.unitIncreaseConfig = config.value;
   }
 
-  amountIncreaseFrequencyChanged(amountFreq: MatRadioChange) {
+  amountIncreaseFrequencyChanged(amountFreq: MatSelectChange) {
     this.amountIncreaseFrequency = amountFreq.value;
   }
 
-  unitIncreaseFrequencyChanged(unitFreq: MatRadioChange) {
+  unitIncreaseFrequencyChanged(unitFreq: MatSelectChange) {
     this.unitIncreaseFrequency = unitFreq.value;
   }
 
+  getTransactionFreaquency(frequency: number) {
+    switch (frequency) {
+      case -1:
+        return 'Never';
+      case 0:
+        return 'Once';
+      case 1:
+        return 'Monthly';
+      case 90:
+        return 'Quarterly';
+      case 365:
+        return 'Yearly';
+      case 999:
+        return 'Every x times';
+      default:
+        return '';
+    }
+  }
 }
