@@ -45,6 +45,14 @@ form {
   padding: 0 !important;
 }
 
+::ng-deep .mat-horizontal-stepper-header {
+  display: none !important;
+  padding: 0px 0px !important;
+}
+::ng-deep .mat-stepper-horizontal-line {
+  display: none !important;
+}
+
 .btn-submit {
   margin-top: 0;
   color: white!important

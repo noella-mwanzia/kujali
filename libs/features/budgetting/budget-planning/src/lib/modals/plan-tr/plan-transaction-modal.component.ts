@@ -1,12 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 import { Observable } from 'rxjs';
 
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { BudgetItemFrequency, PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 import { CostTypesStore } from '@app/state/finance/cost-types';
@@ -60,6 +61,8 @@ export class PlanTransactionModalComponent  // implements OnInit
   /** Line units */
   units  = 1; 
 
+  hasIncrease: boolean = false;
+
   constructor(private _fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) data: {data: PlanTrInput, column: any},
               private _dialog: MatDialogRef<PlanTransactionModalComponent>,
@@ -83,7 +86,7 @@ export class PlanTransactionModalComponent  // implements OnInit
 
     this.plannedTransactionFormGroup = this.createPlanTransactionForm(data.data, data.column);
 
-    this.lblAction = this.isNewLine ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
+    this.lblAction = this.isNewLine || this.isCreate ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
                                     : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
 
     this.title  = this.type === BudgetRowType.CostLine ? 'PL-EXPLORER.TRPLANNER.TITLE-COST' 
@@ -94,8 +97,11 @@ export class PlanTransactionModalComponent  // implements OnInit
   }
 
   createPlanTransactionForm(plan: PlanTrInput, month: any): FormGroup {
-    return plan.occurence ? CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit, month)
-                          : CreateTransactionFormGroup(this._fb, month!);
+    if (plan.occurence) {
+      this.hasIncrease = plan.occurence.hasIncrease!;
+      return CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit, month);
+    }
+    return CreateTransactionFormGroup(this._fb, month!);
   }
 
   getFormGroup(formGroup: string): FormGroup {
@@ -116,9 +122,14 @@ export class PlanTransactionModalComponent  // implements OnInit
       this._fYExplorer$$.addTransaction(transaciton)
     } else {
       this._fYExplorer$$.updateTransaction(transaciton);
-    }
+    }    
 
     this.exitModal();
+  }
+
+  hasIncreaseChanged(increase: MatSlideToggleChange) {
+    this.hasIncrease = increase.checked;
+    this.getFormGroup('pTIncreaseFormGroup').get('hasIncrease')?.setValue(this.hasIncrease);
   }
 
   onNoClick = () => this.exitModal();
