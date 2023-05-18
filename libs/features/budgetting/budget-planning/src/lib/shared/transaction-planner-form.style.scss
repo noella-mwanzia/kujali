@@ -3,7 +3,7 @@
 .m-b-20 {margin-bottom: 20px;}
 
 .form-section {
-  margin: 15px 0;
+  // margin: 15px 0;
 }
   .form-section-sub-title {
     margin: 10px 0px;
@@ -17,16 +17,13 @@
 
 h4 {
   font-family: var(--kujali-segoe-ui-semi-bold);
-  font-size: 0.8em;
-  padding: 0px 10px;
-  background-color: rgba($color: #0047AB, $alpha: 0.8);
-  border-radius: 5px;
-  color: white;
-  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: #0047AB;
+  margin: 0px 0px 10px 0px;
 }
 
   .form-body, .form-section-body {
-    padding: 0 15px;
+    // padding: 0 15px;
     flex: 100;
   }
 
