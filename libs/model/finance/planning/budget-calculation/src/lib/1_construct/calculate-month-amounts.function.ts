@@ -120,10 +120,15 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
       return amount;
 
     const increasedAm = amount * Math.pow(1 + increase.incrRate / 100, _getFrequencyCount(y, m, plan, increase.incrFreq, increase.interval));
-
+    
     // Units cannot have floating values
     return isUnits ? Math.floor(increasedAm)
                    : increasedAm;
+  }
+
+  // TODO: Add case for value increase
+  function _resolveIncreaseStyle(increase: ValueIncreaseConfig) {
+    return increase.incrStyle === 'value' ? increase.incrRate : 1 + increase.incrRate / 100;
   }
 
   function _getFrequencyCount(y: number, m: number, plan: TransactionPlan, incrFreq?: BudgetItemFrequency, interval?: number)
