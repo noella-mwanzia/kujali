@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatSelectChange } from '@angular/material/select';
 
 import { BudgetItemFrequency } from '@app/model/finance/planning/budget-items';
 import { YEARS, MONTHS } from '@app/model/finance/planning/time';
@@ -21,7 +22,7 @@ export class PlanTransactionOccurenceComponent implements OnInit {
   @Input() yearFrom = 2020;
   @Input() monthFromPassed: number;
   @Input() monthFrom = this.months[0];
-  @Input() frequency: string = 'Once'; 
+  @Input() frequency: number = 0; 
 
   xTimesInterval: number;
   
@@ -32,7 +33,7 @@ export class PlanTransactionOccurenceComponent implements OnInit {
       this.monthFrom = this.months[this.monthFromPassed - 1];
   }
 
-  frequencyChanged(frequency: MatRadioChange) {
+  frequencyChanged(frequency: MatSelectChange) {
     this.frequency = frequency.value;
   }
 

@@ -1,10 +1,10 @@
-<div [formGroup]="planTransactionOccurenceFormGroup" class="form-section">
-  <h4 class="mat-headline-6 type-title">Transaction or Start Date</h4>
+<div [formGroup]="planTransactionOccurenceFormGroup" class="form-section" fxLayout="column">
+  <h4 class="mat-headline-6 type-title">Start Date</h4>
 
-  <div formGroupName="pTOccurenceFormGroup">
-    <div class="form-section-body" fxLayout="row">
+  <div formGroupName="pTOccurenceFormGroup" fxFlex>
+    <div class="form-section-body" fxLayout="row" fxLayoutGap="20px">
 
-      <mat-form-field class="left-field">
+      <mat-form-field appearance="outline" class="left-field" fxFlex="50">
         <mat-select formControlName="fromYear" name="yearFrom" placeholder="From (Year)">
           <mat-option *ngFor="let year of years" [value]="year">
             {{ year }}
@@ -12,7 +12,7 @@
         </mat-select>
       </mat-form-field>
   
-      <mat-form-field>
+      <mat-form-field  appearance="outline" fxFlex="50">
         <mat-select formControlName="fromMonth" name="monthFrom" placeholder="From (Month)" [compareWith]="compareFn">
           <mat-option *ngFor="let month of months" [value]="month">
             {{ month.name | transloco}}
@@ -22,10 +22,21 @@
     </div>
   
     <div class="form-section">
-      <h4 class="mat-headline-6 type-title">{{ type }} Frequency & Occurence</h4>
+      <h4 class="mat-headline-6 type-title">Frequency</h4>
   
       <div class="form-section-body" fxLayout="column">
-        <div class="form-field">
+
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-select (selectionChange)="frequencyChanged($event)" name="frequency" formControlName="frequency">
+            <mat-option [value]="0" name="frequency">Once</mat-option>
+            <mat-option [value]="1" name="frequency">Monthly / Each Time</mat-option>
+            <mat-option [value]="90" name="frequency">Quarterly</mat-option>
+            <mat-option [value]="365"    name="frequency">Yearly</mat-option>
+            <mat-option [value]="999" name="frequency">Every-X-Months</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- <div class="form-field">
   
           <mat-radio-group (change)="frequencyChanged($event)" name="frequency" formControlName="frequency" fxLayout="row wrap">
             <mat-radio-button [value]="0" name="frequency">Once</mat-radio-button>
@@ -34,9 +45,9 @@
             <mat-radio-button [value]="365"    name="frequency">Yearly</mat-radio-button>
             <mat-radio-button [value]="999" name="frequency">Every-X-Months</mat-radio-button>
           </mat-radio-group>
-        </div>
+        </div> -->
   
-        <mat-form-field *ngIf="frequency == 'every-x-times'">
+        <mat-form-field *ngIf="frequency == 999">
           <mat-label>Occurance rate</mat-label>
           <input matInput type="number" required [min]="0" formControlName="xTimesInterval" name="xTimesInterval">
           <!-- <mat-error *ngIf="intervalF.errors">When x-months is selected, this value is required.</mat-error> -->
