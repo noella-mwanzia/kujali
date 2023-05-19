@@ -66,9 +66,9 @@ export class AllocationsStateService {
                             tap((data) => {console.log(data)}));
   }
 
-  deAllocate(allocs: Allocation[]) {
+  deAllocate(allocs: Allocation[], deAllocDomain: string) {
     return this.getOrg().pipe(
-                              switchMap((org) => this._aFF$$.httpsCallable('deAllocate')({orgId: org.id, allocs: allocs, deAlloc: 'payments'})))
+                              switchMap((org) => this._aFF$$.httpsCallable('deAllocate')({orgId: org.id, allocs: allocs, deAlloc: deAllocDomain})))
   }
 }
 

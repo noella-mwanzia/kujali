@@ -1,0 +1,33 @@
+//table 
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+td.mat-column-title {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+td.mat-column-imageurl {
+  padding-top: 5px;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.mat-mdc-form-field {
+  width: 100% !important;
+}

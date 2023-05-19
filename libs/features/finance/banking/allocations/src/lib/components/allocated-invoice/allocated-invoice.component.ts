@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Allocation } from '@app/model/finance/allocations';
 
-import { Invoice, InvoiceAllocationElement } from '@app/model/finance/invoices';
 import { Payment } from '@app/model/finance/payments';
+import { Allocation } from '@app/model/finance/allocations';
 import { AllocationsStateService } from '@app/state/finance/allocations';
+import { Invoice, InvoiceAllocationElement } from '@app/model/finance/invoices';
 
 @Component({
   selector: 'app-allocated-invoice',
@@ -54,6 +54,6 @@ export class AllocatedInvoiceComponent implements OnInit {
   deAllocateInvoice() {
     this.deAllocating = true;
     const allocs = this.createDeallocations() as Allocation[];
-    this.allocsService.deAllocate(allocs).subscribe((res) => this.deAllocating = false);
+    this.allocsService.deAllocate(allocs, 'payments').subscribe((res) => this.deAllocating = false);
   }
 }

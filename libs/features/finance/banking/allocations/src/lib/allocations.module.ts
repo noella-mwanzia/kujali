@@ -18,6 +18,8 @@ import { AllocateTransactionModalComponent } from './modals/allocate-transaction
 import { AllocatePaymentsToInvoiceComponent } from './modals/allocate-payments-to-invoice/allocate-payments-to-invoice.component';
 import { AllocatedInvoiceComponent } from './components/allocated-invoice/allocated-invoice.component';
 import { PaymentsTableComponent } from './components/payments-table/payments-table.component';
+import { InvoicesTableComponent } from './components/invoices-table/invoices-table.component';
+import { AllocatedPaymentComponent } from './components/allocated-payment/allocated-payment.component';
 
 @NgModule({
   imports: [
@@ -39,6 +41,8 @@ import { PaymentsTableComponent } from './components/payments-table/payments-tab
     AllocatePaymentsToInvoiceComponent,
     AllocatedInvoiceComponent,
     PaymentsTableComponent,
+    InvoicesTableComponent,
+    AllocatedPaymentComponent,
   ],
 })
 export class AllocationsModule {}
