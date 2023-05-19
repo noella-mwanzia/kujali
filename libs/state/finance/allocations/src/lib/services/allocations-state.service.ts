@@ -5,7 +5,7 @@ import { Observable, switchMap, tap } from 'rxjs';
 
 import { Payment } from '@app/model/finance/payments';
 import { Invoice, InvoiceAllocation } from '@app/model/finance/invoices';
-import { PaymentAllocation } from '@app/model/finance/allocations';
+import { Allocation, PaymentAllocation } from '@app/model/finance/allocations';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 
@@ -64,6 +64,11 @@ export class AllocationsStateService {
                             tap((data) => {console.log(data)}),
                             switchMap((all) => this._aFF$$.httpsCallable(allocFunction)({orgId: orgId, allocs: all})),
                             tap((data) => {console.log(data)}));
+  }
+
+  deAllocate(allocs: Allocation[]) {
+    return this.getOrg().pipe(
+                              switchMap((org) => this._aFF$$.httpsCallable('deAllocate')({orgId: org.id, allocs: allocs, deAlloc: 'payments'})))
   }
 }
 

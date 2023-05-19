@@ -12,7 +12,7 @@
               <span>{{ totalInvoiceAmount }}</span>
             </div>
           </div>
-          <div class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+          <div *ngIf="invoice.allocStatus !== 1" class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
             <div class="allocate-header__left__title"> Amount Allocated For</div>
             <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
               <i class="fa-solid fa-euro-sign fa-xs" style="color: #0047AB"></i>
@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+          <div *ngIf="invoice.allocStatus !== 1" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
             <div class="allocate-header__left__title"> Amount Unallocated </div>
             <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
               <i class="fa-solid fa-euro-sign fa-xs" style="color: #0047AB"></i>
@@ -32,7 +32,6 @@
         </div>
       </mat-card>
     </div>
-
 
     <div class="payments" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
       <div class="payments-header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" fxFlex>
@@ -48,17 +47,22 @@
       </div>
 
       <div>
-        <div *ngIf="paymentsLoaded" class="table-container" fxLayout="column" fxLayoutAlign="start center"
+        <div *ngIf="paymentsLoaded && invoice.allocStatus !== 1; else fullyAllocatedInvoice" class="table-container" fxLayout="column" fxLayoutAlign="start center"
           fxLayoutGap="20px">
           <app-payments-table [payments]="allPayments" (selectedPayment)="paymentSelected($event)"></app-payments-table>
         </div>
+        <ng-template #fullyAllocatedInvoice>
+          <div *ngIf="paymentsLoaded">
+            <app-allocated-invoice [payments]="allPayments" [invoice]="invoice"></app-allocated-invoice>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-stroked-button mat-dialog-close>Cancel</button>
+<mat-dialog-actions *ngIf="invoice.allocStatus !== 1" align="end">
+  <button [disabled]="allocating" mat-stroked-button mat-dialog-close>Cancel</button>
   <button [disabled]="selectedPayments.length <= 0 || allocating" mat-raised-button color="primary"
     (click)="allocateInvoieToTransaction()" fxLayout="row" fxLayoutAlign="center center">
     <span *ngIf="!allocating">Allocate Invoice</span>
