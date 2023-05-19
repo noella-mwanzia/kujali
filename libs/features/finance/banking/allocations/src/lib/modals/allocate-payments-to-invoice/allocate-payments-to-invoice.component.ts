@@ -1,10 +1,5 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { SubSink } from 'subsink';
 import { combineLatest, map, Observable, tap, filter } from 'rxjs';
@@ -29,13 +24,6 @@ export class AllocatePaymentsToInvoiceComponent {
 
   private _sbS = new SubSink();
 
-  displayedColumns: string[] = ['select', 'bankIcon', 'fromAccName', 'toAccName', 'amount', 'source', 'mode', 'trStatus', 'allocStatus'];
-
-  dataSource = new MatTableDataSource();
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   startPontoOnboarding = false;
 
   org: Organisation;
@@ -47,7 +35,9 @@ export class AllocatePaymentsToInvoiceComponent {
 
   showFilter: boolean = false;
 
-  selectedPayments: any[] = [];
+  allPayments: Payment[] = [];
+  selectedPayments: Payment[] = [];
+  paymentsLoaded: boolean = false;
 
   allocating: boolean = false;
 
@@ -55,7 +45,6 @@ export class AllocatePaymentsToInvoiceComponent {
   totalInvoiceAmount: number = 0;
 
   constructor(private _dialog: MatDialog,
-              private _aFF: AngularFireFunctions,
               private _paymentsService: PaymentsStateService,
               private _allocsService: AllocationsStateService,
               @Inject(MAT_DIALOG_DATA) public invoice: Invoice
@@ -66,16 +55,11 @@ export class AllocatePaymentsToInvoiceComponent {
 
     this._sbS.sink = combineLatest([this._paymentsService.getAllPayments(),
                                     this._allocsService.getPaymentAllocations()])
-      .pipe(
-        filter(([trs, pAllocs]) => !!trs && !!pAllocs),
-        map(([trs, pAllocs]) => this.flatMapTransactionsAndPayments(trs, pAllocs)),
-        tap((data) => { this.dataSource.data = data }))
-      .subscribe();
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+                        .pipe(
+                          filter(([trs, pAllocs]) => !!trs && !!pAllocs),
+                          map(([trs, pAllocs]) => this.flatMapTransactionsAndPayments(trs, pAllocs)),
+                          tap((data) => { this.allPayments = data; this.paymentsLoaded = true}))
+                        .subscribe();
   }
 
   flatMapTransactionsAndPayments(trs: BankTransaction[], pAllocs: PaymentAllocation[]) {
@@ -86,20 +70,11 @@ export class AllocatePaymentsToInvoiceComponent {
     return trsAndPayments.filter((tr) => tr.allocStatus !== 1);
   }
 
-  filterAccountRecords(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  paymentSelected(checked: MatCheckboxChange, payment: Payment) {
-    if (checked.checked) {
-      this.selectedPayments.push(payment);
+  paymentSelected(paymentData: {checked: boolean, payment: Payment}) {
+    if (paymentData.checked) {
+      this.selectedPayments.push(paymentData.payment);
     } else {
-      let removedPayment = this.selectedPayments.find((paym) => paym.id == payment.id);
+      let removedPayment = this.selectedPayments.find((paym) => paym.id == paymentData.payment.id);
       this.selectedPayments.splice(this.selectedPayments.indexOf(removedPayment!), 1);
     }
     this.calculateAllocatedAmount();
@@ -115,7 +90,6 @@ export class AllocatePaymentsToInvoiceComponent {
     const amnt = invoice.allocStatus == 5 ? invoice.credit! - this.alloctedAmount: payAmnt - this.alloctedAmount;
     return amnt > 0 ? amnt : 0;
   }
-
 
   allocateInvoieToTransaction() {
     this.allocating = true;    
