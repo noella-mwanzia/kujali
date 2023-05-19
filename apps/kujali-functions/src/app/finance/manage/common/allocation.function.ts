@@ -2,7 +2,7 @@ import { RestRegistrar } from '@ngfi/functions';
 
 import { KujaliFunction } from '../../../../environments/kujali-func.class';
 
-import { AllocateHandler } from '@app/functions/finance/manage/payments';
+import { AllocateHandler } from '@app/functions/finance/manage/common';
 
 const allocationHandler = new AllocateHandler();
 
