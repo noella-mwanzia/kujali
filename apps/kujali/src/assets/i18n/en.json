@@ -87,6 +87,9 @@
     "CLOSE": "Close"
   },
   "MODALS" : {
+    "DELETE-PROP": "Are you sure you want to delete this",
+    "YES": "Yes",
+    "NO": "No",
     "CREATE-EXPENSE" : {
       "CREATE-EXPENSE" : "Create New Expense",
       "BUDGET" : "Budget",
@@ -95,7 +98,8 @@
       "CATEGORY" : "Category",
       "TYPE" : "Type",
       "VAT" : "Vat",
-      "NOTE" : "Note"
+      "NOTE" : "Note",
+      "PLAN": "Cost"
     },
     "CREATE-BANK-ACCOUNT" : {
       "NAME": "Name",
@@ -405,7 +409,7 @@
       "CUSTOMER-NAME": "Customer Name",
       "CUSTOMER-CONTACT": "Customer Contact",
       "DESC": "Description",
-      "COST": "Cost",
+      "COST": "Price",
       "QTY": "Quantity",
       "TOTAL": "Total",
       "ACTIONS": "Actions",
