@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { round as __round } from 'lodash';
 
@@ -9,9 +10,7 @@ import { Invoice } from '@app/model/finance/invoices';
 import { Timestamp } from '@firebase/firestore-types';
 import { __DateFromStorage } from '@iote/time';
 
-import { CALCULATE_INVOICE_TOTAL, InvoicesService } from '@app/state/finance/invoices';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-
+import { CALCULATE_INVOICE_TOTAL } from '@app/state/finance/invoices';
 
 @Component({
   selector: 'app-invoices-table',
