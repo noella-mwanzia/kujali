@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
@@ -17,43 +18,41 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() user: User;
 
-  orgId = ''
-  flowId = ''
-  projectName: string;
-  projectInfo: string;
+  FIRST_SUB_MENUS_BTN: NodeListOf<Element>;
 
-  constructor(@Inject('ENVIRONMENT') private _env: any) { }
+  constructor(private _router$$: Router,
+              @Inject('ENVIRONMENT') private _env: any)
+  { }
 
   ngOnInit() { }
 
   ngAfterViewInit(): void {
-    this.handlerUserNavClicks();
-  }
+    const featureName = this._router$$.url.split('/')[1];
 
-  getLogo = () => 'assets/images/italanta-logo.png'
+    this.handlerUserNavClicks();
+    this.openActiveFeature(featureName);
+  }
 
   handlerUserNavClicks() {
 
     const PoppersInstance = new Poppers();
-
     const SIDEBAR_EL = document.getElementById("sidebar");
-    const FIRST_SUB_MENUS_BTN = document.querySelectorAll(
+    this.FIRST_SUB_MENUS_BTN = document.querySelectorAll(
       ".menu > ul > .menu-item.sub-menu > a"
     );
     const INNER_SUB_MENUS_BTN = document.querySelectorAll(
       ".menu > ul > .menu-item.sub-menu .menu-item.sub-menu > a"
     );
-
     const defaultOpenMenus = document.querySelectorAll(".menu-item.sub-menu.open");
 
     defaultOpenMenus.forEach((element: any) => {
       element.lastElementChild.style.display = "block";
-    });
+    });    
 
     /**
      * handle top level submenu click
      */
-    FIRST_SUB_MENUS_BTN.forEach((element) => {
+    this.FIRST_SUB_MENUS_BTN.forEach((element) => {
       element.addEventListener("click", () => {
         if (SIDEBAR_EL?.classList.contains("collapsed"))
           PoppersInstance.togglePopper(element.nextElementSibling);
@@ -80,6 +79,13 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         slideToggle(element.nextElementSibling);
       });
     });
+  }
+
+  openActiveFeature(feature: string, ) {
+    const features = ['dashboard', 'business', 'operations', 'budgets'];
+    const featureIndex = features.indexOf(feature);
+    const featureEl = this.FIRST_SUB_MENUS_BTN[featureIndex];
+    slideToggle(featureEl.nextElementSibling);
   }
 
   ngOnDestroy() {
