@@ -1,0 +1,86 @@
+* {
+  font-family: 'Poppins';
+}
+
+.invoice-preview {
+  overflow: auto;
+}
+
+.label-colored {
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: black;
+  padding-bottom: 15px;
+}
+
+img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+.label {
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: #263446;
+}
+
+.title-row,
+.totals {
+  padding: 10px 0px;
+}
+
+.totals {
+  border-top: solid black 1px;
+}
+
+.item-row {
+  padding: 5px 0px;
+  border-top: solid black 1px;
+  width: 100%;
+}
+
+.sender p,
+.customer p,
+.dates p {
+  margin: 0px;
+}
+
+.companies,
+.title {
+  color: var(--kujali-color-text-inactive-bolder);
+}
+
+.customer {
+  background-color: #e4e5e8;
+}
+
+.bankAccounts {
+  margin-top: 20px;
+}
+
+.bankAccounts p:first-of-type {
+  margin-bottom: 10px;
+}
+
+// Custom Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--kujali-color-primary-background);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--kujali-color-text-inactive-bolder);
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

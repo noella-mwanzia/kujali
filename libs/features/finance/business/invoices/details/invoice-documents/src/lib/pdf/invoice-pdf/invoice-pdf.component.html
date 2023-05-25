@@ -1,0 +1,122 @@
+<div class="invoice-preview" style="overflow: auto;">
+  <div style="margin: 20px;">
+    <div fxLayout="column">
+      <div class="download-btn" *ngIf="invoiceFormData.printInvoice == true" fxLayout="row" fxLayoutAlign="end start"
+        fxLayoutGap="20px" fxFlex>
+        <button mat-stroked-button (click)="closeDialog()">Cancel</button>
+        <button style="color: white;" mat-raised-button color="primary" (click)="downloadPdf()">Download</button>
+      </div>
+
+      <div *ngIf="invoiceData" id="invoice-pdf" class="invoice-pdf">
+        <div style="display:flex; justify-content:space-between; width: 100%; margin-bottom: 10px;">
+          <img style="width: 100px; height: auto; object-fit: contain;" *ngIf="companyData.logoUrl && imageLoaded" [src]="base64CompanyLogo" alt="">
+          <span class="title"
+            style="font-weight: 900; font-size: 30px; display: flex; align-items: center;">INVOICE</span>
+        </div>
+
+        <div class="companies" style="display: flex; justify-content:space-between;  width: 100%; margin-bottom: 30px;">
+          <div class="sender">
+            <p> {{companyData.name}} </p>
+            <p> {{companyData.address}} </p>
+            <p> {{companyData.vatNo}} </p>
+            <p> {{companyData.email}} </p>
+            <div class="bankAccounts">
+              <p>Bank Accounts:</p>
+              <p *ngFor="let account of companyData.bankAccounts">{{account}}</p>
+            </div>
+          </div>
+
+          <div class="invoice-details">
+            <div class="dates" style="text-align: right;">
+              <p> {{invoiceNumber}} </p>
+              <p> {{getDate(invoiceData.date)}} </p>
+              <p> {{getDate(invoiceData.dueDate)}} </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="customer" style="display: flex; padding: 20px;
+      justify-content: space-between; margin-bottom: 40px;">
+          <div class="customer-details">
+            <p class="label-colored">Bill To</p>
+            <p style="word-break: break-word;"> {{customerData.name.name}} </p>
+            <p> {{customerData.name.hq}} </p>
+            <p> {{customerData.name.vatNo}} </p>
+            <p> {{customerData.name.email}} </p>
+          </div>
+          <!-- <div class="address" style="margin-right:200px;">
+        <p class="label-colored">Shipping Address</p>
+        <p> ${this.invoiceData.customerData.address} </p>
+      </div> -->
+        </div>
+
+        <div class="invoice-items">
+          <div class="title-row" style="display:flex; justify-content: space-between;">
+            <span class="label" style="width: 5%;">#</span>
+            <span class="label" style="width: 40%;">Product/Service</span>
+            <span class="label" style="width: 15%;">Cost</span>
+            <span class="label" style="width: 15%;">Qty </span>
+            <span class="label" style="width: 15%;">Tax(%)</span>
+            <span class="label" style="width: 10%; text-align: end;">Total</span>
+          </div>
+
+          <div class="row" *ngFor="let product of invoiceData.products; let i = index" style="width: 100%;">
+            <div class="item-row">
+              <div style="display:flex; justify-content: space-between;">
+                <span style="width:5%;">{{i + 1}}</span>
+                <span style="width:40%; word-wrap: break-word;">{{product.desc}}</span>
+                <span style="width:15%;">{{product.cost | currency : invoiceCurrency : 'symbol-narrow'}}</span>
+                <span style="width:15%;">{{product.qty}}</span>
+                <span style="width:15%;">{{product.vat}}</span>
+                <span style="width:10%; text-align: end;">{{ getItemTotal(product) | currency : invoiceCurrency :
+                  'symbol-narrow'}}</span>
+              </div>
+            </div>
+
+            <div class="discount-row"
+              style="margin-left: 10px; display:flex; justify-content: space-between; color: var(--kujali-color-text-inactive-bolder);">
+              <span style="width:5%;"></span>
+              <span style="width:40%;">{{product.discount[0] > 0 ? 'Discount' : ''}}</span>
+              <span style="width:15%;"></span>
+              <span style="width:15%;"></span>
+              <span style="width:15%;"></span>
+              <span style="width:10%; text-align: end;">{{product.discount[0] > 0 ?  (product.discount + '%') : ''}}</span>
+            </div>
+          </div>
+
+          <div class="" fxLayout="column" fxLayoutAlign="end end">
+            <div class="totals" style="width:40%;  margin-top: 30px;">
+
+
+              <div class="total" style="display: flex; justify-content: space-between;  text-align: end;">
+                <p class="label">SubTotal</p>
+                <p>{{subTotal | currency : invoiceCurrency : 'symbol-narrow'}} </p>
+              </div>
+
+              <div class="total" *ngFor="let data of uniqueVat">
+                <div class="" style="display: flex; justify-content: space-between;" *ngIf="getVat(data).vat > 0">
+                  <p class="label"> VAT ({{getVat(data).vat}}%)</p>
+                  <p>{{getVat(data).total | currency : invoiceCurrency : 'symbol-narrow'}}</p>
+                </div>
+              </div>
+
+              <div class="total"
+                style="display: flex; justify-content: space-between; margin-top: 30px; font-size: 18px;">
+                <p class="label">Total</p>
+                <p>{{finalTotal | currency : invoiceCurrency : 'symbol-narrow'}} </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <ng-template #defaultCurrency>
+          <p>&euro;</p>
+        </ng-template>
+        <p>{{invoiceData.structuredMessage}}</p>
+        <p style="margin-top: 40px;">{{ invoiceNote }}</p>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
