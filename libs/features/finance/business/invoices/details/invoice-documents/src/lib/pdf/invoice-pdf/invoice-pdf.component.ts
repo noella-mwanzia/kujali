@@ -22,11 +22,6 @@ export class InvoicePdfComponent implements OnInit {
 
   private _sbS = new SubSink();
 
-  invoiceData   : Invoice;
-  companyData   : Company;
-  customerData  : Company;
-  uniqueVat     : any;
-
   subTotal      : number;
   vatTotal      : number;
   finalTotal    : number;
@@ -36,6 +31,11 @@ export class InvoicePdfComponent implements OnInit {
   invoiceNote     : string;
   downloadURL     : string;
 
+  invoiceData   : any;
+  companyData   : any;
+  customerData  : any;
+  uniqueVat     : any;
+  
   base64CompanyLogo: any;
   imageLoaded: boolean = false;
 
