@@ -73,7 +73,7 @@ export class InvoicesService {
   prepareInvoice(invoice: FormGroup, company: FormGroup, customer: FormGroup) {
     let invoiceValue = {...invoice.value};
     
-    let invoiceData : any = {
+    let invoiceData = {
       title: invoiceValue.title,
       customer: customer.value.id,
       company: company.value.id,
@@ -85,7 +85,7 @@ export class InvoicesService {
       currency: invoiceValue.currency ?? 'EUR',
       structuredMessage: invoiceValue.structuredMessage,
       status: invoiceValue.status,
-    }
+    } as Invoice;
 
     invoiceData.products.forEach((product: any) => {
       if (typeof product.desc !== 'string') {

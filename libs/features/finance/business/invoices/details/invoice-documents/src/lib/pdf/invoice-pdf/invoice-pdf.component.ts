@@ -7,8 +7,11 @@ import  * as html2pdf from 'html2pdf.js'
 
 import { flatMap as __flatMap, round as __round, groupBy as __groupBy } from 'lodash';
 
+import { Company } from '@app/model/finance/companies';
+
 import { OpportunitiesService } from '@app/state/finance/opportunities';
 import { InvoicesPrefixService } from '@app/state/finance/invoices';
+import { Invoice } from '@app/model/finance/invoices';
 
 @Component({
   selector: 'kujali-invoice-pdf',
@@ -19,10 +22,10 @@ export class InvoicePdfComponent implements OnInit {
 
   private _sbS = new SubSink();
 
+  invoiceData   : Invoice;
+  companyData   : Company;
+  customerData  : Company;
   uniqueVat     : any;
-  invoiceData    : any;
-  companyData   : any;
-  customerData  : any;
 
   subTotal      : number;
   vatTotal      : number;
@@ -31,7 +34,7 @@ export class InvoicePdfComponent implements OnInit {
   invoiceCurrency : string;
   invoiceNumber   : string;
   invoiceNote     : string;
-  downloadURL: any;
+  downloadURL     : string;
 
   base64CompanyLogo: any;
   imageLoaded: boolean = false;
@@ -59,8 +62,8 @@ export class InvoicePdfComponent implements OnInit {
       this.getSubToTal();
     }
 
-    if (this.companyData.logoUrl != '') {
-      this.toDataURL(this.companyData.logoUrl).then((imageBase) => {
+    if (this.companyData.logoImgUrl != '') {
+      this.toDataURL(this.companyData.logoImgUrl).then((imageBase) => {
         this.base64CompanyLogo = imageBase;
         this.imageLoaded = true;
       });
@@ -123,9 +126,7 @@ export class InvoicePdfComponent implements OnInit {
 
     this.subTotal = __round(totalResult, 2);    
     this.vatTotal = __round(totalVatResult, 2);
-    this.finalTotal = this.subTotal + this.vatTotal
-    console.log(this.uniqueVat);
-    
+    this.finalTotal = this.subTotal + this.vatTotal;    
   }
 
   downloadPdf() {
