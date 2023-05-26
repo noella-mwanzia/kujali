@@ -11,7 +11,7 @@ table {
 }
 
 .contact-btn a {
-  background-color: var(--kujali-color-primary);
+  background-color: var(--kujali-color-primary-blue);
   color: var(--kujali-color-text-white);
 }
 .contact-btn a i {
@@ -66,12 +66,12 @@ td.mat-column-tags {
   margin: 0px 5px 0px 0px;
   background-color: var(--kujali-color-text-background);
   width: fit-content;
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 .vl {
   border-left: 5px solid white;
   height: 20px;
 }
 .extra-tag {
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }

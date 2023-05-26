@@ -1,0 +1,52 @@
+h2,
+h4,
+p,
+input {
+  font-family: 'Poppins';
+}
+
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 15px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.full-width, .full-width > button {
+  width: 100%;
+}
+
+.delete {
+  color: red;
+}
+
+.cancel {
+  margin-top: 5px;
+  background-color: var(--kujali-color-primary-blue);
+}
+
+.actions-modal {
+    overflow-y: hidden;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100% !important;
+}
+
+::ng-deep .mat-form-field-infix {
+    border-top-width: 2px !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding: 0px 0px 15px 0px;
+}
+
+.create-action-btn{
+    color: white;
+    margin-top: 5px;
+}

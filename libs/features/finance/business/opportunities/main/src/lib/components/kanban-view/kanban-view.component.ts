@@ -191,6 +191,6 @@ export class KanbanViewComponent implements OnInit {
 
   generateColors(label: string) {
     let color = this.oppsTypes.find((color) => color.label == label)?.color;
-    return color ? color : 'var(--kujali-color-primary)';
+    return color ? color : 'var(--kujali-color-primary-blue)';
   }
 }

@@ -21,7 +21,7 @@ input {
 }
 
 .new-contact {
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 
 .contact {
@@ -73,7 +73,7 @@ mat-chip {
 
 // ::ng-deep .mat-chip.mat-standard-chip {
 //   background-color: var(--kujali-color-text-background);
-//   color: var(--kujali-color-primary);
+//   color: var(--kujali-color-primary-blue);
 //   border-radius: 5px;
 // }
 
@@ -109,7 +109,7 @@ mat-chip {
 }
 
 .add-role button:last-of-type {
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 .addRbtn {
   margin-top: 5px;
@@ -125,7 +125,7 @@ input {
   padding: 2px;
   border-radius: 5px;
   background-color: var(--kujali-color-text-background);
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
   margin-right: 10px;
 }
 
@@ -141,7 +141,7 @@ input {
 //tags
 ::ng-deep  .mat-chip.mat-standard-chip {
   background-color: var(--kujali-color-text-background);
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
   border-radius: 5px;
 }
 
@@ -171,6 +171,6 @@ input {
   padding: 2px;
   border-radius: 5px;
   background-color: var(--kujali-color-text-background);
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
   margin-right: 10px;
 }

@@ -5,14 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { CompaniesActivitiesTabsComponent } from './components/company-activities-tabs/company-activities-tabs.component';
+// import { AccessControlElementsModule } from '@app/elements/access-control';
 
 import { CompaniesContactsModule } from "@app/features/finance/business/companies/details/contacts";
-// import { FeaturesCrmActionsModule } from '@app/features/finance/actions';
-
 import { CompaniesOpportunitiesModule } from '@app/features/finance/business/companies/details/opportunities';
 import { CompaniesInvoicesModule } from '@app/features/finance/business/companies/details/invoices';
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { ActivitiesModule } from '@app/features/activities';
+
+import { CompaniesActivitiesTabsComponent } from './components/company-activities-tabs/company-activities-tabs.component';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { CompaniesInvoicesModule } from '@app/features/finance/business/companie
     ReactiveFormsModule,
 
     CompaniesContactsModule,
-    // FeaturesCrmActionsModule,
+    ActivitiesModule,
 
     CompaniesOpportunitiesModule,
     CompaniesInvoicesModule,

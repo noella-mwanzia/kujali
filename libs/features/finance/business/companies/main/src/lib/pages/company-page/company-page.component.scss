@@ -40,7 +40,7 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 
 .nameChar img,
@@ -56,7 +56,7 @@ img {
   margin: 0px 5px 0px 0px;
   background-color: var(--kujali-color-text-background);
   width: fit-content;
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 
 .vl {
@@ -65,7 +65,7 @@ img {
 }
 
 .extra-tag {
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 
 td.mat-column-logoImgUrl {

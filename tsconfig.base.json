@@ -48,6 +48,7 @@
         "libs/elements/layout/user-menu/src/index.ts"
       ],
       "@app/elements/modals": ["libs/elements/modals/src/index.ts"],
+      "@app/features/activities": ["libs/features/activities/src/index.ts"],
       "@app/features/auth/login": ["libs/features/auth/login/src/index.ts"],
       "@app/features/budgetting/budget-explorer": [
         "libs/features/budgetting/budget-explorer/src/index.ts"

@@ -18,7 +18,7 @@
 
                   <div class="profile">
                     <div *ngIf="companyData?.logoImgUrl; else show" >
-                      <img class="circular--square" [src]="companyData?.logoImgUrl" />
+                      <img class="circular--square" [src]="companyData.logoImgUrl" />
                       <div class="edit" fxLayout="row" fxLayoutAlign="end">
                         <button class="edit-account"> <i class="bi bi-pencil-square" (click)="newProfileImg()"></i></button>
                       </div>

@@ -43,7 +43,7 @@ img,
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 .tag,
 .extra-tag {
@@ -52,14 +52,14 @@ img,
   margin: 0px 5px 0px 0px;
   background-color: var(--kujali-color-text-background);
   width: fit-content;
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 .vl {
   border-left: 5px solid white;
   height: 20px;
 }
 .extra-tag {
-  color: var(--kujali-color-primary);
+  color: var(--kujali-color-primary-blue);
 }
 
 td.mat-column-imageurl {

@@ -109,7 +109,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
   }
 
   viewcompany(id: string) {
-    this.router.navigate(['/companies', id]);
+    this.router.navigate(['business/companies', id]);
   }
 
   openSnackBar(message: string, action: string) {

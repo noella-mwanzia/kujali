@@ -1,0 +1,204 @@
+h2,
+h4,
+p,
+input {
+  font-family: 'Poppins';
+}
+.no-margin {
+  margin: 0;
+}
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 15px;
+}
+.spinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.big-text {
+  font-size: 1.125rem;
+}
+h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.day, .month-year {
+  text-align: center;
+  color: var(--kujali-color-text-inactive-bolder);
+}
+
+.day {
+  font-size: 1.25rem;
+}
+.month-year {
+  font-size: 1rem;
+}
+.date {
+  height: 100%;
+}
+
+.date i {
+  height: 15px;
+}
+.bi-circle-fill {
+  color: var(--kujali-color-text-inactive-bolder);
+}
+
+.line {
+  border-left: 3px solid var(--kujali-color-text-inactive-bolder);
+  position:relative;
+  margin: 0;
+  padding: 0;
+}
+
+.line p{
+  text-align: center;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  height: 80px;
+}
+
+.main-actions {
+  margin-top: 10px;
+}
+
+.actions {
+  background-color: var(--kujali-color-primary-background);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.sort-actions {
+  color: var(--kujali-color-text-inactive-bolder);
+  margin-bottom: 20px;
+}
+
+.sort-by p {
+  margin-right: 10px;
+  font-size: 0.875rem;
+}
+
+.sort-by .mat-form-field {
+  width: 150px;
+  height: 30px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+}
+
+.sort-by .mat-form-field {
+  font-size: 0.625rem;
+}
+.fit-height{
+  height: fit-content;
+}
+.action-cards{
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  height: fit-content;
+}
+
+.image {
+  margin-right: 20px;
+  background-color: var(--kujali-color-text-background);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: var(--kujali-color-primary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-image {
+  margin-right: 5px!important;
+  background-color: var(--kujali-color-text-background);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  background-color: var(--kujali-color-primary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.res {
+  margin-left: 10px;
+}
+
+.desc {
+  font-size: 12px;
+}
+
+.right p:first-of-type {
+  margin: 0;
+  background-color: var(--kujali-color-primary-blue);
+  font-weight: 600;
+}
+
+.right p:nth-child(2) {
+  color: var(--kujali-color-text-black);
+  font-weight: 600;
+}
+
+.right p:nth-child(3) {
+  margin-top: 10px;
+  color: var(--kujali-color-nav-inactive);
+}
+
+.actions-modal {
+  overflow-y: hidden;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+::ng-deep .mat-form-field-infix {
+  border-top-width: 2px !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding: 0;
+}
+
+// .edit-action {
+//   display: none;
+//   position: absolute;
+// }
+
+.edit-action:hover {
+  box-shadow: slategray 0px 2px 4px;
+  background-color: var(--kujali-color-primary-blue);
+  color: white;
+  cursor: pointer;
+}
+
+// .mydiv:hover + .edit-action {
+//   display: block;
+// }
+
+.displayName {
+  display: none;
+  position: absolute;
+  width: fit-content;
+  background-color: var(--kujali-color-text-black);
+}
+
+.user-image:hover + .displayName {
+  padding: 2px;
+  border-radius: 5px;
+  display: block;
+  color: var(--kujali-color-text-black);
+  font-size: 8px;
+  color: var(--kujali-color-text-white);
+}

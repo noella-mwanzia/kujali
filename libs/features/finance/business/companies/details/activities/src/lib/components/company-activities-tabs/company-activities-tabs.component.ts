@@ -33,8 +33,6 @@ export class CompaniesActivitiesTabsComponent implements OnInit, OnDestroy {
   canViewActions: Observable<boolean>;
   canViewOpps: Observable<boolean>;
   canViewInvoices: Observable<boolean>;
-  canViewQuotes: Observable<boolean>;
-  canViewOrders: Observable<boolean>;
   canViewContacts: Observable<boolean>;
 
   permissionsChecked: boolean;
@@ -52,12 +50,10 @@ export class CompaniesActivitiesTabsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.lang = this._translateService.initialise();
 
-    // this.canViewActions = this._permissionsService.checkActionsPermissions();
-    // this.canViewOpps = this._permissionsService.checkOppsPermissions();
-    // this.canViewInvoices = this._permissionsService.checkInvoicesPermissions();
-    // this.canViewQuotes = this._permissionsService._checkQuotesPermissions();
-    // this.canViewOrders = this._permissionsService._checkOrdersPermissions();
-    // this.canViewContacts = this._permissionsService._checkContactsPermissions()
+    this.canViewActions = this._permissionsService.checkActionsPermissions();
+    this.canViewOpps = this._permissionsService.checkOppsPermissions();
+    this.canViewInvoices = this._permissionsService.checkInvoicesPermissions();
+    this.canViewContacts = this._permissionsService._checkContactsPermissions()
   }
 
   setLang(lang: 'en' | 'fr' | 'nl') {

@@ -24,7 +24,7 @@ export class NotesComponent implements OnInit, OnDestroy {
 
   @ViewChild('myEditor') myEditor: any;
 
-  public Editor = ClassicEditor;
+  public Editor: any = ClassicEditor;
   noteData: string;
 
   @Input() notesTitle?: string;
