@@ -79,6 +79,9 @@
       "@app/features/finance/business/companies/create": [
         "libs/features/finance/business/companies/create/src/index.ts"
       ],
+      "@app/features/finance/business/companies/details/activities": [
+        "libs/features/finance/business/companies/details/activities/src/index.ts"
+      ],
       "@app/features/finance/business/companies/details/contacts": [
         "libs/features/finance/business/companies/details/contacts/src/index.ts"
       ],
