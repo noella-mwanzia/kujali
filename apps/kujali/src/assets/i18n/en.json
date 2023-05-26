@@ -250,7 +250,7 @@
   "BUDGET": {
     "STATUS": {
       "ACTIVE": "Active",
-      "DESIGN": "Design",
+      "DESIGN": "Draft",
       "NO-USE": "No longer in use",
       "DELETED": "Deleted"
     },
