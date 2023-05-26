@@ -38,6 +38,7 @@
     "features-finance-business-companies-create": "libs/features/finance/business/companies/create",
     "features-finance-business-companies-details-contacts": "libs/features/finance/business/companies/details/contacts",
     "features-finance-business-companies-details-edit": "libs/features/finance/business/companies/details/edit",
+    "features-finance-business-companies-details-invoices": "libs/features/finance/business/companies/details/invoices",
     "features-finance-business-companies-details-opportunities": "libs/features/finance/business/companies/details/opportunities",
     "features-finance-business-companies-details-view": "libs/features/finance/business/companies/details/view",
     "features-finance-business-companies-main": "libs/features/finance/business/companies/main",
