@@ -44,7 +44,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   sortby: string = 'newest';
   date: string;
 
-  canEditActions: boolean;
+  canEditActions: boolean = true;
 
   lang: 'fr' | 'en' | 'nl';
 

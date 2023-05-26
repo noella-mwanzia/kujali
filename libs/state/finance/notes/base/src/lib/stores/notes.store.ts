@@ -31,7 +31,6 @@ export class NotesStore extends Store<Notes>
       = combineLatest([_activeOrg$$.get(), _financeObjLoader.load()])
             .pipe(tap(([o, a])  =>
                   {                                    
-                    // TODO: Type = finance Object
                     this._activeRepo =
                       (!!o && _financeObjLoader.isValidFinanceObject(a))
                                  ? _dataProvider.getRepo<any>(`orgs/${o.id}/${a.type}/${a.id}/config`)

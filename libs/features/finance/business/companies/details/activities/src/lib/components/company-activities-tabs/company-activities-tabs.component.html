@@ -1,4 +1,4 @@
-<mat-tab-group mat-align-tabs="start">
+<mat-tab-group color="primary" backgroundColor=primary mat-align-tabs="start">
   <div *ngIf="canViewActions | async as actions">
     <mat-tab [disabled]="!actions" [label]="'ACTIONS.ACTIONS' | transloco">
       <activities [canViewActions]="actions"></activities>

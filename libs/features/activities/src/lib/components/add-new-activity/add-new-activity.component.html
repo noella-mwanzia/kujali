@@ -2,8 +2,8 @@
   fxLayoutAlign="start">
   <div *ngIf="editMode; else addAction" fxLayout="row" fxLayoutAlign="space-between center">
     <h2 mat-dialog-title>{{"ACTIONS.ADD-NEW-ACTION.EDIT-ACTION" | transloco}}</h2>
-    <button *ngIf="canDeleteActions" class="delete" mat-stroked-button
-      (click)="deleteAction()"><i class="bi bi-trash-fill delete"></i>
+    <button *ngIf="canDeleteActions" class="delete" mat-stroked-button (click)="deleteAction()"><i
+        class="fas fa-trash"></i>
       {{"ACTIONS.ADD-NEW-ACTION.DELETE-ACTION" | transloco}}</button>
   </div>
   <ng-template #addAction>
@@ -21,29 +21,29 @@
 
   <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
     <h4>{{"ACTIONS.ADD-NEW-ACTION.DESCRIPTION" | transloco}}</h4>
-    <mat-form-field id="descrption-input" appearance="outline" fxFlex>
-      <textarea rows="3" matInput name="desInput" type="message" formControlName="desc"
-        [placeholder]="'ACTIONS.ADD-NEW-ACTION.DESC-PLACEHOLDER' | transloco"></textarea>
-    </mat-form-field>
+    <textarea rows="3" name="desInput" type="message" formControlName="desc"
+      [placeholder]="'ACTIONS.ADD-NEW-ACTION.DESC-PLACEHOLDER' | transloco"></textarea>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutAlign="space-between">
 
-    <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+    <div fxLayout="column" fxLayoutAlign="start" fxFlex="48">
       <h4>{{"ACTIONS.ADD-NEW-ACTION.START-DATE" | transloco}}</h4>
       <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="startDatepicker" formControlName="startDate" />
-        <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker type="datetime" #startDatepicker></mat-datepicker>
+        <input matInput [matDatepicker]="startDatepicker" formControlName="startDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatepicker></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+    <div fxLayout="column" fxLayoutAlign="start" fxFlex="48">
       <h4>{{"ACTIONS.ADD-NEW-ACTION.END-DATE" | transloco}}</h4>
       <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="startTimePicker" formControlName="endDate" />
-        <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>
-        <mat-datepicker type="datetime" #startTimePicker></mat-datepicker>
+        <input matInput [matDatepicker]="endDatepicker" formControlName="endDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatepicker></mat-datepicker>
       </mat-form-field>
     </div>
 

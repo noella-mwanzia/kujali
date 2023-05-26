@@ -40,7 +40,8 @@ h4 {
   font-size: 1rem;
 }
 .date {
-  height: 100%;
+  max-height: 100%!important;
+  overflow: hidden;
 }
 
 .date i {
@@ -113,7 +114,6 @@ h4 {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background-color: var(--kujali-color-primary-blue);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +142,7 @@ h4 {
 
 .right p:first-of-type {
   margin: 0;
-  background-color: var(--kujali-color-primary-blue);
+  color: var(--kujali-color-primary-blue);
   font-weight: 600;
 }
 
@@ -181,6 +181,8 @@ h4 {
   background-color: var(--kujali-color-primary-blue);
   color: white;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 2px;
 }
 
 // .mydiv:hover + .edit-action {

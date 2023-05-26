@@ -25,8 +25,8 @@ export class ActiveFinanceObjectLoader
     return this._getActiveRoute()
                .pipe(map(r => { 
                  const els = r.url.split('/');
-                                return { type: els.length >= 1 ? els[1] : false,
-                                          id: els.length >= 2 ? els[2] : false };
+                                return { type: els.length >= 1 ? els[2] : false,
+                                          id: els.length >= 2 ? els[3] : false };
                 }));
   }
 

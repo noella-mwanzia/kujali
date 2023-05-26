@@ -30,8 +30,8 @@ export class ActivityStore extends DataStore<Activity>
     ) {
     super('always', _logger);
 
-    const type  = this._router$$.url.split('/')[1];
-    const id = this._router$$.url.split('/')[2];
+    const type  = this._router$$.url.split('/')[2];
+    const id = this._router$$.url.split('/')[3];
     
     const data$
       = combineLatest(

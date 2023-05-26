@@ -36,6 +36,6 @@ export class CompanyInformationComponent implements OnInit {
   }
 
   goToEditPage(companyId){
-    this._router$$.navigate(['companies', companyId, 'edit'])
+    this._router$$.navigate(['business/companies', companyId, 'edit'])
   }
 }

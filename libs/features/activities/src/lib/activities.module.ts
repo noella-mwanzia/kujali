@@ -7,11 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatSelectFilterModule } from 'mat-select-filter';
-import { MatDatepickerModule } from '@matheo/datepicker';
-import { MatNativeDateModule } from '@matheo/datepicker/core';
+
 
 import {
   FlexLayoutModule,
+  MaterialBricksModule,
+  MaterialDesignModule,
   MaterialFormBricksModule,
 } from '@iote/bricks-angular';
 
@@ -24,14 +25,15 @@ import { AddNewActivityComponent } from './components/add-new-activity/add-new-a
 
 import { ActionsPermissionsService } from './services/actions-permissions.service';
 import { AddNewActionModelService } from './services/add-new-action-model.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
 
     MultiLangModule,
-    // MaterialDesignModule,
-    // MaterialBricksModule,
+    MaterialDesignModule,
+    MaterialBricksModule,
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
@@ -45,7 +47,6 @@ import { AddNewActionModelService } from './services/add-new-action-model.servic
     ReactiveFormsModule,
 
     MatDatepickerModule,
-    MatNativeDateModule,
 
     // AccessControlStateModule,
   ],

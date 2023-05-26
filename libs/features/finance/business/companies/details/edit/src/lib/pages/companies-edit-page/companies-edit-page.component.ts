@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { TranslateService } from '@ngfi/multi-lang';
@@ -94,6 +94,7 @@ export class CompaniesEditPageComponent implements OnInit, AfterViewInit {
   }
 
   private _checkPermissions() {
+    return of(true)
     // this._sbS.sink = this._permissionsService.checkAccessRight((p: any) => p.CompanySettings.CanEditCompanies).pipe(take(1)).subscribe((permissions) => {
     //   if (!permissions) {
     //     this.companyForm.disable();

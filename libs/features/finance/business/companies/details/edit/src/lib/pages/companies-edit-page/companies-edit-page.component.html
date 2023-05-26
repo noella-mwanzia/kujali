@@ -1,9 +1,9 @@
 <app-page>
-  <div class="main-page" fullContent>
+  <div class="main-page" pageContent>
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header [editPageName]="'COMPANY.ADD-NEW-COMPANY.EDIT-COMPANY' | transloco">
-        <button *hasViewAccess="CAN_EDIT_COMPANY" save-button mat-flat-button (click)="updateCompany()" class="add-new"> <i
+        <button save-button mat-flat-button (click)="updateCompany()" class="add-new"> <i
           class="bi bi-file-earmark-diff"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
       </kujali-finance-detail-header-edits >
     </kujali-finance-toolbar>
@@ -109,7 +109,7 @@
               <kujali-finance-social-media-field [socialMediaFields]="companyForm"></kujali-finance-social-media-field>
 
               <div>
-                <button *hasViewAccess="CAN_DELETE_COMPANIES" mat-raised-button color="danger" class="danger-btn" (click)="deleteCompany(companyData)">Delete Company</button>
+                <button mat-raised-button color="warn" class="danger-btn" (click)="deleteCompany(companyData)">Delete Company</button>
               </div>
             </div>
           </div>

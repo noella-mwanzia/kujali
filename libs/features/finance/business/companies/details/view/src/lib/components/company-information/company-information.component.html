@@ -2,7 +2,9 @@
   <div class="company-card" *ngIf="company$ | async as company; else loading">
 
     <div class="edit" fxLayout="row" fxLayoutAlign="end">
-      <button class="edit-account" (click)="goToEditPage(company.id!)"> <i class="bi bi-pencil-square"></i></button>
+      <button class="edit-account" (click)="goToEditPage(company.id!)">
+        <i class="fas fa-edit"></i>
+      </button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-evenly start">
@@ -11,9 +13,7 @@
         <div class="logo-pic">
           <img *ngIf="company.logoImgUrl; else show" [src]="company.logoImgUrl" />
           <ng-template #show>
-            <div class="nameChar"><img
-                src="assets/icons/company-icon.svg"
-                alt=""></div>
+            <div class="nameChar"><i class="fas fa-building fa-lg"></i></div>
           </ng-template>
         </div>
 
