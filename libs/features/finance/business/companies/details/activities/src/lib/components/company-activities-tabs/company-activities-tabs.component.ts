@@ -14,7 +14,7 @@ import { CheckPermissionsService } from '../../services/check-permissions.servic
 
 
 @Component({
-  selector: 'kujali-company-activities-tabs',
+  selector: 'companies-activities-tabs',
   templateUrl: './company-activities-tabs.component.html',
   styleUrls: ['./company-activities-tabs.component.scss']
 })

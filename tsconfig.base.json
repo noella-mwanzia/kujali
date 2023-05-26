@@ -136,6 +136,7 @@
       "@app/features/finance/operations/payments": [
         "libs/features/finance/operations/payments/src/index.ts"
       ],
+      "@app/features/notes": ["libs/features/notes/src/index.ts"],
       "@app/features/shared/components/modals": [
         "libs/features/shared/components/modals/src/index.ts"
       ],

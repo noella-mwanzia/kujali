@@ -9,7 +9,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 
-// import { NotesModule } from '@app/features/notes';
+import { NotesModule } from '@app/features/notes';
 import { CompaniesActivitiesModule } from '@app/features/finance/business/companies/details/activities';
 import { CompaniesOpportunitiesModule } from '@app/features/finance/business/companies/details/opportunities'
 
@@ -37,7 +37,7 @@ import { CompaniesViewRouterModule } from './companies-view.router';
 
     iTalPageModule,
     PageHeadersModule,
-    // NotesModule,
+    NotesModule,
     CompaniesActivitiesModule,    
     CompaniesOpportunitiesModule,
 
