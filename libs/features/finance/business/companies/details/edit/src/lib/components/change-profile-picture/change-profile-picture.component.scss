@@ -1,0 +1,59 @@
+.form-spacer {
+  margin-bottom: 20px;
+}
+
+/* Modal Styles */
+
+
+.optional-info-title {
+  font-size: 0.9em;
+  border-bottom: 1px solid var(--kujali-color-primary-background);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 0.8em;
+  padding: 5px 20px;
+  background-color: var(--kujali-color-primary-background);
+  margin-bottom: 5px;
+}
+
+.form-body, .form-section-body {
+    padding: 0 15px;
+    flex: 100;
+}
+
+.close-modal-btn:hover {
+  cursor: pointer;
+}
+
+#modal {
+  min-width: 500px;
+}
+
+label{
+  color: var(--kujali-color-text-inactive-bolder);
+  font-weight: 600;
+  margin: 10px 5px;
+  padding: 8px;
+}
+
+input{
+  margin: 10px 5px;
+  border: none;
+  background-color: var(--kujali-color-text-white);
+  padding: 8px;
+  border-radius: 3px;
+}
+
+
+.secondNavBarBtn{
+  padding: 7px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.title-warn{
+  color: var(--kujali-color-primary-red);
+}

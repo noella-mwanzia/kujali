@@ -1,0 +1,68 @@
+<div *ngIf="canViewInvoices" class="table-container" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="20px">
+
+  <div class="contact-btn">
+    <a mat-flat-button (click)="createNewInvoice()"><i
+        class="bi bi-plus-circle-fill"></i>{{"INVOICES.CREATE-NEW-INVOICE" |
+      transloco}}</a>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- number Column -->
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"INVOICES.TABLE.TITLE" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.number else dash">{{invoice.number}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- amount column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.AMOUNT" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.products; else dash"> {{getTotalAmount(invoice.products) | currency : invoice.currency : 'symbol-narrow'}} </div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.DATE" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.date; else dash">{{getDate(invoice.date)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- dueDate Column -->
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.DUE-DATE" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.dueDate; else dash">{{getDate(invoice.dueDate)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- contact Column -->
+    <ng-container matColumnDef="contact">
+      <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.CONTACT" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.contact; else dash">{{getContactName(invoice.contact)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- status column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.STATUS" | transloco}} </th>
+      <td mat-cell *matCellDef="let invoice" (click)="viewInvoices(invoice.id)">
+        <div *ngIf="invoice.status; else dash"> {{invoice.status}} </div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

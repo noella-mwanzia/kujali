@@ -1,0 +1,121 @@
+<app-page>
+  <div class="main-page" fullContent>
+
+    <kujali-finance-toolbar toolbar>
+      <kujali-finance-detail-header-edits header [editPageName]="'COMPANY.ADD-NEW-COMPANY.EDIT-COMPANY' | transloco">
+        <button *hasViewAccess="CAN_EDIT_COMPANY" save-button mat-flat-button (click)="updateCompany()" class="add-new"> <i
+          class="bi bi-file-earmark-diff"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
+      </kujali-finance-detail-header-edits >
+    </kujali-finance-toolbar>
+
+    <div class="container">
+      <!-- main row  -->
+      <form *ngIf="companyData" [formGroup]="companyForm" >
+        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+          <div class="left" fxFlex="40%">
+            <div fxLayout="column">
+              <div fxLayout="row" fxLayoutAlign="center">
+
+                  <div class="profile">
+                    <div *ngIf="companyData?.logoImgUrl; else show" >
+                      <img class="circular--square" [src]="companyData?.logoImgUrl" />
+                      <div class="edit" fxLayout="row" fxLayoutAlign="end">
+                        <button class="edit-account"> <i class="bi bi-pencil-square" (click)="newProfileImg()"></i></button>
+                      </div>
+                    </div>
+
+                    <ng-template #show>
+                      <div >
+                        <img src="assets/icons/company-icon.svg" class="circular--square" alt="" />
+                          <div class="edit" fxLayout="row" fxLayoutAlign="end">
+                            <button *hasViewAccess="CAN_EDIT_COMPANY" class="edit-account"> <i class="bi bi-pencil-square" (click)="newProfileImg()"></i></button>
+                          </div>
+                        </div>
+                    </ng-template>
+                  </div>
+
+              </div>
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'COMPANY.ADD-NEW-COMPANY.COMPANY-NAME' | transloco }}</label>
+                <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                  <input matInput name="title" type="text" formControlName="name">
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'COMPANY.ADD-NEW-COMPANY.COMPANY-VAT' | transloco }}</label>
+                <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                  <input matInput name="vat" type="text" formControlName="vatNo">
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'CONTACT.ADDRESS' | transloco }}</label>
+                <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                  <input matInput name="title" type="text" formControlName="hq">
+                </mat-form-field>
+              </div>
+              
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'COMPANY.ACCOUNT-MANAGER' | transloco }}</label>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="accManager" multiple>
+                    <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="orgUsers" (filteredReturn)="filteredUsers =$event"></mat-select-filter>
+                    <mat-option *ngFor="let user of filteredUsers" [value]="user.displayName">
+                      {{user.displayName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+                <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
+            </div>
+          </div>
+
+          <div fxFlex="" class="topElements">
+            <div fxLayout="column">
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <label> {{ 'CONTACT.ADDNEWCONTACT.EMAIL' | transloco }}</label>
+                  <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                    <input matInput name="title" type="text" formControlName="email">
+                  </mat-form-field>
+                </div>
+                <!-- phone field -->
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <kujali-finance-phone-form-field [dataForm]="companyForm"></kujali-finance-phone-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <label> {{ 'COMPANY.WEBSITE' | transloco }}</label>
+                  <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                    <input matInput name="title" type="text" formControlName="website">
+                  </mat-form-field>
+                </div>
+              </div>
+
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="93">
+                  <label>{{ 'COMPANY.SLOGAN' | transloco }}</label>
+                <mat-form-field class="editCompanies" id="title-input" appearance="outline" fxFlex>
+                  <input matInput name="title" type="text" formControlName="slogan">
+                </mat-form-field>
+              </div>
+              </div>
+
+              <!-- reusable social media component  -->
+              <kujali-finance-social-media-field [socialMediaFields]="companyForm"></kujali-finance-social-media-field>
+
+              <div>
+                <button *hasViewAccess="CAN_DELETE_COMPANIES" mat-raised-button color="danger" class="danger-btn" (click)="deleteCompany(companyData)">Delete Company</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</app-page>
