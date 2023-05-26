@@ -36,6 +36,8 @@
     "features-finance-banking-allocations": "libs/features/finance/banking/allocations",
     "features-finance-banking-main": "libs/features/finance/banking/main",
     "features-finance-business-companies-create": "libs/features/finance/business/companies/create",
+    "features-finance-business-companies-details-contacts": "libs/features/finance/business/companies/details/contacts",
+    "features-finance-business-companies-details-edit": "libs/features/finance/business/companies/details/edit",
     "features-finance-business-companies-details-view": "libs/features/finance/business/companies/details/view",
     "features-finance-business-companies-main": "libs/features/finance/business/companies/main",
     "features-finance-business-contacts-create": "libs/features/finance/business/contacts/create",
