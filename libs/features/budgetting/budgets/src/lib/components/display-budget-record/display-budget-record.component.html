@@ -8,12 +8,6 @@
 
 <div fxLayout="column" fxLayoutGap="20px">
 
-  <!-- <div class="record-desc">
-    <span>
-      {{desc.substring(0, 130)}}..
-    </span>
-  </div> -->
-
   <div class="record-parents">
     <span>
       {{'BUDGETS.DISPLAY-BUDGETS.INHERITS-FROM' | transloco }} <span>{{record.budget.overrideList && record.budget.overrideList.length > 0 ?
@@ -34,7 +28,7 @@
       {{'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco}}
     </button>
   </div>
-
+k
   <!-- Will only be true on parent since does not get cascaded down below. -->
   <div *ngIf="canPromote" class="budget-btn-container" style="float: right; text-align: right">
     <button class="btn-promote" (click)="promote()">{{ 'BUDGET.VIEW-RECORD.PROMOTE' | transloco }}</button>

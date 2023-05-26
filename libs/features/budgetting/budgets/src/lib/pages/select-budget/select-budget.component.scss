@@ -1,47 +1,41 @@
-.page-container {
-	min-height: 100%;
+.main-page {
+  padding-bottom: 50px;
 }
 
-.page-header {
-	font-family: var(--kujali-segoe-ui-bold);
-	font-weight: 1.5rem;
-	color: var(--kujali-color-primary-blue);
+.filter-section {
+  width: 100%;
 }
 
-.page-sub-header {
-	font-family: var(--kujali-segoe-ui-semi-bold);
-	font-size: 1.2rem;
-	color: var(--kujali-color-primary-blue);
+table {
+  width: 100%;
 }
 
-.budget-card {
-	border-radius: 10px;
-	height: fit-content;
-  box-shadow: 0 0 20px 8px #d0d0d0;
+.table-container {
+  margin-top: 50px;
+  position: relative;
+  min-height: 200px;
+  max-height: 70vh;
+  overflow: auto;
 }
 
-.overview-section {
-	min-width: 100%;
-	margin-bottom: 25px;
+// Custom Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-.overview-section-title {
-	font-weight: bold;
-	background: white;
-	padding: 10px 20px;
-	margin-bottom: 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 20px 8px #d0d0d0;
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--kujali-color-primary-background); 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--kujali-color-text-inactive-bolder);
+  border-radius: 3px; 
 }
 
-app-display-budget-record {
-	display: block;
-	clear: both;
-	padding: 10px 20px;
-	margin-bottom: 15px;
-	background-color: white;
-}
-
-button {
-	max-width: 150px;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
