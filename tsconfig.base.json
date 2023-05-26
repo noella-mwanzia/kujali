@@ -85,6 +85,9 @@
       "@app/features/finance/business/companies/details/edit": [
         "libs/features/finance/business/companies/details/edit/src/index.ts"
       ],
+      "@app/features/finance/business/companies/details/opportunities": [
+        "libs/features/finance/business/companies/details/opportunities/src/index.ts"
+      ],
       "@app/features/finance/business/companies/details/view": [
         "libs/features/finance/business/companies/details/view/src/index.ts"
       ],
