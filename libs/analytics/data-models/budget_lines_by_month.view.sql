@@ -7,11 +7,12 @@ SELECT
 
   l.amount as amount,
   l.base_amount AS base_amount,
+  l.units AS units,
+  l.mode as mode,
   -- JSON_EXTRACT_SCALAR(l.data, '$.allocatedTo') AS allocated_to,
 
   -- JSON_EXTRACT_SCALAR(l.data, '$.planId') AS plan_id,
 
-  l.units AS units,
 
   -- Datetime object that represents the middle of the month
   --    We use a datetime as it's easier for comparison calculation in BI engines. 
