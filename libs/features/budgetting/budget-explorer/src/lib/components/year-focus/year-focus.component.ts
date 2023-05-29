@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { BudgetRowType } from '@app/model/finance/planning/budget-grouping';
-import { MONTHS } from '@app/model/finance/planning/time';
+import { MONTHS, YEARS } from '@app/model/finance/planning/time';
 import { PlanTrInput } from '@app/model/finance/planning/budget-items';
 
 import { PlanTransactionModalComponent } from '@app/features/budgetting/budget-planning';
@@ -31,7 +31,7 @@ export class YearFocusComponent {
   addCostOrIncome() {
     this.dialog.open(PlanTransactionModalComponent,
       {
-        data: {data: this.getTransactionPlanInput(), column: MONTHS[0]},
+        data: {data: this.getTransactionPlanInput(), column: MONTHS[0], year: YEARS[0]},
         minHeight: '600px'
       })
   }

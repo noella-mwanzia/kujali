@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { Month, PlanTrInput, TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { BudgetRowType, LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 import { CostTypesStore } from '@app/state/finance/cost-types';
@@ -64,7 +64,7 @@ export class PlanTransactionModalComponent  // implements OnInit
   hasIncrease: boolean = false;
 
   constructor(private _fb: FormBuilder,
-              @Inject(MAT_DIALOG_DATA) data: {data: PlanTrInput, column: any},
+              @Inject(MAT_DIALOG_DATA) data: {data: PlanTrInput, column: Month, year: number},
               private _dialog: MatDialogRef<PlanTransactionModalComponent>,
               private _translation: TranslateService,
               private _costTypes$$: CostTypesStore,
@@ -84,7 +84,7 @@ export class PlanTransactionModalComponent  // implements OnInit
     this.isCreate  = !this.isNewLine && cmd.trMode === 'create';
     this.isEdit    = !this.isNewLine && !this.isCreate;
 
-    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data.data, data.column);
+    this.plannedTransactionFormGroup = this.createPlanTransactionForm(data.data, data.column, data.year);
 
     this.lblAction = this.isNewLine || this.isCreate ? 'PL-EXPLORER.TRPLANNER.ACTION-CREATE' 
                                     : 'PL-EXPLORER.TRPLANNER.ACTION-UPDATE';
@@ -96,12 +96,12 @@ export class PlanTransactionModalComponent  // implements OnInit
 
   }
 
-  createPlanTransactionForm(plan: PlanTrInput, month: any): FormGroup {
+  createPlanTransactionForm(plan: PlanTrInput, month: Month, year: number): FormGroup {
     if (plan.occurence) {
       this.hasIncrease = plan.occurence.hasIncrease!;
-      return CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit, month);
+      return CreateUpdateTransactionFormGroup(this._fb, plan.occurence, this.isEdit, month, year);
     }
-    return CreateTransactionFormGroup(this._fb, month!);
+    return CreateTransactionFormGroup(this._fb, month.month!);
   }
 
   getFormGroup(formGroup: string): FormGroup {
