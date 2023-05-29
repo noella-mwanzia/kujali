@@ -1,3 +1,6 @@
+-- This table describes what a payment paid for.
+--    It is linked to expenses, expense accounts (individuals) or invoices.
+-- TODO: withId (now accId?) and With Type 
 SELECT
   CONCAT(document_id, '_e_', offset) as id,
 
@@ -7,6 +10,7 @@ SELECT
   JSON_EXTRACT_SCALAR(elements, '$.accId') AS account_id, 
   CAST(JSON_EXTRACT(elements, '$.allocAmount') as FLOAT64) AS allocation_amount,
   CAST(JSON_EXTRACT(elements, '$.allocMode') as INT64) AS allocation_mode,
+
   JSON_EXTRACT_SCALAR(elements, '$.invoiceId') AS invoice_id,
 
   offset AS element_index
