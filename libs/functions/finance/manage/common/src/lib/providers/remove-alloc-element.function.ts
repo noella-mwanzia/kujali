@@ -7,13 +7,13 @@ export function REMOVE_ALLOC_ELEMENT(payment: PaymentAllocation, invoice: Invoic
   tools.Logger.log(() => `[removeAllocElement]: starting dealocation for: ${payment.id} && ${invoice.id}`);
 
   // step 1: remove alloc from invoice
-  const payAlloc = invoice.elements.find((alloc) => alloc.pId == payment.id);
+  const payAlloc = invoice.elements.find((alloc) => alloc.withId == payment.id);
   if (payAlloc) {
     invoice.elements.splice(invoice.elements.indexOf(payAlloc), 1);
   }
 
   // step 2: remove alloc from payment
-  const invAlloc = payment.elements.find((alloc) => alloc.invoiceId == invoice.id);
+  const invAlloc = payment.elements.find((alloc) => alloc.withId == invoice.id);
   if (invAlloc) {
     payment.amount -= invAlloc.allocAmount;
     payment.allocStatus = 5;

@@ -108,7 +108,7 @@ export class BudgetsPeriodTableComponent implements OnInit {
 
   createBudgetLine(budgetLine: BudgetLineAllocUI, plans: TransactionPlan[]): BudgetLineUI {
     const budgetLinePlan = plans.find((plan) => plan.id === budgetLine.lineId);
-    const expIds = budgetLine.elements?.map((element) => element.expenseId);
+    const expIds = budgetLine.elements?.map((element) => element.withId);
     const allocName = this.expenses.filter((exp) => expIds?.includes(exp.id!)).map((exp) => exp.note).join(', ');
 
     const budgetLineData: BudgetLineUI = {

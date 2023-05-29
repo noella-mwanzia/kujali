@@ -1,4 +1,4 @@
-import { Allocation } from "@app/model/finance/allocations";
+import { AllocateWithType, Allocation } from "@app/model/finance/allocations";
 import { Invoice } from "@app/model/finance/invoices";
 import { Payment } from "@app/model/finance/payments";
 
@@ -13,7 +13,7 @@ export function REDUCE_INVOICE_ALLOC_AMOUNT(payment: any, invoices: Invoice[]): 
     let allocs = {
       pId: payment.id!,
       invId: invoice.id!,
-      trType: 1,
+      trType: AllocateWithType.Invoice,
       amount: payAllocAmount > invoiceAmount ? invoiceAmount : payAllocAmount,
     }
     payAllocAmount -= allocs.amount;
@@ -30,7 +30,7 @@ export function REDUCE_PAYMENT_ALLOC_AMOUNT(payments: Payment[], invoice: Invoic
     let allocs = {
       pId: payment.id!,
       invId: invoice.id!,
-      trType: 1,
+      trType: AllocateWithType.Payment,
       amount: invAllocAmount > paymentAmount ? paymentAmount : invAllocAmount,
     }
     invAllocAmount -= allocs.amount;

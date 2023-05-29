@@ -21,15 +21,17 @@ export interface Allocation extends IObject
  */
 export enum AllocateWithType
 {
-  /** Simplest case, a payment/cash transaction. */
-  Payment = 1,
+  /** a payment/cash transaction. */
+  Payment = 'payment',
 
-  /** Invoice with same supplier and reverse mode of the primary invoice */
-  Invoice = 2,
+  /** Invoice allocation */
+  Invoice = 'invoice',
 
-  /**Internal Transfer alloc */
-  InternalTransfers = 4,
+  /** Expense allocation */
+  Expense = 'expense',
 
   /** Credit that is the result of a past allocation. */
-  AllocCredit = 9
+  AllocCredit = 'credit',
+
+  BudgetLine = 'budgetLine'
 }

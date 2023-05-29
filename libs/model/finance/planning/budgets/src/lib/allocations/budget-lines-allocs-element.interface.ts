@@ -1,4 +1,5 @@
 import { Timestamp } from '@firebase/firestore-types';
+
 import { IObject } from '@iote/bricks';
 
 import { AllocateWithType } from '@app/model/finance/allocations';
@@ -13,14 +14,15 @@ import { AllocateWithType } from '@app/model/finance/allocations';
  */
 export interface BudgetLinesAllocationElement extends IObject
 {
-
-  expenseId: string;
+  withId: string;
 
   /** Transaction type of allocation-fulfill. */
-  allocType?: AllocateWithType;
+  withType: AllocateWithType;
 
   /** Amount allocated to the invoice. */
   allocAmount: number;
 
   allocMode: 1 | -1;
+
+  allocDate: Timestamp | Date;
 }
