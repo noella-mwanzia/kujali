@@ -1,3 +1,6 @@
+-- Budget plans are at the heart of the budget explorer feature.
+--  They are not useful for 
+
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   document_id AS id,
