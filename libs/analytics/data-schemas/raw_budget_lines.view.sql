@@ -10,14 +10,17 @@ SELECT
   document_id AS id,
 
   CAST(JSON_EXTRACT(data, '$.amount') as FLOAT64) AS amount,
+
   CAST(JSON_EXTRACT(data, '$.baseAmount') as FLOAT64) AS base_amount,
+  CAST(JSON_EXTRACT(data, '$.units') as INT64) AS units,
+
+  SAFE_CAST(JSON_EXTRACT(data, '$.mode') as INT64) AS mode,
   -- JSON_EXTRACT_SCALAR(data, '$.allocatedTo') AS allocated_to,
 
   JSON_EXTRACT_SCALAR(data, '$.planId') AS plan_id,
   JSON_EXTRACT_SCALAR(data, '$.lineId') AS line_id,
   JSON_EXTRACT_SCALAR(data, '$.budgetId') AS budget_id,
 
-  CAST(JSON_EXTRACT(data, '$.units') as INT64) AS units,
 
   -- Datetime object that represents the middle of the month
   --    We use a datetime as it's easier for comparison calculation in BI engines. 
