@@ -1,32 +1,39 @@
 <div class="navigation">
-  <div class="headers">
+  <div class="headers" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Budget</mat-label>
-      <mat-select (selectionChange)="budgetChanged($event)" [(ngModel)]="activeBudget">
-        <mat-option *ngFor="let budget of budgets" [value]="budget">
-          {{budget.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div fxLayout="column">
+      <h4>Budget Name</h4>
+      <mat-form-field appearance="outline">
+        <mat-select (selectionChange)="budgetChanged($event)" [(ngModel)]="activeBudget">
+          <mat-option *ngFor="let budget of budgets" [value]="budget">
+            {{budget.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Current Year</mat-label>
-      <mat-select (selectionChange)="yearChanged($event)" [(ngModel)]="activeYear">
-        <mat-option *ngFor="let year of allYearsList" [value]="year">
-          {{year}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div fxLayout="column">
+      <h4>Current Year</h4>
+      <mat-form-field appearance="outline">
+        <mat-select (selectionChange)="yearChanged($event)" [(ngModel)]="activeYear">
+          <mat-option *ngFor="let year of allYearsList" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Current Month</mat-label>
-      <mat-select (selectionChange)="monthChanged($event)" [(ngModel)]="month">
-        <mat-option *ngFor="let month of allMonthsList" [value]="month">
-          {{month.name | transloco}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div fxLayout="column">
+      <h4>Current Month</h4>
+      <mat-form-field appearance="outline">
+        <mat-select (selectionChange)="monthChanged($event)" [(ngModel)]="month">
+          <mat-option *ngFor="let month of allMonthsList" [value]="month">
+            {{month.name | transloco}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </div>
 </div>
 

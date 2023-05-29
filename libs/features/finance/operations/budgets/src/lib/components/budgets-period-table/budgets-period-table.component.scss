@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+h4 {
+  margin-bottom: 5px;
+}
+
 .mdc-data-table__header-cell {
   background-color: var(--kujali-color-primary-blue)!important;
   color: white!important;
@@ -20,4 +24,20 @@ table {
 
 ::ng-deep .mat-elevation-z8 {
   box-shadow: none;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
 }

@@ -74,6 +74,7 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
     delete trimmedBudget['costTotals'];
     delete trimmedBudget['result'];
     delete trimmedBudget['balance'];
+    delete trimmedBudget['children'];
 
     trimmedBudget.status = 1;
 

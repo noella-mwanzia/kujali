@@ -46,6 +46,7 @@
     "firebase-tools": "^11.17.0",
     "fs": "0.0.1-security",
     "fs-extra": "^11.1.0",
+    "html2pdf.js": "^0.10.1",
     "lodash": "^4.17.21",
     "mat-select-filter": "^2.4.1",
     "moment": "^2.29.4",

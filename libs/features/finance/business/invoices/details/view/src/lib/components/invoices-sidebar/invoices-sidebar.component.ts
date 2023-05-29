@@ -42,7 +42,7 @@ export class InvoicesSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     let page = this._router$$.url.split('/');
-    if (page.length > 3 && page[3] == 'edit') {
+    if (page.length > 3 && page[4] == 'edit') {
       this.isEditMode = true;
       this.getActiveInvoice();
     }

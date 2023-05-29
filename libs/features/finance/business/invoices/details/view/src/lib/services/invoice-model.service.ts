@@ -8,7 +8,7 @@ groupBy as __groupBy } from 'lodash';
 
 import { Logger } from '@iote/bricks-angular';
 
-// import { InvoicePdfComponent } from '@app/features/finance/business/invoices/details/invoice-documents';
+import { InvoicePdfComponent } from '@app/features/finance/business/invoices/details/invoice-documents';
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +21,20 @@ export class InvoiceModelService
   { }
 
   showFormPreview(pdfdata: any) {    
-    // const dialogRef = this.dialog.open(InvoicePdfComponent, {
-    //   width: '816px',
-    //   height: '1054px',
-    //   data: {
-    //     customer: pdfdata.customer,
-    //     company: pdfdata.company,
-    //     invoice: pdfdata.invoice,
-    //     currency: pdfdata.currency,
-    //     printInvoice: pdfdata.printInvoice,
-    //     invoiceNumber: pdfdata.invoiceNumber
-    //   },
-    // });
+    const dialogRef = this.dialog.open(InvoicePdfComponent, {
+      width: '816px',
+      height: '1054px',
+      data: {
+        customer: pdfdata.customer,
+        company: pdfdata.company,
+        invoice: pdfdata.invoice,
+        currency: pdfdata.currency,
+        printInvoice: pdfdata.printInvoice,
+        invoiceNumber: pdfdata.invoiceNumber
+      },
+    });
 
-    // dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   calculateProductTotal(item: any) {    
