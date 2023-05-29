@@ -2,7 +2,7 @@ SELECT
   CONCAT(document_id, '_e_', offset) as id,
 
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
-  document_id AS budget_line_alloc_id,
+  document_id AS budget_line_id,
 
   JSON_EXTRACT_SCALAR(elements, '$.expenseId') AS expense_id,
 
