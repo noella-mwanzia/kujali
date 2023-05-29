@@ -48,6 +48,7 @@
         "libs/elements/layout/user-menu/src/index.ts"
       ],
       "@app/elements/modals": ["libs/elements/modals/src/index.ts"],
+      "@app/features/activities": ["libs/features/activities/src/index.ts"],
       "@app/features/auth/login": ["libs/features/auth/login/src/index.ts"],
       "@app/features/budgetting/budget-explorer": [
         "libs/features/budgetting/budget-explorer/src/index.ts"
@@ -78,6 +79,24 @@
       ],
       "@app/features/finance/business/companies/create": [
         "libs/features/finance/business/companies/create/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/activities": [
+        "libs/features/finance/business/companies/details/activities/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/contacts": [
+        "libs/features/finance/business/companies/details/contacts/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/edit": [
+        "libs/features/finance/business/companies/details/edit/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/invoices": [
+        "libs/features/finance/business/companies/details/invoices/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/opportunities": [
+        "libs/features/finance/business/companies/details/opportunities/src/index.ts"
+      ],
+      "@app/features/finance/business/companies/details/view": [
+        "libs/features/finance/business/companies/details/view/src/index.ts"
       ],
       "@app/features/finance/business/contacts/create": [
         "libs/features/finance/business/contacts/create/src/index.ts"
@@ -118,6 +137,7 @@
       "@app/features/finance/operations/payments": [
         "libs/features/finance/operations/payments/src/index.ts"
       ],
+      "@app/features/notes": ["libs/features/notes/src/index.ts"],
       "@app/features/shared/components/modals": [
         "libs/features/shared/components/modals/src/index.ts"
       ],

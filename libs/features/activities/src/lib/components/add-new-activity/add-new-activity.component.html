@@ -1,0 +1,103 @@
+<form *ngIf="canCreateActions" class="actions-modal" [formGroup]="model.addNewActionFormGroup" fxLayout="column"
+  fxLayoutAlign="start">
+  <div *ngIf="editMode; else addAction" fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 mat-dialog-title>{{"ACTIONS.ADD-NEW-ACTION.EDIT-ACTION" | transloco}}</h2>
+    <button *ngIf="canDeleteActions" class="delete" mat-stroked-button (click)="deleteAction()"><i
+        class="fas fa-trash"></i>
+      {{"ACTIONS.ADD-NEW-ACTION.DELETE-ACTION" | transloco}}</button>
+  </div>
+  <ng-template #addAction>
+    <h2 mat-dialog-title>{{"ACTIONS.ADD-NEW-ACTION.ADD-NEW-ACTION" | transloco}}</h2>
+  </ng-template>
+
+  <div fxLayout="column" fxFlex="50">
+    <h4>{{"ACTIONS.ADD-NEW-ACTION.ACTION-TITLE" | transloco}}</h4>
+    <mat-form-field id="title-input" appearance="outline" fxFlex>
+      <input matInput name="title" type="text" formControlName="title"
+        [placeholder]="'ACTIONS.ADD-NEW-ACTION.ACTION-PLACEHOLDER' | transloco">
+    </mat-form-field>
+  </div>
+
+
+  <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+    <h4>{{"ACTIONS.ADD-NEW-ACTION.DESCRIPTION" | transloco}}</h4>
+    <textarea rows="3" name="desInput" type="message" formControlName="desc"
+      [placeholder]="'ACTIONS.ADD-NEW-ACTION.DESC-PLACEHOLDER' | transloco"></textarea>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between">
+
+    <div fxLayout="column" fxLayoutAlign="start" fxFlex="48">
+      <h4>{{"ACTIONS.ADD-NEW-ACTION.START-DATE" | transloco}}</h4>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="startDatepicker" formControlName="startDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start" fxFlex="48">
+      <h4>{{"ACTIONS.ADD-NEW-ACTION.END-DATE" | transloco}}</h4>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="endDatepicker" formControlName="endDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="start">
+    <h4>{{"ACTIONS.ADD-NEW-ACTION.ACTION-TYPE" | transloco}}</h4>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="type" [(ngModel)]="defaultType">
+        <mat-option value="Meeting">{{"ACTIONS.MEETING" | transloco}}</mat-option>
+        <mat-option value="Call">{{"ACTIONS.CALL" | transloco}}</mat-option>
+        <mat-option value="Mail">{{"ACTIONS.MAIL" | transloco}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+    <h4>{{"ACTIONS.ADD-NEW-ACTION.RESPONSIBLE" | transloco}}</h4>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="assignTo" multiple>
+        <mat-select-filter [placeholder]="'Filter'" [displayMember]="'displayName'" [array]="orgUsers"
+          (filteredReturn)="filteredUsers =$event"></mat-select-filter>
+        <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
+          {{user.displayName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf=" formSubmitted && (model.addNewActionFormGroup.hasError('formHasError'))" class="errorMessage">
+    <mat-error>
+      {{ 'FORMS.ERRORS.ALL-REQUIRED' | transloco }}
+    </mat-error>
+  </div>
+
+  <div class="full-width">
+    <div *ngIf="editMode; else createMode">
+      <div class="full-width" fxLayout="row" fxLayoutAlign="space-between start">
+        <button (click)="cancelAction()" class="create-action-btn" mat-stroked-button class="cancel" fxFlex="45">
+          <span>{{'CONTACT.ADDNEWCONTACT.CANCEL' | transloco}}</span>
+        </button>
+
+        <button (click)="addNewAction()" class="create-action-btn" mat-raised-button color="primary" fxFlex="45">
+          <ng-template #createText>{{"ACTIONS.ADD-NEW-ACTION.CREATE-ACTION" | transloco}}</ng-template>
+          <span>{{"ACTIONS.ADD-NEW-ACTION.EDIT-ACTION" | transloco}}</span>
+        </button>
+      </div>
+    </div>
+
+    <ng-template #createMode>
+      <button *ngIf="canCreateActions" class="full-width" (click)="addNewAction()" class="create-action-btn"
+        mat-raised-button color="primary">
+        <span>{{"ACTIONS.ADD-NEW-ACTION.CREATE-ACTION" | transloco}}</span>
+      </button>
+    </ng-template>
+  </div>
+</form>

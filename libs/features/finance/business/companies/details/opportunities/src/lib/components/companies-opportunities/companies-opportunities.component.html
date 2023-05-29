@@ -1,0 +1,86 @@
+<div *ngIf="canViewOpps" class="table-container" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="20px">
+
+  <div class="contact-btn">
+    <a mat-flat-button (click)="openOppsDialog()"><i
+        class="bi bi-plus-circle-fill"></i>{{"OPPORTUNITIES.ADD-NEW-OPPORTUNITY.ADD-NEW-OPPORTUNITY" |
+      transloco}}</a>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.TITLE" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+        <div *ngIf="ops.title; else dash">{{ops.title}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Assigned to Column -->
+    <ng-container matColumnDef="assigned-to">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"OPPORTUNITIES.TABLE.ASSIGNED-TO" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+        <div *ngIf="ops.assignTo; else dash">{{getAssignedTo(ops.assignTo)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- contact Column -->
+    <ng-container matColumnDef="contact">
+      <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.CONTACT" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+        <div *ngIf="ops.contact; else dash">{{getContactName(ops.contact)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- deadline Column -->
+    <ng-container matColumnDef="deadline">
+      <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.DEADLINE" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+        <div *ngIf="ops.deadline; else dash">{{getDate(ops.deadline)}}</div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- status column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.STATUS" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+        <div *ngIf="ops.status; else dash"> {{ops.status}} </div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Tags Column -->
+    <ng-container matColumnDef="tags">
+      <th mat-header-cell *matHeaderCellDef> {{"OPPORTUNITIES.TABLE.TAGS" | transloco}} </th>
+      <td mat-cell *matCellDef="let ops" (click)="viewOpps(ops.id)">
+
+        <div *ngIf="ops.tags; else dash">
+
+          <ng-template [ngIf]="ops.tags.length === 1">
+            <div>
+              <p class="tag" (click)="viewOpps(ops.id)">{{ops.tags[0]}}</p>
+            </div>
+          </ng-template>
+
+          <ng-template [ngIf]="ops.tags.length >= 2">
+            <div class="mydiv" fxLayout="row">
+              <p class="tag">{{ops.tags[0]}}</p>
+              <!-- <p class="tag"> {{ops.tags[1]}}</p> -->
+              <p class="extra-tag"> +{{ops.tags.length-1}}</p>
+            </div>
+            <div class="hide">{{ops.tags}}</div>
+          </ng-template>
+
+        </div>
+        <ng-template #dash> - </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -19,6 +19,8 @@ import { NavbarSideComponent } from './components/app-navbar-side/navbar-side.co
 import { SideNavContainerComponent } from './components/sidenav-container/nav-wrapper.component';
 import { SideMenuFooterComponent } from './components/sidemenu-footer/sidemenu-footer.component';
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
+import { SingleDetailInformationCardComponent } from './components/single-information-card/single-information-card.component';
+import { SingleDetailInformationPageComponent } from './components/single-information-page/single-information-page.component';
 
 
 /**
@@ -43,9 +45,16 @@ import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
     NavbarComponent,
     SideNavContainerComponent,
     SideMenuFooterComponent,
+    SingleDetailInformationCardComponent,
+    SingleDetailInformationPageComponent
   ],
 
   providers: [],
-  exports: [PageComponent, NavbarComponent],
+  exports: [
+    PageComponent, 
+    NavbarComponent,
+    SingleDetailInformationCardComponent,
+    SingleDetailInformationPageComponent
+  ],
 })
 export class iTalPageModule {}

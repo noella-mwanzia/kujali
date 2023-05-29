@@ -1,0 +1,67 @@
+h2,
+h4,
+p,
+input {
+  font-family: 'Poppins';
+}
+
+h2,
+h4 {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 15px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.full-width,
+.full-width>button {
+  width: 100%;
+}
+
+.delete {
+  color: red;
+}
+
+.cancel {
+  margin-top: 5px;
+  background-color: var(--kujali-color-primary-blue);
+}
+
+.actions-modal {
+  overflow-y: hidden;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100% !important;
+}
+
+.create-action-btn {
+  color: white;
+  margin-top: 5px;
+}
+
+textarea {
+  border-radius: 5px;
+  padding: 5px;
+  font-family: 'Poppins';
+  margin-bottom: 10px;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 8px !important;
+  padding-bottom: 0px !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px !important;
+  max-height: 40px !important;
+}
+
+::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px !important;
+  padding: 7px !important;
+}

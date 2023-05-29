@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { ActiveContactStore } from '@app/state/finance/contacts';
-
 import { ActiveCompanyStore } from '@app/state/finance/companies';
 import { ActiveOpportunityStore } from '@app/state/finance/opportunities';
 
@@ -23,17 +22,15 @@ export class DetailHeaderCardComponent implements OnInit {
   pageName: string
   name: string;
 
-  constructor(
-    private _contacts$$: ActiveContactStore,
-    private _company$$: ActiveCompanyStore,
-    private _ops$$: ActiveOpportunityStore,
-    private _location: Location,
-    private route: Router
-  ) 
-  {
+  constructor(private _contacts$$: ActiveContactStore,
+              private _company$$: ActiveCompanyStore,
+              private _ops$$: ActiveOpportunityStore,
+              private _location: Location,
+              private route: Router
+  ) {
     this._page = this.route.url
 
-    this.pageName = this._page.split('/')[1]
+    this.pageName = this._page.split('/')[2]
 
     if (this.pageName == 'contacts') {
       this._sbS.sink = this._contacts$$.get().subscribe((contact) => {this.name = contact?.fName + ' ' + contact?.lName})
@@ -46,12 +43,9 @@ export class DetailHeaderCardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   back(): void {
     this._location.back()
   }
-
 }

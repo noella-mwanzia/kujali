@@ -1,0 +1,63 @@
+<div class="main">
+  <div class="company-card" *ngIf="company$ | async as company; else loading">
+
+    <div class="edit" fxLayout="row" fxLayoutAlign="end">
+      <button class="edit-account" (click)="goToEditPage(company.id!)">
+        <i class="fas fa-edit"></i>
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-evenly start">
+      <div class="profile" fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="logo-pic">
+          <img *ngIf="company.logoImgUrl; else show" [src]="company.logoImgUrl" />
+          <ng-template #show>
+            <div class="nameChar"><i class="fas fa-building fa-lg"></i></div>
+          </ng-template>
+        </div>
+
+        <p class="name">
+          {{company.name}}
+        </p>
+
+        <p class="role">
+          {{company.vatNo}}
+        </p>
+      </div>
+
+      <div class="info-one">
+
+        <div>
+          <p class="title">{{"SINGLE-DETAIL.INFO.PHONE" | transloco}}</p>
+          <p class="sub-title">{{company.phone}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"SINGLE-DETAIL.INFO.EMAIL" | transloco}}</p>
+          <p class="sub-title">{{company?.email}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"SINGLE-DETAIL.INFO.TAGS" | transloco}}</p>
+          <p class="sub-title tag">{{company.tags}}</p>
+        </div>
+      </div>
+
+      <div class="info-two">
+
+        <div>
+          <p class="title">{{ 'CONTACT.ADDRESS' | transloco}}</p>
+          <p class="sub-title"> {{company.hq ? company.hq : '-'}} </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <ng-template class="loading" #loading>
+    <p>
+      <mat-spinner class="spinner" [diameter]="25"></mat-spinner>
+    </p>
+  </ng-template>
+</div>

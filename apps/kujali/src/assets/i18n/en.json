@@ -4,6 +4,13 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "SOCIALMEDIA": {
+    "TWITTER": "Twitter",
+    "FACEBOOK": "Facebook",
+    "LINKEDIN": "LinkedIn",
+    "INSTAGRAM": "Instagram",
+    "YOUTUBE": "YouTube"
+  },
   "FORMS" : {
     "FIELDS" : {
       "TITLE": "Title",
@@ -309,6 +316,7 @@
     }
   },
   "CONTACT": {
+    "ADDRESS": "Address",
     "HEADER": {
       "CONTACTS": "Contacts"
     },
@@ -342,10 +350,14 @@
       "OTHER": "Other",
       "OTHERS": "Others",
       "SEPARATE": "(Separate tags with space)",
-      "TAGS": "Tags"
+      "TAGS": "Tags",
+      "SAVE":"Save"
     }
   },
   "COMPANY": {
+    "SLOGAN": "Company Slogan",
+    "WEBSITE": "Website",
+    "ACCOUNT-MANAGER": "Account Manager",
     "HEADER": {
       "COMPANIES": "Companies"
     },
@@ -358,6 +370,7 @@
       "TAGS": "Tags"
     },
     "ADD-NEW-COMPANY" : {
+      "COMPANY-VAT": "VAT",
       "ADD-NEW-COMPANY": "Add New Company",
       "OR": "or",
       "COMPANY-NAME": "Name",
@@ -446,6 +459,46 @@
       "ADD-NEW-OPPORTUNITY": "Add New Opportunity",
       "TITLE": "New Company",
       "DESCRIPTION": "Description"
+    }
+  },
+  "SINGLE-DETAIL" : {
+    "INFO" : {
+      "TITLE": "Title",
+      "DESCRIPTION": "Description",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "TAGS": "Tags",
+      "ADDRESS": "Address"
+    },
+    "NOTES": {
+      "NOTES": "Notes",
+      "LAST-CHANGE": "Last Change"
+    }
+  },
+  "ACTIONS": {
+    "MEETING": "Meeting",
+    "CALL": "Call",
+    "MAIL": "Mail",
+    "ACTIONS": "Activities",
+    "AMOUNT-OF-ACTIONS": "Amount of activities",
+    "SORT-BY": "Sort by",
+    "DATE-NEWEST": "Date (newest)",
+    "DATE-OLDEST": "Date (oldest)",
+    "ADD-NEW-ACTION" : {
+      "ADD-NEW-ACTION": "Add New Action",
+      "ACTION-TITLE": "Title",
+      "ACTION-PLACEHOLDER": "Meeting",
+      "DESCRIPTION": "Description",
+      "DESC-PLACEHOLDER": "Meeting with CEO",
+      "ASSIGNED-TO": "Assigned To",
+      "START-DATE": "Start Date",
+      "END-DATE": "End Date",
+      "ACTION-TYPE": "Action Type",
+      "RESPONSIBLE": "Responsible",
+      "CREATE-ACTION": "Create New",
+      "EDIT-ACTION": "Edit Activity",
+      "CANCEL": "Cancel",
+      "DELETE-ACTION": "Delete Activity"
     }
   }
 }

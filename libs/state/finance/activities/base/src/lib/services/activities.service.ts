@@ -44,8 +44,8 @@ export class ActivitiesService {
 
   submitAction(addNewActionForm: FormGroup) {
     const route = this._router$$.url.split('/');
-    const id = route[2];
-    const domain = route[1];
+    const id = route[3];
+    const domain = route[2];
 
     addNewActionForm.value.startDate = moment( addNewActionForm.value.startDate);
     addNewActionForm.value.startDate = __DateToStorage(addNewActionForm.value.startDate);
@@ -55,6 +55,8 @@ export class ActivitiesService {
 
     addNewActionForm.value.activityOwnerId = id;
     addNewActionForm.value.domainId = domain;
+    
+    console.log(addNewActionForm.value);
     
     this._sbS.sink = this._activity$$
       .add(addNewActionForm.value as Activity)

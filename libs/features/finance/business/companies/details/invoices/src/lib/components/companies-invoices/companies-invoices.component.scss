@@ -1,0 +1,49 @@
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.contact-btn {
+  margin-top: 10px;
+}
+
+.contact-btn a {
+  background-color: var(--kujali-color-primary-blue);
+  color: var(--kujali-color-text-white);
+}
+.contact-btn a i {
+  margin-right: 5px;
+}
+
+.mat-header-cell {
+  background-color: var(--kujali-color-primary-background);
+  font-weight: 600;
+  font-size: 15px;
+}
+.mat-row:hover .mat-cell {
+  background-color: var(--kujali-color-primary-background);
+  cursor: pointer;
+}
+
+td.mat-column-title {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+td.mat-column-number,
+td.mat-column-amount,
+td.mat-column-contact,
+td.mat-column-date,
+td.mat-column-dueDate,
+td.mat-column-status {
+  font-weight: 600;
+  color: var(--kujali-color-nav-inactive);
+}
+
+.vl {
+  border-left: 5px solid white;
+  height: 20px;
+}

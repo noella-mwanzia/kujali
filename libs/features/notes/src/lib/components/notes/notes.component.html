@@ -1,0 +1,14 @@
+<div class="notes-card" fxLayout="column" fxLayoutAlign="start">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <p *ngIf="customTitle; else title" class="title">{{notesTitle}}</p>
+        <ng-template #title>
+            <p class="title">{{"SINGLE-DETAIL.NOTES.NOTES" | transloco}}</p>
+        </ng-template>
+        <p class="last-changed"> {{"SINGLE-DETAIL.NOTES.LAST-CHANGE" | transloco}} {{lastEdited}}</p>
+    </div>
+
+    <div *ngIf="note$ | async as note" class="notes" fxLayout="column">
+        <ckeditor #myEditor tagName="textarea" (ready)="toolBarIsReady($event)" (focusout)="onFocusChange()"
+            (focus)="showEditorToolBar()" [editor]="Editor" [ngModel]="noteData" fxFlex></ckeditor>
+    </div>
+</div>

@@ -9,7 +9,7 @@ export function _AddNewActionValidator(title: string, desc: string, type: string
         const endDateValue = form.get(endDate).value;
         const assignToValue = form.get(assignTo).value;
 
-        if (titleValue == '' || descValue == '' || typeValue == '' || !startDateValue || !endDateValue || assignToValue.length <= 0 ) {     
+        if (titleValue == '' || descValue == '' || typeValue == '' || !startDateValue || !endDateValue ) {     
             return { 'formHasError': true};
         } else {
             return null;

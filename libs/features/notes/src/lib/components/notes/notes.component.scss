@@ -1,0 +1,83 @@
+.notes-card {
+  height: 100%;
+}
+.title {
+  color: var(--kujali-color-text-black);
+  font-weight: 800;
+}
+
+.last-changed {
+  font-size: 12px;
+  color: var(--kujali-color-nav-inactive);
+}
+
+.notes {
+  background-color: var(--kujali-color-primary-background);
+  font-size: 12px;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  height: 200px;
+}
+
+:host ::ng-deep .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+  background-color: var(--kujali-color-primary-background)!important;
+  border: none;
+  height: 185px!important;
+  overflow: scroll!important;
+}
+
+:host ::ng-deep .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+  height: 185px!important;
+  overflow-y: scroll!important;
+  overflow-x: hidden!important;
+}
+
+.note-view {
+  max-height: 170px;
+  width: 100%;
+  overflow-y: scroll;
+  word-wrap: break-word;
+}
+.notes-list {
+  overflow-y: scroll;
+}
+
+ul {
+  list-style-type: none;
+  color: var(--kujali-color-nav-inactive-bolder);
+  padding-left: 10px;
+}
+ul li:before {
+  content: '\2014';
+  margin-right: 10px;
+}
+
+button {
+  margin-left: 10px;
+}
+
+textarea {
+  caret-color: black;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kujali-color-primary-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kujali-color-text-inactive-bolder);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
