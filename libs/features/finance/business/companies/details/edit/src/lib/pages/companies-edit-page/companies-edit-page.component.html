@@ -3,8 +3,8 @@
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header [editPageName]="'COMPANY.ADD-NEW-COMPANY.EDIT-COMPANY' | transloco">
-        <button save-button mat-flat-button (click)="updateCompany()" class="add-new"> <i
-          class="bi bi-file-earmark-diff"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
+        <button save-button mat-flat-button (click)="updateCompany()" class="add-new">
+          <i style="margin-right: 10px" class="fas fa-file-image"></i>{{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
       </kujali-finance-detail-header-edits >
     </kujali-finance-toolbar>
 
@@ -20,15 +20,19 @@
                     <div *ngIf="companyData?.logoImgUrl; else show" >
                       <img class="circular--square" [src]="companyData.logoImgUrl" />
                       <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                        <button class="edit-account"> <i class="bi bi-pencil-square" (click)="newProfileImg()"></i></button>
+                        <button class="edit-account" (click)="newProfileImg()">
+                          <i class="fas fa-edit"></i>
+                        </button>
                       </div>
                     </div>
 
                     <ng-template #show>
-                      <div >
-                        <img src="assets/icons/company-icon.svg" class="circular--square" alt="" />
+                      <div>
+                        <i class="fas fa-building"></i>
                           <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                            <button *hasViewAccess="CAN_EDIT_COMPANY" class="edit-account"> <i class="bi bi-pencil-square" (click)="newProfileImg()"></i></button>
+                            <button class="edit-account" (click)="newProfileImg()">
+                              <i class="fas fa-edit"></i>
+                            </button>
                           </div>
                         </div>
                     </ng-template>

@@ -4,6 +4,13 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "SOCIALMEDIA": {
+    "TWITTER": "Twitter",
+    "FACEBOOK": "Facebook",
+    "LINKEDIN": "LinkedIn",
+    "INSTAGRAM": "Instagram",
+    "YOUTUBE": "YouTube"
+  },
   "FORMS" : {
     "FIELDS" : {
       "TITLE": "Title",
@@ -339,10 +346,14 @@
       "OTHER": "Other",
       "OTHERS": "Others",
       "SEPARATE": "(Separate tags with space)",
-      "TAGS": "Tags"
+      "TAGS": "Tags",
+      "SAVE":"Save"
     }
   },
   "COMPANY": {
+    "SLOGAN": "Company Slogan",
+    "WEBSITE": "Website",
+    "ACCOUNT-MANAGER": "Account Manager",
     "HEADER": {
       "COMPANIES": "Companies"
     },
@@ -355,6 +366,7 @@
       "TAGS": "Tags"
     },
     "ADD-NEW-COMPANY" : {
+      "COMPANY-VAT": "VAT",
       "ADD-NEW-COMPANY": "Add New Company",
       "OR": "or",
       "COMPANY-NAME": "Name",
