@@ -1,11 +1,10 @@
 -- This is a view of the latest data from the budget lines 
 -- Budget lines represent the target in- and out-flows of money for a particular month.
 SELECT
-  l.line_id AS line_id,
-
   l.id AS id,
   l.org_id AS org_id,
-  
+  l.line_id AS line_id,
+
   l.amount as amount,
   l.base_amount AS base_amount,
   -- JSON_EXTRACT_SCALAR(l.data, '$.allocatedTo') AS allocated_to,
@@ -26,8 +25,12 @@ SELECT
 
   l.created_on AS created_on,
 
-  l.budget_id AS budget_id,
+  l.id AS budget_id,
+  b.name AS budget_name,
+  p.line_name as line_name
 
-FROM `project-kujali.kdev.raw_budgets` as b
-LEFT JOIN `project-kujali.kdev.raw_budget_lines` as l
+FROM `project-kujali.kdev.raw_budget_lines` as l
+JOIN `project-kujali.kdev.raw_budgets` as b
 ON b.id=l.budget_id
+JOIN `project-kujali.kdev_analysis.budget_plans` as p
+ON l.line_id=p.line_id AND p.king=True
