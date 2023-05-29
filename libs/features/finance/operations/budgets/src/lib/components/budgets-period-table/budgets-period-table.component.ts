@@ -8,19 +8,20 @@ import { BehaviorSubject, Subject, combineLatest, filter, map, startWith, switch
 
 import { flatMap as __flatMap, groupBy as __groupBy, flatMap } from 'lodash';
 
+import { Invoice } from '@app/model/finance/invoices';
 import { MONTHS, YEARS } from '@app/model/finance/planning/time';
-import { Budget, BudgetLine, BudgetLinesAllocation } from '@app/model/finance/planning/budgets';
+import { Expenses } from '@app/model/finance/operations/expenses';
 import { TransactionPlan } from '@app/model/finance/planning/budget-items';
+import { Budget, BudgetLine, BudgetLinesAllocation } from '@app/model/finance/planning/budgets';
 
 import { BudgetPlansQuery } from '@app/state/finance/budgetting/rendering';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
-
-import { AllocateInvoiceToLineModalComponent } from '../../modals/allocate-invoice-to-line-modal/allocate-invoice-to-line-modal.component';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
 import { InvoicesService } from '@app/state/finance/invoices';
-import { Expenses } from '@app/model/finance/operations/expenses';
-import { Invoice } from '@app/model/finance/invoices';
-import { BudgetLineAllocUI } from '../../model/budget-line-view.interface';
+
+import { BudgetLineAllocUI, BudgetLineUI } from '../../model/budget-line-view.interface';
+
+import { AllocateInvoiceToLineModalComponent } from '../../modals/allocate-invoice-to-line-modal/allocate-invoice-to-line-modal.component';
 
 @Component({
   selector: 'app-budgets-period-table',
@@ -30,6 +31,8 @@ import { BudgetLineAllocUI } from '../../model/budget-line-view.interface';
 export class BudgetsPeriodTableComponent implements OnInit {
 
   private _sbS = new SubSink();
+
+  currentYear = new Date().getFullYear();
 
   displayedColumns: string[] = ['budget', 'name', 'total', 'action'];
   dataSource = new MatTableDataSource();
@@ -42,8 +45,8 @@ export class BudgetsPeriodTableComponent implements OnInit {
   monthValue$ = new BehaviorSubject(MONTHS[0]);
 
   allYearsList = YEARS;
-  activeYear = YEARS[0];
-  yearValue$ = new BehaviorSubject('2022');
+  activeYear = this.currentYear;
+  yearValue$ = new BehaviorSubject(this.currentYear);
 
   budgets: Budget[];
   activeBudget: Budget;
@@ -115,7 +118,6 @@ export class BudgetsPeriodTableComponent implements OnInit {
       lineName: budgetLinePlan?.lineName!,
       aloocationName: allocName
     }
-
     return budgetLineData;
   }
 
@@ -146,12 +148,4 @@ export class BudgetsPeriodTableComponent implements OnInit {
       data: { budgetLine: line }
     });
   }
-}
-
-interface BudgetLineUI {
-  amount: number;
-  baseAmount: number;
-  budgetName: string;
-  lineName: string;
-  aloocationName?: string;
 }

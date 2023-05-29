@@ -158,11 +158,11 @@ export class FinancialPlanTableComponent implements OnInit
   }
 
   openCellModal(cell: CellInput, column: Month)
-  {    
+  {        
     if (this.classId !== 'result') {
       const data = (cell && !cell.isHeader) ? (this.getTransactionPlanInput(column, cell)): {}
                   
-      this.dialog.open(PlanTransactionModalComponent, { data: {data: data, column: column}})
+      this.dialog.open(PlanTransactionModalComponent, { data: {data: data, column: column, year: cell.year}})
                  .afterClosed()
                  .subscribe((saving: Observable<boolean> | false) => 
                     { if (saving) this._addCounterSaving(saving); });

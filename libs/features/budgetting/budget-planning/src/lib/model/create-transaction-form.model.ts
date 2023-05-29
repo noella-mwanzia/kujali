@@ -1,7 +1,9 @@
-import { FormBuilder, FormGroup, Validators } from "@angular/forms"
-import { TransactionPlan } from "@app/model/finance/planning/budget-items"
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
-import { YEARS, MONTHS } from "@app/model/finance/planning/time"
+import { MONTHS, YEARS } from "@app/model/finance/planning/time";
+
+const currentYear = new Date().getFullYear();
 
 export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): FormGroup {
   return _fb.group({
@@ -22,7 +24,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
 
     // Section 3: Occurence
     pTOccurenceFormGroup: _fb.group({
-      fromYear: [YEARS[0], Validators.required],
+      fromYear: [currentYear, Validators.required],
       fromMonth: [MONTHS[month - 1] ?? MONTHS[0], Validators.required],
       frequency: [0, Validators.required],
       xTimesInterval: [0]
@@ -37,7 +39,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
       xTimesAmountIncreaseInterval: [0, Validators.required],
       amountIncreaseRate: [0, Validators.required],
 
-      unitIncrConfig: ['value'],
+      unitIncrConfig: ['percentage'],
       unitIncreaseFrequency: [-1],
       unitIncreaseRate: [0, Validators.required],
       xTimesUnitIncreaseInterval: [0],
@@ -46,7 +48,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
   })
 }
 
-export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean, month: any): FormGroup {  
+export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean, month: any, year: number): FormGroup {  
   return _fb.group({
     // Section 1: Transaction
     pTNameFormGroup: _fb.group({
@@ -67,7 +69,7 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: Transa
 
     // Section 3: Occurence
     pTOccurenceFormGroup: _fb.group({
-      fromYear: [plan.fromYear, Validators.required],
+      fromYear: [isEdit ? plan.fromYear : year ?? YEARS[0], Validators.required],
       fromMonth: [isEdit ? plan.fromMonth : month ?? MONTHS[0], Validators.required],
       frequency: [plan.frequency, Validators.required],
       xTimesInterval: [plan.xTimesInterval]
@@ -87,6 +89,5 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: Transa
       unitIncreaseFrequency: [plan.unitIncrConfig!.incrFreq],
       xTimesUnitIncreaseInterval: [plan.unitIncrConfig!.interval],
     })
-
   })
 }

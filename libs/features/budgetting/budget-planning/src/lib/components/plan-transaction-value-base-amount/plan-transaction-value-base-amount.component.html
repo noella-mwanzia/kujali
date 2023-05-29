@@ -1,11 +1,11 @@
 <div [formGroup]="planTransactionValueBaseAmountFormGroup">
   <div formGroupName="pTValueBaseFormGroup">
-    <div class="form-section-body m-b-20" fxLayout="column">
+    <!-- <div class="form-section-body m-b-20" fxLayout="column">
       Set a base "{{ viewType }}". The initial value of {{ viewType }} on start date.
-    </div>
+    </div> -->
     
     <div class="form-section-body" fxLayout="column">
-      <mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label class="type-title">Base {{ viewType }}</mat-label>
         
         <input matInput type="number" [formControlName]="type" [min]="0" name="amount">
@@ -13,8 +13,8 @@
         <!-- <mat-error *ngIf="(amountF && amountF.errors)">Base {{ viewType }} is invalid. Value is required and needs to be a positive amount
           (&gt; 0).</mat-error> -->
     
-        <span matPrefix>KES &nbsp;</span>
-        <span matSuffix>.00</span>
+        <!-- <span matPrefix>KES &nbsp;</span> -->
+        <!-- <span matSuffix>.00</span> -->
       </mat-form-field>
     </div>
   </div>

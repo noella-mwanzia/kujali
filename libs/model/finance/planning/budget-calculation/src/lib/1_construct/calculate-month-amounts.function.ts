@@ -119,11 +119,19 @@ function _planHasAmountOnMonth(y: number, m: number, plan: TransactionPlan)
     if(!increase)
       return amount;
 
-    const increasedAm = amount * Math.pow(1 + increase.incrRate / 100, _getFrequencyCount(y, m, plan, increase.incrFreq, increase.interval));
-
+    const increasedAm = increase.incrStyle === 'value' ? calculateForValue(amount, increase, y, m, plan) : calculateForPercentage(amount, increase, y, m, plan);
+    
     // Units cannot have floating values
     return isUnits ? Math.floor(increasedAm)
                    : increasedAm;
+  }
+
+  function calculateForPercentage(amount: number, increase: ValueIncreaseConfig, y: number, m: number, plan: TransactionPlan) {
+    return amount * Math.pow(1 + increase.incrRate / 100, _getFrequencyCount(y, m, plan, increase.incrFreq, increase.interval));
+  }
+
+  function calculateForValue(amount: number, increase: ValueIncreaseConfig, y: number, m: number, plan: TransactionPlan) {
+    return increase.incrRate * (_getFrequencyCount(y, m, plan, increase.incrFreq, increase.interval) + 1);
   }
 
   function _getFrequencyCount(y: number, m: number, plan: TransactionPlan, incrFreq?: BudgetItemFrequency, interval?: number)

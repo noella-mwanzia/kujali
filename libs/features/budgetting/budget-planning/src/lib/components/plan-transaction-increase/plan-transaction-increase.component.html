@@ -1,133 +1,193 @@
 <div [formGroup]="planTransactionIncreaseFormGroup" fxLayout="column">
   <div formGroupName="pTIncreaseFormGroup">
     <div fxLayout="row" fxLayoutAlign="start center">
-      <div fxFlex="60"> {{ "BUDGET.TRANSACTION.TR-OCCURS" | transloco}} <b> {{ frequency }}</b></div>
-  
-      <div fxFlex="40" class="form-field form-field-toggle">
-        <mat-slide-toggle color="primary"
-                          (change)="hasIncreaseChanged($event)"
-                          [disabled]="frequency == null || frequency == 'once'"
-                          formControlName="hasIncrease" name="hasIncrease">
-            {{ "BUDGET.TRANSACTION.VALUE-VARIES" | transloco}}
-        </mat-slide-toggle>
-      </div>
+      <div fxFlex="60"> {{ "BUDGET.TRANSACTION.TR-OCCURS" | transloco}} <b> {{ getTransactionFreaquency(frequency) }}</b></div>
     </div>
-  
-    <div *ngIf="hasIncrease"  fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px">
-  
+
+    <div *ngIf="planTransactionIncreaseFormGroup.value.pTIncreaseFormGroup.hasIncrease" fxLayout="column"
+      fxLayoutAlign="start" fxLayoutGap="20px">
+
       <!-- Amount Increase -->
       <div class="form-section" fxLayout="column">
         <h4 class="mat-headline-6 type-title"> {{ "BUDGET.TRANSACTION.AMOUNT-INCR" | transloco}} </h4>
-      
-        <div class="form-section-body" fxLayout="column">
-          <div class="form-section-sub">
-            <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCR-TIME" | transloco}} </div>
-  
-            <div class="form-field increase-select">
-              <mat-radio-group formControlName="amountIncreaseFrequency" name="amountIncreaseFrequency" fxLayout="row wrap"
-                                fxLayoutGap="10px" (change)="amountIncreaseFrequencyChanged($event)">
-                <mat-radio-button [value]="-1" name="unitIncreaseFrequency"> {{ "BUDGET.TRANSACTION.NO-INCREASE" | transloco }} </mat-radio-button>
-                <mat-radio-button [value]="1" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.MONTHLY" | transloco }} </mat-radio-button>
-                <mat-radio-button [value]="999" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.EVERY-X-TIMES" | transloco }} </mat-radio-button>
-                <mat-radio-button [value]="365" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.YEARLY" | transloco }} </mat-radio-button>
-                <mat-radio-button [value]="90" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.QUARTERLY" | transloco }} </mat-radio-button>
-              </mat-radio-group>
-            </div>
-  
-            <div fxLayout="row" *ngIf="amountIncreaseFrequency == 999">
-              <div  class="increase-rate-label"> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco}} </div>
-              <mat-form-field fxFlex="80">
-                <mat-label> {{ "BUDGET.TRANSACTION.OCC-BFR-INCREASE" | transloco}} </mat-label>
-                <input matInput type="number" [min]="0" formControlName="xTimesAmountIncreaseInterval" name="xTimesAmountIncreaseInterval">
-                <!-- <mat-error *ngIf="xTimesAmountIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error> -->
-              </mat-form-field>
-          </div>
-  
-          <div class="form-section-sub" *ngIf="amountIncreaseFrequency != -1">
-            <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </div>
-            <div fxLayout="row">
-              <div fxFlex="50" class="form-field increase-select">
-                <mat-radio-group name="amntIncrConfig" formControlName="amntIncrConfig" fxLayout="row wrap" fxLayoutGap="10px" (change)="amountIncConfigChanged($event)">
-                  <mat-radio-button [value]="'value'" name="amntIncrConfigValue"> {{ "BUDGET.TRANSACTION.FIXED-AMOUNT" | transloco}} </mat-radio-button>
-                  <mat-radio-button [value]="'percentage'" name="amntIncrConfigPercentage"> {{ "BUDGET.TRANSACTION.PERCENTAGE" | transloco}} </mat-radio-button>
-                </mat-radio-group>
+
+        <div class="form-section-body" fxFlex>
+          <div class="form-section-sub" fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+              <div fxLayout="column" fxFlex="50">
+                <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCR-TIME" | transloco}} </div>
+
+                <div class="form-field increase-select">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-select formControlName="amountIncreaseFrequency" name="amountIncreaseFrequency"
+                      (selectionChange)="amountIncreaseFrequencyChanged($event)" fxFlex>
+                      <mat-option [value]="-1" name="unitIncreaseFrequency"> {{ "BUDGET.TRANSACTION.NO-INCREASE" |
+                        transloco
+                        }} </mat-option>
+                      <mat-option [value]="1" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.MONTHLY" |
+                        transloco }}
+                      </mat-option>
+                      <mat-option [value]="999" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.EVERY-X-TIMES" |
+                        transloco }} </mat-option>
+                      <mat-option [value]="365" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.YEARLY" |
+                        transloco
+                        }} </mat-option>
+                      <mat-option [value]="90" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.QUARTERLY" |
+                        transloco
+                        }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" *ngIf="amountIncreaseFrequency == 999" fxFlex>
+                  <!-- <div class="increase-rate-label"> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco}} </div> -->
+                  <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
+
+                    <p fxFlex="10">Every</p>
+
+                    <input fxFlex="20" style="padding: 10px;" type="number" [min]="0"
+                    formControlName="xTimesAmountIncreaseInterval" name="xTimesAmountIncreaseInterval">
+
+                    <!-- <mat-form-field appearance="outline" > -->
+                    <!-- <mat-label> {{ "BUDGET.TRANSACTION.OCC-BFR-INCREASE" | transloco}} </mat-label> -->
+                    <!-- <mat-error *ngIf="xTimesAmountIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error> -->
+                    <!-- </mat-form-field> -->
+
+                    <p fxFlex>Months</p>
+                  </div>
+                </div>
               </div>
+
               <div fxFlex="50">
-                <mat-form-field *ngIf="amountIncreaseConfig == 'percentage'" class="value-increase-number">
-                  <mat-label> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </mat-label>
-                  <input matInput type="number" [min]="-1000" [max]="1000" name="amountIncreaseRate"
-                    formControlName="amountIncreaseRate" />
-                  <span matSuffix>%</span>
-                  <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-RATE" | transloco}} </mat-hint>
-                </mat-form-field>
-                
-                <mat-form-field class="" *ngIf="amountIncreaseConfig == 'value'" class="value-increase-number">
-                  <mat-label> {{ "BUDGET.TRANSACTION.AMOUNT-INCR" | transloco}} </mat-label>
-                  <input matInput type="number" [min]="-1000" [max]="1000" name="amountIncreaseRate"
-                    formControlName="amountIncreaseRate"/>
-                  <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-VALUE" | transloco}} </mat-hint>
-                </mat-form-field>
+                <div fxLayout="column" class="form-section-sub" *ngIf="amountIncreaseFrequency != -1">
+                  <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </div>
+
+                  <div fxLayout="column" fxLayoutGap="30px" fxFlex>
+                    <div fxFlex class="form-field increase-select" style="margin-bottom: 10px;">
+                      <mat-radio-group name="amntIncrConfig" formControlName="amntIncrConfig" fxLayout="row"
+                        fxLayoutGap="10px" (change)="amountIncConfigChanged($event)">
+                        <mat-radio-button [value]="'value'" name="amntIncrConfigValue" fxFlex="50"> {{
+                          "BUDGET.TRANSACTION.FIXED-AMOUNT"
+                          | transloco}} </mat-radio-button>
+                        <mat-radio-button [value]="'percentage'" name="amntIncrConfigPercentage" fxFlex="50"> {{
+                          "BUDGET.TRANSACTION.PERCENTAGE" | transloco}} </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+
+                    <div fxFlex>
+                      <mat-form-field appearance="outline" *ngIf="amountIncreaseConfig == 'percentage'"
+                        class="value-increase-number" fxFlex>
+                        <mat-label> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </mat-label>
+                        <input matInput type="number" [min]="-1000" [max]="1000" name="amountIncreaseRate"
+                          formControlName="amountIncreaseRate" placeholder="10%" />
+                        <!-- <span matSuffix>%</span> -->
+                        <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-RATE" | transloco}} </mat-hint>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="" *ngIf="amountIncreaseConfig == 'value'"
+                        class="value-increase-number" fxFlex>
+                        <mat-label> {{ "BUDGET.TRANSACTION.AMOUNT-INCR" | transloco}} </mat-label>
+                        <input matInput type="number" [min]="-1000" [max]="1000" name="amountIncreaseRate"
+                          formControlName="amountIncreaseRate" placeholder="1000" />
+                        <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-VALUE" | transloco}} </mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>   
+          </div>
         </div>
-      </div>
-  
-      <!-- Unit Increase -->
-      <div class="form-section" fxLayout="column">
-        <h4 class="mat-headline-6 type-title"> {{ "BUDGET.TRANSACTION.UNIT-INCR" | transloco}} </h4>
-      
-        <div class="form-section-body" fxLayout="column">
-          <div class="form-section-sub">
-            <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCR-TIME" | transloco}} </div>
-            <div class="form-field increase-select">
-              <mat-radio-group name="unitIncreaseFrequency" formControlName="unitIncreaseFrequency" fxLayout="row wrap" 
-                              fxLayoutGap="10px" (change)="unitIncreaseFrequencyChanged($event)">
-              <mat-radio-button [value]="-1" name="unitIncreaseFrequency"> {{ "BUDGET.TRANSACTION.NO-INCREASE" | transloco }} </mat-radio-button>
-              <mat-radio-button [value]="1" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.MONTHLY" | transloco }} </mat-radio-button>
-              <mat-radio-button [value]="999" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.EVERY-X-TIMES" | transloco }} </mat-radio-button>
-              <mat-radio-button [value]="365" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.YEARLY" | transloco }} </mat-radio-button>
-              <mat-radio-button [value]="90" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.QUARTERLY" | transloco }} </mat-radio-button>
-              </mat-radio-group>
-            </div>
-      
-            <div fxLayout="row" *ngIf="unitIncreaseFrequency == 999">
-              <div class="increase-rate-label"> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco }} </div>
-              <mat-form-field>
-                <mat-label> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco }} </mat-label>
-                <input matInput type="number" required [min]="0" formControlName="xTimesUnitIncreaseInterval"
-                  name="xTimesUnitIncreaseInterval">
-                <!-- <mat-error *ngIf="xTimesUnitIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error> -->
-              </mat-form-field>
-            </div>
-           
-          </div>
-      
-          <div class="form-section-sub" *ngIf="unitIncreaseFrequency != -1">
-            <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </div>
-            <div fxLayout="row">
-              <div fxFlex="50" class="form-field increase-select">
-                <mat-radio-group name="unitIncrConfig" formControlName="unitIncrConfig" fxLayout="row wrap"
-                                  fxLayoutGap="10px" (change)="unitIncConfigChanged($event)">
-                  <mat-radio-button [value]="'value'" name="unitIncrConfigValue"> {{ "BUDGET.TRANSACTION.FIXED-AMOUNT" | transloco}} </mat-radio-button>
-                  <mat-radio-button [value]="'percentage'" name="unitIncrConfigPercentage"> {{ "BUDGET.TRANSACTION.PERCENTAGE" | transloco}} </mat-radio-button>
-                </mat-radio-group>
-              </div>
-              <div fxFlex="50">
-                <mat-form-field *ngIf="unitIncreaseConfig == 'percentage'" class="value-increase-number">
-                  <mat-label> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </mat-label>
-                  <input matInput type="number" required [min]="-1000" [max]="1000" name="unitIncreaseRate"
-                    formControlName="unitIncreaseRate"/>
-                  <span matSuffix>%</span>
-                  <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-RATE" | transloco}} </mat-hint>
-                </mat-form-field>
-      
-                <mat-form-field *ngIf="unitIncreaseConfig == 'value'" class="value-increase-number">
-                  <mat-label>  {{ "BUDGET.TRANSACTION.INCREASE-VALUE" | transloco}} </mat-label>
-                  <input matInput type="number" required name="unitIncreaseRate"
-                   formControlName="unitIncreaseRate"/>
-                  <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-VALUE" | transloco}} </mat-hint>
-                </mat-form-field>
+
+        <!-- Unit Increase -->
+        <div class="form-section" fxLayout="column">
+          <h4 class="mat-headline-6 type-title"> {{ "BUDGET.TRANSACTION.UNIT-INCR" | transloco}} </h4>
+
+          <div class="form-section-body" fxFlex>
+            <div class="form-section-sub" fxLayout="column">
+
+              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+
+                <div fxLayout="column" fxFlex="50">
+                  <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCR-TIME" | transloco}} </div>
+
+                  <div class="form-field increase-select">
+
+                    <mat-form-field appearance="outline" fxFlex>
+                      <mat-select name="unitIncreaseFrequency" formControlName="unitIncreaseFrequency"
+                        fxLayout="row wrap" fxLayoutGap="10px" (selectionChange)="unitIncreaseFrequencyChanged($event)"
+                        fxFlex>
+                        <mat-option [value]="-1" name="unitIncreaseFrequency"> {{ "BUDGET.TRANSACTION.NO-INCREASE" |
+                          transloco }} </mat-option>
+                        <mat-option [value]="1" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.MONTHLY" |
+                          transloco }} </mat-option>
+                        <mat-option [value]="999" name="amountIncreaseFrequency"> {{
+                          "BUDGET.TRANSACTION.EVERY-X-TIMES"
+                          | transloco }} </mat-option>
+                        <mat-option [value]="365" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.YEARLY" |
+                          transloco }} </mat-option>
+                        <mat-option [value]="90" name="amountIncreaseFrequency"> {{ "BUDGET.TRANSACTION.QUARTERLY" |
+                          transloco }} </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div fxLayout="row" *ngIf="unitIncreaseFrequency == 999">
+                    <!-- <div class="increase-rate-label"> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco }} </div> -->
+
+                    <!-- <mat-form-field>
+                      <mat-label> {{ "BUDGET.TRANSACTION.INCR-PER" | transloco }} </mat-label>
+                      <mat-error *ngIf="xTimesUnitIncreaseIntervalF.errors">When x-occurences is selected, this value is required.</mat-error>
+                    </mat-form-field> -->
+
+                    <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
+                      <p fxFlex="10">Every</p>
+
+                      <input fxFlex="20" style="padding: 10px;" type="number" required [min]="0" formControlName="xTimesUnitIncreaseInterval"
+                        name="xTimesUnitIncreaseInterval">
+
+                      <p fxFlex>Months</p>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div fxFlex="50">
+                  <div class="form-section-sub" *ngIf="unitIncreaseFrequency != -1" fxLayout="column" fxFlex>
+                    <div class="form-section-sub-title"> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </div>
+
+                    <div fxLayout="column" fxLayoutGap="30px" fxFlex>
+
+                      <div class="form-field increase-select" style="margin-bottom: 10px;" fxFlex>
+                        <mat-radio-group name="unitIncrConfig" formControlName="unitIncrConfig" fxLayout="row"
+                          fxLayoutGap="10px" (change)="unitIncConfigChanged($event)" fxFlex>
+                          <mat-radio-button [value]="'value'" name="unitIncrConfigValue"> {{
+                            "BUDGET.TRANSACTION.FIXED-AMOUNT"
+                            | transloco}} </mat-radio-button>
+                          <mat-radio-button [value]="'percentage'" name="unitIncrConfigPercentage"> {{
+                            "BUDGET.TRANSACTION.PERCENTAGE" | transloco}} </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+
+                      <div fxFlex>
+                        <mat-form-field appearance="outline" *ngIf="unitIncreaseConfig == 'percentage'" class="value-increase-number" fxFlex>
+                          <mat-label> {{ "BUDGET.TRANSACTION.INCREASE-RATE" | transloco}} </mat-label>
+                          <input matInput type="number" required [min]="-1000" [max]="1000" name="unitIncreaseRate"
+                            formControlName="unitIncreaseRate" />
+                          <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-RATE" | transloco}} </mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" *ngIf="unitIncreaseConfig == 'value'" class="value-increase-number" fxFlex>
+                          <mat-label> {{ "BUDGET.TRANSACTION.INCREASE-VALUE" | transloco}} </mat-label>
+                          <input matInput type="number" required name="unitIncreaseRate"
+                            formControlName="unitIncreaseRate" />
+                          <mat-hint> {{ "BUDGET.TRANSACTION.HINTS.AMOUNT-INCREASE-VALUE" | transloco}} </mat-hint>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,4 +195,3 @@
       </div>
     </div>
   </div>
-</div>
