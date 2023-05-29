@@ -6,7 +6,7 @@ import { Payment } from '@app/model/finance/payments';
 import { Allocation } from '@app/model/finance/allocations';
 import { Invoice, InvoiceAllocation, InvoiceAllocationElement } from '@app/model/finance/invoices';
 
-import { CALC_INV_TOTAL } from '../providers/calculate-invoice-total.function';
+import { CALC_INV_TOTAL } from '@app/functions/finance/manage/common';
 
 export class InvoicesToPaymentI {
 

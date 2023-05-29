@@ -131,8 +131,14 @@
       "@app/functions/finance/budgeting": [
         "libs/functions/finance/budgeting/src/index.ts"
       ],
+      "@app/functions/finance/manage/common": [
+        "libs/functions/finance/manage/common/src/index.ts"
+      ],
       "@app/functions/finance/manage/expenses": [
         "libs/functions/finance/manage/expenses/src/index.ts"
+      ],
+      "@app/functions/finance/manage/invoices": [
+        "libs/functions/finance/manage/invoices/src/index.ts"
       ],
       "@app/functions/finance/manage/payments": [
         "libs/functions/finance/manage/payments/src/index.ts"

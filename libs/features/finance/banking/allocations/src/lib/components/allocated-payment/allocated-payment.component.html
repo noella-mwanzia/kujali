@@ -1,0 +1,12 @@
+<app-invoices-table [invoices]="invoices" (selectedInvoice)="invoicesSelected($event)"></app-invoices-table>
+
+<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+
+  <button [disabled]="deAllocating" mat-stroked-button>
+    Cancel
+  </button>
+  <button [disabled]="deAllocating" mat-raised-button color="primary" (click)="deAllocatePayment()" fxLayout="row" fxLayoutAlign="center center">
+    <span *ngIf="!deAllocating">De-allocate Payment</span>
+    <mat-spinner *ngIf="deAllocating" diameter="20" class="spinner"></mat-spinner>
+  </button>
+</div>

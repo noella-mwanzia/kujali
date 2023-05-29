@@ -1,22 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { SubSink } from 'subsink';
 
 import { combineLatest, map, tap } from 'rxjs';
 import { round as __round } from 'lodash';
-import { Timestamp } from '@firebase/firestore-types';
 
 import { __DateFromStorage } from '@iote/time';
 
+import { PaymentAllocation } from '@app/model/finance/allocations';
 import { Invoice, InvoiceAllocation } from '@app/model/finance/invoices';
 
 import { CALCULATE_INVOICE_TOTAL, InvoicesService } from '@app/state/finance/invoices';
 import { AllocationsStateService } from '@app/state/finance/allocations';
-import { BankTransaction, Payment } from '@app/model/finance/payments';
-import { PaymentAllocation } from '@app/model/finance/allocations';
 
 @Component({
   selector: 'app-allocate-transaction-modal',
@@ -27,15 +23,14 @@ export class AllocateTransactionModalComponent implements OnInit {
 
   private _sbS = new SubSink();
 
-  displayedColumns: string[] = ['select', 'number', 'amount', 'date', 'dueDate', 'customer', 'contact', 'status'];
-
-  dataSource = new MatTableDataSource();
-
+  allInvoices: any[] = [];
   selectedInvoices: Invoice[] = [];
 
   allocating: boolean = false;
 
   alloctedAmount: number = 0;
+
+  invoicesLoaded: boolean = false;
 
   constructor(private _dialog: MatDialog,
               private _invoices$$: InvoicesService,
@@ -50,7 +45,7 @@ export class AllocateTransactionModalComponent implements OnInit {
                                   .pipe(
                                     map(([invAllocs, invoices]) => this.flatMapTransactionsAndPayments(invoices, invAllocs)),
                                     map((data) => data.filter((inv) => inv.allocStatus !== 1)),
-                                    tap((data) => {this.dataSource.data = data}))
+                                    tap((data) => {this.allInvoices = data; this.invoicesLoaded = true}))
                                   .subscribe();
   }
 
@@ -62,20 +57,12 @@ export class AllocateTransactionModalComponent implements OnInit {
     return invAndAllocs;
   }
 
-  filterAccountRecords(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  invoiceSelected(checked: MatCheckboxChange, invoice: Invoice) {
-    if (checked.checked) {
-      this.selectedInvoices.push(invoice);
+  invoiceSelected(invoiceData: {checked: boolean, invoice: Invoice}) {
+    if (invoiceData.checked) {
+      this.selectedInvoices.push(invoiceData.invoice);
     } else {
-      let inv = this.selectedInvoices.find((inv) => inv.id == invoice.id);
+      let inv = this.selectedInvoices.find((inv) => inv.id == invoiceData.invoice.id);
       this.selectedInvoices.splice(this.selectedInvoices.indexOf(inv!), 1);
     }
     this.calculateAllocatedAmount();
@@ -85,14 +72,6 @@ export class AllocateTransactionModalComponent implements OnInit {
     this.alloctedAmount = this.selectedInvoices.reduce((acc, invoice) => {
       return acc + this.getTotalAmount(invoice);
     }, 0);
-  }
-
-  viewInvoice(invoiceId: string) {
-    console.log(invoiceId);
-  }
-
-  getDate(date: Timestamp) {
-    return __DateFromStorage(date).format('DD/MM/YYYY');
   }
 
   getTotalAmount(invoice: Invoice) {
