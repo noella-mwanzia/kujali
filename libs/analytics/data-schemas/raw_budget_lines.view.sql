@@ -13,9 +13,6 @@ SELECT
   CAST(JSON_EXTRACT(data, '$.baseAmount') as FLOAT64) AS base_amount,
   -- JSON_EXTRACT_SCALAR(data, '$.allocatedTo') AS allocated_to,
 
-  JSON_EXTRACT_SCALAR(data, '$.occurenceId') AS occurrence_id,
-  CAST(JSON_EXTRACT(data, '$.isOccurenceStart') as BOOL) AS is_occurrence_start,
-
   JSON_EXTRACT_SCALAR(data, '$.planId') AS plan_id,
   JSON_EXTRACT_SCALAR(data, '$.lineId') AS line_id,
   JSON_EXTRACT_SCALAR(data, '$.budgetId') AS budget_id,
@@ -25,7 +22,7 @@ SELECT
   -- Datetime object that represents the middle of the month
   --    We use a datetime as it's easier for comparison calculation in BI engines. 
   -- @see https://cloud.google.com/bigquery/docs/reference/standard-sql/date_functions
-  DATE(CAST(JSON_EXTRACT(data, '$.year') as INT64),CAST(JSON_EXTRACT(data, '$.month') as INT64), 15)  AS line_date,
+  DATE(CAST(JSON_EXTRACT(data, '$.year') as INT64),CAST(JSON_EXTRACT(data, '$.month') as INT64) + 1, 15)  AS line_date,
 
   CAST(JSON_EXTRACT(data, '$.year') as INT64) AS year,
   CAST(JSON_EXTRACT(data, '$.month') as INT64) AS month,
