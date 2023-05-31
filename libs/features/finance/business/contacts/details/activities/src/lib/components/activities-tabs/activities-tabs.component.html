@@ -1,0 +1,21 @@
+<mat-tab-group mat-align-tabs="start">
+    <div *ngIf="canViewActions | async as actions">
+        <mat-tab [disabled]="!actions" [label]="'ACTIONS.ACTIONS' | transloco">
+          <activities [canViewActions]="actions"></activities>
+        </mat-tab>
+      </div>
+    
+      <div *ngIf="canViewOpps | async as opps">
+        <mat-tab [disabled]="!canViewOpps" [label]="oppsLen">
+          <contact-opportunities (oppsLenEvent)="getOppsLen($event)" [canViewOpps]="opps" ></contact-opportunities>
+        </mat-tab>
+      </div>
+    
+      <div  *ngIf="canViewInvoices | async as inv">
+        <mat-tab [disabled]="!inv" [label]="invoicesLen">
+          <contact-invoices (invoicesListLenEvent)="getInvoicesLen($event)" [canViewInvoices]="inv" ></contact-invoices>
+        </mat-tab>
+      </div>
+    
+    <mat-tab disabled [label]="'ACTIONS.DOCUMENTS' | transloco">Content 3</mat-tab>
+</mat-tab-group>
