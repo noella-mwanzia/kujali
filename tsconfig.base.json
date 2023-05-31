@@ -101,6 +101,9 @@
       "@app/features/finance/business/contacts/create": [
         "libs/features/finance/business/contacts/create/src/index.ts"
       ],
+      "@app/features/finance/business/contacts/details/activities": [
+        "libs/features/finance/business/contacts/details/activities/src/index.ts"
+      ],
       "@app/features/finance/business/contacts/main": [
         "libs/features/finance/business/contacts/main/src/index.ts"
       ],
