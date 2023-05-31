@@ -110,6 +110,9 @@
       "@app/features/finance/business/contacts/details/invoices": [
         "libs/features/finance/business/contacts/details/invoices/src/index.ts"
       ],
+      "@app/features/finance/business/contacts/details/opportunities": [
+        "libs/features/finance/business/contacts/details/opportunities/src/index.ts"
+      ],
       "@app/features/finance/business/contacts/details/view": [
         "libs/features/finance/business/contacts/details/view/src/index.ts"
       ],
