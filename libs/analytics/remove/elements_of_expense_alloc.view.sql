@@ -1,3 +1,5 @@
+--  Relevant for the app but not for analytics as information can also be derrived from
+--    budget_line_alloc
 SELECT
   CONCAT(document_id, '_e_', offset) as id,
 

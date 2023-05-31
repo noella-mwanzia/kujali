@@ -1,3 +1,4 @@
+-- This table lists the lines of an invoice.
 SELECT
   CONCAT(document_id, '_p_', offset) as id,
 

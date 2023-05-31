@@ -1,3 +1,6 @@
+-- Budget plans are at the heart of the budget explorer feature.
+--  They are not useful for 
+
 SELECT
   JSON_EXTRACT_SCALAR(path_params, '$.orgid') AS org_id,
   document_id AS id,
@@ -21,12 +24,12 @@ SELECT
 
   CAST(JSON_EXTRACT(data, '$.amntIncrConfig.incrFreq') as INT64) AS amnt_incr_freq,
   CAST(JSON_EXTRACT(data, '$.amntIncrConfig.incrRate') as INT64) AS amnt_incr_rate,
-  JSON_EXTRACT_SCALAR(data, '$.amntIncrConfig.incrStyle') AS amnt_incr_style,
-  CAST(JSON_EXTRACT(data, '$.amntIncrConfig.interval') as INT64) AS unit_incr_interval,
+  JSON_EXTRACT_SCALAR(data, '$.amntIncrConfig.incrStyle')        AS amnt_incr_style,
+  CAST(JSON_EXTRACT(data, '$.amntIncrConfig.interval') as INT64) AS amnt_incr_interval,
 
   CAST(JSON_EXTRACT(data, '$.unitIncrConfig.incrFreq') as INT64) AS unit_incr_freq,
   CAST(JSON_EXTRACT(data, '$.unitIncrConfig.incrRate') as INT64) AS unit_incr_rate,
-  JSON_EXTRACT_SCALAR(data, '$.unitIncrConfig.incrStyle') AS unit_incr_style,
+  JSON_EXTRACT_SCALAR(data, '$.unitIncrConfig.incrStyle')        AS unit_incr_style,
   CAST(JSON_EXTRACT(data, '$.unitIncrConfig.interval') as INT64) AS unit_incr_interval,
 
   JSON_EXTRACT_SCALAR(data, '$.fromMonth.slug') AS from_month,
