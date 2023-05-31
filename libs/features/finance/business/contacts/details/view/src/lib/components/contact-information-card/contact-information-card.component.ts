@@ -57,7 +57,7 @@ export class ContactInformationCardComponent {
 
   goToEdit(contactId: string) {
     if (contactId){
-      this._router.navigate(['contacts', contactId, 'edit']);
+      this._router.navigate(['business/contacts', contactId, 'edit']);
     }
   }
 }

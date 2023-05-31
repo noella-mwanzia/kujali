@@ -6,12 +6,11 @@ import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialF
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { ContactActivitiesTabsComponent } from './components/activities-tabs/activities-tabs.component';
-
 import { ActivitiesModule } from '@app/features/activities'
-// import { ContactsOpportunitiesModule } from '@app/features/finance/business/contacts/details/opportunities'
-// import { ContactsInvoicesModule } from '@app/features/finance/business/contacts/details/invoices';
+import { ContactsOpportunitiesModule } from '@app/features/finance/business/contacts/details/opportunities';
+import { ContactsInvoicesModule } from '@app/features/finance/business/contacts/details/invoices';
 
+import { ContactActivitiesTabsComponent } from './components/activities-tabs/activities-tabs.component';
 
 @NgModule({
   imports: [
@@ -27,8 +26,8 @@ import { ActivitiesModule } from '@app/features/activities'
     ReactiveFormsModule,
 
     ActivitiesModule,
-    // ContactsOpportunitiesModule,
-    // ContactsInvoicesModule
+    ContactsOpportunitiesModule,
+    ContactsInvoicesModule
   ],
   declarations: [
     ContactActivitiesTabsComponent,

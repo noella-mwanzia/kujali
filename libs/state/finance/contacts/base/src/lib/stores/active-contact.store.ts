@@ -42,7 +42,7 @@ export class ActiveContactStore extends Store<Contact>
 
   private _getRoute(route: NavigationEnd): string {
     const elements = route.url.split('/');
-    const orgId = elements.length >= 3 ? elements[2] : '__noop__';
+    const orgId = elements.length >= 3 ? elements[3] : '__noop__';
 
     return orgId;
   }

@@ -120,7 +120,7 @@ export class ContactsPageComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   viewContact(id: string) {
-    this.router.navigate(['/contacts', id]);
+    this.router.navigate(['business/contacts', id]);
   }
 
   openSnackBar(message: string, action: string) {
