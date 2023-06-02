@@ -21,6 +21,8 @@ export class LoginComponent
   // isLoading: boolean;
   isLogin = true;
 
+  showLoginError = false;
+
   constructor( private _authService: AuthService,
               private _dialog: MatDialog,
               private _analytics: EventLogger)
@@ -38,9 +40,11 @@ export class LoginComponent
     if(this.validateLoginCred())
       this._authService.loginWithEmailAndPassword(this.email, this.password)
                       .then(()=> this._analytics.logEvent('login'))
-                      .catch((error) => { this.isLoading = false;
-                                          this._analytics.logEvent('login_error', {"errorMsg": error})
-                                        });
+                      .catch((error) => {
+                        this.isLoading = false;
+                        this.showLoginError = true;
+                        this._analytics.logEvent('login_error', {"errorMsg": error})
+                      });
   }
 
   forgotPass() {

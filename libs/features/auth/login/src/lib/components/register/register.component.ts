@@ -22,6 +22,8 @@ export class RegisterComponent
   isLoading = false;
   isValid: boolean;
 
+  accountCreationError = false;
+
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
               private _authService: AuthService,
@@ -78,7 +80,11 @@ export class RegisterComponent
                   user.roles
                 )
             .then(value => this._analytics.logEvent('register', {"userId": (value as User).id}))
-            .catch(error => this._analytics.logEvent('register_error', { "errorMsg": error}))
+            .catch(error => {
+              this.isLoading = false;
+              this.accountCreationError = true;
+              this._analytics.logEvent('register_error', { "errorMsg": error})
+            });
     }
   }
 
@@ -110,7 +116,7 @@ export class RegisterComponent
 
   formIsInvalid()
   {
-    this.registerForm.invalid || !this.registerForm.value.acceptConditions;
+    return this.registerForm.invalid || !this.registerForm.value.acceptConditions;
   }
 
   loginGoogle() {

@@ -4,30 +4,38 @@
 
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="email-input" class="special-input" appearance="outline" fxFlex>
-                <input matInput name="email" type="email" [(ngModel)]="email" required ngvemail placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}">
+                <input matInput name="email" type="email" [(ngModel)]="email" required ngvemail
+                    placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}">
                 <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
             </mat-form-field>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="password-input" class="special-input" appearance="outline" fxFlex>
-                <input matInput placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}" name="password" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
+                <input matInput placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}" name="password"
+                    type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
             </mat-form-field>
         </div>
 
+        <mat-error *ngIf="showLoginError" style="margin-bottom: 10px;">
+            {{ 'LOGIN.LOGIN-FORM.ERROR' | transloco }}
+        </mat-error>
 
         <div fxLayoutAlign="space-between center">
-            <button mat-raised-button class="uppercase-txt" id="login-button"  (click)="loginUser()" [disabled]="!validateLoginCred()">
-          {{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
-        </button>
+            <button mat-raised-button class="uppercase-txt" id="login-button" (click)="loginUser()"
+                [disabled]="!validateLoginCred()">
+                {{ 'LOGIN.LOGIN-FORM.LOGIN' | transloco }}
+            </button>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="end">
             <div>
-                <mat-checkbox [checked]="true" class="small-txt">{{ "LOGIN.LOGIN-FORM.FLD-REMEMBER-ME" | transloco }}</mat-checkbox>
+                <mat-checkbox [checked]="true" class="small-txt" color="primary">
+                    {{ "LOGIN.LOGIN-FORM.FLD-REMEMBER-ME" | transloco}}
+                </mat-checkbox>
                 <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
-              {{"LOGIN.FORGOT-PASSWD" |transloco}}
-            </button>
+                    {{"LOGIN.FORGOT-PASSWD" |transloco}}
+                </button>
             </div>
         </div>
 
@@ -46,13 +54,10 @@
         </div> -->
 
         <div fxLayout="row" fxLayoutAlign="start stretch">
-            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <!-- <i class="fa-brands fa-google"></i>         -->
-                </div>
-
             <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
-            {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
-          </button>
+                <i class="fab fa-google" style="margin-right: 20px;" ></i>
+                {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
+            </button>
         </div>
     </div>
 </div>

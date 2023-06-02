@@ -54,7 +54,9 @@
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Enter password",
       "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
+      "SUBMIT": "Login",
+      "LOGIN": "Login",
+      "ERROR" : "Invalid email or password"
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
@@ -66,7 +68,8 @@
       "FLD-PASSWD": "Password",
       "FLD-CONF-PASSWD": "Confirm password",
       "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
+      "SUBMIT": "Create account",
+      "ACC-CREATE-ERR": "A user with that email already exists"
     },
     "TOS": {
       "P1": "By registering I agree to",
