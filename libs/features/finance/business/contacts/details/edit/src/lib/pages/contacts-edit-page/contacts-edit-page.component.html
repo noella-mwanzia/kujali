@@ -3,8 +3,8 @@
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header [editPageName]="'CONTACT.ADDNEWCONTACT.EDIT-CONTACT' | transloco">
-        <button save-button mat-flat-button (click)="updateContact()" class="add-new"> <i
-            class="bi bi-file-earmark-diff"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
+        <button save-button mat-flat-button (click)="updateContact()" class="add-new"> 
+          <i style="margin-right: 10px" class="fas fa-file-image"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
       </kujali-finance-detail-header-edits>
     </kujali-finance-toolbar>
 
@@ -19,19 +19,21 @@
               <div fxLayout="row" fxLayoutAlign="center">
                 <div class="profile">
                   <div *ngIf="contact?.logoImgUrl; else show">
-                    <img class="circular--square" [src]="contact?.logoImgUrl" />
+                    <img class="circular--square" [src]="contact.logoImgUrl" />
                     <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                      <button class="edit-account_contact"> <i class="bi bi-pencil-square"
-                          (click)="newProfileImg()"></i></button>
+                      <button class="edit-account_contact" (click)="newProfileImg()"> 
+                        <i class="fas fa-edit"></i>
+                      </button>
                     </div>
                   </div>
 
                   <ng-template #show>
                     <div>
-                      {{contact?.fName?.charAt(0)}} {{contact?.lName?.charAt(0)}}
+                      {{contact.fName.charAt(0)}} {{contact.lName.charAt(0)}}
                       <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                        <button class="edit-account"> <i class="bi bi-pencil-square"
-                            (click)="newProfileImg()"></i></button>
+                        <button class="edit-account" (click)="newProfileImg()">
+                          <i class="fas fa-edit"></i>
+                        </button>
                       </div>
                     </div>
                   </ng-template>

@@ -41,6 +41,7 @@
   background-color: var(--kujali-color-text-white);
   height: 20px;
 }
+
 .edit-account:hover {
   box-shadow: slategray 0px 2px 4px;
   background-color: var(--kujali-color-primary-blue);
@@ -58,15 +59,7 @@ label {
   margin-top: 35px;
 }
 
-::ng-deep .editCompanies .mat-form-field-infix {
-  border-top-width: 2px !important;
-}
-
-::ng-deep .editCompanies .mat-form-field-wrapper {
-  padding: 0px 0px 15px 0px;
-}
-
-span > img {
+span>img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
