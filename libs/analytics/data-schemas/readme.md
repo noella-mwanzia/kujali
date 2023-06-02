@@ -1,5 +1,6 @@
 # Analytics > Data Schemas
 
-This folder contains all data schemas used to visualise business data in bigquery.
+This folder contains all standard data schemas used to visualise business data in bigquery.
 
-Used to generate workable bgq schemas from firestore data.
+Standard data schemas mean direct derrivatives of the firebase data.
+

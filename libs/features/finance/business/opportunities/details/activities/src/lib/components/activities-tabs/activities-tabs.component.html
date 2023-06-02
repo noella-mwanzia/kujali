@@ -1,0 +1,8 @@
+<mat-tab-group *ngIf="permissionsChecked" mat-align-tabs="start">
+  <mat-tab [disabled]="!canViewActions" [label]="'ACTIONS.ACTIONS' | transloco">
+    <activities [canViewActions]="canViewActions"></activities>
+  </mat-tab>
+  <mat-tab disabled="true" label="Documents">
+    <span>Docs</span>
+  </mat-tab>
+</mat-tab-group>

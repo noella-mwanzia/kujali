@@ -42,7 +42,7 @@ export class DetailHeaderEditsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.lang = this._trl.initialise();
-    this._page = this._router$$.url.split('/')[1];
+    this._page = this._router$$.url.split('/')[2];
     this.getHeaderData();
   }
 
@@ -75,7 +75,7 @@ export class DetailHeaderEditsComponent implements OnInit, OnDestroy {
   }
 
   mainPageRoute() {
-    this._router$$.navigate([this._page]);
+    this._router$$.navigate([`business/${this._page}`]);
   }
 
   back = () => this.location.back();

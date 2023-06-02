@@ -42,7 +42,7 @@ export class ActiveOpportunityStore extends Store<Opportunity>
 
   private _getRoute(route: NavigationEnd): string {
     const elements = route.url.split('/');
-    const opsId = elements.length >= 3 ? elements[2] : '__noop__';
+    const opsId = elements.length >= 3 ? elements[3] : '__noop__';
 
     return opsId;
   }

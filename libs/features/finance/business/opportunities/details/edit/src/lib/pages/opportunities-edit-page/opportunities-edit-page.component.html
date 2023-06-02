@@ -1,0 +1,144 @@
+<app-page>
+  <div class="main-page" pageContent>
+
+    <kujali-finance-toolbar toolbar>
+      <kujali-finance-detail-header-edits header
+        [editPageName]="'OPPORTUNITIES.ADD-NEW-OPPORTUNITY.EDIT-OPPORTUNITY' | transloco">
+        <button save-button mat-flat-button (click)="updateOpps()" class="add-new">
+          <i style="margin-right: 10px" class="fas fa-file-image"></i>
+          {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}
+        </button>
+      </kujali-finance-detail-header-edits>
+    </kujali-finance-toolbar>
+
+    <div class="container">
+      <!-- main row  -->
+      <form class="oppsForm" [formGroup]="opportunityEditModel.opportunityForm">
+        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+          <div class="left" fxFlex="40%">
+            <div class="full-height" fxLayout="column">
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'OPPORTUNITIES.TABLE.TITLE' | transloco }}</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="title">
+                </mat-form-field>
+              </div>
+
+              <div class="full-height" fxLayout="column" fxLayoutAlign="start" fxFlex>
+                <label>{{ 'OPPORTUNITIES.TABLE.DESC' | transloco }}</label>
+                <div class="textarea">
+                  <textarea matInput name="title" type="text" formControlName="desc"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div fxFlex="" class="topElements">
+            <div fxLayout="column">
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+
+                  <label> {{ 'OPPORTUNITIES.TABLE.COMPANY' | transloco }}</label>
+                  <mat-form-field appearance="outline">
+                    <mat-select formControlName="company" [compareWith]="compareFn"
+                      (selectionChange)="companyChanged($event)">
+                      <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'"
+                        [array]="opportunityEditModel.companyList"
+                        (filteredReturn)="opportunityEditModel.filteredCompanyList =$event"></mat-select-filter>
+                      <mat-option value=""></mat-option>
+                      <mat-option *ngFor="let company of opportunityEditModel.filteredCompanyList" [value]="company.id">
+                        {{company.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label>{{ 'OPPORTUNITIES.TABLE.DEADLINE' | transloco }}</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="deadline" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label> {{ 'OPPORTUNITIES.TABLE.CONTACT' | transloco }}</label>
+                  <mat-form-field appearance="outline">
+                    <mat-select formControlName="contact" [compareWith]="compareFn">
+                      <mat-select-filter [placeholder]="'Filter'" [displayMember]="'fullName'"
+                        [array]="opportunityEditModel.contactList"
+                        (filteredReturn)="opportunityEditModel.filteredContactList =$event"></mat-select-filter>
+                      <mat-option value=""></mat-option>
+                      <mat-option *ngFor="let contact of opportunityEditModel.filteredContactList" [value]="contact.id">
+                        {{contact.fullName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label> {{ 'OPPORTUNITIES.TABLE.TYPE' | transloco }}</label>
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-select formControlName="type">
+                      <mat-option value="Project"> Project </mat-option>
+                      <mat-option value="Recruitment"> Recruitment</mat-option>
+                      <mat-option value="Vacancy"> Vacancy</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label> {{ 'OPPORTUNITIES.TABLE.ASSIGNED-TO' | transloco }}</label>
+                  <mat-form-field appearance="outline">
+                    <mat-select formControlName="assignTo" multiple>
+                      <mat-select-filter [placeholder]="'Filter'" [displayMember]="'displayName'" [array]="orgUsers"
+                        (filteredReturn)="filteredUsers =$event"></mat-select-filter>
+                      <mat-option *ngFor="let user of filteredUsers" [value]="user.id">
+                        {{user.displayName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label> {{ 'OPPORTUNITIES.TABLE.STATUS' | transloco }}</label>
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-select formControlName="status">
+                      <mat-option value="New"> New </mat-option>
+                      <mat-option value="In progress"> In progress</mat-option>
+                      <mat-option value="Lost"> Lost</mat-option>
+                      <mat-option value="Won"> Won</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
+
+              <div class="deleteBtn">
+                <button mat-raised-button color="warn" class="danger"
+                  (click)="deleteOpportunity(oppsData)">Delete Opportunity</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ng-template #loading>
+        <mat-spinner diameter="25"></mat-spinner>
+      </ng-template>
+    </div>
+
+  </div>
+</app-page>

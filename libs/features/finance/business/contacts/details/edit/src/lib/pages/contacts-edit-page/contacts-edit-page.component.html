@@ -1,0 +1,162 @@
+<app-page>
+  <div class="main-page" pageContent>
+
+    <kujali-finance-toolbar toolbar>
+      <kujali-finance-detail-header-edits header [editPageName]="'CONTACT.ADDNEWCONTACT.EDIT-CONTACT' | transloco">
+        <button save-button mat-flat-button (click)="updateContact()" class="add-new"> 
+          <i style="margin-right: 10px" class="fas fa-file-image"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
+      </kujali-finance-detail-header-edits>
+    </kujali-finance-toolbar>
+
+
+    <div class="container">
+      <!-- main row  -->
+      <form *ngIf="contact; else loading" [formGroup]="contactForm">
+        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="50px">
+          <div class="left" fxFlex="40%">
+            <div fxLayout="column">
+              <!-- profile  -->
+              <div fxLayout="row" fxLayoutAlign="center">
+                <div class="profile">
+                  <div *ngIf="contact?.logoImgUrl; else show">
+                    <img class="circular--square" [src]="contact.logoImgUrl" />
+                    <div class="edit" fxLayout="row" fxLayoutAlign="end">
+                      <button class="edit-account_contact" (click)="newProfileImg()"> 
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <ng-template #show>
+                    <div>
+                      {{contact.fName.charAt(0)}} {{contact.lName.charAt(0)}}
+                      <div class="edit" fxLayout="row" fxLayoutAlign="end">
+                        <button class="edit-account" (click)="newProfileImg()">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutGap="45px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label>{{ 'CONTACT.ADDNEWCONTACT.FIRST-NAME' | transloco }}</label>
+                  <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                    <input matInput name="title" type="text" formControlName="fName">
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
+                  <label>{{ 'CONTACT.ADDNEWCONTACT.LAST-NAME' | transloco }}</label>
+                  <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                    <input matInput name="title" type="text" formControlName="lName">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'CONTACT.ADDNEWCONTACT.COMPANY' | transloco }}</label>
+                <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                  <mat-select formControlName="company" [compareWith]="compareFn">
+                    <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="companies"
+                      (filteredReturn)="filteredCompanies =$event"></mat-select-filter>
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let company of filteredCompanies" [value]="company.id">
+                      {{company.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'CONTACT.ADDNEWCONTACT.ROLE' | transloco }}</label>
+                <mat-form-field appearance="outline" *ngIf="roles$ | async as roles">
+                  <mat-select *ngIf="contact" formControlName="role" multiple #role>
+                    <mat-select-trigger>
+                      {{role.value ? role.value[0] : ''}}
+                      <span *ngIf="role.value?.length! > 1">
+                        (+{{role?.value.length! - 1}} {{role.value?.length! === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let role of roles" [value]="role.id">{{role.id}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start">
+                <label>{{ 'CONTACT.ADDRESS' | transloco }}</label>
+                <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                  <input matInput name="title" type="text" formControlName="address">
+                </mat-form-field>
+              </div>
+              <!-- reusable tags component -->
+              <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
+            </div>
+          </div>
+
+          <div fxFlex="" class="topElements">
+            <div fxLayout="column">
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <label> {{ 'CONTACT.ADDNEWCONTACT.EMAIL' | transloco }}</label>
+                  <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                    <input matInput name="title" type="text" formControlName="email">
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <kujali-finance-phone-form-field [dataForm]="contactForm"></kujali-finance-phone-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <label>{{ 'CONTACT.MAIN-LANGUAGE' | transloco }}</label>
+                  <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                    <mat-select formControlName="mainLanguage">
+                      <mat-option value="English">{{'CONTACT.MAIN-LANG.ENGLISH' | transloco}}</mat-option>
+                      <mat-option value="Dutch">{{'CONTACT.MAIN-LANG.DUTCH' | transloco}}</mat-option>
+                      <mat-option value="French">{{'CONTACT.MAIN-LANG.FRENCH' | transloco}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="45">
+                  <label>{{ 'CONTACT.GENDER' | transloco }}</label>
+                  <mat-form-field class="editContacts" id="title-input" appearance="outline" fxFlex>
+                    <mat-select formControlName="gender">
+                      <mat-option value="Male">{{'CONTACT.GENDER-SELECT.MALE' | transloco}} </mat-option>
+                      <mat-option value="Female"> {{'CONTACT.GENDER-SELECT.FEMALE' | transloco}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start">
+                <div fxLayout="column" fxLayoutAlign="start" fxFlex="93">
+                  <label>{{ 'CONTACT.DOB' | transloco }}</label>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="dob" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <kujali-finance-social-media-field [socialMediaFields]="contactForm"></kujali-finance-social-media-field>
+
+              <div>
+                <button *hasViewAccess="CAN_DELETE_CONTACTS" mat-raised-button color="danger" class="danger-btn"
+                  (click)="deleteContact(contact)">Delete Contact</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <ng-template #loading>
+      <mat-spinner [diameter]="40"></mat-spinner>
+    </ng-template>
+
+  </div>
+</app-page>

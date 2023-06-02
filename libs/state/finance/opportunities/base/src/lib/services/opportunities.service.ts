@@ -131,7 +131,7 @@ export class OpportunitiesService {
 
   updateOpps(opps: FormGroup) {
     this._sbS.sink = this._opportunity$$.update(opps.value as Opportunity).subscribe((success) => {
-      this._router$$.navigate(['opportunities', opps.value.id]);
+      this._router$$.navigate(['business/opportunities', opps.value.id]);
     });
   }
 
@@ -163,7 +163,7 @@ export class OpportunitiesService {
     deleteDialogRef.afterClosed().subscribe((chosenOption) => {
       if (chosenOption?.event == 'delete') {
         this._opportunity$$.remove(opps).subscribe((success) => {
-          this._router$$.navigate(['opportunities']);
+          this._router$$.navigate(['business/opportunities']);
         })
       }
     })

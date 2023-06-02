@@ -1,0 +1,19 @@
+<single-detail-information-card>
+  <opportunity-information-card notes></opportunity-information-card>
+
+  <div class="full-height" *ngIf="opps" info>
+    <div class="notes-card" fxLayout="column" fxLayoutAlign="start">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <p class="title">{{opps.title}}</p>
+        <p class="last-changed"> {{"SINGLE-DETAIL.NOTES.LAST-CHANGE" | transloco}} {{getDate(opps.createdOn)}}</p>
+      </div>
+
+      <div class="notes" fxLayout="column">
+
+        <div class="full-height">
+          <p class="note-view">{{opps.desc}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</single-detail-information-card>
