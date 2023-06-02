@@ -1,0 +1,99 @@
+form {
+  background-color: white;
+  padding: 50px 20px;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.full-height, .container{
+  height: 100%;
+}
+
+.textarea {
+  padding-right: 20px;
+  height: 100%;
+}
+.textarea textarea {
+  background-color: var(--kujali-color-primary-background);
+  padding: -10px;
+  border-radius: 10px;
+  height: 100%;
+  caret-color: black;
+}
+
+label {
+  text-align: left;
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+.oppsForm textarea.mat-input-element {
+  padding: 10px!important;
+}
+
+.deleteBtn{
+  margin-top: 30px;
+}
+
+//tags 
+
+.extra-label {
+  color: var(--kujali-color-nav-inactive);
+  font-size: 0.825rem;
+  margin: 0px 0px 0px 7px;
+  padding: 0;
+}
+
+.selected-tags span {
+  padding: 2px;
+  border-radius: 5px;
+  background-color: var(--kujali-color-text-background);
+  color: var(--kujali-color-primary-blue);
+  margin-right: 10px;
+}
+
+.tags {
+  width: 100%;
+}
+
+mat-chip {
+  color: aliceblue;
+}
+
+:host ::ng-deep .mat-chip.mat-standard-chip {
+  background-color: var(--kujali-color-text-background);
+  color: var(--kujali-color-primary-blue);
+  border-radius: 5px;
+}
+
+input {
+  caret-color: black;
+}
+
+::ng-deep .mat-autocom {
+  margin-top: 10px;
+  padding: 5px 0px;
+  display: flex;
+  box-shadow: none;
+}
+
+::ng-deep .mat-autocom:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+::ng-deep .test {
+  min-width: fit-content;
+  height: 20px;
+  padding: 5px 5px; 
+}
+
+::ng-deep .test span {
+  line-height: 20px;
+  padding: 2px;
+  border-radius: 5px;
+  background-color: var(--kujali-color-text-background);
+  color: var(--kujali-color-primary-blue);
+  margin-right: 10px;
+}
+
+/// tags end
