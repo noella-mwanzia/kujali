@@ -314,6 +314,9 @@
   },
   "CONTACT": {
     "ADDRESS": "Address",
+    "MAIN-LANGUAGE": "Main Language",
+    "GENDER": "Gender",
+    "DOB": "Date of Birth",
     "HEADER": {
       "CONTACTS": "Contacts"
     },
@@ -465,7 +468,8 @@
       "EMAIL": "Email",
       "PHONE": "Phone",
       "TAGS": "Tags",
-      "ADDRESS": "Address"
+      "ADDRESS": "Address",
+      "LANGUAGE": "Language"
     },
     "NOTES": {
       "NOTES": "Notes",
@@ -476,6 +480,7 @@
     "MEETING": "Meeting",
     "CALL": "Call",
     "MAIL": "Mail",
+    "DOCUMENTS": "Documents",
     "ACTIONS": "Activities",
     "AMOUNT-OF-ACTIONS": "Amount of activities",
     "SORT-BY": "Sort by",
