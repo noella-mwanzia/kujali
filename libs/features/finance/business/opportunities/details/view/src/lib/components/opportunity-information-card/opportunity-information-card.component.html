@@ -1,0 +1,61 @@
+<div class="main">
+  <div class="ops-card" *ngIf="ops$ | async as ops; else loading">
+
+    <div class="edit" fxLayout="row" fxLayoutAlign="end">
+      <button class="edit-account" (click)="navigateToEditPage(ops.id!)" > <i class="bi bi-pencil-square"></i></button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <div class="info-one">
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.COMPANY" | transloco}}</p>
+          <p *ngIf="ops?.company; else dash" class="sub-title">{{getCompanyNames(ops?.company!)}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.CONTACT" | transloco}}</p>
+          <p *ngIf="ops?.contact; else dash" class="sub-title">{{getContactNames(ops?.contact!)}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.ASSIGNED-TO" | transloco}}</p>
+          <p *ngIf="ops?.assignTo; else dash" class="sub-title">{{getOrgUsers(ops?.assignTo!)}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.TAGS" | transloco}}</p>
+          <p *ngIf="ops?.tags; else dash" class="sub-title">{{ops?.tags}}</p>
+        </div>
+
+        <ng-template #dash><p>-</p></ng-template>
+      </div>
+
+      <div class="info-two">
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.DEADLINE" | transloco}}</p>
+          <p *ngIf="ops?.deadline; else dash" class="sub-title">{{getDate(ops?.deadline)}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"FORMS.FIELDS.TYPE" | transloco}}</p>
+          <p *ngIf="ops?.type; else dash" class="sub-title">{{ops?.type}}</p>
+        </div>
+
+        <div>
+          <p class="title">{{"OPPORTUNITIES.TABLE.STATUS" | transloco}}</p>
+          <p *ngIf="ops?.status; else dash" class="sub-title">{{ops?.status}}</p>
+        </div>
+
+        <ng-template #dash><p>-</p></ng-template>
+      </div>
+    </div>
+  </div>
+
+  <ng-template class="loading" #loading>
+    <p>
+      <mat-spinner class="spinner" [diameter]="25"></mat-spinner>
+    </p>
+  </ng-template>
+</div>

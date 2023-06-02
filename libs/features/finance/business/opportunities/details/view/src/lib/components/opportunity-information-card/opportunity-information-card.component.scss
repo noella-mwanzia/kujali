@@ -1,0 +1,43 @@
+.spinner {
+  position: absolute;
+  left: 30%;
+  top: 15%;
+}
+
+p {
+  margin: 0 0 10px 0;
+}
+
+.title {
+  font-size: 0.875rem;
+  color: var(--kujali-color-nav-inactive);
+  margin-bottom: 0px;
+}
+
+.sub-title {
+  font-size: 0.875rem;
+  color: var(--kujali-color-text-inactive-bolder);
+  font-weight: 600;
+}
+
+.info-two {
+  padding-right: 30%;
+}
+.edit {
+  margin-bottom: 20px;
+}
+.edit-account {
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 2px;
+  color: var(--kujali-color-text-black);
+  border: none;
+  background-color: var(--kujali-color-text-white);
+}
+
+.edit-account:hover {
+  box-shadow: slategray 0px 2px 4px;
+  background-color: var(--kujali-color-primary-blue);
+  color: white;
+}
