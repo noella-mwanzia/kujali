@@ -119,7 +119,7 @@ export class OpportunitiesPageComponent implements OnInit, AfterViewInit, OnDest
   }
 
   viewOps(id: string) {
-    this._router$$.navigate(['/opportunities', id]);
+    this._router$$.navigate(['business/opportunities', id]);
   }
 
   openSnackBar(message: string, action: string) {

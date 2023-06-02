@@ -6,10 +6,10 @@ import { OpportunitiesPageComponent } from './pages/opportunities-page/opportuni
 
 const OPPORTUNITIES_ROUTES: Route[] = [
   { path: '', component: OpportunitiesPageComponent },
-  // {
-  //   path: ':id',
-  //   loadChildren: () => import('libs/features/finance/opportunities/details/view/src/lib/finance-opportunities-details-view.module').then(m => m.financeOpportunitiesDetailsViewModule),
-  // },
+  {
+    path: ':id',
+    loadChildren: () => import('libs/features/finance/business/opportunities/details/view/src/lib/opportunities-view.module').then(m => m.OpportunitiesViewModule),
+  },
 ];
 
 @NgModule({

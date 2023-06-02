@@ -1,11 +1,11 @@
 <app-page>
-  <div class="main-page" fullContent>
+  <div class="main-page" pageContent>
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header
         [editPageName]="'OPPORTUNITIES.ADD-NEW-OPPORTUNITY.EDIT-OPPORTUNITY' | transloco">
         <button save-button mat-flat-button (click)="updateOpps()" class="add-new">
-          <i class="bi bi-file-earmark-diff"></i>
+          <i style="margin-right: 10px" class="fas fa-file-image"></i>
           {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}
         </button>
       </kujali-finance-detail-header-edits>
@@ -25,7 +25,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="full-height" fxLayout="column" fxLayoutAlign="start">
+              <div class="full-height" fxLayout="column" fxLayoutAlign="start" fxFlex>
                 <label>{{ 'OPPORTUNITIES.TABLE.DESC' | transloco }}</label>
                 <div class="textarea">
                   <textarea matInput name="title" type="text" formControlName="desc"></textarea>
@@ -126,7 +126,7 @@
               <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
 
               <div class="deleteBtn">
-                <button *hasViewAccess="CAN_DELETE_OPPS" mat-raised-button color="danger" class="danger-btn"
+                <button mat-raised-button color="warn" class="danger"
                   (click)="deleteOpportunity(oppsData)">Delete Opportunity</button>
               </div>
 

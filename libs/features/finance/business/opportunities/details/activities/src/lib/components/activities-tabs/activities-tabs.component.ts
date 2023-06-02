@@ -17,10 +17,9 @@ export class ActivitiesTabsComponent implements OnInit {
   private _sbS = new SubSink();
   quotesLen: string;
 
-  canViewActions: boolean = false;
-  canViewQuotes: boolean = false;
+  canViewActions: boolean = true;
 
-  permissionsChecked: boolean = false;
+  permissionsChecked: boolean = true;
 
   // constructor(private _permissionsService: PermissionsStateService) { }
   constructor() { }

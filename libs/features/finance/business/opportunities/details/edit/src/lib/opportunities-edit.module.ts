@@ -15,6 +15,8 @@ import { FormFieldsModule } from '@app/elements/forms/form-fields';
 
 import { OpportunitiesEditPageComponent } from './pages/opportunities-edit-page/opportunities-edit-page.component';
 
+import { OpportunitiesEditModelService } from './services/opportunities-edit-model.service';
+
 import { OpportunitiesEditRouterModule } from './opportunities-edit.router';
 
 @NgModule({
@@ -40,11 +42,10 @@ import { OpportunitiesEditRouterModule } from './opportunities-edit.router';
 
     OpportunitiesEditRouterModule
   ],
-
   declarations: [
     OpportunitiesEditPageComponent
   ],
-
-  exports: [OpportunitiesEditPageComponent]
+  exports: [OpportunitiesEditPageComponent],
+  providers: [OpportunitiesEditModelService]
 })
 export class OpportunitiesEditModule {}

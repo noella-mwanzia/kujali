@@ -2,7 +2,9 @@
   <div class="ops-card" *ngIf="ops$ | async as ops; else loading">
 
     <div class="edit" fxLayout="row" fxLayoutAlign="end">
-      <button class="edit-account" (click)="navigateToEditPage(ops.id!)" > <i class="bi bi-pencil-square"></i></button>
+      <button class="edit-account" (click)="navigateToEditPage(ops.id!)" >
+        <i class="fas fa-edit"></i>
+      </button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between">

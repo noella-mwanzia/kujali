@@ -47,6 +47,6 @@ export class OpportunityInformationCardComponent implements OnInit {
   }
 
   navigateToEditPage(oppsId: string) {
-    this._router$$.navigate(['opportunities', oppsId, 'edit'])
+    this._router$$.navigate(['business/opportunities', oppsId, 'edit'])
   }
 }
