@@ -137,6 +137,9 @@
       "@app/features/finance/business/opportunities/details/activities": [
         "libs/features/finance/business/opportunities/details/activities/src/index.ts"
       ],
+      "@app/features/finance/business/opportunities/details/edit": [
+        "libs/features/finance/business/opportunities/details/edit/src/index.ts"
+      ],
       "@app/features/finance/business/opportunities/details/view": [
         "libs/features/finance/business/opportunities/details/view/src/index.ts"
       ],

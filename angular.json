@@ -57,6 +57,7 @@
     "features-finance-business-main": "libs/features/finance/business/main",
     "features-finance-business-opportunities-create": "libs/features/finance/business/opportunities/create",
     "features-finance-business-opportunities-details-activities": "libs/features/finance/business/opportunities/details/activities",
+    "features-finance-business-opportunities-details-edit": "libs/features/finance/business/opportunities/details/edit",
     "features-finance-business-opportunities-details-view": "libs/features/finance/business/opportunities/details/view",
     "features-finance-business-opportunities-main": "libs/features/finance/business/opportunities/main",
     "features-finance-operations-budgets": "libs/features/finance/operations/budgets",
