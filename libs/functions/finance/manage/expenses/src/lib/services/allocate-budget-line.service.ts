@@ -1,7 +1,11 @@
 import { Logger } from '@iote/cqrs';
+import { __DateToStorage } from '@iote/time';
+
+import * as moment from 'moment';
 
 import { ExpenseAllocs, Expenses } from '@app/model/finance/operations/expenses';
 import { BudgetLine, BudgetLinesAllocation, BudgetLinesAllocationElement } from '@app/model/finance/planning/budgets';
+import { AllocateWithType } from '@app/model/finance/allocations';
 
 export class AllocateBudgetLineService {
 
@@ -34,9 +38,11 @@ export class AllocateBudgetLineService {
     this._logger.log(() => `[AllocateBudgetLineService].createBudgetLineAllocationElement for:  ${expense.id} and ${budgetLine.id}`);
 
     let budgetLineAllocationElement: BudgetLinesAllocationElement = {
-      expenseId: expense.id!,
+      withId: expense.id!,
       allocAmount: allocs.amount ?? 0,
-      allocMode: 1
+      allocDate: __DateToStorage(moment()),
+      allocMode: -1,
+      withType: AllocateWithType.Expense,
     }
 
     return [budgetLineAllocationElement];

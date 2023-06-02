@@ -1,10 +1,13 @@
 import { round as __round } from 'lodash';
 
+import * as moment from 'moment';
+
 import { Logger, Repository } from '@iote/cqrs';
+import { __DateToStorage } from '@iote/time';
 
 import { Payment } from '@app/model/finance/payments';
 import { Invoice } from '@app/model/finance/invoices';
-import { Allocation } from '@app/model/finance/allocations';
+import { AllocateWithType, Allocation } from '@app/model/finance/allocations';
 import { InvoiceAllocation, InvoiceAllocationElement } from '@app/model/finance/invoices';
 
 import { CALC_INV_TOTAL } from '@app/functions/finance/manage/common';
@@ -79,12 +82,13 @@ export class PaymentsToInvoiceI {
     let invoiceAllocationElement: InvoiceAllocationElement = {
       allocId: allocId,
       invId: invoice.id!,
-      pId: payment.id!,
-      allocType: 1,
+      withId: payment.id!,
+      withType: AllocateWithType.Payment,
       accId: payment.from,
       accName: payment.fromAccName,
       notes: payment.notes! ?? '',
-      date: payment.date!,
+      allocDate: __DateToStorage(moment()),
+      paymentDate: payment.date!,
       allocAmount: allocAmount!,
       allocMode: 1
     }

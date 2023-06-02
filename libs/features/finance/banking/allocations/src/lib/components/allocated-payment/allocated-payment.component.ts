@@ -24,7 +24,7 @@ export class AllocatedPaymentComponent {
 
   ngOnInit(): void {
     this.payAllocElements = this.payment.elements;
-    const elemntIds = this.payAllocElements.map((allocElement: PaymentAllocationElement) => allocElement.invoiceId);
+    const elemntIds = this.payAllocElements.map((allocElement: PaymentAllocationElement) => allocElement.withId);
     this.invoices = this.invoices.filter((invoice) => elemntIds.includes(invoice.id!));
   }
 
@@ -39,14 +39,14 @@ export class AllocatedPaymentComponent {
 
   createDeallocations() {
     const deallocsid = this.selectedInvoices.map((invoice) => invoice.id);
-    const deallocs = this.payAllocElements.filter((allocElement) => deallocsid.includes(allocElement.invoiceId));
+    const deallocs = this.payAllocElements.filter((allocElement) => deallocsid.includes(allocElement.withId));
     return deallocs.map((d) => this.createDeallocElement(d));
   }
 
   createDeallocElement(allocElement: PaymentAllocationElement) {
     return {
       pId: this.payment.id,
-      invId: allocElement.invoiceId,
+      invId: allocElement.withId,
       amount: allocElement.allocAmount,
     }
   }
