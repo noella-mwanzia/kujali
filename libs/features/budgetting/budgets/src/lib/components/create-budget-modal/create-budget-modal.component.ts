@@ -94,7 +94,7 @@ export class CreateBudgetModalComponent implements OnInit
       startMonth: 0,
       duration: this.duration,
 
-      result: this._emptyBalance(),
+      // result: this._emptyBalance(),
       status: BudgetStatus.Open,
 
       overrideList,
