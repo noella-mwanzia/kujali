@@ -1,5 +1,6 @@
 export * from './lib/budget-explorer-state.service';
 export * from './lib/services/budget-lock.service';
+export * from './lib/services/calculate-budget-header.service';
 
 export * from './lib/queries/operation-budgets.query';
 export * from './lib/queries/budget-lines.query';

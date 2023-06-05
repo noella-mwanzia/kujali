@@ -12,6 +12,7 @@ import { BudgetRow } from '@app/model/finance/planning/budget-lines';
 import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
 import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
 
+import { CalculateBudgetHeaderService } from '@app/state/finance/budgetting/rendering';
 @Component({
   selector: 'app-create-budget-modal',
   templateUrl: './create-budget-modal.component.html',
@@ -50,6 +51,7 @@ export class CreateBudgetModalComponent implements OnInit
 
   constructor(private _budgets$$: BudgetsStore,
               private _budgetLockService: BudgetLockService,
+              private _headersService: CalculateBudgetHeaderService,
               @Inject(MAT_DIALOG_DATA) public childBudget: Budget | false,
               public dialogRef: MatDialogRef<CreateBudgetModalComponent>,
               private _logger: Logger
@@ -103,10 +105,8 @@ export class CreateBudgetModalComponent implements OnInit
     // Add to store.
     this._budgets$$.add(budget).subscribe((budget) => {
       if (budget) {
-        this._logger.log(
-          () => 'Budget ' + budget.name + ' with id ' + budget.id + ' created.'
-        );
         this._budgetLockService.createBudgetLock(budget);
+        this._headersService.generateInitialBudgetHeader(budget);
         this.isSaving = false;
         this.dialogRef.close();
       }
