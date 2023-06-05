@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
+import { flatMap as __flatMap } from 'lodash';
+
 import { Budget } from '@app/model/finance/planning/budgets';
 import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { BudgetHeaderResult } from '@app/model/finance/planning/budget-lines';
 import { ___CalculateLocalBudget, ___PlannedTransactionsToBudgetLines, ___RenderBudget } from '@app/model/finance/planning/budget-calculation';
 
 import { DataProvider } from '@app/state/data/firebase';
-import { BudgetHeaderResultStore } from '@app/state/finance/budgetting/budgets';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,6 @@ export class CalculateBudgetHeaderService {
 
   constructor(private _db: DataProvider,
               private _bs: AngularFireFunctions,
-              private budgetHeaders$$: BudgetHeaderResultStore
   ) {}
 
   generateInitialBudgetHeader(budget: Budget) {
@@ -45,9 +45,12 @@ export class CalculateBudgetHeaderService {
   }
 
   generateEmptyYearValues(years: number[]) {
-    return years.map((year) => {
-      return {[year]: this.generateEmptyMonthValues()};
+    let headersObject = {};
+    years.map((year) => {
+      headersObject[year] = this.generateEmptyMonthValues();
     });
+
+    return headersObject;
   }
 
   generateEmptyMonthValues() {
