@@ -26,6 +26,17 @@ export class UserMenuComponent
   toAdmin = () => this._router.navigate(['admin', 'translate']);
 
   logout() {
-    this._authService.signOut('/auth/login');
+    this._authService.signOut('/auth/login').then(() => this.forceBrowerReload());
+  }
+
+  /**
+   * Force browser reload
+   * @private
+   * @returns {void}
+   * @description
+   * This is a temp workaround for the browser to empty previous state:
+   */
+  private forceBrowerReload(): void {
+    window.location.reload();
   }
 }
