@@ -3,7 +3,7 @@ import { DataService } from '@ngfi/angular';
 import { Router } from '@angular/router';
 
 import { Observable, of, combineLatest } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Query } from '@ngfi/firestore-qbuilder';
 
@@ -80,7 +80,7 @@ export class BudgetQuery
     // If there are children, load them
     const budgetQ = new Query().where('id', 'in', b.childrenList);
 
-    return this._toChildBudget$(budgetQ);
+    return this._toChildBudget$(budgetQ, b.childrenList);
   }
 
    /**
@@ -95,13 +95,12 @@ export class BudgetQuery
                                               : <unknown> null as RenderedChildBudget));
    }
 
-   private _toChildBudget$(childBudgetQ: Query): Observable<RenderedChildBudget[]>
+   private _toChildBudget$(childBudgetQ: Query, children?: string[]): Observable<RenderedChildBudget[]>
    {
-    return this._db.getRepo<Budget>(`orgs/${this._activeOrg.id}/budgets`)
-        .getDocuments(childBudgetQ)
-        .pipe(
-          switchMap(chBs =>
-            combineLatest(chBs.map(ch => this._getHeaders(ch)))))
+    return this._budgets$$.get()
+                .pipe(map(budgets => budgets.filter(b => children?.includes(b.id!))),
+                      switchMap(chBs =>
+                        combineLatest(chBs.map(ch => this._getHeaders(ch)))));
    }
 
    updateBudget(budget: Budget) {
@@ -122,7 +121,6 @@ export class BudgetQuery
         name: budget.name,
         header: CreateBudgetRow(h[0])
       }) as RenderedChildBudget
-    }
-    ));
+    }));
    }
 }
