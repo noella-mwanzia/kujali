@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Parent Budget</h2>
+<mat-dialog-content class="mat-content">
+
+  <div class="content" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+    <div class="allocate-header" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px" fxFlex>
+      <mat-card class="allocate-header__left full-width" fxFLex=>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+          <div class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+            <div class="allocate-header__left__title">Name </div>
+            <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <span>{{ budgetsData.parent.name }}</span>
+            </div>
+          </div>
+          <div class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+            <div class="allocate-header__left__title"> Duration</div>
+            <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <span> {{budgetsData.parent.duration}} </span>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+            <div class="allocate-header__left__title"> Start Year </div>
+            <div class="allocate-header__left__amount">
+              <span>
+                {{ budgetsData.parent.startYear }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+
+    <div class="invoices" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+      <div class="invoices-header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" fxFlex>
+        <div class="invoices-header__title" fxLayout="column" fxLayoutAlign="start" fxFlex>
+          <span>Child Budgets</span>
+          <span>A list of all your linked budgets</span>
+        </div>
+      </div>
+
+      <div>
+
+        <div class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <app-budget-table [budgets$]="allBudgets$"></app-budget-table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<!-- <mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary"
+     fxLayout="row" fxLayoutAlign="center center">
+    <span> Edit </span>
+    <mat-spinner diameter="20" class="spinner"></mat-spinner>
+  </button>
+</mat-dialog-actions> -->

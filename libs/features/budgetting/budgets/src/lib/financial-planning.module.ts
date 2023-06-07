@@ -21,12 +21,13 @@ import { PageHeadersModule } from '@app/elements/layout/page-headers';
 import { CreateBudgetModalComponent } from './components/create-budget-modal/create-budget-modal.component';
 import { DisplayBudgetRecordComponent } from './components/display-budget-record/display-budget-record.component';
 import { ShareBudgetModalComponent } from './components/share-budget-modal/share-budget-modal.component';
+import { BudgetTableComponent } from './components/budget-table/budget-table.component';
 
 import { SelectBudgetPageComponent } from './pages/select-budget/select-budget.component';
 
-import { BudgetRouter } from './budget-router';
-import { BudgetTableComponent } from './components/budget-table/budget-table.component';
+import { ChildBudgetsModalComponent } from './modals/child-budgets-modal/child-budgets-modal.component';
 
+import { BudgetRouter } from './budget-router';
 /**
  * Financial-Planning module. Contains financial planning creation and forecasting.
  */
@@ -54,6 +55,7 @@ import { BudgetTableComponent } from './components/budget-table/budget-table.com
 
     SelectBudgetPageComponent,
     BudgetTableComponent,
+    ChildBudgetsModalComponent,
   ],
 
   entryComponents: [CreateBudgetModalComponent, ShareBudgetModalComponent],

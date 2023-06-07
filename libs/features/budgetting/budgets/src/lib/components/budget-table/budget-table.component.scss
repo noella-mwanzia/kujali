@@ -6,6 +6,33 @@ table {
   color: var(--kujali-color-primary-green-luminous);
 }
 
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #6c757d;
+
+  &.primary {
+    background-color: var(--kujali-color-primary-blue);
+  }
+
+  &.secondary {
+    background-color: var(--kujali-color-primary-green-luminous);
+  }
+}
+
+.badge:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .status {
   color: #7d7d7d;
 }
@@ -17,7 +44,7 @@ table {
 }
 
 tr.example-detail-row {
-  height: 0!important;
+  height: 0 !important;
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
@@ -61,6 +88,11 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .inner-table {
+  width: 100%;
+  padding: 0 !important;
+}
+
+.inner-table {
   padding: 10px 10px 20px 10px;
   width: 100%;
   border: solid rgba($color: #7d7d7d, $alpha: 0.4) 1px;
@@ -83,15 +115,15 @@ td.mat-column-imageurl {
 }
 
 .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue)!important;
-  color: white!important;
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
   font-weight: 500;
   font-size: 1.1rem;
 }
 
 .inner-table .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue)!important;
-  color: white!important;
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
   font-weight: 500;
   font-size: 1rem;
 }
@@ -110,5 +142,5 @@ td.mat-column-imageurl {
 }
 
 ::ng-deep .mat-mdc-mini-fab .mat-button-wrapper {
-  padding: 0px!important;
+  padding: 0px !important;
 }

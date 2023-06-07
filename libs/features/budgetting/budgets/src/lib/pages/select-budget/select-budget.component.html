@@ -2,7 +2,7 @@
   <div>
     <kujali-finance-toolbar>
       <kujali-finance-search-header-card header (toogleFilterEvent)='toogleFilter($event)'
-        (searchTableEvent)='applyFilter($event)' [tableData]="allBudgets">
+        (searchTableEvent)='applyFilter($event)' [tableData]="[]">
         <div add-new>
           <button mat-flat-button (click)="openDialog(false)" class="add-new">
             <i class="bi bi-plus-circle-fill"></i>
@@ -17,8 +17,8 @@
 			</kujali-invoices-filter> -->
     </div>
 
-    <div *ngIf="budgetsLoaded" class="table-container">
-      <app-budget-table [budgets]="allBudgets"></app-budget-table>
+    <div class="table-container">
+      <app-budget-table [budgets$]="allBudgets$"></app-budget-table>
     </div>
   </div>
 </app-page>
