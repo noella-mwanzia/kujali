@@ -32,7 +32,7 @@ export class ActivatePontoBankingService {
     const queryParams =
       new HttpParams()
         .set('client_id', '7af1b5ee-6b0a-4492-923f-2426ef28e8ad')
-        .set('redirect_uri', `http://localhost:4200/operations/banking/connect-ponto`)
+        .set('redirect_uri', `https://project-kujali.web.app/operations/banking/connect-ponto`)
         .set('response_type', 'code')
         // Specified by Ibanity
         .set('scope', 'ai pi name offline_access')

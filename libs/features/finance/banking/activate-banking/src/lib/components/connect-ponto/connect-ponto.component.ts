@@ -85,7 +85,7 @@ export class ConnectPontoComponent implements OnInit {
       orgId: accountDetails[0],
       accountId: accountDetails[1].split(' ').join(''),
       accountName: accountDetails[2],
-      redirectUrl: 'http://localhost:4200/operations/banking/connect-ponto'
+      redirectUrl: 'https://project-kujali.web.app/operations/banking/connect-ponto'
     }
 
 
