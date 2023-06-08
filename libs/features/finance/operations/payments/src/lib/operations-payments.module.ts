@@ -13,6 +13,8 @@ import { UserStateModule } from '@app/state/user';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { iTalPageModule } from '@app/elements/layout/page';
+import { PageHeadersModule } from '@app/elements/layout/page-headers';
+
 import { PaymentsPageComponent } from './pages/payments-page/payments-page.component';
 
 import { PaymentsRouterModule } from './payments.router';
@@ -31,6 +33,7 @@ import { PaymentsRouterModule } from './payments.router';
     UserStateModule,
 
     iTalPageModule,
+    PageHeadersModule,
 
     PaymentsRouterModule,
   ],

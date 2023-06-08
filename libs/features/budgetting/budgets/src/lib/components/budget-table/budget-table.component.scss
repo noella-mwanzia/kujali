@@ -3,7 +3,7 @@ table {
 }
 
 .active {
-  color: var(--kujali-color-primary-green-luminous);
+  color: var(--kujali-color-success-shade);
 }
 
 .badge {
@@ -24,7 +24,7 @@ table {
   }
 
   &.secondary {
-    background-color: var(--kujali-color-primary-green-luminous);
+    background-color: var(--kujali-color-success-shade);
   }
 }
 
@@ -43,77 +43,6 @@ table {
   background-color: white;
 }
 
-tr.example-detail-row {
-  height: 0 !important;
-}
-
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: #777;
-}
-
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
-}
-
-.example-element-row td {
-  border-bottom-width: 0;
-}
-
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-}
-
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
-
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
-
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
-}
-
-.inner-table {
-  width: 100%;
-  padding: 0 !important;
-}
-
-.inner-table {
-  padding: 10px 10px 20px 10px;
-  width: 100%;
-  border: solid rgba($color: #7d7d7d, $alpha: 0.4) 1px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
-
-.inner-table mat-form-field {
-  margin-top: 15px;
-  width: 100%;
-}
-
-td.mat-column-title {
-  font-weight: 600;
-  color: var(--kujali-color-text-black);
-}
-
-td.mat-column-imageurl {
-  padding-top: 5px;
-}
-
 .mdc-data-table__header-cell {
   background-color: var(--kujali-color-primary-blue) !important;
   color: white !important;
@@ -121,15 +50,15 @@ td.mat-column-imageurl {
   font-size: 1.1rem;
 }
 
-.inner-table .mdc-data-table__header-cell {
+.mdc-data-table__header-cell {
   background-color: var(--kujali-color-primary-blue) !important;
   color: white !important;
   font-weight: 500;
   font-size: 1rem;
 }
 
-.inner-table .mat-mdc-row:nth-child(odd) {
-  // background-color: rgba($color: #2b66b8, $alpha: 0.1)!important;
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1) !important;
 }
 
 .mat-mdc-row:nth-child(odd):hover .mat-mdc-cell {

@@ -1,6 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectorRef, Component, EventEmitter, Input, 
-  Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,14 +6,12 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
+import { Observable, tap } from 'rxjs';
 
-import { Budget, BudgetRecord, OrgBudgetsOverview } from '@app/model/finance/planning/budgets';
-
-import { BudgetsStore } from '@app/state/finance/budgetting/budgets';
+import { Budget, BudgetRecord } from '@app/model/finance/planning/budgets';
 
 import { ShareBudgetModalComponent } from '../share-budget-modal/share-budget-modal.component';
 import { CreateBudgetModalComponent } from '../create-budget-modal/create-budget-modal.component';
-import { Observable } from 'rxjs';
 import { ChildBudgetsModalComponent } from '../../modals/child-budgets-modal/child-budgets-modal.component';
 
 @Component({
@@ -42,39 +38,32 @@ export class BudgetTableComponent {
 
   overviewBudgets: BudgetRecord[] = [];
 
-  constructor(private _router$$: Router, 
+  constructor(private _router$$: Router,
               private _dialog: MatDialog,
-              private _cd: ChangeDetectorRef,
-              private _budgets$$: BudgetsStore
   ) { }
 
   ngOnInit(): void {
-
-    this._sbS.sink = this.budgets$.subscribe((o) => {
-      if (o) {
-        this.overviewBudgets = o.overview;
-        this.dataSource.data = o.budgets;
-      }
-    })
-    // console.log(budgets);
+    this._sbS.sink = this.budgets$.pipe(tap((o) => {
+      this.overviewBudgets = o.overview;
+      this.dataSource.data = o.budgets;
+    })).subscribe();
   }
 
-    /** 
-   * Checks whether the user has access to a certain feature.
-   * 
-   * @TODO @IanOdhiambo9 - Please put proper access control architecture in place. 
-   */
-    access(requested:any) 
-    {  
-      switch (requested) {
-        case 'view':
-        case 'clone':
-          return true; //budget.access.owner || budget.access.view || budget.access.edit;
-        case 'edit':
-          return true; // (budget.access.owner || budget.access.edit) && budget.status !== BudgetStatus.InUse && budget.status !== BudgetStatus.InUse;
-      }
-      
-      return false;
+  /** 
+ * Checks whether the user has access to a certain feature.
+ * 
+ * @TODO @IanOdhiambo9 - Please put proper access control architecture in place. 
+ */
+  access(requested:any) 
+  {  
+    switch (requested) {
+      case 'view':
+      case 'clone':
+        return true; //budget.access.owner || budget.access.view || budget.access.edit;
+      case 'edit':
+        return true; // (budget.access.owner || budget.access.edit) && budget.status !== BudgetStatus.InUse && budget.status !== BudgetStatus.InUse;
+    }
+    return false;
   }
 
   ngAfterViewInit(): void {
@@ -116,22 +105,18 @@ export class BudgetTableComponent {
   }
 
   openChildBudgetDialog(parent : Budget): void 
-  {
-    
+  { 
     let children: any = this.overviewBudgets.find((budget) => budget.budget.id === parent.id)!?.children;
-
     children = children?.map((child) => child.budget)
-
-    const dialog = this._dialog.open(ChildBudgetsModalComponent, {
+    this._dialog.open(ChildBudgetsModalComponent, {
       height: 'fit-content',
       minWidth: '600px',
       data: {parent: parent, budgets: children}
     });
   }
 
-
   goToDetail(budgetId: string, action: string) {
-    this._router$$.navigate(['budgets', budgetId, action]);
+    this._router$$.navigate(['budgets', budgetId, action]).then(() => this._dialog.closeAll());
   }
 
   translateStatus(status: number) {

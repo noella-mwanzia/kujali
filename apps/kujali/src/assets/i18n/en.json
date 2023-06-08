@@ -134,6 +134,11 @@
       "LINK-CHILD": "Link Child Budget"
     }
   },
+  "PAYMENTS": {
+    "HEADER": {
+      "PAYMENTS": "Payments"
+    }
+  },
   "BUDGETS": {
     "HEADERS": {
       "RESULT": "Result"
@@ -347,6 +352,7 @@
     },
     "NEW-COMPANY": "New Company",
     "TABLE": {
+      "CLEAR-FILTERS": "Clear",
       "NAME": "Name",
       "ACCMANAGER": "Account Manager",
       "HQ": "Headquarters",
@@ -388,7 +394,8 @@
       "STATUS": "Status",
       "COMPANY": "Company",
       "CONTACT": "Contact",
-      "ACTIONS": "Actions"
+      "ACTIONS": "Actions",
+      "CREATED-BY": "Created By"
     },
     "DETAIL": {
       "TITLE": "Title",
