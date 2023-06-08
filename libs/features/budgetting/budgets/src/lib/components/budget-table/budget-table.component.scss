@@ -61,7 +61,7 @@ table {
   background-color: rgba($color: #2b66b8, $alpha: 0.1) !important;
 }
 
-.mat-mdc-row:nth-child(odd):hover .mat-mdc-cell {
+.mat-mdc-row:hover .mat-mdc-cell {
   background-color: #eee;
   cursor: pointer;
 }
