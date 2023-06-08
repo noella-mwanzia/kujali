@@ -16,8 +16,10 @@
             <div class="">
               <div class="grid-list" (click)="showGridFn()" fxLayout="row" fxLayoutAlign="start center"
                 fxLayoutGap="10px">
-                <i class="fas fa-list"></i>
-                <i class="fas fa-th"></i>
+                <div *ngIf="showGrid"><i class="fas fa-list"></i></div>
+                <div *ngIf="!showGrid"><i style="color: #0047AB;" class="fas fa-list"></i></div>
+                <div *ngIf="showGrid"><i style="color: #0047AB;" class="fas fa-th"></i></div>
+                <div *ngIf="!showGrid"><i class="fas fa-th"></i></div>
               </div>
             </div>
           </label>
