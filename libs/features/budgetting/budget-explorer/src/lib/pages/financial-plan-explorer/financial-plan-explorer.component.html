@@ -1,28 +1,24 @@
 <app-page [loading]="loading">
   <!-- [loadingText]="'Please hold as we load the budget..'"> -->
 
-  <div *ngIf="state$ | async as state; else loadingBudget" fxLayout="column" fxlayoutALign="start start"
+  <div *ngIf="state$ | async as state; else loadingBudget" fxLayout="column" fxLayoutALign="start start"
     class="container">
-    <div class="" fxLayout="row" fxlayoutALign="space-between start" fxFlex>
-      <div fxFlex>
-        <span class="budget-name">{{ state.budget.name }}</span>
+    <div fxLayout="row" fxLayoutALign="space-between center" fxFlex>
+      <div fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px" fxFlex>
+        <p class="budget-name">{{ state.budget.name }}</p>
         <!-- Role:  -->
-        <span class="budget-status">
+        <p class="budget-status">
           ({{ translateStatus(state.budget.status) | transloco}})
-        </span>
+        </p>
 
-        <div class="year-title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <span>
-            {{"BUDGETS.CURRENT-YEAR" | transloco}}
-          </span>
-          <mat-form-field class="year-selector">
-            <mat-select name="year" [(ngModel)]="year" (ngModelChange)="setYear($event)" required>
-              <mat-option *ngFor="let year of years" [value]="year">
-                {{ year }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" class="year-selector">
+          <mat-label>Year</mat-label>
+          <mat-select name="year" [(ngModel)]="year" (ngModelChange)="setYear($event)" required>
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{ year }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="hierachy">
@@ -38,7 +34,7 @@
 
     </app-year-focus>
 
-    <div fxLayout="column wrap" fxLayoutAlign="start">
+    <div style="max-width: 100%;" fxLayout="column" fxLayoutAlign="start">
 
       <!-- Budget Table Viz -->
       <app-financial-plan-pl-tables [state$]="state$" 
