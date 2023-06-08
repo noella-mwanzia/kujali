@@ -18,48 +18,49 @@
       <div class="full-width" fxLayout="column" fxLayoutAlign="start start" [formGroupName]="f" fxFlex>
         <div class="full-width item-row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" fxFlex>
 
-          <div fxFlex="40%">
+          <div class="input-height" fxFlex="40%">
             <mat-form-field appearance="outline">
               <input placeholder="Office tables" matInput formControlName="desc">
             </mat-form-field>
           </div>
 
-          <div fxFlex="12%">
+          <div class="input-height" fxFlex="12%">
             <mat-form-field appearance="outline">
               <input matInput formControlName="cost" placeholder="12000" type="number" />
             </mat-form-field>
           </div>
 
-          <div fxFlex="12%">
+          <div class="input-height" fxFlex="12%">
             <mat-form-field appearance="outline">
               <input matInput formControlName="qty" placeholder="20" type="number" />
             </mat-form-field>
           </div>
 
-          <div fxFlex="12%">
+          <div class="input-height" fxFlex="12%">
             <mat-form-field appearance="outline">
               <input matInput formControlName="vat" placeholder="21%" type="number" />
             </mat-form-field>
           </div>
 
-          <div fxLayout="column" fxLayoutAlign="center center" class="text-center" fxFlex="12%">
+          <div class="input-height" fxLayout="column" fxLayoutAlign="center center" class="text-center" fxFlex="12%">
             <span class="quote-total total-title">{{calculateProductTotal(item) | currency : invoiceCurrency :
               'symbol-narrow'}}</span>
           </div>
 
-          <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex="12%">
+          <div class="input-height" fxLayout="column" fxLayoutAlign="space-between start" fxFlex="12%">
             <div class="action">
-              <button class="icon-button-no-pad" mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_horiz</mat-icon>
+              <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
+                <i class="fas fa-ellipsis-v"></i>
+                <span style="margin-left: 10px;">More</span>
               </button>
               <mat-menu #menu="matMenu">
                 <button [disabled]="getDiscountFields(item).controls.length > 0" mat-menu-item
                   (click)="addDiscount(item)">
-                  <mat-icon> monetization_on</mat-icon>
-                  <span>{{'ORDERS.PARTS.ADD-DISCOUNT' | transloco}}</span>
+                  <i style="margin-right: 10px;" class="fas fa-percent"></i>
+                  <span>{{'INVOICES.ADD-DISCOUNT' | transloco}}</span>
                 </button>
                 <button mat-menu-item (click)="removeInvoiceProduct(f)">
-                  <mat-icon>delete</mat-icon>
+                  <i style="margin-right: 10px;" class="fas fa-trash-alt"></i>
                   <span>{{'INVOICES.DETAIL.DELETE-ROW' | transloco}}</span>
                 </button>
               </mat-menu>
@@ -70,7 +71,7 @@
         <div class="discount" fxLayout="column" fxLayoutAlign="start center" formArrayName="discount" fxFlex>
           <div class="full-width" fxLayout="column" fxLayoutAlign="start start"
             *ngFor="let discount of getDiscountFields(item).controls; let disc = index">
-            <p class="label"> {{'ORDERS.PARTS.DISCOUNT' | transloco}}</p>
+            <p class="label"> {{'INVOICES.ADD-DISCOUNT' | transloco}}</p>
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
               <mat-form-field appearance="outline" fxFlex>
                 <input matInput [formControlName]="disc" placeholder="Thomas" type="number" />
@@ -83,14 +84,15 @@
         </div>
       </div>
     </div>
+    <button mat-stroked-button color="primary" (click)="addInvoiceItem()">
+      {{'INVOICES.DETAIL.ADD-ITEM' | transloco}}
+    </button>
   </div>
 
   <div class="product-totals" fxLayout="row" fxLayoutAlign="start start">
     <div fxFlex="50%">
-      <div class="flat-button">
-        <button mat-flat-button (click)="addInvoiceItem()">
-          {{'INVOICES.DETAIL.ADD-ITEM' | transloco}}
-        </button>
+      <div class="">
+        <div></div>
       </div>
     </div>
 
@@ -105,7 +107,7 @@
       <div fxLayout="column">
         <div fxLayout="column" *ngFor="let data of uniqueVat">
           <div *ngIf="getVat(data).vat > 0" fxLayout="row" fxLayoutAlign="start start">
-            <p class="label" fxFlex="50%">{{'ORDERS.PARTS.TAX' | transloco}} ({{getVat(data).vat}}%) </p>
+            <p class="label" fxFlex="50%">{{'INVOICES.DETAIL.TAX' | transloco}} ({{getVat(data).vat}}%) </p>
             <span fxLayout="row" fxLayoutGap="10px">
               <p>{{getVat(data).total | currency : invoiceCurrency : 'symbol-narrow'}}</p>
             </span>

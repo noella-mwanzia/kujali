@@ -377,6 +377,7 @@
     }
   },
   "INVOICES" : {
+    "ADD-DISCOUNT": "Discount",
     "HEADER" : {
       "INVOICE" : "Invoice",
       "INVOICES" : "Invoices",
@@ -416,7 +417,8 @@
       "ADD-ITEM": "Add Item",
       "SUBTOTAL": "Subtotal",
       "TAX": "Tax",
-      "VAT-TOTAL": "VAT Total"
+      "VAT-TOTAL": "VAT Total",
+      "DELETE-ROW": "Delete item"
     },
     "SIDEBAR" : {
       "SEND-INVOICE": "Send Invoice",
