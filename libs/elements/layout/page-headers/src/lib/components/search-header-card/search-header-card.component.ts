@@ -52,6 +52,9 @@ export class SearchHeaderCardComponent implements OnDestroy {
       case 'companies':
         this.page = 'COMPANY.HEADER.COMPANIES';
         break
+      case 'payments':
+        this.page = 'PAYMENTS.HEADER.PAYMENTS';
+        break
       case 'expenses':
         this.page = 'EXPENSES.HEADER.EXPENSES';
         break
