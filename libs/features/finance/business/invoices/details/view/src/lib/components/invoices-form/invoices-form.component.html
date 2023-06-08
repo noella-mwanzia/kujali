@@ -1,4 +1,4 @@
-<div *ngIf="invoiceIsReady">
+<div class="page" *ngIf="invoiceIsReady">
   <!-- Invoices header -->
   <kujali-invoices-header (saveInvoiceProgressEvent)="saveInvoice()" (deleteInvoiceEvent)="deleteInvoice()"
     (copyInvoiceEvent)="copyInvoice()" [invoiceNumber]="invoiceNumber">

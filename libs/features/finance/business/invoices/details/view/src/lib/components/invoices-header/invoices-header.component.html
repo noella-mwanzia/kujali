@@ -1,19 +1,19 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" class="detail-header">
+<div style="border-radius: 5px ; z-index: 3; position: sticky; top: 0px; background-color: white; margin-bottom: 20px; padding: 20px 20px;" fxLayout="row" fxLayoutAlign="space-between center" class="detail-header">
   <div fxLayout="row" fxLayoutAlign="start center" class="breadcrumbs">
     <p (click)="goBack()" class="page-title"> {{'INVOICES.HEADER.INVOICES' | transloco}} </p>
     <p *ngIf="isEditMode; else newQuote"> > {{invoiceNumber}} </p>
     <ng-template #newQuote> <p> > {{'INVOICES.HEADER.NEW-INVOICE' | transloco}} </p> </ng-template>
   </div>
   <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px" class="user-edit">
-    <button [disabled]="invoiceOperationInProgress" (click)="saveProgress()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
+    <button mat-stroked-button [disabled]="invoiceOperationInProgress" (click)="saveProgress()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
       <i class="bi bi-save"></i>
       {{'INVOICES.HEADER.SAVE-PROGRESS' | transloco}}
     </button>
-    <button [disabled]="!isEditMode || invoiceOperationInProgress" (click)="copyInvoice()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
+    <button mat-stroked-button [disabled]="!isEditMode || invoiceOperationInProgress" (click)="copyInvoice()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
       <i class="bi bi-clipboard"></i>
       {{'INVOICES.HEADER.COPY' | transloco}}
     </button>
-    <button [disabled]="!isEditMode" (click)="deleteInvoice()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
+    <button mat-stroked-button [disabled]="!isEditMode" (click)="deleteInvoice()" fxLayout="row" fxLayoutAlign="center center" mat-flat-button>
       <i class="bi bi-trash"></i>
       {{'INVOICES.HEADER.DELETE' | transloco}}
     </button>
