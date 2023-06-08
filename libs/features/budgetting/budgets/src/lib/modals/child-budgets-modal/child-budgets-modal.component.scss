@@ -1,0 +1,42 @@
+mat-card {
+  padding: 10px;
+  height: fit-content;
+}
+
+.allocate-header {
+  margin: 20px 0px 10px 0px;
+}
+
+.header-amount {
+  border-right: solid 1px var(--kujali-color-nav-inactive);
+}
+
+.allocate-header__left__amount {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--kujali-color-text-black)
+}
+
+.invoices-header__title span:first-of-type {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.invoices-header__title span:last-of-type {
+  font-size: 0.8rem;
+}
+
+//table 
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+td.mat-column-title {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+td.mat-column-imageurl {
+  padding-top: 5px;
+}

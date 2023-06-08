@@ -29,7 +29,7 @@ export class CreateBudgetModalComponent implements OnInit
   /** Name of the budget */
   budgetName!: string;
   /** Start year of the budget */
-  startYear!: number;
+  startYear: number = new Date().getFullYear();
 
   // - ENDSECTION
   // - SECTION "CREATE STUBS"
@@ -43,7 +43,7 @@ export class CreateBudgetModalComponent implements OnInit
 
   inYears = ___range(1, 11).map((v) => ({ name: v, val: v /* * 12*/ }));
   durationYear!: { name: number; val: number };
-  duration!: number;
+  duration: number = 5;
 
   // - ENDSECTION
 

@@ -1,85 +1,24 @@
 <app-page>
-  <div fxLayout="column" class="page-container">
-
-    <div class="">
-      <h1 class="page-header">{{ 'FINANCE.BUDGET-SELECT.TITLE' | transloco }}</h1>
-      <h2 class="page-sub-header">{{ 'FINANCE.BUDGET-SELECT.SUBTITLE' | transloco }}</h2>
-    </div>
-
-    <div fxFlex>
-      <div fxFlex>
-        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="30px"
-          *ngIf="overview$ | async as overview; else loading" fxFlex>
-          <!-- Active Budgets -->
-          <div fxLayout="column" class="overview-section" fxFlex>
-            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ACTIVE-BUDGETS' | transloco }}</div>
-
-            <div fxFlex>
-              <div *ngIf="overview.inUse.length > 0; else noActiveBudgets">
-                <app-display-budget-record *ngFor="let record of overview.inUse" [record]="record" class="mat-elevation-z8">
-                </app-display-budget-record>
-              </div>
-              <ng-template #noActiveBudgets>
-                <span> {{'BUDGETS.SELECT-BUDGETS.NO-ACTIVE-BUDGETS' | transloco}} </span>
-              </ng-template>
-            </div>
-          </div>
-
-          <!-- My Budgets -->
-          <div fxLayout="column" class="overview-section" fxFlex>
-            <div class="overview-section-title" fxLayout="row" fxLayoutAlign="space-between center">
-              <span>
-                {{ 'FINANCE.BUDGET-SELECT.MY-BUDGETS' | transloco }}
-              </span>
-              <button style="color: white;" (click)="openDialog(false)" mat-raised-button color="accent">
-                {{ 'FINANCE.BUDGET-SELECT.CREATE-NEW' | transloco }}
-              </button>
-            </div>
-
-            <div fxFlex>
-              <div *ngIf="overview.underConstruction.length > 0; else noBudgets" fxFlex>
-                <div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
-                  <div class="my-budget" *ngFor="let record of overview.underConstruction" fxFlex="100">
-                    <app-display-budget-record [record]="record" [canPromote]="canPromote(record)"
-                      (onPromote)="setActive(record)" class="budget-card" fxFlex>
-                    </app-display-budget-record>
-                  </div>
-                </div>
-              </div>
-              <ng-template #noBudgets>
-                <span> {{'BUDGETS.SELECT-BUDGETS.NO-BUDGETS' | transloco}} </span>
-              </ng-template>
-            </div>
-          </div>
-
-          <!-- Archived Budgets -->
-          <div fxLayout="column" class="overview-section" fxFlex>
-            <div class="overview-section-title">{{ 'FINANCE.BUDGET-SELECT.ARCHIVED-BUDGETS' | transloco }}</div>
-
-            <div fxFlex>
-              <div *ngIf="overview.archived.length > 0; else noArchivedBudgets">
-                <app-display-budget-record *ngFor="let record of overview.archived" [record]="record" class="budget-card">
-                </app-display-budget-record>
-              </div>
-              <ng-template #noArchivedBudgets>
-                <span> {{'BUDGETS.SELECT-BUDGETS.NO-ARCHIVED-BUDGETS' | transloco}} </span>
-              </ng-template>
-            </div>
-
-          </div>
+  <div>
+    <kujali-finance-toolbar>
+      <kujali-finance-search-header-card header (toogleFilterEvent)='toogleFilter($event)'
+        (searchTableEvent)='applyFilter($event)' [tableData]="[]">
+        <div add-new>
+          <button mat-flat-button (click)="openDialog(false)" class="add-new">
+            <i class="bi bi-plus-circle-fill"></i>
+            {{'HEADER-ADD-NEW' | transloco}}
+          </button>
         </div>
+      </kujali-finance-search-header-card>
+    </kujali-finance-toolbar>
 
-        <ng-template #loading>
-          <div fxLayout="column" fxLayoutAlign="start center" fxFlexFill>
-            <div style="padding-top: 50px;" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px">
-              <span> {{'BUDGETS.SELECT-BUDGETS.FETCHING-BUDGETS' | transloco}} </span>
-              <mat-spinner diameter="30"></mat-spinner>
-            </div>
-          </div>
-        </ng-template>
-      </div>
+    <div *ngIf="showFilter" class="filter-section">
+      <!-- <kujali-invoices-filter (filterChanged)='fieldsFilter($event)'>
+			</kujali-invoices-filter> -->
     </div>
 
+    <div class="table-container">
+      <app-budget-table [budgets$]="allBudgets$"></app-budget-table>
+    </div>
   </div>
-
 </app-page>

@@ -1,0 +1,75 @@
+table {
+  width: 100%;
+}
+
+.active {
+  color: var(--kujali-color-success-shade);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #6c757d;
+
+  &.primary {
+    background-color: var(--kujali-color-primary-blue);
+  }
+
+  &.secondary {
+    background-color: var(--kujali-color-success-shade);
+  }
+}
+
+.badge:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.status {
+  color: #7d7d7d;
+}
+
+.share-btn {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.mdc-data-table__header-cell {
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.mat-mdc-row:nth-child(odd) {
+  background-color: rgba($color: #2b66b8, $alpha: 0.1) !important;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+::ng-deep .mat-mdc-mini-fab .mat-button-wrapper {
+  padding: 0px !important;
+}

@@ -3,6 +3,31 @@
   box-shadow: none!important;
 }
 
+.search-bar {
+  padding-bottom: 50px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.red-bg {
+  color: red;
+  background-color: rgba($color: red, $alpha: 0.1);
+}
+.green-bg {
+  color: green;
+  background-color: rgba($color: green, $alpha: 0.1);
+}
+
 .trs-heder {
   width: 100%;
   display: flex;

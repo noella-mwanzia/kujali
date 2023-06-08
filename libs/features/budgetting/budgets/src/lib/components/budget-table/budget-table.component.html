@@ -1,0 +1,73 @@
+<table mat-table #sort="matSort" [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+
+  <!-- name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Budget Name </th>
+    <td mat-cell *matCellDef="let row">
+      {{row.name ? row.name : '-' }} <span *ngIf="row.childrenList?.length > 0" class="badge primary"
+        (click)="openChildBudgetDialog(row)"> Linked Budgets ({{ row?.childrenList?.length }}) </span>
+    </td>
+  </ng-container>
+
+  <!-- status Column -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+    <td mat-cell *matCellDef="let row">
+      <span [ngClass]="row.status == 1 ? 'active': 'status'">
+        {{translateStatus(row.status) | transloco}}
+      </span>
+    </td>
+  </ng-container>
+
+  <!-- Start year Column -->
+  <ng-container matColumnDef="startYear">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Year </th>
+    <td mat-cell *matCellDef="let row"> {{row.startYear ? row.startYear : '-'}} </td>
+  </ng-container>
+
+  <!-- end year Column -->
+  <ng-container matColumnDef="endYear">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> End Year </th>
+    <td mat-cell *matCellDef="let row"> {{row.startYear ? row.startYear + row.duration - 1: '-'}}
+    </td>
+  </ng-container>
+
+  <!-- Duration Column -->
+  <ng-container matColumnDef="duration">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration (Years) </th>
+    <td mat-cell *matCellDef="let row"> {{row.duration ? row.duration : '-' }} </td>
+  </ng-container>
+
+  <!-- actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+    <td mat-cell *matCellDef="let row">
+      <div class="budget-btn-container" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
+
+        <button mat-stroked-button (click)="openCloneBudgetDialog(row)" *ngIf="access('clone')">
+          {{ 'BUDGET.VIEW-RECORD.ACTIONS.CLONE'| transloco }}
+        </button>
+
+        <button mat-stroked-button (click)="goToDetail(row.id!, 'view')" *ngIf="access('view')">
+          {{'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco}}
+        </button>
+
+        <button mat-raised-button color="primary" (click)="goToDetail(row.id!, 'edit')" *ngIf="access('edit')">
+          {{ 'BUDGET.VIEW-RECORD.ACTIONS.EDIT' | transloco }}
+        </button>
+
+        <button class="share-btn" mat-mini-fab (click)="openShareBudgetDialog(row)">
+          <i class="fas fa-share-alt"></i>
+        </button>
+
+        <!-- Will only be true on parent since does not get cascaded down below. -->
+        <!-- <div class="budget-btn-container" style="float: right; text-align: right">
+          <button class="btn-promote" (click)="promote()">{{ 'BUDGET.VIEW-RECORD.PROMOTE' | transloco }}</button>
+        </div> -->
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>

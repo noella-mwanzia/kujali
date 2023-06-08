@@ -1,16 +1,14 @@
 <div [formGroup]="invoicesFilterFormGroup" class="filter" fxLayout="row" fxLayoutAlign="start center">
 
-  <div class="search-input" fxFlex="50%">
+  <!-- <div class="search-input" fxFlex="50%">
     <i class="bi bi-funnel-fill"></i>
     <input formControlName="searchControl" type="text" [placeholder]="'HEADER-SEARCH' | transloco">
-  </div>
+  </div> -->
 
-
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="80%">
-    <div class="fields" fxLayout="row" fxLayoutAlign="start center">
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+    <div class="fields" fxLayout="row" fxLayoutAlign="start center" fxFlex>
 
       <!-- Deaadline  -->
-
       <mat-form-field appearance="outline">
         <mat-label>{{"INVOICES.TABLE.DUE-DATE" | transloco}}</mat-label>
         <mat-select formControlName="dateControl">
@@ -69,7 +67,7 @@
 
     </div>
 
-    <div class="clear">
+    <div class="clear" fxFlex="8">
       <p (click)="clearFIlters()">{{"COMPANY.TABLE.CLEAR-FILTERS" | transloco}} ({{filterCount < 1 ? 0 :
           filterCount}})</p>
     </div>

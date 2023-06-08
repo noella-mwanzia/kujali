@@ -37,6 +37,9 @@ export class SearchHeaderCardComponent implements OnDestroy {
       case 'invoices':
         this.page = 'INVOICES.HEADER.INVOICES';
         break;
+      case 'budgets':
+        this.page = 'FINANCE.BUDGET-SELECT.TITLE';
+        break;
       case 'banking':
         this.page = 'BANKING.HEADER.BANKING';
         break
@@ -48,6 +51,9 @@ export class SearchHeaderCardComponent implements OnDestroy {
         break
       case 'companies':
         this.page = 'COMPANY.HEADER.COMPANIES';
+        break
+      case 'payments':
+        this.page = 'PAYMENTS.HEADER.PAYMENTS';
         break
       case 'expenses':
         this.page = 'EXPENSES.HEADER.EXPENSES';

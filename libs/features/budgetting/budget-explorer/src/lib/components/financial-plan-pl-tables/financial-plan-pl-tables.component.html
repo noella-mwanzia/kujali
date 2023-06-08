@@ -1,36 +1,28 @@
-<app-year-focus [title]="'BUDGETTING.LINES.BALANCE'" (navigateYearPressed)="onPressNavigateYear($event)">
+<div style="max-width: 100%;">
+  <app-year-focus [title]="'BUDGETTING.LINES.BALANCE'" (navigateYearPressed)="onPressNavigateYear($event)">
 
-  <app-financial-plan-result-table [state$]="state$" 
-                                   [budgetId]="budgetId"
-                                   (budgetSubmitted)="budgetSubmitted()">
-  </app-financial-plan-result-table>
+    <app-financial-plan-result-table [state$]="state$" [budgetId]="budgetId" (budgetSubmitted)="budgetSubmitted()">
+    </app-financial-plan-result-table>
 
-</app-year-focus>
+  </app-year-focus>
 
-<!-- Income Sheet -->
-<app-year-focus [title]="'BUDGETTING.LINES.INCOME'"
-                [type]="incomeType"
-                [budgetId]="budgetId"
-                (navigateYearPressed)="onPressNavigateYear($event)">
+  <!-- Income Sheet -->
+  <app-year-focus [title]="'BUDGETTING.LINES.INCOME'" [type]="incomeType" [budgetId]="budgetId"
+    (navigateYearPressed)="onPressNavigateYear($event)">
 
-  <app-financial-plan-table classId="income" [type]="incomeType"
-                            [rows$]="incomeDataSource$" [total$]="incomeTotal$"
-                            [isInEditMode]="isInEditMode">
-  </app-financial-plan-table>
-
-</app-year-focus>
-
-<!-- Cost Sheet -->
-<app-year-focus [title]="'BUDGETTING.LINES.COST'"
-                [type]="costType"
-                [budgetId]="budgetId"
-                (navigateYearPressed)="onPressNavigateYear($event)">
-
-    <app-financial-plan-table #costTable 
-                              classId="cost" [type]="costType" 
-                              [rows$]="costDataSource$" [total$]="costTotal$"
-                              [isInEditMode]="isInEditMode">
+    <app-financial-plan-table classId="income" [type]="incomeType" [rows$]="incomeDataSource$" [total$]="incomeTotal$"
+      [isInEditMode]="isInEditMode">
     </app-financial-plan-table>
 
-</app-year-focus>
+  </app-year-focus>
 
+  <!-- Cost Sheet -->
+  <app-year-focus [title]="'BUDGETTING.LINES.COST'" [type]="costType" [budgetId]="budgetId"
+    (navigateYearPressed)="onPressNavigateYear($event)">
+
+    <app-financial-plan-table #costTable classId="cost" [type]="costType" [rows$]="costDataSource$"
+      [total$]="costTotal$" [isInEditMode]="isInEditMode">
+    </app-financial-plan-table>
+
+  </app-year-focus>
+</div>

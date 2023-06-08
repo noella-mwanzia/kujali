@@ -26,7 +26,7 @@ export class PaymentsPageComponent implements OnInit, AfterViewInit {
 
   private _sbS = new SubSink();
 
-  displayedColumns: string[] = ['bankIcon', 'fromAccName', 'toAccName', 'amount', 'source', 'mode', 'trStatus', 'allocStatus', 'actions'];
+  displayedColumns: string[] = ['bankIcon', 'fromAccName', 'toAccName', 'amount', 'type', 'source', 'allocStatus', 'actions'];
 
   dataSource = new MatTableDataSource();
 
@@ -65,6 +65,19 @@ export class PaymentsPageComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  fieldsFilter(value: (Payment) => boolean) {    
+    // this.filter$$.next(value);
+  }
+
+  toogleFilter(value) {
+    this.showFilter = value
+  }
+
   flatMapTransactionsAndPayments(trs: BankTransaction[], pAllocs: PaymentAllocation[]) {
     let trsAndPayments = trs.map((tr) => {
       let paymentAlloc = pAllocs.find((p) => p.id === tr.id);
@@ -88,6 +101,8 @@ export class PaymentsPageComponent implements OnInit, AfterViewInit {
       data: row
     });
   }
+
+  createPayment() {}
 
   updatePontoTrs() { }
 }

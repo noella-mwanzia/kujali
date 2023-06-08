@@ -19,47 +19,45 @@
       Parents: {{ childBudget.overrideList.join(', ') }} - {{ childBudget.name }}
     </div>
 
-    <h4 class="modal-fields-title">{{ 'BUDGET.CREATE.HDR-FLD-BUDGET-NAME' | transloco }}</h4>
 
-    <div fxFlex>
-      <mat-form-field fxFlex>
-        <mat-label>{{ 'BUDGET.CREATE.FLD-BUDGET-NAME' | transloco }}</mat-label>
-        <input matInput [(ngModel)]="budgetName" name="budgetName">
+    <div fxLayout="column" fxFlex>
+      <h4>{{ 'BUDGET.CREATE.HDR-FLD-BUDGET-NAME' | transloco }}</h4>
+      <mat-form-field appearance="outline" fxFlex>
+        <input matInput [(ngModel)]="budgetName" name="budgetName" placeholder="New Budget">
       </mat-form-field>
     </div>
 
-    <h4 class="modal-fields-title">{{ 'BUDGET.CREATE.FLD-DUR' | transloco }}</h4>
-
-    <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
-      <div fxFlex="50">
-        <mat-form-field fxFLex>
-          <mat-label>{{ 'BUDGET.CREATE.FLD-START-YR' | transloco }}</mat-label>
-          <mat-select [(ngModel)]="startYear" name="startYear" #categoryYF="ngModel" placeholder="Start Year" required
-            fxFLex>
-            <mat-option *ngFor="let year of years" [value]="year">
-              {{ year }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="50">
-        <mat-form-field fxFlex>
-          <mat-label>{{ 'BUDGET.CREATE.FLD-DUR' | transloco }}</mat-label>
-          <mat-select [(ngModel)]="duration" name="duration" placeholder="Duration In Years" required>
-            <mat-option *ngFor="let year of inYears" [value]="year.val">
-              {{ year.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+    <div fxLayout="column" fxFlex>
+      <h4> Start Year & Duration </h4>
+      <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+        <div fxFlex="50">
+          <mat-form-field appearance="outline" fxFLex>
+            <mat-select [(ngModel)]="startYear" name="startYear" #categoryYF="ngModel" placeholder="Start Year" required
+              fxFLex>
+              <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div fxFlex="50">
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-select [(ngModel)]="duration" name="duration" placeholder="Duration In Years" required>
+              <mat-option *ngFor="let year of inYears" [value]="year.val">
+                {{ year.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
     </div>
 
     <div class="sm-divider"></div>
 
-    <button fxLayout="row" fxLayoutAlign="center center" type="submit" [disabled]="form.invalid" class="btn-submit"
+    <button fxLayout="row" fxLayoutAlign="center center" type="submit" [disabled]="form.invalid || isSaving" class="btn-submit"
       mat-raised-button color="primary">
-      <span> {{ 'BUDGET.CREATE.BTN-SUBMIT' | transloco }} </span>
+      <span *ngIf="!isSaving"> {{ 'BUDGET.CREATE.BTN-SUBMIT' | transloco }} </span>
       <mat-spinner *ngIf="isSaving" diameter="20"></mat-spinner>
     </button>
 

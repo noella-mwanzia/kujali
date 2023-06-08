@@ -63,7 +63,7 @@ export class FinancialPlanTableComponent implements OnInit
   {
     this.budgetId = this._router$$.url.split('/')[2];
     // Initialise columns
-    this.columns = ['transactionCat'].concat(this.nameField ? ['transactionType'] : [])
+    this.columns = ['transactionCat'].concat(this.nameField ? [] : [])
                                      .concat(MONTHS.map((m) => m.slug))
                                     .concat('total').concat('action');
 
