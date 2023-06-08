@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat; 
+@use '@angular/material' as mat;
 
 @import '_theme';
 @import '_variables';
@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'segoe-ui';
   src: url('assets/fonts/segoe-ui-font/SegoeUI.woff2') format('woff2'),
-        url('assets/fonts/segoe-ui-font/SegoeUI.woff') format('woff');
+    url('assets/fonts/segoe-ui-font/SegoeUI.woff') format('woff');
   font-weight: 600;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @font-face {
   font-family: 'segoe-ui-bold';
   src: url('assets/fonts/segoe-ui-font/SegoeUI-Bold.woff2') format('woff2'),
-        url('assets/fonts/segoe-ui-font/SegoeUI-Bold.woff') format('woff');
+    url('assets/fonts/segoe-ui-font/SegoeUI-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
@@ -23,7 +23,7 @@
 @font-face {
   font-family: 'segoe-ui-bold-italic';
   src: url('assets/fonts/segoe-ui-font/SegoeUI-BoldItalic.woff2') format('woff2'),
-        url('assets/fonts/segoe-ui-font/SegoeUI-BoldItalic.woff') format('woff');
+    url('assets/fonts/segoe-ui-font/SegoeUI-BoldItalic.woff') format('woff');
   font-weight: bold;
   font-style: italic;
 }
@@ -31,7 +31,7 @@
 @font-face {
   font-family: 'segoe-ui-semi-bold';
   src: url('assets/fonts/segoe-ui-font/SegoeUI-SemiBold.woff2') format('woff2'),
-        url('assets/fonts/segoe-ui-font/SegoeUI-SemiBold.woff') format('woff');
+    url('assets/fonts/segoe-ui-font/SegoeUI-SemiBold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
 }
@@ -39,7 +39,7 @@
 @font-face {
   font-family: 'segoe-ui-light';
   src: url('assets/fonts/segoe-ui-font/SegoeUI-Light.woff2') format('woff2'),
-        url('assets/fonts/segoe-ui-font/SegoeUI-Light.woff') format('woff');
+    url('assets/fonts/segoe-ui-font/SegoeUI-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
 }
@@ -50,9 +50,12 @@ body {
   height: 100%;
 }
 
+* {
+  font-family: "Poppins", sans-serif!important;
+}
+
 body {
   margin: 0;
-  // font-family: "Lato", sans-serif;
   // background-color: #F2F6F9
 }
 
@@ -113,8 +116,8 @@ a:focus {
 }
 
 .add-new {
-  background-color: var(--kujali-color-primary-blue)!important;
-  color: white!important;
+  background-color: var(--kujali-color-primary-blue) !important;
+  color: white !important;
 }
 
 /*
@@ -181,5 +184,12 @@ a:focus {
     padding: 20px 5px;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

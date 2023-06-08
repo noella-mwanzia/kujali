@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.input-height {
+  height: 40px;
+  margin: 10px 0px;
+}
+
 .invoice-products {
   padding: 50px 0px 50px 0px;
 }
@@ -45,11 +50,6 @@
   text-decoration: underline;
 }
 
-.add-item {
-  color: var(--kujali-color-primary-blue);
-  text-decoration: underline;
-}
-
 .totals > p {
   font-weight: bolder;
   font-size: 1.2rem;
@@ -61,10 +61,6 @@
   font-weight: bolder;
   font-size: 1.5rem;
 }
-
-// ::ng-deep .invoice-products .invoice-form-fields .mat-mdc-form-field-wrapper {
-//   padding-bottom: 0;
-// }
 
 .cdk-drag-preview {
   box-sizing: border-box;

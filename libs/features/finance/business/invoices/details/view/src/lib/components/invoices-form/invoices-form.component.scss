@@ -43,22 +43,22 @@
   border-bottom: solid #C7CDD7 1px;
 }
 
-::ng-deep .mat-mdc-form-field {
+::ng-deep .invoices-page .mat-mdc-form-field {
   width: 100%!important;
 }
 
-::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+::ng-deep .invoices-page .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
 .mat-mdc-form-field-infix {
   padding-top: 8px!important;
   padding-bottom: 0px!important;
 }
 
-::ng-deep .mat-mdc-form-field-infix {
+::ng-deep .invoices-page .mat-mdc-form-field-infix {
   min-height: 40px!important;
   max-height: 40px!important;
 }
 
-::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+::ng-deep .invoices-page .mat-mdc-icon-button.mat-mdc-button-base {
   height: 40px!important;
   padding: 7px!important;
 }
