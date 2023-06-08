@@ -1,13 +1,14 @@
 <div class="filter" fxLayout="row" fxLayoutAlign="start center">
 
-  <div class="search-input">
-    <i class="bi bi-funnel-fill"></i>
-    <input [formControl]="searchControl" type="text" [placeholder]="'HEADER-SEARCH' | transloco">
+  <div fxFlex="50">
+    <mat-form-field appearance="outline" fxFlex="70">
+      <input matInput [formControl]="searchControl" type="text" [placeholder]="'HEADER-SEARCH' | transloco">
+    </mat-form-field>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex>
+  <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
 
-    <div class="fields" fxLayout="row" fxLayoutAlign="start center">
+    <div class="fields" fxLayout="row" fxLayoutAlign="start center" fxFlex="80">
       <!-- field one  -->
       <mat-form-field appearance="outline">
         <mat-label>{{"CONTACT.TABLE.COMPANY" | transloco}}</mat-label>
