@@ -1,6 +1,21 @@
-//table 
-::ng-deep .mat-elevation-z8 {
-  box-shadow: none;
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #6c757d;
+
+  &.new {
+    background-color: var(--kujali-color-primary-blue);
+  }
+
+  &.paid {
+    background-color: var(--kujali-color-primary-shade);
+  }
 }
 
 td.mat-column-title {
@@ -13,15 +28,15 @@ td.mat-column-imageurl {
 }
 
 .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue) !important;
-  color: white !important;
-  font-weight: 500;
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
   font-size: 1.1rem;
 }
 
-.mat-mdc-row:nth-child(odd) {
-  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
 }
+
 
 .mat-mdc-row:hover .mat-mdc-cell {
   background-color: #eee;
@@ -30,4 +45,9 @@ td.mat-column-imageurl {
 
 .mat-mdc-form-field {
   width: 100% !important;
+}
+
+//table 
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
 }

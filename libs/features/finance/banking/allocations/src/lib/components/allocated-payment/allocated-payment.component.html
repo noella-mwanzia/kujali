@@ -1,6 +1,6 @@
 <app-invoices-table [invoices]="invoices" (selectedInvoice)="invoicesSelected($event)"></app-invoices-table>
 
-<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+<div style="padding: 30px 0px;" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
 
   <button [disabled]="deAllocating" mat-stroked-button>
     Cancel

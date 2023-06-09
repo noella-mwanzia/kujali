@@ -23,9 +23,11 @@ export class AllocatedInvoiceComponent implements OnInit {
   constructor(private allocsService: AllocationsStateService) { }
 
   ngOnInit(): void {
-    this.invAllocElements = this.invoice.elements;
-    const elemntIds = this.invAllocElements.map((allocElement: InvoiceAllocationElement) => allocElement.withId);
-    this.payments = this.payments.filter((payment) => elemntIds.includes(payment.id!));
+    if (this.payments) {
+      this.invAllocElements = this.invoice.elements;
+      const elemntIds = this.invAllocElements.map((allocElement: InvoiceAllocationElement) => allocElement.withId);      
+      this.payments = this.payments.filter((payment) => elemntIds.includes(payment.id!));
+    }
   }
 
   paymentSelected(paymentData: { checked: boolean, payment: Payment }) {

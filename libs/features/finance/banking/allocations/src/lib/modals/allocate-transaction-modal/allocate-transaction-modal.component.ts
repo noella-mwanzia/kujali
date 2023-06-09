@@ -44,7 +44,6 @@ export class AllocateTransactionModalComponent implements OnInit {
     this._sbS.sink = combineLatest([invoiceAllocs$, this._invoices$$.getAllInvoices()])
                                   .pipe(
                                     map(([invAllocs, invoices]) => this.flatMapTransactionsAndPayments(invoices, invAllocs)),
-                                    map((data) => data.filter((inv) => inv.allocStatus !== 1)),
                                     tap((data) => {this.allInvoices = data; this.invoicesLoaded = true}))
                                   .subscribe();
   }

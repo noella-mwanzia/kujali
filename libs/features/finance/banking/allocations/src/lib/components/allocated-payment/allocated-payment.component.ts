@@ -23,8 +23,8 @@ export class AllocatedPaymentComponent {
   constructor(private allocsService: AllocationsStateService) { }
 
   ngOnInit(): void {
-    this.payAllocElements = this.payment.elements;
-    const elemntIds = this.payAllocElements.map((allocElement: PaymentAllocationElement) => allocElement.withId);
+    this.payAllocElements = this.payment.elements;    
+    const elemntIds = this.payAllocElements.map((allocElement: PaymentAllocationElement) => allocElement.withId);    
     this.invoices = this.invoices.filter((invoice) => elemntIds.includes(invoice.id!));
   }
 
