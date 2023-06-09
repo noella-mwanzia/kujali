@@ -20,7 +20,6 @@ import { iTalPageModule } from '@app/elements/layout/page';
 import { BudgetPlanningFeatureModule } from '@app/features/budgetting/budget-planning';
 import { BudgetExplorerBurnchartModule } from '@app/features/budgetting/budget-explorer-burnchart';
 
-import { BudgetExplorerRouter } from './budget-explorer-router';
 
 import { YearFocusComponent } from './components/year-focus/year-focus.component';
 
@@ -28,10 +27,15 @@ import { FinancialPlanPlTablesComponent } from './components/financial-plan-pl-t
 import { FinancialPlanTableComponent } from './components/financial-plan-table/financial-plan-table.component';
 import { FinancialPlanResultTableComponent } from './components/financial-plan-result-table/financial-plan-result-table.component';
 import { LinkBudgetModalComponent } from './components/link-budget-modal/link-budget-modal.component';
+import { BudgetHierarchyTreeComponent } from './components/budget-hierarchy-tree/budget-hierarchy-tree.component';
 
 import { FinancialPlanExplorerPageComponent } from './pages/financial-plan-explorer/financial-plan-explorer.component';
-import { BudgetHierarchyTreeComponent } from './components/budget-hierarchy-tree/budget-hierarchy-tree.component';
+
+import { PromptSaveBudgetChangesComponent } from './modals/prompt-save-budget-changes/prompt-save-budget-changes.component';
+
 import { ChecklistDatabase } from './providers/budget-tree.provider';
+
+import { BudgetExplorerRouter } from './budget-explorer-router';
 
 @NgModule({
   imports: [
@@ -52,13 +56,10 @@ import { ChecklistDatabase } from './providers/budget-tree.provider';
     BudgetPlanningFeatureModule,
 
     BudgetRenderingStateModule,
-    BudgetExplorerRouter
+    BudgetExplorerRouter,
   ],
 
-  providers: [
-    FinancialPlanExplorerPageComponent,
-    ChecklistDatabase
-  ],
+  providers: [FinancialPlanExplorerPageComponent, ChecklistDatabase],
 
   declarations: [
     FinancialPlanExplorerPageComponent,
@@ -70,6 +71,7 @@ import { ChecklistDatabase } from './providers/budget-tree.provider';
     FinancialPlanResultTableComponent,
     LinkBudgetModalComponent,
     BudgetHierarchyTreeComponent,
+    PromptSaveBudgetChangesComponent,
     // FinancialPlanBurnChartComponent,
 
     // FinancialPlanPlTablesComponent, FinancialPlanResultTableComponent,

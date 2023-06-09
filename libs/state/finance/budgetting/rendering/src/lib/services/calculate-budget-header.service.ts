@@ -23,6 +23,6 @@ export class CalculateBudgetHeaderService {
 
   _bdgtCalculateHeader(budget: Budget, plans: TransactionPlan[]) {
     let budgetData = {budget: budget, plans: plans};
-    this._bs.httpsCallable('bdgtCalculateHeaderOnSaveBudget')(budgetData).subscribe();
+    return this._bs.httpsCallable('bdgtCalculateHeaderOnSaveBudget')(budgetData);
   }
 }
