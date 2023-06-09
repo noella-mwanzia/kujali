@@ -5,10 +5,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { round as __round } from 'lodash';
+import { Timestamp } from '@firebase/firestore-types';
+
+import { __DateFromStorage } from '@iote/time';
 
 import { Invoice } from '@app/model/finance/invoices';
-import { Timestamp } from '@firebase/firestore-types';
-import { __DateFromStorage } from '@iote/time';
 
 import { CALCULATE_INVOICE_TOTAL } from '@app/state/finance/invoices';
 

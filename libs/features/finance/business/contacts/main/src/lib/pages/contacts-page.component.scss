@@ -67,14 +67,13 @@ td.mat-column-imageurl {
 }
 
 .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue)!important;
-  color: white!important;
-  font-weight: 500;
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
   font-size: 1.1rem;
 }
 
-.mat-mdc-row:nth-child(odd) {
-  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {

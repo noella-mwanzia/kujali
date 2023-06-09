@@ -58,7 +58,8 @@ export class AllocatePaymentsToInvoiceComponent {
                         .pipe(
                           filter(([trs, pAllocs]) => !!trs && !!pAllocs),
                           map(([trs, pAllocs]) => this.flatMapTransactionsAndPayments(trs, pAllocs)),
-                          tap((data) => { this.allPayments = data; this.paymentsLoaded = true}))
+                          tap((data) => { this.allPayments = data }),
+                          tap(() => this.paymentsLoaded = true))
                         .subscribe();
   }
 
@@ -67,7 +68,8 @@ export class AllocatePaymentsToInvoiceComponent {
       const paymentAlloc = pAllocs.find((p) => p.id === tr.id);
       return __merge(tr, paymentAlloc);
     })
-    return trsAndPayments.filter((tr) => tr.allocStatus !== 1);
+
+    return trsAndPayments;
   }
 
   paymentSelected(paymentData: {checked: boolean, payment: Payment}) {
