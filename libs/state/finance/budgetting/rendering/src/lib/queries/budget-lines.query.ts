@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
-import { catchError, Observable, throwError } from "rxjs";
+import { catchError, combineLatest, Observable, throwError } from "rxjs";
 
-import { DataService } from "@ngfi/angular";
+import { DataService, Repository } from "@ngfi/angular";
 
 import { Budget } from "@app/model/finance/planning/budgets";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
@@ -45,24 +45,31 @@ export class BudgetPlansQuery
   savePlans(budget: Budget, plans: TransactionPlan[]) {
     const repo = this._db.getRepo<TransactionPlan>(`orgs/${budget.orgId}/budgets/${budget.id}/plans`);
     
-    plans.map((plan: TransactionPlan) => {
-      repo.create(plan as TransactionPlan, plan.id)
-      .pipe(catchError((err) => {
-        return throwError(() => new Error(err))}))
-      .subscribe({
+    if (plans.length > 0) { 
+      const plans$ = plans.map((plan: TransactionPlan) => 
+      this.createTransactions(repo, plan).subscribe({
         error: (err: Error) => {
           if (err.message.includes('id already exists')) {
             repo.update(plan).subscribe();
           }
         },
-      });
-    })
+        complete() {
+          console.log('completed saving budget records');
+        },
+      })
+      );
+      return combineLatest([plans$, this._updateHeaders(budget, plans)]);
+    }
 
-    this._updateHeaders(budget, plans);
+    return this._updateHeaders(budget, plans);
+  }
+
+  createTransactions(repo: Repository<TransactionPlan>, plan: TransactionPlan) {
+    return repo.create(plan as TransactionPlan, plan.id).pipe(catchError((err) => throwError(() => new Error(err))))
   }
 
   private _updateHeaders(budget: Budget, plans: TransactionPlan[]) {
-    this._budgetHeaderService._bdgtCalculateHeader(budget, plans);
+    return this._budgetHeaderService._bdgtCalculateHeader(budget, plans);
   }
 
   // TODO(jrosseel): Add back override functionality

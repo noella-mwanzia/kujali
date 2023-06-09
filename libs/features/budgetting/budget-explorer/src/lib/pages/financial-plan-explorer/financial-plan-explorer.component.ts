@@ -10,6 +10,7 @@ import { FinancialExplorerState } from '@app/model/finance/planning/budget-rende
 
 import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 import { BudgetLockService } from '@app/state/finance/budgetting/rendering';
+import { GET_BUDGET_STATUS } from '../../providers/transalate-status.provider';
 
 /**
  * This page visualises the Budget Explorer, which is the core feature of this application.
@@ -98,32 +99,12 @@ export class FinancialPlanExplorerPageComponent implements OnInit, OnDestroy
   }
 
   setYear(year: number) {
-    // Emit change in year.
     this.year = year;
     this._state$$.setYear(this.year);
   }
-
-  submitBudget() {
-    this._state$$.submitBudget();
-  }
-
+  
   translateStatus(status: number) {
-    switch (status) {
-      case 1:
-        return 'BUDGET.STATUS.ACTIVE';
-
-      case 0:
-        return 'BUDGET.STATUS.DESIGN';
-
-      case 9:
-        return 'BUDGET.STATUS.NO-USE';
-
-      case -1:
-        return 'BUDGET.STATUS.DELETED';
-
-      default:
-        return '';
-    }
+    return GET_BUDGET_STATUS(status);
   }
 
   ngOnDestroy () {

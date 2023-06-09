@@ -1,0 +1,6 @@
+<h1 mat-dialog-title> <i style="color: red" class="fas fa-exclamation-triangle"></i> Unsaved Changes</h1>
+<div mat-dialog-content> Do you want to save changes on your budget? </div>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button color="warn" mat-dialog-close>No</button>
+  <button mat-raised-button color="primary" (click)="saveBudgetChanges()">Yes</button>
+</div>

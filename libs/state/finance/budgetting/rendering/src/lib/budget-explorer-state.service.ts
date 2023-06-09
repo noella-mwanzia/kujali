@@ -73,10 +73,12 @@ export class FinancialExplorerStateService
   /** Triggers an update to the state, meaning something changed in  */
   private _triggerUpdate = () => this._state$$.next(this._state);
 
+  public getState = () => this._state;
+
   //
   // SECTION - UPDATE STATE
   // 
-
+  
   public setYear(year: number) {
     this._state.year = year;
     this._triggerUpdate();
@@ -206,11 +208,10 @@ export class FinancialExplorerStateService
     let state$ = this._state$$;
     let plans$ = this._budgetPlan$$.getTransactionPlans$();
 
-    return combineLatest(([state$, plans$])).pipe(take(1)).subscribe(([state, plans]) => {
-      if (state && plans) {
-        this._budgetPlans$.savePlans(state.budget, plans);
-      }
-    })
+    return combineLatest(([state$, plans$]))
+              .pipe(take(1)).pipe(
+                filter(([state, plans]) => !!state && !!plans),
+                switchMap(([state, plans]) =>  this._budgetPlans$.savePlans(state.budget, plans)));
   }
 
   activateBudget() {
