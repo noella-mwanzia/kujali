@@ -11,14 +11,13 @@ table {
 }
 
 .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue)!important;
-  color: white!important;
-  font-weight: 500;
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
   font-size: 1.1rem;
 }
 
-.mat-mdc-row:nth-child(odd) {
-  background-color: rgba($color: #2b66b8, $alpha: 0.1);
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
@@ -30,7 +29,9 @@ table {
   box-shadow: none;
 }
 
-#activate-div{display:none}    
+#activate-div {
+  display: none
+}
 
 .grid-list {
   background-color: #DEE5F1;
@@ -38,20 +39,22 @@ table {
   color: #C6CDD8;
   border-radius: 5px;
 }
-.grid-list i{
+
+.grid-list i {
   font-size: 20px;
 }
-.grid-list i:first-of-type{
+
+.grid-list i:first-of-type {
   background-color: #C5E0FD;
   color: var(--kujali-color-primary);
 }
-#activate-div:checked ~ label 
-.grid-list i:last-of-type   {
+
+#activate-div:checked~label .grid-list i:last-of-type {
   background-color: #C5E0FD;
   color: var(--kujali-color-primary);
 }
-#activate-div:checked ~ label 
-.grid-list i:first-of-type   {
+
+#activate-div:checked~label .grid-list i:first-of-type {
   background-color: #DEE5F1;
   color: #C6CDD8;
 }
@@ -63,7 +66,7 @@ table {
   background-color: var(--kujali-color-text-black);
 }
 
-.mydiv:hover + .hide {
+.mydiv:hover+.hide {
   padding: 2px;
   border-radius: 5px;
   display: block;
@@ -81,10 +84,12 @@ table {
   width: fit-content;
   color: var(--kujali-color-primary);
 }
+
 .vl {
   border-left: 5px solid white;
   height: 20px;
 }
+
 .extra-tag {
   color: var(--kujali-color-primary);
 }
