@@ -2,39 +2,37 @@ table {
   width: 100%;
 }
 
-.active {
-  color: var(--kujali-color-success-shade);
-}
-
 .badge {
   display: inline-block;
   padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
   color: #fff;
-  background-color: #6c757d;
 
   &.primary {
+    font-size: 75%;
     background-color: var(--kujali-color-primary-blue);
   }
 
   &.secondary {
     background-color: var(--kujali-color-success-shade);
   }
+
+  &.active {
+    background-color: var(--kujali-color-success-shade);
+  }
+
+  &.draft {
+    background-color: #7d7d7d;
+  }
 }
 
 .badge:hover {
   cursor: pointer;
   text-decoration: underline;
-}
-
-.status {
-  color: #7d7d7d;
 }
 
 .share-btn {
@@ -44,21 +42,13 @@ table {
 }
 
 .mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue) !important;
-  color: white !important;
-  font-weight: 500;
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
   font-size: 1.1rem;
 }
 
-.mdc-data-table__header-cell {
-  background-color: var(--kujali-color-primary-blue) !important;
-  color: white !important;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.mat-mdc-row:nth-child(odd) {
-  background-color: rgba($color: #2b66b8, $alpha: 0.1) !important;
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
