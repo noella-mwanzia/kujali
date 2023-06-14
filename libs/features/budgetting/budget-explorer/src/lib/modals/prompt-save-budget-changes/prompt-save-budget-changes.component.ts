@@ -1,16 +1,32 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FinancialExplorerStateService } from '@app/state/finance/budgetting/rendering';
 
 @Component({
   selector: 'app-prompt-save-budget-changes',
   templateUrl: './prompt-save-budget-changes.component.html',
   styleUrls: ['./prompt-save-budget-changes.component.scss'],
 })
+
 export class PromptSaveBudgetChangesComponent {
 
-  constructor(public dialogRef: MatDialogRef<PromptSaveBudgetChangesComponent>){ }
+  savingBugetChanges: boolean = false;
+
+  savedSuccessfully: boolean = false;
+
+  constructor(private _eXState$$: FinancialExplorerStateService,
+              public dialogRef: MatDialogRef<PromptSaveBudgetChangesComponent>){ }
 
   saveBudgetChanges() {
     this.dialogRef.close({event: 'saveChanges'});
+  }
+
+  saveBudgetChangesAndClose() {
+    this.savingBugetChanges = true;
+    this._eXState$$.submitBudget().subscribe(() => {
+      this.savingBugetChanges = false;
+      this.savedSuccessfully = true;
+      setTimeout(() => this.dialogRef.close({event: 'saveChangesAndClose'}), 1000);
+    });
   }
 }
