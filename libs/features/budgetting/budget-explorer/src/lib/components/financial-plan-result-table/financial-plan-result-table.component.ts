@@ -68,8 +68,8 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
 
   promptUserToSaveChanges() {
     this._dialog.open(PromptSaveBudgetChangesComponent, { disableClose: true }).afterClosed().subscribe((option) => {
-      if (option.event === 'saveChanges')
-        this.submitBudget();
+      // if (option.event === 'saveChanges')
+      //   this.submitBudget();
     })
   }
 
