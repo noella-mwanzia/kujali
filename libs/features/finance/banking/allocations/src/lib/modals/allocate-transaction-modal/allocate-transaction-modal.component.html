@@ -41,7 +41,7 @@
           <span>A list of all your invoices</span>
         </div>
 
-        <button mat-raised-button color="primary">
+        <button *ngIf="payment.allocStatus !== 1" mat-raised-button color="primary">
           <i class="fa-solid fa-plus fa-lg"></i>
           <span style="margin-left: 10px;">New Invoice</span>
         </button>
