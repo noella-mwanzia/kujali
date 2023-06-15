@@ -2,7 +2,7 @@
   <div class="headers" fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px">
 
     <div fxLayout="column">
-      <h4>Budget Name</h4>
+      <h4>Name <span class="h4">(Active budgets)</span> </h4>
       <mat-form-field appearance="outline">
         <mat-select (selectionChange)="budgetChanged($event)" [(ngModel)]="activeBudget">
           <mat-option *ngFor="let budget of budgets" [value]="budget">
