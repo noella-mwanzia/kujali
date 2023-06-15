@@ -99,7 +99,8 @@
       "TYPE" : "Type",
       "VAT" : "Vat",
       "NOTE" : "Note",
-      "PLAN": "Cost"
+      "PLAN": "Cost",
+      "NAME": "Name"
     },
     "CREATE-BANK-ACCOUNT" : {
       "NAME": "Name",
