@@ -26,7 +26,7 @@ export class PaymentsPageComponent implements OnInit, AfterViewInit {
 
   private _sbS = new SubSink();
 
-  displayedColumns: string[] = ['bankIcon', 'fromAccName', 'toAccName', 'amount', 'type', 'source', 'allocStatus', 'actions'];
+  displayedColumns: string[] = ['bankIcon', 'fromAccName', 'toAccName', 'amount', 'source', 'mode', 'trStatus', 'actions'];
 
   dataSource = new MatTableDataSource();
 

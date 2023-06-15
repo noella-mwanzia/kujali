@@ -20,6 +20,14 @@
       <div *ngIf="dataIsReady" class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
           <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let expense" (click)="viewExpense(expense.id)">
+                      <div>{{expense.name}}</div>
+                  </td>
+              </ng-container>
+
               <!-- Budget Name Column -->
               <ng-container matColumnDef="budget">
                   <th mat-header-cell *matHeaderCellDef> Budget </th>
@@ -62,16 +70,6 @@
                   </th>
                   <td mat-cell *matCellDef="let expense" (click)="viewExpense(expense.id)">
                       <div *ngIf="expense.to; else dash">{{ getPlanName(expense.to) }}</div>
-                      <ng-template #dash> - </ng-template>
-                  </td>
-              </ng-container>
-
-              <!-- note Column -->
-              <ng-container matColumnDef="note">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Note
-                  </th>
-                  <td mat-cell *matCellDef="let expense" (click)="viewExpense(expense.id)">
-                      <div *ngIf="expense.note; else dash">{{ expense.note }}</div>
                       <ng-template #dash> - </ng-template>
                   </td>
               </ng-container>

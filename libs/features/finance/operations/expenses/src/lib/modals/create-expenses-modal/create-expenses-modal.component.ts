@@ -14,6 +14,7 @@ import { CostTypesStore } from '@app/state/finance/cost-types';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
 import { BudgetPlansQuery } from '@app/state/finance/budgetting/rendering';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-expenses-modal',
@@ -43,6 +44,7 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
   activePlan: TransactionPlan;
 
   constructor(private _fb: FormBuilder,
+              private _dialog: MatDialog,
               private _costTypes$$: CostTypesStore,
               private _plans$$: BudgetPlansQuery,
               private _budgetsStateService$$: BudgetsStateService,
@@ -51,6 +53,8 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.addNewExpenseFormGroup = this.buildExpensesForm();
+    this.addNewExpenseFormGroup.controls['category'].disable();
+    this.addNewExpenseFormGroup.controls['type'].disable();
     this.getModalData();
   }
 
@@ -109,11 +113,15 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
 
   submitExpense() {
     this.creatingExpense = true;
-    this._expensesStateService.createExpense(this.addNewExpenseFormGroup).subscribe(() => this.creatingExpense = false);
+    this._expensesStateService.createExpense(this.addNewExpenseFormGroup).subscribe(() => {
+      this.creatingExpense = false;
+      this._dialog.closeAll();
+    });
   }
 
   buildExpensesForm(): FormGroup {
     return this._fb.group({
+      name: [''],
       budget: [''],
       plan: [''],
       date: [this.activeExpenseDate],

@@ -66,13 +66,7 @@
             </span>
           </td>
         </ng-container>
-
-        <!-- Mode Column -->
-        <ng-container matColumnDef="allocStatus">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Alloc </th>
-          <td mat-cell *matCellDef="let row"> {{row?.allocStatus ? row?.allocStatus : '-'}} </td>
-        </ng-container>
-
+    
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
