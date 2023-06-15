@@ -45,10 +45,24 @@
           <td mat-cell *matCellDef="let row"> {{row.toAccName ? row.toAccName : '-' }} </td>
         </ng-container>
 
+        <!-- Mode Column -->
+        <!-- <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+          <td mat-cell *matCellDef="let row">
+            <span class="badge" [ngClass]="row.mode == 1 ? 'green-bg' : 'red-bg' ">
+              {{row.mode ? row.mode == 1 ? 'Income' : 'Cost' : '-'}}
+            </span>
+          </td>
+        </ng-container> -->
+    
         <!-- Amount Column -->
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
-          <td mat-cell *matCellDef="let row"> {{row.amount ? row.amount : '-'}} </td>
+          <td mat-cell *matCellDef="let row"> 
+            <span class="badge" [ngClass]="row.mode == 1 ? 'green-bg' : 'red-bg' ">
+              {{row.amount ? row.amount : '-' }}
+            </span>
+          </td>
         </ng-container>
 
         <!-- Source Column -->
@@ -57,16 +71,6 @@
           <td mat-cell *matCellDef="let row"> {{row.source ? row.source === 2 ? 'Ponto' : 'Cash' : '-'}} </td>
         </ng-container>
 
-        <!-- Mode Column -->
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-          <td mat-cell *matCellDef="let row">
-            <span class="badge" [ngClass]="row.mode == 1 ? 'green-bg' : 'red-bg' ">
-              {{row.mode ? row.mode == 1 ? 'Income' : 'Cost' : '-'}}
-            </span>
-          </td>
-        </ng-container>
-    
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
