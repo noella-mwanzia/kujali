@@ -27,3 +27,4 @@ export * from './app/finance/manage/common/allocation.function';
 export * from './app/finance/manage/common/deallocation.function';
 export * from './app/finance/manage/invoices/allocate-payments-to-invoice.function';
 export * from './app/finance/manage/payments/allocate-invoices-to-payment.function';
+export * from './app/finance/manage/metabase/get-metabase-url.function';
