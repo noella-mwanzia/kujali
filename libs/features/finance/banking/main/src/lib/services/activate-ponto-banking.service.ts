@@ -31,7 +31,7 @@ export class ActivatePontoBankingService {
 
     const queryParams =
       new HttpParams()
-        .set('client_id', '4c2790ba-5c8f-44e8-aa0f-d7409cc11b1c')
+        .set('client_id', '7af1b5ee-6b0a-4492-923f-2426ef28e8ad')
         .set('redirect_uri', `http://localhost:4200/operations/banking/connect-ponto`)
         .set('response_type', 'code')
         // Specified by Ibanity

@@ -14,10 +14,12 @@ import { AllocateWithType } from '@app/model/finance/allocations';
 export interface ExpensesAllocationElement extends IObject
 {
 
-  budgetLineId: string;
+  withId: string;
 
   /** Transaction type of allocation-fulfill. */
-  allocType?: AllocateWithType;
+  withType: AllocateWithType;
+
+  allocDate: Timestamp | Date;
 
   /** Amount allocated to the invoice. */
   allocAmount: number;

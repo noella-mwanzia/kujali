@@ -1,0 +1,53 @@
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #6c757d;
+
+  &.new {
+    background-color: var(--kujali-color-primary-blue);
+  }
+
+  &.paid {
+    background-color: var(--kujali-color-primary-shade);
+  }
+}
+
+td.mat-column-title {
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+}
+
+td.mat-column-imageurl {
+  padding-top: 5px;
+}
+
+.mdc-data-table__header-cell {
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
+}
+
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.mat-mdc-form-field {
+  width: 100% !important;
+}
+
+//table 
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}

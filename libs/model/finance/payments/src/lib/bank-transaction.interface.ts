@@ -14,11 +14,11 @@ export interface BankTransaction extends FTransaction, PaymentBase {
   /**
    * The origin of the payment: i.e Manual / Swan / Ponto
    */
-   source?: PaymentSources;
+  source?: PaymentSources;
 
-   cursor?: string;
+  cursor?: string;
 
-   originalTransaction: any;
+  originalTransaction: any;
 
-   bankPmtId?: string;
+  bankPmtId?: string;
 }

@@ -2,6 +2,8 @@ import { Timestamp } from '@firebase/firestore-types';
 
 import { IObject } from '@iote/bricks';
 
+import { AllocateWithType } from './allocation.interface';
+
 /**
  * A single element of allocation information concerning a payment.
  *
@@ -22,6 +24,12 @@ export interface PaymentAllocationElement extends IObject
    *        This means that invoice-alloc ID for elements cannot be the same as payment-id. */
   pId: string;
 
+  /** alloc being fulfilled. */
+
+  withId: string;
+
+  withType: AllocateWithType;
+
   /** Transaction ID of allocation fulfill. */
   // trId: string;
 
@@ -38,12 +46,10 @@ export interface PaymentAllocationElement extends IObject
   /** Account name of the payee. */
   accName: string;
 
-  /** invoice being fulfilled. */
-  invoiceId: string;
-  invoiceTitle: string;
-
   /** Amount allocated to the invoice. */
   allocAmount: number;
   /** Mode to alloc in. Must match invoice mode. */
   allocMode: 1 | -1;
+
+  allocDate: Date | Timestamp;
 }

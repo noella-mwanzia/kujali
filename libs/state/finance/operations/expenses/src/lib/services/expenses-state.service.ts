@@ -34,7 +34,7 @@ export class ExpensesStateService {
   }
 
   createExpense(expense: FormGroup) {
-    const expenseObject = this.createExpenseObject(expense.value);
+    const expenseObject = this.createExpenseObject(expense.getRawValue());
     return this._expenses$$.add(expenseObject).pipe(switchMap((exp) => this.allocateExpense(exp)));
   }
 
@@ -60,6 +60,7 @@ export class ExpensesStateService {
 
   createExpenseObject(expense): Expenses {
     return {
+      name: expense.name,
       amount: expense.amount,
       budgetId: expense.budget.id,
       planId: expense.plan.id,

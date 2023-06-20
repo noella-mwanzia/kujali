@@ -33,7 +33,7 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['budget', 'date', 'amount' , 'vat', 'note', 'allocatedTo'];
+  displayedColumns: string[] = ['name', 'budget', 'date', 'amount' , 'vat', 'allocatedTo'];
 
   dataSource = new MatTableDataSource();
 
@@ -109,6 +109,7 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
 
   createNewExpense() {
     this._matDialog.open(CreateExpensesModalComponent, {
+      disableClose: true,
       minWidth: '700px'
     }).afterClosed();
   }

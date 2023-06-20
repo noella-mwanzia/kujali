@@ -21,13 +21,13 @@ export interface InvoiceAllocationElement extends IObject
   invId: string;
 
   /** payment ID of payment fulfill. */
-  pId: string;
+  withId: string;
 
   /** Transaction ID of allocation fulfill. */
   // trId: string;
 
   /** Transaction type of allocation-fulfill. */
-  allocType: AllocateWithType;
+  withType: AllocateWithType;
 
   /** Foreign key to originating allocation ID */
   allocId: string;
@@ -39,10 +39,10 @@ export interface InvoiceAllocationElement extends IObject
 
   notes: string;
 
-  date: Timestamp | Date;
-
   /** Amount allocated to the invoice. */
   allocAmount: number;
+
+  allocDate: Date | Timestamp;
 
   /** Mode to alloc in. Must be opposite of invoice mode if credit, must be the same if payment. */
   allocMode: 1 | -1;

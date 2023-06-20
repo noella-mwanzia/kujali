@@ -3,6 +3,8 @@ import { Timestamp } from "@firebase/firestore-types";
 import { IObject } from "@iote/bricks";
 
 export interface Expenses extends IObject {
+  // Name of the expense
+  name: string;
   // The amount of the expense.
   amount: number;
 

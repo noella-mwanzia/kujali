@@ -12,7 +12,7 @@
               <span>{{ payment.amount }}</span>
             </div>
           </div>
-          <div class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+          <div *ngIf="payment.allocStatus !== 1" class="header-amount" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
             <div class="allocate-header__left__title"> Amount Allocated For</div>
             <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
               <i class="fa-solid fa-euro-sign fa-xs" style="color: #0047AB"></i>
@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+          <div *ngIf="payment.allocStatus !== 1" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
             <div class="allocate-header__left__title"> Amount Unallocated </div>
             <div class="allocate-header__left__amount" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
               <i class="fa-solid fa-euro-sign fa-xs" style="color: #0047AB"></i>
@@ -41,7 +41,7 @@
           <span>A list of all your invoices</span>
         </div>
 
-        <button mat-raised-button color="primary">
+        <button *ngIf="payment.allocStatus !== 1" mat-raised-button color="primary">
           <i class="fa-solid fa-plus fa-lg"></i>
           <span style="margin-left: 10px;">New Invoice</span>
         </button>
@@ -49,93 +49,22 @@
 
       <div>
 
-        <mat-form-field appearance="outline">
-          <input matInput (keyup)="filterAccountRecords($event)" placeholder="Find Invoices....." #input>
-        </mat-form-field>
-
-        <div class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
-          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-            <!-- Invoice title -->
-            <ng-container matColumnDef="select">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <mat-checkbox color="primary" (change)="invoiceSelected($event, invoice)"></mat-checkbox>
-              </td>
-            </ng-container>
-
-            <!-- Number Column -->
-            <ng-container matColumnDef="number">
-              <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.INV-NUMBER" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div>{{invoice.number}}</div>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="amount">
-              <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.AMOUNT" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div>{{getTotalAmount(invoice) | currency : invoice.currency}}</div>
-              </td>
-            </ng-container>
-
-            <!-- date Column -->
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.DATE" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div *ngIf="invoice.date; else dash">{{getDate(invoice.date)}}</div>
-                <ng-template #dash> - </ng-template>
-              </td>
-            </ng-container>
-
-            <!-- dueDate Column -->
-            <ng-container matColumnDef="dueDate">
-              <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.DUE-DATE" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div *ngIf="invoice.dueDate; else dash">{{getDate(invoice.dueDate)}}</div>
-                <ng-template #dash> - </ng-template>
-              </td>
-            </ng-container>
-
-            <!-- Company Column -->
-            <ng-container matColumnDef="customer">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"INVOICES.TABLE.COMPANY" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div *ngIf="invoice.customer; else dash">{{(invoice.customer)}}</div>
-                <ng-template #dash> - </ng-template>
-              </td>
-            </ng-container>
-
-            <!-- Contact Column -->
-            <ng-container matColumnDef="contact">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"INVOICES.TABLE.CONTACT" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div *ngIf="invoice.contact; else dash">{{(invoice.contact)}}</div>
-                <ng-template #dash> - </ng-template>
-              </td>
-            </ng-container>
-
-            <!-- Status Column -->
-            <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef> {{"INVOICES.TABLE.STATUS" | transloco}} </th>
-              <td mat-cell *matCellDef="let invoice" (click)="viewInvoice(invoice.id)">
-                <div *ngIf="invoice.status; else dash">{{invoice.status}}</div>
-                <ng-template #dash> - </ng-template>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
+        <div *ngIf="invoicesLoaded && payment.allocStatus !== 1; else fullyAllocatedPayment"  class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <app-invoices-table [invoices]="allInvoices" (selectedInvoice)="invoiceSelected($event)"></app-invoices-table>
         </div>
-        <mat-paginator [pageSizeOptions]="[20, 30]" showFirstLastButtons>
-        </mat-paginator>
+
+        <ng-template #fullyAllocatedPayment>
+          <div *ngIf="invoicesLoaded">
+            <app-allocated-payment [invoices]="allInvoices" [payment]="payment"></app-allocated-payment>
+          </div>
+        </ng-template>
+
       </div>
     </div>
   </div>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions *ngIf="payment.allocStatus !== 1" align="end">
   <button mat-stroked-button mat-dialog-close>Cancel</button>
   <button [disabled]="selectedInvoices.length <= 0 || allocating" mat-raised-button color="primary"
     (click)="allocateTransaction()" fxLayout="row" fxLayoutAlign="center center">

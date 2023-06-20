@@ -1,0 +1,36 @@
+.mat-elevation-z8 {
+  width: 100%!important;
+  box-shadow: none!important;
+}
+
+.trs-heder {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-mdc-form-field {
+  font-size: 1rem;
+  width: 100%;
+}
+
+.table {
+  width: 100%!important;
+}
+
+.mdc-data-table__header-cell {
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
+}
+
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
