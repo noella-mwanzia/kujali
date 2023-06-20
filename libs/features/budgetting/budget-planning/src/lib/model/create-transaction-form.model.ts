@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TransactionPlan } from "@app/model/finance/planning/budget-items";
 
-import { MONTHS } from "@app/model/finance/planning/time";
+import { MONTHS, YEARS } from "@app/model/finance/planning/time";
 
 const currentYear = new Date().getFullYear();
 
@@ -48,7 +48,7 @@ export function CreateTransactionFormGroup (_fb: FormBuilder, month: number): Fo
   })
 }
 
-export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean, month: any): FormGroup {  
+export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: TransactionPlan, isEdit: boolean, month: any, year: number): FormGroup {  
   return _fb.group({
     // Section 1: Transaction
     pTNameFormGroup: _fb.group({
@@ -69,7 +69,7 @@ export function CreateUpdateTransactionFormGroup (_fb: FormBuilder, plan: Transa
 
     // Section 3: Occurence
     pTOccurenceFormGroup: _fb.group({
-      fromYear: [plan.fromYear, Validators.required],
+      fromYear: [isEdit ? plan.fromYear : year ?? YEARS[0], Validators.required],
       fromMonth: [isEdit ? plan.fromMonth : month ?? MONTHS[0], Validators.required],
       frequency: [plan.frequency, Validators.required],
       xTimesInterval: [plan.xTimesInterval]
