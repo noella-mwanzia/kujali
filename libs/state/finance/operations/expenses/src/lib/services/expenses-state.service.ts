@@ -44,6 +44,11 @@ export class ExpensesStateService {
       switchMap((data) => this._aFF.httpsCallable('allocateExpenses')(data)));
   }
 
+  //Todo: using this for testing. Don't forget to delete.
+  testMetabaseLink(){
+    return this._aFF.httpsCallable('getMetabaseUrl')({})
+  }
+
   createExpBudgetLineAllocation(orgId: string, expense: Expenses) {
     const month = __DateFromStorage(expense.date).month();
     const year = __DateFromStorage(expense.date).year();
