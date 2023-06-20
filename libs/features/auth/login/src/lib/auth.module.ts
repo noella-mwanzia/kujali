@@ -15,6 +15,8 @@ import { RegisterComponent }         from './components/register/register.compon
 import { ForgotPasswordModalComponent }       from './modals/forgot-password-modal/forgot-password-modal.component';
 
 import { AuthPageComponent } from './pages/auth/auth.page.component';
+import { AuthenticationService } from './services/authentication.service';
+
 import { AuthRouterModule }  from './auth-router.module';
 
 /**
@@ -36,5 +38,6 @@ import { AuthRouterModule }  from './auth-router.module';
                   AuthPageComponent],
 
   exports: [],
+  providers: [AuthenticationService]
 })
 export class AuthModule { }

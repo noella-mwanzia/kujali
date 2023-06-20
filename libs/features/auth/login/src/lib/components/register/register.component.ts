@@ -13,23 +13,32 @@ import { TranslateService } from '@ngfi/multi-lang';
   styleUrls: ['register.component.scss'],
 })
 export class RegisterComponent
+
 {
-  registerForm: FormGroup;
   checkForm: FormGroup;
-  confirmPassword: string;
+  registerForm: FormGroup;
+
   phoneFormat: string;
+  confirmPassword: string;
   lang : 'fr' | 'en' | 'nl';
-  isLoading = false;
+
   isValid: boolean;
+  isLoading = false;
+  accountCreationError = false;
 
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
               private _authService: AuthService,
               private _analytics: EventLogger,
-              private _logger: Logger)
-  {
+  ) {
     this._initForm();
     this.lang = this._translateService.initialise();
+  }
+
+
+  setLang(lang: 'en' | 'fr')
+  {
+    this._translateService.setLang(lang);
   }
 
   private _initForm()
@@ -78,7 +87,11 @@ export class RegisterComponent
                   user.roles
                 )
             .then(value => this._analytics.logEvent('register', {"userId": (value as User).id}))
-            .catch(error => this._analytics.logEvent('register_error', { "errorMsg": error}))
+            .catch(error => {
+              this.isLoading = false;
+              this.accountCreationError = true;
+              this._analytics.logEvent('register_error', { "errorMsg": error})
+            });
     }
   }
 
@@ -110,36 +123,10 @@ export class RegisterComponent
 
   formIsInvalid()
   {
-    this.registerForm.invalid || !this.registerForm.value.acceptConditions;
+    return this.registerForm.invalid || !this.registerForm.value.acceptConditions;
   }
 
-  loginGoogle() {
-    return this._authService.loadGoogleLogin();
-  }
+  getTermsLink = () => '';
 
-  /** Facebook Login */
-  loginFacebook() {
-    return this._authService.loadFacebookLogin();
-  }
-
-  /** Microsoft Login */
-  loginMicrosoft() {
-    return this._authService.loadMicrosoftLogin();
-  }
-
-  setLang(lang: 'en' | 'fr')
-  {
-    this._translateService.setLang(lang);
-  }
-
-  getTermsLink()
-  {
-    return '';
-  }
-
-  getPolicyLink()
-  {
-    return '';
-  }
-
+  getPolicyLink = () => '';
 }

@@ -20,6 +20,9 @@ export class ForgotPasswordModalComponent
     email: ['', [Validators.required, Validators.email]]
   });
 
+  isLoading: boolean = false;
+  hasError: boolean = false;
+
   constructor(private _fb: FormBuilder,
               private _dialogRef: MatDialogRef<ForgotPasswordModalComponent>,
               private _authservice: AuthService)
@@ -37,12 +40,18 @@ export class ForgotPasswordModalComponent
 
   resetPassword()
   {
+    this.isLoading = true;
+    this.hasError = false;
     const email = this.changePasswordForm.get('email')?.value;
-    this._authservice.resetPassword( email );
-    
-    this.exitModal()
+
+    this._authservice.resetPassword(email)
+      .then(() => {
+        this.isLoading = false
+        this.exitModal()})
+      .catch((error) => {        
+        this.isLoading = false;
+        this.hasError = true;})
   }
 
   exitModal = () => this._dialogRef.close();
-
 }

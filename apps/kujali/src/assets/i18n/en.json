@@ -49,14 +49,31 @@
     "LOGIN": "Login",
     "OR": "or",
     "CREATE-ACCOUNT": "Create account",
+    "MESSAGE" : {
+      "WELCOME": "Welcome Back",
+      "LOGIN-TO-CONTINUE": "Enter your credentials to access your account",
+      "WITH-GOOGLE": "Log In with Google",
+      "WITH-MICROSOFT": "Log In with Microsoft",
+      "NO-ACCOUNT": "Don't have an account?",
+      "HAVE-ACCOUNT": "Already have an account?"
+    },
     "LOGIN-FORM": {
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Enter password",
       "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
+      "SUBMIT": "Login",
+      "LOGIN": "Login",
+      "ERROR" : "Invalid email or password"
     },
     "FORGOT-PASSWD": "Forgot password?",
+    "FORGOT-PASSWORD-MODAL" : {
+      "TITLE": "Forgot password?",
+      "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
+      "FLD-EMAIL": "Enter email",
+      "RESET": "Reset",
+      "ERROR" : "Please check your email and try again"
+    },
     "CREATE-ACC-FORM": {
       "FLD-FNAME": "First name",
       "FLD-LNAME": "Last name",
@@ -66,7 +83,14 @@
       "FLD-PASSWD": "Password",
       "FLD-CONF-PASSWD": "Confirm password",
       "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
+      "SUBMIT": "Create account",
+      "ACC-CREATE-ERR": "A user with that email already exists",
+      "MESSAGE" : {
+        "WELCOME": "Get Started Now",
+        "CREATE-ACC-CONTINUE": "Create your new credentials for your account",
+        "WITH-GOOGLE": "Sign Up with Google",
+        "WITH-MICROSOFT": "Sign Up with Microsoft"
+      }
     },
     "TOS": {
       "P1": "By registering I agree to",

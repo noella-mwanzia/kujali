@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
 
 import { AuthService } from '@ngfi/angular';
-import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
+import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +14,14 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 export class LoginComponent
 {
 
-  isLoading = false;
+  @Output() createAccount = new EventEmitter()
+
   email     = '';
   password  = '';
 
-  // isLoading: boolean;
   isLogin = true;
+  isLoading = false;
+  showLoginError = false;
 
   constructor( private _authService: AuthService,
               private _dialog: MatDialog,
@@ -38,9 +40,11 @@ export class LoginComponent
     if(this.validateLoginCred())
       this._authService.loginWithEmailAndPassword(this.email, this.password)
                       .then(()=> this._analytics.logEvent('login'))
-                      .catch((error) => { this.isLoading = false;
-                                          this._analytics.logEvent('login_error', {"errorMsg": error})
-                                        });
+                      .catch((error) => {
+                        this.isLoading = false;
+                        this.showLoginError = true;
+                        this._analytics.logEvent('login_error', {"errorMsg": error})
+                      });
   }
 
   forgotPass() {
@@ -52,19 +56,5 @@ export class LoginComponent
 
   toggleMode = () => this.isLogin = ! this.isLogin;
 
-
-  loginGoogle() {
-    return this._authService.loadGoogleLogin();
-  }
-
-  /** Facebook Login */
-  loginFacebook() {
-    return this._authService.loadFacebookLogin();
-  }
-
-  /** Microsoft Login */
-  loginMicrosoft() {
-    return this._authService.loadMicrosoftLogin();
-  }
-
+  navigateToCreateAccount = () => this.createAccount.emit();
 }
