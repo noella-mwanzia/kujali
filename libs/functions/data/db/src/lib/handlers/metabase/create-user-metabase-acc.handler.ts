@@ -26,6 +26,7 @@ export class CreateUserMetabaseAccHandler extends FunctionHandler<User, any>
     const displayname = user.displayName!.split('');
 
     //Todo: create a general super admin account to handle creation of user accounts and API calls
+    //Todo: Move sensitive variables to secrets
 
     return {
         url: 'https://elewa-group.metabaseapp.com/api/user',
