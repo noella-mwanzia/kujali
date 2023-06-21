@@ -1,0 +1,1 @@
+export * from './lib/update-contact-with-company.handler'

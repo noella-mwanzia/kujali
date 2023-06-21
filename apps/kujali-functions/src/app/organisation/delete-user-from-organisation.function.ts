@@ -1,15 +1,15 @@
 import { FirestoreDeleteRegistrar } from '@ngfi/functions';
 
-import { DeleteUserFromOrganizationHandler } from '@app/functions/organisation'; 
+import { DeleteUserFromOrganisationHandler } from '@app/functions/organisation'; 
 
 import { KujaliFunction } from '../../environments/kujali-func.class';
 
 const USERS_PATH = 'users/{userId}';
 
-const deleteUserFromOrganizationHandler = new DeleteUserFromOrganizationHandler()
+const deleteUserFromOrganisationHandler = new DeleteUserFromOrganisationHandler()
 
-export const deleteUserFromOrganization = new KujaliFunction('deleteUserFromOrganization',
+export const deleteUserFromOrganisation = new KujaliFunction('deleteUserFromOrganisation',
                                                   new FirestoreDeleteRegistrar(USERS_PATH),
                                                   [],
-                                                  deleteUserFromOrganizationHandler)
+                                                  deleteUserFromOrganisationHandler)
                                                   .build();

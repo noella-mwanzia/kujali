@@ -196,6 +196,18 @@
       "@app/functions/finance/budgeting": [
         "libs/functions/finance/budgeting/src/index.ts"
       ],
+      "@app/functions/finance/business/companies": [
+        "libs/functions/finance/business/companies/src/index.ts"
+      ],
+      "@app/functions/finance/business/contacts": [
+        "libs/functions/finance/business/contacts/src/index.ts"
+      ],
+      "@app/functions/finance/business/invoices": [
+        "libs/functions/finance/business/invoices/src/index.ts"
+      ],
+      "@app/functions/finance/business/opportunities": [
+        "libs/functions/finance/business/opportunities/src/index.ts"
+      ],
       "@app/functions/finance/manage/common": [
         "libs/functions/finance/manage/common/src/index.ts"
       ],
@@ -208,7 +220,11 @@
       "@app/functions/finance/manage/payments": [
         "libs/functions/finance/manage/payments/src/index.ts"
       ],
+      "@app/functions/organisation": [
+        "libs/functions/organisation/src/index.ts"
+      ],
       "@app/functions/pubsub": ["libs/functions/pubsub/src/index.ts"],
+      "@app/functions/users": ["libs/functions/users/src/index.ts"],
       "@app/model/access-control": ["libs/model/access-control/src/index.ts"],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
