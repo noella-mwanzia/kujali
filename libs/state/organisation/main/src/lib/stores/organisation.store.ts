@@ -76,6 +76,10 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
     return {
       id: u.id,
       name: u.displayName ?? 'Unidentified',
+      phone: '',
+      email: '',
+      website: '',
+      vatNo: '',
       contact: {
         name: u.displayName ?? 'Unidentified',
         email: u.email

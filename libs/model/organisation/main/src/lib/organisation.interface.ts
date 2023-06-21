@@ -30,7 +30,6 @@ export interface Organisation extends IObject
   permissions: {};
 
   vatNo: string;
-  bankAccounts: string[];
 }
 
 export interface OrgBankingInfo
