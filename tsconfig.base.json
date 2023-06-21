@@ -168,6 +168,9 @@
       "@app/features/settings/permissions": [
         "libs/features/settings/permissions/src/index.ts"
       ],
+      "@app/features/settings/user-profile": [
+        "libs/features/settings/user-profile/src/index.ts"
+      ],
       "@app/features/settings/users": [
         "libs/features/settings/users/src/index.ts"
       ],

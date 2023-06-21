@@ -19,11 +19,9 @@ import { PerformContactsActionRightsQuery } from '../queries/contacts/perfom-con
 import { PerformCreateContactsActionRightsQuery } from '../queries/contacts/perfom-create-contacts-actions-rights.query';
 import { PerformDeleteContactsActionRightsQuery } from '../queries/contacts/perfom-delete-contacts-actions-rights.query';
 
-
 import { PerformOpportunitiesActionRightsQuery } from '../queries/opportunities/perfom-opportunities-actions-rights.query';
 import { PerformCreateOpportunitiesActionRightsQuery } from '../queries/opportunities/perfom-create-opportunities-actions-rights.query';
 import { PerformDeleteOppsActionRightsQuery } from '../queries/opportunities/perfom-delete-opportunities-actions-rights.query';
-
 
 import { PerformInvoicesActionRightsQuery } from '../queries/invoices/perfom-invoices-actions-rights.query';
 import { PerformCreateInvoicesActionRightsQuery } from '../queries/invoices/perfom-create-invoices-actions-rights.query';

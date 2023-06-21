@@ -5,6 +5,6 @@ import { KuUserProfile } from './ku-user-profile.interface';
 
 export interface KuUser extends User
 {
-  roles: KuUserRoles;
+  roles: any;
   profile: KuUserProfile;
 }
