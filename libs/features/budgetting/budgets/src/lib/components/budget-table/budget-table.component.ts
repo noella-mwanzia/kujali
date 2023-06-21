@@ -31,7 +31,7 @@ export class BudgetTableComponent {
 
   dataSource = new MatTableDataSource();
 
-  displayedColumns: string[] = ['name', 'status', 'startYear', 'endYear', 'duration', 'actions'];
+  displayedColumns: string[] = ['name', 'status', 'startYear', 'duration', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('sort', { static: true }) sort: MatSort;
@@ -117,6 +117,10 @@ export class BudgetTableComponent {
 
   goToDetail(budgetId: string, action: string) {
     this._router$$.navigate(['budgets', budgetId, action]).then(() => this._dialog.closeAll());
+  }
+
+  deleteBudget(budget: Budget) {
+
   }
 
   translateStatus(status: number) {

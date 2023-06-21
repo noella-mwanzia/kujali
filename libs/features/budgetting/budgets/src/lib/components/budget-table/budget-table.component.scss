@@ -35,10 +35,18 @@ table {
   text-decoration: underline;
 }
 
-.share-btn {
-  height: 30px;
-  width: 30px;
+.delete-btn {
+  background-color: red;
+}
+
+.secondary-action {
+  background-color: #EEE;
+  color: var(--kujali-color-primary-blue);
+}
+
+.secondary-action:hover {
   background-color: white;
+  color: var(--kujali-color-primary-blue);
 }
 
 .mdc-data-table__header-cell {
@@ -56,10 +64,19 @@ table {
   cursor: pointer;
 }
 
-::ng-deep .mat-elevation-z8 {
+.mat-mdc-row:hover .secondary-action {
+  background-color: white;
+  color: var(--kujali-color-primary-blue);
+}
+
+:host .mat-mdc-fab, .mat-mdc-mini-fab {
   box-shadow: none;
 }
 
-::ng-deep .mat-mdc-mini-fab .mat-button-wrapper {
+:host ::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+:host ::ng-deep .mat-mdc-mini-fab .mat-button-wrapper {
   padding: 0px !important;
 }
