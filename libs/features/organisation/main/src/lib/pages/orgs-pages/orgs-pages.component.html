@@ -1,0 +1,36 @@
+<div class="main-page">
+  <div class="card">
+    <mat-card class="fields-card">
+      <div class="fields">
+
+        <div class="card-title">
+          <p>{{"ORGS.FORM.TITLE" | transloco}}</p>
+        </div>
+
+        <form [formGroup]="orgFormGroup" fxLayout="column">
+          <mat-form-field appearance="outline">
+            <mat-label>{{"ORGS.FORM.NAME" | transloco}}</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{"ORGS.FORM.ADDRESS" | transloco}}</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+
+          <div class="buttons">
+            <button [disabled]="!orgFormGroup.valid || creatingOrg" mat-raised-button color="primary"
+              (click)="createNewOrg()">
+              <ng-template #wait>{{"ORGS.FORM.CREATE-ORG" | transloco}}</ng-template>
+              <span *ngIf="creatingOrg; else wait">{{"ORGS.FORM.WAIT" | transloco}}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card>
+  </div>
+
+  <ng-template #loader>
+    <mat-spinner diameter="10px" color="dark"></mat-spinner>
+  </ng-template>
+</div>

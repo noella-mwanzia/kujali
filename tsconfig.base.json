@@ -162,6 +162,9 @@
         "libs/features/finance/operations/payments/src/index.ts"
       ],
       "@app/features/notes": ["libs/features/notes/src/index.ts"],
+      "@app/features/organisation/main": [
+        "libs/features/organisation/main/src/index.ts"
+      ],
       "@app/features/settings/configs": [
         "libs/features/settings/configs/src/index.ts"
       ],

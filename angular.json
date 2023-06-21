@@ -66,6 +66,7 @@
     "features-finance-operations-main": "libs/features/finance/operations/main",
     "features-finance-operations-payments": "libs/features/finance/operations/payments",
     "features-notes": "libs/features/notes",
+    "features-organisation-main": "libs/features/organisation/main",
     "features-settings-configs": "libs/features/settings/configs",
     "features-settings-main": "libs/features/settings/main",
     "features-settings-organisation-details": "libs/features/settings/organisation-details",
