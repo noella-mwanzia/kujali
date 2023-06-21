@@ -12,13 +12,20 @@ export class CreateUserMetabaseAccHandler extends FunctionHandler<User, any>
   {
     tools.Logger.log(() => `Creating metabase acc for User: ${user.uid}`);
 
-    request.post(this.createRequestConfig(user)).then();
+    await request.post(this.createRequestConfig(user));
+
+    //TODO: implement proper error handling.
+
+    tools.Logger.log(() => `User account successfully created`);
+
   }
 
   /** configure the contents of the api call */
   createRequestConfig(user: User)
   {
     const displayname = user.displayName!.split('');
+
+    //Todo: create a general super admin account to handle creation of user accounts and API calls
 
     return {
         url: 'https://elewa-group.metabaseapp.com/api/user',
