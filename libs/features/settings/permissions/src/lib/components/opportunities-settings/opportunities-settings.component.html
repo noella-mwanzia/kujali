@@ -1,0 +1,98 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="main-title">Opportunities Settings</p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div [formGroup]="opportunitiesSettingsFormGroup" fxLayout="column" class="companies">
+      <div formGroupName="OpportunitiesSettings">
+        <div fxLayout="row" class="titles">
+          <p class="main-title" fxFlex="20%"></p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let role of roles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title"  fxFlex="20%">{{role}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanViewOpportunities" fxLayout="row" fxLayoutAlign="start center" class="titles highlight">
+          <p class="title" fxFlex="20%">Can View Opportunities</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanCreateOpportunities" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Create Opportunities</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanEditOpportunities" fxLayout="row" fxLayoutAlign="start center" class="titles highlight">
+          <p class="title" fxFlex="20%"> Can Edit Opportunities </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanEditOpportunitiesActions" fxLayout="row" fxLayoutAlign="start center" class="titles highlight">
+          <p class="title" fxFlex="20%"> Can Edit Opportunities Actions </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanDeleteOpportunities" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Delete Opportunities </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanViewOpportunitiesActions" fxLayout="row" fxLayoutAlign="start center"
+          class="titles highlight">
+          <p class="title" fxFlex="20%">Can View Opportunities Actions</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanCreateOpportunitiesActions" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">Can Create Opportunities Actions</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanDeleteOpportunitiesActions" fxLayout="row" fxLayoutAlign="start center"
+          class="titles highlight">
+          <p class="title" fxFlex="20%">Can Delete Opportunities Actions</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

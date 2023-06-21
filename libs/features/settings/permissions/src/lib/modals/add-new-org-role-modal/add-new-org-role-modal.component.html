@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Create New Role</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter role name </mat-label>
+    <input matInput [formControl]="role">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-dialog-close="true" mat-flat-button>Cancel</button>
+  <button mat-raised-button color="primary" class="submit-button" (click)="saveNewRole()" cdkFocusInitial> Create Role </button>
+</div>
