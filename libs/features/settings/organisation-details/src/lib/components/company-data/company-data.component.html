@@ -1,0 +1,75 @@
+<div *ngIf="activeOrgLoaded" [formGroup]="orgDataFormGroup" class="company-details">
+  <div fxLayout="row" fxLayoutAlign="space-between start" class="information">
+    <div fxLayout="column" class="company-fields" fxFlex="50%">
+      <div fxLayout="column">
+        <p class="label">Company name</p>
+        <mat-form-field appearance="outline">
+          <input formControlName="name" matInput placeholder="Name">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <p class="label">Address</p>
+        <mat-form-field appearance="outline">
+          <input formControlName="address" matInput placeholder="Address">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <p class="label">Email</p>
+        <mat-form-field appearance="outline">
+          <input formControlName="email" matInput placeholder="Email">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column">
+        <p class="label">VAT NO</p>
+        <mat-form-field appearance="outline">
+          <input formControlName="vatNo" matInput placeholder="Vat NO">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" formArrayName="bankAccounts" fxFlex>
+        <p class="label">Bank Accounts</p>
+
+        <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between start" *ngFor="let account of bankAccounts.controls; let i = index" fxFlex>
+            <mat-form-field appearance="outline" fxFlex="80">
+              <input [formControlName]="i" matInput placeholder="ACC NO">
+            </mat-form-field>
+  
+            <button [disabled]="!editOrg" class="delete-btn" mat-mini-fab (click)="removeAccountNumber(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button *ngIf="editOrg" mat-stroked-button (click)="addBankAccount()" class="add-acc-btn">Add an account</button>
+      </div>
+
+      <div>
+        <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" class="edit-button" (click)="editOrgProfile()"
+          mat-raised-button color="primary">
+          <span *ngIf="!editOrg; else saveProfile">Edit Organization</span>
+          <ng-template #saveProfile>
+            <span>Save Organization</span>
+          </ng-template>
+        </button>
+      </div>
+    </div>
+
+    <div class="company-logo">
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
+        <p class="label">Company Logo</p>
+
+        <img [src]="activeOrg.logoUrl" alt="">
+
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start">
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>
+            Upload</button>
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button (click)="removePhoto()"> Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

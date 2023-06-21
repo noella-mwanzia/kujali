@@ -165,6 +165,9 @@
       "@app/features/settings/configs": [
         "libs/features/settings/configs/src/index.ts"
       ],
+      "@app/features/settings/organisation-details": [
+        "libs/features/settings/organisation-details/src/index.ts"
+      ],
       "@app/features/settings/permissions": [
         "libs/features/settings/permissions/src/index.ts"
       ],
