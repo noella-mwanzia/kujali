@@ -3,7 +3,7 @@ import * as request from 'request-promise';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 
-import { User } from '@iote/bricks';
+import { User } from '@angular/fire/auth';
 
 /* This handler creates a corresponding metabase account for new sign ups */
 export class CreateUserMetabaseAccHandler extends FunctionHandler<User, any>
