@@ -1,31 +1,28 @@
-import { FunctionHandler, FunctionContext } from '@ngfi/functions';
-
-import { HandlerTools } from '@iote/cqrs';
-
 import * as jwt from 'jsonwebtoken';
 
-export class GetMetabaseUrlHandler extends FunctionHandler<{}, string>
+import { FunctionHandler, FunctionContext } from '@ngfi/functions';
+import { HandlerTools } from '@iote/cqrs';
+
+import { User } from '@angular/fire/auth';
+
+
+export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
 {
-  public async execute({}, context: FunctionContext, tools: HandlerTools)
+  public async execute(user: User, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `Setting up metabase url`);
+    tools.Logger.log(() => `Setting up metabase url for User: ${JSON.stringify(user.uid)}`);
 
     const METABASE_SITE_URL = "https://elewa-group.metabaseapp.com";
     const METABASE_SECRET_KEY = "b9fa257a1f5c32edd31fe24b45cfdfe1e38b7b4e85c3cf716a277e3eaf42fec5";
 
-    // const payload = {
-    // resource: { dashboard: 3 },
-    // params: {},
-    // exp: Math.round(Date.now() / 1000) + (10 * 60) // 10 minute expiration
-    // };
+    const displayname = user.displayName!.split('');
 
     const payload = {
       resource: { dashboard: 3 },
       params: {},
-      email: 'test@gmail.com',
-      first_name: 'John',
-      last_name: 'Doe',
-      exp: Math.round(Date.now() / 1000) + (10 * 60), // 10 minute expiration
+      email: user.email,
+      first_name: displayname[0],
+      last_name: displayname[1],
       groups: ["Engineer", "People"]
     }
 
@@ -36,5 +33,3 @@ export class GetMetabaseUrlHandler extends FunctionHandler<{}, string>
     return iframeUrl;
   }
 }
-
-//Hook into firebase auth system
