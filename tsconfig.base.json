@@ -165,6 +165,9 @@
       "@app/features/settings/configs": [
         "libs/features/settings/configs/src/index.ts"
       ],
+      "@app/features/settings/users": [
+        "libs/features/settings/users/src/index.ts"
+      ],
       "@app/features/shared/components/modals": [
         "libs/features/shared/components/modals/src/index.ts"
       ],
