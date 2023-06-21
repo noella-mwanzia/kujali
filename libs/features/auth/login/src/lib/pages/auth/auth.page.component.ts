@@ -19,6 +19,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class AuthPageComponent implements OnInit, OnDestroy {
   private _userSubscr: Subscription;
   user$: Observable<User>;
+  userHasAccess: boolean = false;
 
   isLogin = true;
   isLoading = true;
@@ -26,9 +27,9 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   lang = 'en';
 
   constructor(userService: UserStore,
-    private _router: Router,
-    private _authService: AuthenticationService,
-    private _translateService: TranslateService,
+              private _router$$: Router,
+              private _authService: AuthenticationService,
+              private _translateService: TranslateService,
   ) {
     this.user$ = userService.getUser();
   }
@@ -36,13 +37,20 @@ export class AuthPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.lang = this._translateService.initialise();
     this._userSubscr = this.user$.subscribe(user => {
-
-      if (user != null)
-        this._router.navigate(['/home']);
-      else
-        this._router.navigate(['/auth', 'login']);
-
-      this.isLoading = false
+      if (user != null) {
+        if (user.roles.access == true) {
+          this.userHasAccess = true;
+          const userDetails: any = user.profile;
+          if (userDetails.activeOrg != '' && userDetails.orgIds.length > 0) {
+            this._router$$.navigate(['/home']);
+          } else {
+            this._router$$.navigate(['/orgs']);
+          }
+        }
+      } else {
+        this._router$$.navigate(['/auth/login']);
+      }
+      this.isLoading = false;
     });
   }
 
@@ -54,7 +62,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
     this.isLogin = false;
 
     if (!this.isLogin)
-      this._router.navigate(['/auth/register']);
+      this._router$$.navigate(['/auth/register']);
   }
 
   logInWithGoogle() {
@@ -69,7 +77,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
     this.isLogin = true;
 
     if (this.isLogin)
-      this._router.navigate(['/auth/login']);
+      this._router$$.navigate(['/auth/login']);
   }
 
   createAccount = () => this.toggleMode();

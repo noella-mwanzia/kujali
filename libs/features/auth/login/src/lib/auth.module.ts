@@ -10,33 +10,38 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 
-import { LoginComponent }            from './components/login/login.component';
-import { RegisterComponent }         from './components/register/register.component';
-import { ForgotPasswordModalComponent }       from './modals/forgot-password-modal/forgot-password-modal.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserNotAuthorizedComponent } from './components/user-not-authorized/user-not-authorized.component';
+import { ForgotPasswordModalComponent } from './modals/forgot-password-modal/forgot-password-modal.component';
 
 import { AuthPageComponent } from './pages/auth/auth.page.component';
 import { AuthenticationService } from './services/authentication.service';
 
-import { AuthRouterModule }  from './auth-router.module';
+import { AuthRouterModule } from './auth-router.module';
 
 /**
  * Auth module. Contains the auth of the app and Base Access Control.
  */
 @NgModule({
-  imports: [CommonModule, RouterModule, MultiLangModule,
-            MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-            FormsModule, ReactiveFormsModule,
-            UserStateModule,
+  imports: [
+    CommonModule, RouterModule, MultiLangModule,
+    MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
+    FormsModule, ReactiveFormsModule,
+    UserStateModule,
 
-            iTalPageModule,
+    iTalPageModule,
 
-            AuthRouterModule],
+    AuthRouterModule
+  ],
 
-  declarations: [LoginComponent,
-                 RegisterComponent, ForgotPasswordModalComponent,
-
-                  AuthPageComponent],
-
+  declarations: [
+    LoginComponent,
+    RegisterComponent, 
+    ForgotPasswordModalComponent,
+    UserNotAuthorizedComponent,
+    AuthPageComponent
+  ],
   exports: [],
   providers: [AuthenticationService]
 })
