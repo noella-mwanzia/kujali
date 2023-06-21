@@ -22,6 +22,9 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["node"],
     "paths": {
+      "@app/elements/access-control": [
+        "libs/elements/access-control/src/index.ts"
+      ],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -188,6 +191,7 @@
         "libs/functions/finance/manage/payments/src/index.ts"
       ],
       "@app/functions/pubsub": ["libs/functions/pubsub/src/index.ts"],
+      "@app/model/access-control": ["libs/model/access-control/src/index.ts"],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/data/db": ["libs/model/data/db/src/index.ts"],
@@ -263,6 +267,7 @@
       "@app/private/state/organisation": [
         "libs/private/state/organisation/src/index.ts"
       ],
+      "@app/state/access-control": ["libs/state/access-control/src/index.ts"],
       "@app/state/data/firebase": ["libs/state/data/firebase/src/index.ts"],
       "@app/state/files": ["libs/state/files/base/src/index.ts"],
       "@app/state/finance/activities": [
