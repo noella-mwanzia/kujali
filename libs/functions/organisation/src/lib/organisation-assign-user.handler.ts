@@ -13,8 +13,8 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
     const userRepo = tools.getRepository<any>(`users`);
 
     const perRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
-    const quotesPrefixRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
     const invoicePrefixRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
+    const contactsRolesPeop = tools.getRepository<any>(`orgs/${org.id}/contact-roles`);
 
     const oppsTypesRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
 
@@ -36,9 +36,9 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         orgsRepo.update(activeOrg);
 
         perRepo.write(this._defaultPermissions(), 'permissions');
-        quotesPrefixRepo.write({id: 'quotes-prefix', prefix: 'quotes', number: 0}, 'quotes-prefix');
         invoicePrefixRepo.write({id: 'invoices-prefix', prefix: 'invoices', number: 0}, 'invoices-prefix');
         oppsTypesRepo.write({id: 'opportunity-types', labels: []}, 'opportunity-types');
+        contactsRolesPeop.write({id: 'staff', label: 'staff'}, 'staff');
 
         let adminUser: KuUser = await userRepo.getDocumentById(org.createdBy);
         let adminRight = {

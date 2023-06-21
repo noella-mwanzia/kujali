@@ -4,6 +4,17 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "ORGS": {
+    "FORM" : {
+      "TITLE": "Create Organisation",
+      "NAME": "Name",
+      "VAT": "VAT",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "ADDRESS": "Address",
+      "CREATE-ORG": "Submit"
+    }
+  },
   "EDIT": "Edit",
   "SOCIALMEDIA": {
     "TWITTER": "Twitter",

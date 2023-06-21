@@ -60,6 +60,7 @@
     "path": "^0.12.7",
     "popper.js": "^1.16.1",
     "postcss-preset-env": "^7.8.3",
+    "puppeteer": "^20.7.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "rxjs": "^7.5.0",
@@ -116,6 +117,7 @@
     "path",
     "crypto-js",
     "axios",
-    "dotenv"
+    "dotenv",
+    "puppeteer"
   ]
 }

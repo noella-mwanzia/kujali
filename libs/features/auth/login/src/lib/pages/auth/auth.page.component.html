@@ -1,9 +1,5 @@
 <div *ngIf="user$ | async; else showLogin">
 
-	<app-navbar [backButton]="false">
-		<!-- <app-user-menu></app-user-menu> -->
-	</app-navbar>
-
 	<div *ngIf="!userHasAccess">
 		<user-not-authorized></user-not-authorized>
 	</div>

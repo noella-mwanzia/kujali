@@ -10,6 +10,24 @@
           <h5>Kujali</h5>
         </div>
       </div>
+
+      <div class="switchOrg" *ngIf="userOrgs">
+        <div *ngIf="userOrgs.length == 1; else multipleOrgs">
+          <p class="orgNameOne" *ngFor="let org of userOrgs"> {{org.name}}</p>
+        </div>
+        <ng-template #multipleOrgs>
+          <mat-form-field appearance="outline">
+            <mat-select [value]="organisation" (selectionChange)="switchOrg($event.value)" [compareWith]="compareFn">
+              <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
+                (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
+              <mat-option *ngFor="let org of filteredOrgs" [value]="org">
+                {{org.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-template>
+      </div>
+
       <div class="sidebar-content">
         <nav class="menu open-current-submenu">
           <ul>

@@ -74,6 +74,7 @@
     "features-settings-user-profile": "libs/features/settings/user-profile",
     "features-settings-users": "libs/features/settings/users",
     "features-shared-components-modals": "libs/features/shared/components/modals",
+    "functions-api-email-service": "libs/functions/api/email-service",
     "functions-api-finance-banking-ponto-connect": "libs/functions/api/finance/banking/ponto-connect",
     "functions-api-finance-banking-shared": "libs/functions/api/finance/banking/shared",
     "functions-data-db": "libs/functions/data/db",

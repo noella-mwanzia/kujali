@@ -4,7 +4,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--kujali-color-primary-blue);
+  // background-color: var(--kujali-color-primary-blue);
+  // background-image: url('assets/images/landing-page-background.png');
+  background-image: url('https://res.cloudinary.com/cire/image/upload/v1632218840/auth-bg-Img_tjgddi.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;	
+}
+
+mat-card {
+  padding: 20px;
 }
 
 .card-title {
@@ -16,7 +25,7 @@
   width: 100%!important;
 }
 .card {
-  width: 40%;
+  width: 60%;
 }
 
 .logo img {

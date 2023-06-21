@@ -21,6 +21,7 @@ import { SideMenuFooterComponent } from './components/sidemenu-footer/sidemenu-f
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
 import { SingleDetailInformationCardComponent } from './components/single-information-card/single-information-card.component';
 import { SingleDetailInformationPageComponent } from './components/single-information-page/single-information-page.component';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 
 /**
@@ -35,6 +36,8 @@ import { SingleDetailInformationPageComponent } from './components/single-inform
     MaterialDesignModule,
     MaterialBricksModule,
     FlexLayoutModule,
+
+    MatSelectFilterModule,
     UserMenuModule,
   ],
 

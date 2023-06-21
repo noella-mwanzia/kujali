@@ -186,6 +186,9 @@
       "@app/features/shared/components/modals": [
         "libs/features/shared/components/modals/src/index.ts"
       ],
+      "@app/functions/api/email-service": [
+        "libs/functions/api/email-service/src/index.ts"
+      ],
       "@app/functions/api/finance/banking/ponto-connect": [
         "libs/functions/api/finance/banking/ponto-connect/src/index.ts"
       ],

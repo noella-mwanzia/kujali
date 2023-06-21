@@ -57,7 +57,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   private _checkUserOrg(){
     this._sbS.sink = this.user$.subscribe((user) => {
-      if (user?.profile.activeOrg != '') {
+      if (user.profile.activeOrg && user.profile.activeOrg != '') {
         this._router$$.navigate(['/home']);
       }
     })
@@ -66,6 +66,9 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
   buildOrgForm() {
     this.orgFormGroup = this._fb.group({
       name: ['', Validators.required],
+      vatNo: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
       address: ['', Validators.required]
     })
   }

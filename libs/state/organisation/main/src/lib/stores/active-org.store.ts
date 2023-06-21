@@ -30,13 +30,13 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
     {
-      const orgId = (user as User).id as string;
-
-      const org = orgs.find(o => o.id === orgId);
-      if(org && this._activeOrg !== orgId)
-      {
-        this._activeOrg = orgId;
-        this.set(org, 'UPDATE - FROM DB || ROUTE');
+      let org: Organisation = orgs.find((orgs) =>  orgs.id == user.profile.activeOrg)!;
+      if (!user) {
+        this._activeOrg = '__noop__';
+        this.set(null as any, 'UPDATE - FROM USER');
+      } else {
+        this._activeOrg = org?.id!;
+        this.set(org);
       }
     });
   }
@@ -48,6 +48,10 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
       id: org.id,
       logoUrl: org?.logoUrl,
       name: org?.name,
+      email: org?.email,
+      phone: org?.phone,
+      vatNo: org?.vatNo,
+      address: org?.address,
       roles: org?.roles,
       users: org?.users,
     } as Organisation, 'UPDATE - FROM USER');

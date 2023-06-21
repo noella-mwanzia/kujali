@@ -18,6 +18,11 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'orgs',
+    loadChildren: () => import('libs/features/organisation/main/src/lib/organisation.module').then(m => m.OrganisationModule),
+  },
+
+  {
     path: 'home',
     loadChildren: () => import('@app/features/dashboard/main').then(m => m.DashboardModule),
     canActivate: [IsLoggedInGuard]
