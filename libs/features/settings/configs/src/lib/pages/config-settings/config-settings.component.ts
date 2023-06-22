@@ -74,15 +74,6 @@ export class ConfigSettingsComponent implements OnInit, OnDestroy {
         }
         break;
 
-      case 'quotes':
-        this.isEditQuotesMode = !this.isEditQuotesMode;
-        if (this.isEditQuotesMode){
-          this.configModel.quotesPrefixGroup.enable();
-        } else {
-          this.configModel.quotesPrefixGroup.disable();
-        }
-        break;
-
       case 'invoices':
         this.isEditInvoicesMode = !this.isEditInvoicesMode;
         if (this.isEditInvoicesMode){

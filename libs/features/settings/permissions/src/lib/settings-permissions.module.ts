@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
+import {
+  MaterialDesignModule,
+  MaterialBricksModule,
+  FlexLayoutModule,
+  MaterialFormBricksModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { MatSelectFilterModule } from 'mat-select-filter';
@@ -17,10 +22,13 @@ import { OpportunitiesSettingsComponent } from './components/opportunities-setti
 import { InvoicesSettingsComponent } from './components/invoices-settings/invoices-settings.component';
 
 import { DeleteOrgRoleModalComponent } from './modals/delete-org-role-modal/delete-org-role-modal.component';
-import { AddNewOrgRoleModalComponent } from './modals/add-new-org-role-modal/add-new-org-role-modal.component'
-;
+import { AddNewOrgRoleModalComponent } from './modals/add-new-org-role-modal/add-new-org-role-modal.component';
 import { PermissionsModelService } from './services/permissions.service';
 import { PermissionsFormsService } from './services/permissions-forms.service';
+import { AccountsSettingsComponent } from './components/accounts-settings/accounts-settings.component';
+import { PaymentsSettingsComponent } from './components/payments-settings/payments-settings.component';
+import { ExpensesSettingsComponent } from './components/expenses-settings/expenses-settings.component';
+import { BudgetsSettingsComponent } from './components/budgets-settings/budgets-settings.component';
 
 @NgModule({
   imports: [
@@ -36,7 +44,7 @@ import { PermissionsFormsService } from './services/permissions-forms.service';
     FormsModule,
     ReactiveFormsModule,
 
-    AccessControlModule
+    AccessControlModule,
   ],
   declarations: [
     PermissionsComponent,
@@ -48,15 +56,16 @@ import { PermissionsFormsService } from './services/permissions-forms.service';
 
     AddNewOrgRoleModalComponent,
     DeleteOrgRoleModalComponent,
+    AccountsSettingsComponent,
+    PaymentsSettingsComponent,
+    ExpensesSettingsComponent,
+    BudgetsSettingsComponent,
   ],
   exports: [
     PermissionsComponent,
     AddNewOrgRoleModalComponent,
-    DeleteOrgRoleModalComponent
+    DeleteOrgRoleModalComponent,
   ],
-  providers: [
-    PermissionsModelService,
-    PermissionsFormsService
-  ]
+  providers: [PermissionsModelService, PermissionsFormsService],
 })
 export class SettingsPermissionsModule {}

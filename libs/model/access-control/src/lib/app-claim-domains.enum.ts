@@ -37,25 +37,42 @@ export enum AppClaimDomains {
   InvDelete = 'cl_inv_del',
   InvSend = 'cl_inv_send',
 
-  // Area Quotes
-  QuotesData = 'cl_quotes',
-  QuotesListView = 'cl_quotes_lv',
-  QuotesDetailView = 'cl_quotes_dv',
+  // Area Accounts
+  AccData = 'cl_acc',
+  AccListView = 'cl_acc_lv',
+  AccDetailView = 'cl_acc_dv',
 
-  QuotesCreate = 'cl_quotes_create',
-  QuotesEdit = 'cl_quotes_edit',
-  QuotesDelete = 'cl_quotes_del',
-  QuotesSend = 'cl_quotes_send',
+  AccCreate = 'cl_acc_create',
+  AccEdit = 'cl_acc_edit',
+  AccDelete = 'cl_acc_del',
 
-  // Area Orders
-  OrdersData = 'cl_orders',
-  OrdersListView = 'cl_orders_lv',
-  OrdersDetailView = 'cl_orders_dv',
+  // Area Payments
+  PayData = 'cl_pay',
+  PayListView = 'cl_pay_lv',
+  PayDetailView = 'cl_pay_dv',
 
-  OrdersCreate = 'cl_orders_create',
-  OrdersEdit = 'cl_orders_edit',
-  OrdersDelete = 'cl_orders_del',
+  PayCreate = 'cl_pay_create',
+  PayEdit = 'cl_pay_edit',
+  PayDelete = 'cl_pay_del',
 
+  // Area Expenses
+  ExpData = 'cl_exp',
+  ExpListView = 'cl_exp_lv',
+  ExpDetailView = 'cl_exp_dv',
+
+  ExpCreate = 'cl_exp_create',
+  ExpEdit = 'cl_exp_edit',
+  ExpDelete = 'cl_exp_del',
+
+  // Area Budgets
+  BudData = 'cl_bud',
+  BudListView = 'cl_bud_lv',
+  BudDetailView = 'cl_bud_dv',
+
+  BudCreate = 'cl_bud_create',
+  BudEdit = 'cl_bud_edit',
+  BudDelete = 'cl_bud_del',
+  
   // Area Settings
   SettingsData = 'cl_settings_options',
 

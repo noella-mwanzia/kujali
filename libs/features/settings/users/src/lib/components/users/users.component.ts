@@ -48,6 +48,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   orgLoaded: boolean;
 
   orgRoles: string[];
+  
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
   constructor(private _fb: FormBuilder,
@@ -68,9 +69,12 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.sort = this.sort;
 
     const sortState: Sort = { active: 'fullName', direction: 'asc' };
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
+
+    if (this.sort) {
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
+    }
 
     this.cdref.detectChanges();
   }
