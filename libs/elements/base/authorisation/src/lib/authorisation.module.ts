@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { IsLoggedInGuard } from './auth-guards/is-logged-in.guard';
 import { IsAdminGuard } from './auth-guards/is-admin.guard';
 import { CanAccessCompaniesGuard } from './auth-guards/business/can-access-companies.guard';
+import { CanAccessContactsGuard } from './auth-guards/business/can-access-contacts.guard';
+import { CanAccessInvoicesGuard } from './auth-guards/business/can-access-invoices.guard';
+import { CanAccessOpportunitiesGuard } from './auth-guards/business/can-access-opportunities.guard';
 
 /**
  * Authorisation module. Contains Auth Guards & Access Control Directives
@@ -23,7 +26,10 @@ export class AuthorisationModule
       providers: [
         IsLoggedInGuard,
         IsAdminGuard,
-        CanAccessCompaniesGuard
+        CanAccessCompaniesGuard,
+        CanAccessContactsGuard,
+        CanAccessInvoicesGuard,
+        CanAccessOpportunitiesGuard
       ]
     };
   }
