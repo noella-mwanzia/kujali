@@ -37,15 +37,17 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
 
           this._tools.Logger.log(() => `Creating a new user`);
 
+          const password = this.genRandomPassword();
+
           const newUser = await admin
             .auth()
             .createUser({
               email: userData.email,
-              password: this.genRandomPassword(),
+              password: password,
               displayName: userData.displayName,
             })
             .then((user) => {
-              this._updateUserDetails(user, userData.profile, userData.roles);
+              this._updateUserDetails(user, password, userData.profile, userData.roles);
             });
         } catch (e) {
           this._tools.Logger.log(() => `Did not create new user due to: ${e}`);
@@ -53,7 +55,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       })
   }
 
-  private async _updateUserDetails(user: any | null, userProfile?: any, roles?: any) {
+  private async _updateUserDetails(user: any | null, password: string, userProfile?: any, roles?: any) {
 
     try {
       this._tools.Logger.log(() => `Updating user data for ${user.uid}`)
@@ -81,7 +83,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
 
       usersRef.create(data, user.uid);
 
-      this.sendPasswordResetLink(user.email, userProfile.activeOrg);
+      this.sendPasswordResetLink(user.email, userProfile.activeOrg, password);
       this.addUserToOrg(userProfile.activeOrg, user.uid);
 
     } catch (error) {
@@ -108,7 +110,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
     }
   }
 
-  private async sendPasswordResetLink(email: string, orgId: string) {
+  private async sendPasswordResetLink(email: string, orgId: string, password: string) {
     try {
       await admin.auth().generatePasswordResetLink(email).then((link) => {
         this._tools.Logger.log(() => `Creating email template for password reset`)
@@ -118,7 +120,9 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
           to : email,
           message: {
             subject: "Reset your password",
-            html: `<p> Use this link to reset your password <a href="${link}">Click here</a> <p>`
+            html: `<p> Use this link to reset your password <a href="${link}">Click here</a> <p>
+                  <br>
+                  Your Temporary password is: <b>${password}</b>`
           }
         };
         mailRepo.create(mail);
