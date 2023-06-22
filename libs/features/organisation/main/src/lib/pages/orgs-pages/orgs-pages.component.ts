@@ -67,9 +67,14 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
     this.orgFormGroup = this._fb.group({
       name: ['', Validators.required],
       vatNo: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.email],
       phone: ['', Validators.required],
-      address: ['', Validators.required]
+      address: this._fb.group({
+        streetName: ['', Validators.required],
+        city: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        postalAddress: ['', Validators.required],
+      })
     })
   }
 

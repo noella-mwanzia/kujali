@@ -69,7 +69,9 @@ export class RegisterComponent
         profile: {
           email: frm.email,
           phone: '',
-          buildings: {}
+          buildings: {},
+          activeOrg: '',
+          orgIds: []
         },
 
         displayName: `${firstName} ${lastName}`,

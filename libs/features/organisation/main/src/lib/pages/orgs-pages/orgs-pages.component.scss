@@ -4,9 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // background-color: var(--kujali-color-primary-blue);
-  // background-image: url('assets/images/landing-page-background.png');
-  background-image: url('https://res.cloudinary.com/cire/image/upload/v1632218840/auth-bg-Img_tjgddi.png');
+  background-image: url('https://images.unsplash.com/photo-1511883040705-6011fad9edfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;	
@@ -19,6 +17,7 @@ mat-card {
 .card-title {
   font-family: 'Poppins';
   font-size: large;
+  font-weight: 700;
   color: var(--kujali-color-primary-blue);
 }
 ::ng-deep .hasOrg .mat-form-field {

@@ -41,7 +41,7 @@ export class AuthPageComponent implements OnInit, OnDestroy {
         if (user.roles.access == true) {
           this.userHasAccess = true;
           const userDetails: any = user.profile;
-          if (userDetails.org && userDetails.orgIds && userDetails.activeOrg != '' && userDetails.orgIds.length > 0) {
+          if (userDetails.activeOrg && userDetails.orgIds && userDetails.activeOrg != '' && userDetails.orgIds.length > 0) {
             this._router$$.navigate(['/home']);
           } else {
             this._router$$.navigate(['/orgs']);

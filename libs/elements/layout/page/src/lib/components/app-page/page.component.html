@@ -5,7 +5,27 @@
 
       <app-navbar (toggleMenu)="toggleSideNav()">
         <div title *ngIf="title">{{title}}</div>
-        <app-user-menu></app-user-menu>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <div class="switchOrg" *ngIf="userOrgs">
+            <div *ngIf="userOrgs.length == 1; else multipleOrgs">
+              <p class="orgNameOne"> {{userOrgs[0].name}}</p>
+            </div>
+            <ng-template #multipleOrgs>
+              <mat-form-field appearance="outline">
+                <mat-select [value]="organisation" (selectionChange)="switchOrg($event.value)" [compareWith]="compareFn">
+                  <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
+                    (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
+                  <mat-option *ngFor="let org of filteredOrgs" [value]="org">
+                    {{org.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-template>
+          </div>
+          <div>
+            <app-user-menu></app-user-menu>
+          </div>
+        </div>
       </app-navbar>
 
       <div class="content-wrapper-inner" fxLayout="column" #page>

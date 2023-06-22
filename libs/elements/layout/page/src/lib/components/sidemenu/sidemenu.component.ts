@@ -1,15 +1,17 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
 import { User } from '@iote/bricks';
 
+import { Organisation } from '@app/model/organisation';
+
+import { OrganisationService } from '@app/state/organisation';
+
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-const.function';
-import { FormControl } from '@angular/forms';
-import { OrganisationService } from '@app/state/organisation';
-import { Organisation } from '@app/model/organisation';
 
 @Component({
   selector: 'app-sidemenu',
@@ -23,51 +25,17 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   FIRST_SUB_MENUS_BTN: NodeListOf<Element>;
 
-
-  swicthOrg: FormControl = new FormControl('');
-
-  userOrgs: Organisation[];
-  organisation: Organisation;
-  filteredOrgs: Organisation[];
-
   constructor(private _router$$: Router,
-              private _orgsService: OrganisationService,
               @Inject('ENVIRONMENT') private _env: any)
   { }
 
-  ngOnInit() {
-    this.getOrganisationDetails();
-
-    this._sbS.sink = this.getValueChanges(this.swicthOrg).subscribe();
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     const featureName = this._router$$.url.split('/')[1];
 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
-  }
-
-  getValueChanges(formControl: FormControl) {
-    return formControl.valueChanges.pipe();
-  }
-
-  getOrganisationDetails () {
-    this._sbS.sink = this._orgsService.getUserOrgDetails().subscribe(([activeOrg, userOrgs]) => {
-      if (activeOrg && userOrgs) {
-        this.userOrgs = userOrgs;      
-        this.organisation = userOrgs.filter((orgs) => { return orgs.id == activeOrg.id })[0];
-        this.filteredOrgs = this.userOrgs.slice();
-      }
-    });
-  }
-
-  switchOrg(activeOrg: any) {    
-    this._orgsService.switchOrganisation(activeOrg.id);
-  }
-
-  compareFn(c1: any, c2: any): boolean {
-    return c1 && c2 ? c1 === c2 : c1 === c2;
   }
 
   handlerUserNavClicks() {
