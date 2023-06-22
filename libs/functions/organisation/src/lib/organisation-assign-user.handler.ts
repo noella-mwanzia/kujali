@@ -113,7 +113,47 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         CanSendInvoice: {admin:true, senior:false, junior:false, intern:false},
         CanEditInvoices: {admin:true, senior:false, junior:false, intern:false},
         CanDeleteInvoices: {admin:true, senior:false, junior:false, intern:false},
-      }
+      },
+      AccountsSettings: {
+        CanViewAccounts: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateAccounts: {admin:true, senior:false, junior:false, intern:false},
+        CanEditAccounts: {admin:true, senior:false, junior:false, intern:false},
+        CanEditAccountsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteAccounts: {admin:true, senior:false, junior:false, intern:false},
+        CanViewAccountsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateAccountsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteAccountsActions: {admin:true, senior:false, junior:false, intern:false}
+      },
+      PaymentsSettings: {
+        CanViewPayments: {admin:true, senior:false, junior:false, intern:false},
+        CanCreatePayments: {admin:true, senior:false, junior:false, intern:false},
+        CanEditPayments: {admin:true, senior:false, junior:false, intern:false},
+        CanEditPaymentsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeletePayments: {admin:true, senior:false, junior:false, intern:false},
+        CanViewPaymentsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanCreatePaymentsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeletePaymentsActions: {admin:true, senior:false, junior:false, intern:false}
+      },
+      ExpensesSettings: {
+        CanViewExpenses: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateExpenses: {admin:true, senior:false, junior:false, intern:false},
+        CanEditExpenses: {admin:true, senior:false, junior:false, intern:false},
+        CanEditExpensesActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteExpenses: {admin:true, senior:false, junior:false, intern:false},
+        CanViewExpensesActions: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateExpensesActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteExpensesActions: {admin:true, senior:false, junior:false, intern:false}
+      },
+      BudgetsSettings: {
+        CanViewBudgets: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateBudgets: {admin:true, senior:false, junior:false, intern:false},
+        CanEditBudgets: {admin:true, senior:false, junior:false, intern:false},
+        CanEditBudgetsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteBudgets: {admin:true, senior:false, junior:false, intern:false},
+        CanViewBudgetsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanCreateBudgetsActions: {admin:true, senior:false, junior:false, intern:false},
+        CanDeleteBudgetsActions: {admin:true, senior:false, junior:false, intern:false}
+      },
     }
     return defaultPermissions;
   }

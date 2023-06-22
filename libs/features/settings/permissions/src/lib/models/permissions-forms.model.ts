@@ -45,20 +45,46 @@ export function __CreatePermissionsMainForm(_fb: FormBuilder) {
         CanDeleteInvoices: _fb.group({}),
         CanSendInvoice: _fb.group({})
       }),
-      QuotesSettings: _fb.group({
-        CanViewQuotes: _fb.group({}),
-        CanCreateQuotes: _fb.group({}),
-        CanEditQuotes: _fb.group({}),
-        CanSendQuotes: _fb.group({}),
-        CanDeleteQuotes: _fb.group({}),
+      AccountsSettings:  _fb.group({
+        CanViewAccounts: _fb.group({}),
+        CanCreateAccounts: _fb.group({}),
+        CanEditAccounts: _fb.group({}),
+        CanEditAccountsActions: _fb.group({}),
+        CanDeleteAccounts: _fb.group({}),
+        CanViewAccountsActions: _fb.group({}),
+        CanCreateAccountsActions: _fb.group({}),
+        CanDeleteAccountsActions: _fb.group({})
       }),
-      OrdersSettings: _fb.group({
-        CanViewOrders: _fb.group({}),
-        CanCreateOrders: _fb.group({}),
-        CanEditOrders: _fb.group({}),
-        CanDeleteOrders: _fb.group({}),
+      PaymentsSettings: _fb.group({
+        CanViewPayments: _fb.group({}),
+        CanCreatePayments: _fb.group({}),
+        CanEditPayments: _fb.group({}),
+        CanEditPaymentsActions: _fb.group({}),
+        CanDeletePayments: _fb.group({}),
+        CanViewPaymentsActions: _fb.group({}),
+        CanCreatePaymentsActions: _fb.group({}),
+        CanDeletePaymentsActions: _fb.group({})
       }),
-    },
-    {}
+      ExpensesSettings: _fb.group({
+        CanViewExpenses: _fb.group({}),
+        CanCreateExpenses: _fb.group({}),
+        CanEditExpenses: _fb.group({}),
+        CanEditExpensesActions: _fb.group({}),
+        CanDeleteExpenses: _fb.group({}),
+        CanViewExpensesActions: _fb.group({}),
+        CanCreateExpensesActions: _fb.group({}),
+        CanDeleteExpensesActions: _fb.group({})
+      }),
+      BudgetsSettings: _fb.group({
+        CanViewBudgets: _fb.group({}),
+        CanCreateBudgets: _fb.group({}),
+        CanEditBudgets: _fb.group({}),
+        CanEditBudgetsActions: _fb.group({}),
+        CanDeleteBudgets: _fb.group({}),
+        CanViewBudgetsActions: _fb.group({}),
+        CanCreateBudgetsActions: _fb.group({}),
+        CanDeleteBudgetsActions: _fb.group({})
+      }),
+    },{}
   );
 }
