@@ -1,51 +1,65 @@
-<div *ngIf="activeOrgLoaded" [formGroup]="orgDataFormGroup" class="company-details">
+<div *ngIf="activeOrgLoaded" class="company-details">
   <div fxLayout="row" fxLayoutAlign="space-between start" class="information">
     <div fxLayout="column" class="company-fields" fxFlex="50%">
-      <div fxLayout="column">
-        <p class="label">Company name</p>
-        <mat-form-field appearance="outline">
-          <input formControlName="name" matInput placeholder="Name">
-        </mat-form-field>
-      </div>
 
-      <div fxLayout="column">
-        <p class="label">Address</p>
-        <mat-form-field appearance="outline">
-          <input formControlName="address" matInput placeholder="Address">
-        </mat-form-field>
-      </div>
 
-      <div fxLayout="column">
-        <p class="label">Email</p>
-        <mat-form-field appearance="outline">
-          <input formControlName="email" matInput placeholder="Email">
-        </mat-form-field>
-      </div>
+      <form [formGroup]="orgDataFormGroup"  *ngIf="formIsReady" fxLayout="column">
 
-      <div fxLayout="column">
-        <p class="label">VAT NO</p>
-        <mat-form-field appearance="outline">
-          <input formControlName="vatNo" matInput placeholder="Vat NO">
-        </mat-form-field>
-      </div>
+        <h4>Basic Information</h4>
 
-      <div fxLayout="column" formArrayName="bankAccounts" fxFlex>
-        <p class="label">Bank Accounts</p>
+        <div fxLayout="row" fxLayoutAlign="space-between  center" fxFlex>
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.NAME" | transloco}}</mat-label>
+            <input matInput type="text" formControlName="name">
+          </mat-form-field>
 
-        <div fxLayout="column" fxLayoutAlign="start" fxFlex>
-          <div fxLayout="row" fxLayoutAlign="space-between start" *ngFor="let account of bankAccounts.controls; let i = index" fxFlex>
-            <mat-form-field appearance="outline" fxFlex="80">
-              <input [formControlName]="i" matInput placeholder="ACC NO">
-            </mat-form-field>
-  
-            <button [disabled]="!editOrg" class="delete-btn" mat-mini-fab (click)="removeAccountNumber(i)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.VAT" | transloco}}</mat-label>
+            <input matInput type="text" formControlName="vatNo">
+          </mat-form-field>
         </div>
 
-        <button *ngIf="editOrg" mat-stroked-button (click)="addBankAccount()" class="add-acc-btn">Add an account</button>
-      </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.EMAIL" | transloco}}</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.PHONE" | transloco}}</mat-label>
+            <input matInput type="tel" formControlName="phone">
+          </mat-form-field>
+        </div>
+
+        <h4>Address Information</h4>
+
+        <div fxLayout="column" formGroupName="address" fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.STREET" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="streetName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.CITY" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.POSTAL-CODE" | transloco}}</mat-label>
+              <input matInput type="number" formControlName="postalCode">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.POSTAL-ADDRESS" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="postalAddress">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
 
       <div>
         <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" class="edit-button" (click)="editOrgProfile()"

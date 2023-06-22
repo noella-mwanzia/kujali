@@ -7,7 +7,6 @@
 button {
   margin: 4px 0 0 0;
   height: 42px;
-  color: white!important;
 }
 
 table {
@@ -22,26 +21,19 @@ table {
   overflow: auto;
 }
 
-.mat-header-cell {
-  font-weight: 600;
-  font-size: 15px;
+.mdc-data-table__header-cell {
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
 }
-.mat-row:hover .mat-cell {
-  background-color: var(--kujali-color-primary-background);
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
   cursor: pointer;
-}
-
-td.mat-column-name {
-  font-weight: 600;
-  color: var(--kujali-color-text-black);
-}
-
-td.mat-column-email,
-td.mat-column-activity,
-td.mat-column-roles,
-td.mat-column-status {
-  font-weight: 600;
-  color: var(--kujali-color-nav-inactive);
 }
 
 .menu-button {
@@ -56,14 +48,10 @@ td.mat-column-status {
   padding: 30px 0;
 }
 
-::ng-deep .users .mat-form-field {
+:host ::ng-deep .users .mat-mdc-form-field {
   width: 100%
 }
 
-::ng-deep .users .mat-form-field-infix {
-  border-top-width: 2px !important;
-}
-
-::ng-deep .users .mat-form-field-wrapper {
-  padding: 0px 0px 15px 0px;
+:host ::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+  box-shadow: none!important;
 }

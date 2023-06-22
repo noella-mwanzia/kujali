@@ -1,11 +1,9 @@
 <div class="users" *ngIf="orgLoaded; else loadingUSers" [formGroup]="searchFormGroup">
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="toolbar">
-    <div class="search" fxFlex>
-      <div class="form-group">
-        <mat-form-field class="example-full-width" appearance="outline">
-          <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
-        </mat-form-field>
-      </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="toolbar">
+    <div class="search" fxFlex="50%">
+      <mat-form-field appearance="outline" fxFlex>
+        <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
@@ -28,7 +26,7 @@
         <!-- Full Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{"SETTINGS.USERS.TABLE.NAME" | transloco}}</th>
-          <td mat-cell *matCellDef="let user" (click)="updateUserDetails(user)" > {{user.displayName}} </td>
+          <td mat-cell *matCellDef="let user" (click)="updateUserDetails(user)"> {{user.displayName}} </td>
         </ng-container>
 
         <!-- Email Column -->
@@ -71,17 +69,17 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"SETTINGS.USERS.TABLE.ACTIONS" | transloco}} </th>
           <td mat-cell *matCellDef="let user">
-            <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_horiz</mat-icon>
+            <button mat-stroked-button [matMenuTriggerFor]="menu">
+              <span>More </span> <i class="fas fa-ellipsis-v"></i>
             </button>
             <mat-menu #menu="matMenu">
               <!-- <button class="mat-menu-item" mat-menu-item>Approve User</button>
               <button  class="mat-menu-item" mat-menu-item> Deactivate User</button> -->
-              <button  class="mat-menu-item" mat-menu-item (click)="removerUser(user)"> Remove User</button>
+              <button class="mat-menu-item" mat-menu-item (click)="removerUser(user)"> Remove User</button>
             </mat-menu>
           </td>
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

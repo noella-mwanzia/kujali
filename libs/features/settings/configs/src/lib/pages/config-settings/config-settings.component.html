@@ -15,8 +15,8 @@
             <input formControlName="color" matInput placeholder="Enter color">
           </mat-form-field>
   
-          <button [disabled]="!isEditOppsMode" class="delete-btn" mat-mini-fab (click)="removeOpportunityType(i)">
-            <mat-icon>delete</mat-icon>
+          <button [disabled]="!isEditOppsMode" color="primary" class="delete-btn" mat-mini-fab (click)="removeOpportunityType(i)">
+            <i class="fas fa-trash-alt"></i>
           </button>
         </div>
       </div>
@@ -81,7 +81,6 @@
                 {{configModel.invoicePrefixGroup.value.termsAndConditionsDocUrl == '' ? '' : 'here'}}</a>
               </p>
 
-              <mat-icon class="delete-btn" style="font-size: 15px; text-align: center; display: flex; justify-content: center; align-items: center;  background-color: whitesmoke; border-radius: 100%;">clear</mat-icon>
             </div>
 
             <button class="delete-btn" mat-stroked-button (click)="removeTermsDoc()">

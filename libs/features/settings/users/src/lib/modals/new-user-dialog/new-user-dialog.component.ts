@@ -13,6 +13,8 @@ export class NewUserDialogComponent implements OnInit {
 
   newUserFormGroup: FormGroup;
 
+  creatingUser: boolean = false;
+
   constructor(private _fb: FormBuilder,
               public dialogRef: MatDialogRef<NewUserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public org: any,
@@ -28,14 +30,17 @@ export class NewUserDialogComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       roles:[[]],
-      email: ['', Validators.email]
+      email: ['', Validators.required, Validators.email]
     });
   }
 
   inviteNewUser() {
     if (!!this.newUserFormGroup.valid) {
-      this._usersService.addUserToOrg(this.newUserFormGroup);
-      this.dialogRef.close();
+      this.creatingUser = true;
+      this._usersService.addUserToOrg(this.newUserFormGroup).subscribe(() => {
+        this.dialogRef.close();
+        this.creatingUser = false;
+      });
     }
   }
 

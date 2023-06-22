@@ -8,10 +8,16 @@
     "FORM" : {
       "TITLE": "Create Organisation",
       "NAME": "Name",
-      "VAT": "VAT",
+      "VAT": "VAT Number",
       "EMAIL": "Email",
       "PHONE": "Phone",
       "ADDRESS": "Address",
+      "COUNTRY": "Country",
+      "CITY": "City",
+      "POSTAL-CODE": "Postal Code",
+      "STREET": "Street Name",
+      "POSTAL-ADDRESS": "Postal Address",
+      "WAIT": "Please wait",
       "CREATE-ORG": "Submit"
     }
   },
@@ -550,6 +556,18 @@
       "EDIT-ACTION": "Edit Activity",
       "CANCEL": "Cancel",
       "DELETE-ACTION": "Delete Activity"
+    }
+  },
+  "SETTINGS" : {
+    "USERS": {
+      "TABLE" : {
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "ROLE": "Role",
+        "STATUS": "Status",
+        "ACTIONS": "Actions",
+        "ACTIVITY": "Activity"
+      }
     }
   }
 }

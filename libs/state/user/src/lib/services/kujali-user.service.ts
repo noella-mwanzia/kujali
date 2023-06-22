@@ -107,7 +107,7 @@ export class KujaliUsersService {
       uid: '',
       email: userData.email,
     };    
-    this._bs.httpsCallable('createNewUser')(user).subscribe();
+    return this._bs.httpsCallable('createNewUser')(user);
   }
 
   createUSerRoles(orgRoles: string[], roles: string[], editingUser: boolean): {} {    

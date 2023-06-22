@@ -9,38 +9,63 @@
 
         <form [formGroup]="orgFormGroup" fxLayout="column">
 
+          <h4>Basic Information</h4>
+
           <div fxLayout="row" fxLayoutAlign="space-between  center" fxFlex>
             <mat-form-field appearance="outline" fxFlex="48">
               <mat-label>{{"ORGS.FORM.NAME" | transloco}}</mat-label>
-              <input matInput formControlName="name">
+              <input matInput type="text" formControlName="name">
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="48">
               <mat-label>{{"ORGS.FORM.VAT" | transloco}}</mat-label>
-              <input matInput formControlName="vatNo">
+              <input matInput type="text" formControlName="vatNo">
             </mat-form-field>
           </div>
 
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <mat-form-field appearance="outline" fxFlex="48">
               <mat-label>{{"ORGS.FORM.EMAIL" | transloco}}</mat-label>
-              <input matInput formControlName="email">
+              <input matInput type="email" formControlName="email">
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="48">
               <mat-label>{{"ORGS.FORM.PHONE" | transloco}}</mat-label>
-              <input matInput formControlName="phone">
+              <input matInput type="tel" formControlName="phone">
             </mat-form-field>
           </div>
 
-          <mat-form-field appearance="outline" fxFlex>
-            <mat-label>{{"ORGS.FORM.ADDRESS" | transloco}}</mat-label>
-            <input matInput formControlName="address">
-          </mat-form-field>
+          <h4>Address Information</h4>
 
-          <div  fxLayout="row" fxLayoutAlign="end center" class="buttons" fxFlex>
+          <div fxLayout="column" formGroupName="address" fxFlex>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+              <mat-form-field appearance="outline" fxFlex="48">
+                <mat-label>{{"ORGS.FORM.STREET" | transloco}}</mat-label>
+                <input matInput type="text" formControlName="streetName">
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline" fxFlex="48">
+                <mat-label>{{"ORGS.FORM.CITY" | transloco}}</mat-label>
+                <input matInput type="text" formControlName="city">
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+              <mat-form-field appearance="outline" fxFlex="48">
+                <mat-label>{{"ORGS.FORM.POSTAL-CODE" | transloco}}</mat-label>
+                <input matInput type="number" formControlName="postalCode">
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline" fxFlex="48">
+                <mat-label>{{"ORGS.FORM.POSTAL-ADDRESS" | transloco}}</mat-label>
+                <input matInput type="text" formControlName="postalAddress">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div  fxLayout="row" fxLayoutAlign="start" class="buttons" fxFlex>
             <button [disabled]="!orgFormGroup.valid || creatingOrg" mat-raised-button color="primary"
-              (click)="createNewOrg()">
+              (click)="createNewOrg()" fxFlex>
               <ng-template #wait>{{"ORGS.FORM.CREATE-ORG" | transloco}}</ng-template>
               <span *ngIf="creatingOrg; else wait">{{"ORGS.FORM.WAIT" | transloco}}</span>
             </button>

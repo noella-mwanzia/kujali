@@ -1,5 +1,5 @@
 <h1 mat-dialog-title> Invite a new member </h1>
-<div class="new-kujali-user" [formGroup]="newUserFormGroup"  mat-dialog-content>
+<div class="new-kujali-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
   <mat-form-field appearance="outline">
     <mat-label>First Name</mat-label>
     <input matInput formControlName="firstName">
@@ -20,6 +20,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button class="cancel-btn" mat-button (click)="onNoClick()">No Thanks</button>
-  <button class="submit-btn" mat-raised-button color="primary" (click)="inviteNewUser()" >Ok</button>
+  <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
+  <button class="submit-btn" [disabled]="creatingUser || !newUserFormGroup.valid" mat-raised-button color="primary" (click)="inviteNewUser()" > Add New Member</button>
 </div>

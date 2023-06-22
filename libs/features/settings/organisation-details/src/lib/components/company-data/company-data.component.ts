@@ -23,6 +23,7 @@ export class CompanyDataComponent implements OnInit {
 
   activeOrgLoaded: boolean;
   editOrg: boolean = false;
+  formIsReady: boolean = false;
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
@@ -46,30 +47,25 @@ export class CompanyDataComponent implements OnInit {
     })
   }
 
-  get bankAccounts(): FormArray {
-    return this.orgDataFormGroup.get('bankAccounts') as FormArray;
-  }
-
   buildOrgDataFormGroup(orgData: Organisation) {
+    console.log(orgData);
+    
     this.orgDataFormGroup = this._fb.group({
       id: [orgData.id],
       logoUrl: [orgData.logoUrl ?? ''],
-      name: [orgData.name ?? ''],
-      address: [orgData.address ?? ''],
-      email: [orgData.email ?? ''],
-      vatNo: [orgData.vatNo ?? ''],
-      bankAccounts: this._fb.array([])
-    })
-    // this.addOrgBankAccounts(orgData.bankAccounts);
-    this.orgDataFormGroup.disable();
-  }
-
-  addOrgBankAccounts(accounts: string[]) {
-    if (accounts.length > 0) {
-      accounts.forEach((account) => {
-        this.bankAccounts.push(new FormControl(account));
+      name: [orgData.name],
+      vatNo: [orgData.vatNo],
+      email: [orgData.email],
+      phone: [orgData.phone],
+      address: this._fb.group({
+        streetName: [orgData.address!.streetName],
+        city: [orgData.address!.city],
+        postalCode: [orgData.address!.postalCode],
+        postalAddress: [orgData.address!.postalAddress],
       })
-    }
+    })
+    this.formIsReady = true;
+    this.orgDataFormGroup.disable();
   }
 
   editOrgProfile() {
@@ -96,13 +92,5 @@ export class CompanyDataComponent implements OnInit {
     // this._fileStorageService$$.deleteSingleFile(this.activeOrg.logoUrl).subscribe();
     this.activeOrg.logoUrl = '';
     this._orgService$$.updateOrgDetails(this.activeOrg);
-  }
-
-  addBankAccount() {
-    this.bankAccounts.push(new FormControl());
-  }
-
-  removeAccountNumber(accountIndex: number) {
-    this.bankAccounts.removeAt(accountIndex);
   }
 }
