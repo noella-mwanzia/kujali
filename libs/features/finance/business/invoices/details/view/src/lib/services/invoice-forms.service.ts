@@ -13,7 +13,7 @@ import { Contact } from '@app/model/finance/contacts';
 
 import { CompaniesStore } from '@app/state/finance/companies';
 import { ContactsStore } from '@app/state/finance/contacts';
-// import { PermissionsStateService } from '@app/state/organisation';
+import { PermissionsStateService } from '@app/state/organisation';
 import { InvoicesService } from '@app/state/finance/invoices';
 
 import { InvoiceModel } from '../model/invoice.model';
@@ -32,13 +32,13 @@ export class InvoiceFormsService {
               private _companies$$: CompaniesStore,
               private _contacts$$: ContactsStore,
               private _invoiceService: InvoicesService,
-              // private _permissionsService: PermissionsStateService
+              private _permissionsService: PermissionsStateService
   )
   { }
 
   initModalState(): InvoiceModel {
     if (!this._state) {
-      const model = new InvoiceModel(this._fb, this._companies$$, this._contacts$$, this._invoiceService, this);
+      const model = new InvoiceModel(this._fb, this._companies$$, this._contacts$$, this._invoiceService, this, this._permissionsService);
       this._state = model;
     }
     return this._state as InvoiceModel;

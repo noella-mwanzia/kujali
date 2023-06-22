@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 import { Invoice } from '@app/model/finance/invoices';
 
 import { InvoicesService } from '@app/state/finance/invoices';
@@ -34,7 +34,7 @@ export class InvoicesSidebarComponent implements OnInit {
 
   currency: string = 'EUR';
 
-  // readonly CAN_SEND_INVOICE = AppClaimDomains.InvSend;
+  readonly CAN_SEND_INVOICE = AppClaimDomains.InvSend;
 
   constructor(private _router$$: Router,
               private _invoiceService$$: InvoicesService,

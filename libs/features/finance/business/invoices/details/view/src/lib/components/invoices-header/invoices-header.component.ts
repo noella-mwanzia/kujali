@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 @Component({
   selector: 'kujali-invoices-header',
@@ -20,9 +20,9 @@ export class InvoicesHeaderComponent implements OnInit {
 
   invoiceOperationInProgress: boolean = false;
 
-  // readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
-  // readonly CAN_EDIT_INVOICES = AppClaimDomains.InvEdit;
-  // readonly CAN_DELETE_INVOICE = AppClaimDomains.InvDelete;
+  readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
+  readonly CAN_EDIT_INVOICES = AppClaimDomains.InvEdit;
+  readonly CAN_DELETE_INVOICE = AppClaimDomains.InvDelete;
 
   constructor(private _router$$: Router) { }
   

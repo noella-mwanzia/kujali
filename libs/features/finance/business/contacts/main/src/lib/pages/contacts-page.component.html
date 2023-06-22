@@ -4,7 +4,7 @@
 			<kujali-finance-search-header-card header (toogleFilterEvent)='toogleFilter($event)'
 				(searchTableEvent)='applyFilter($event)' [tableData]="allTableData">
 				<div add-new>
-					<button mat-flat-button (click)="openAddNewDialog()" class="add-new">
+					<button *hasWriteAccess="CAN_CREATE_CONTACTS" mat-flat-button (click)="openAddNewDialog()" class="add-new">
 						<i class="bi bi-plus-circle-fill"></i>
 						{{'HEADER-ADD-NEW' | transloco}}
 					</button>

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 @Component({
   selector: 'kujali-finance-search-header-card',
@@ -14,7 +14,7 @@ export class SearchHeaderCardComponent implements OnDestroy {
 
   private _sbS = new SubSink();
 
-  // readonly CAN_CREATE_DOMAIN_DATA = AppClaimDomains.CanAddMembers;
+  readonly CAN_CREATE_DOMAIN_DATA = AppClaimDomains.CanAddMembers;
 
   page: string = '';
 

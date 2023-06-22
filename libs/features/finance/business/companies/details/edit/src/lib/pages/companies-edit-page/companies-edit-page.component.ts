@@ -16,13 +16,13 @@ import { KuUser } from '@app/model/common/user';
 import { ActiveCompanyStore, CompaniesService, CompaniesStore } from '@app/state/finance/companies';
 import { ActiveOrgStore, OrganisationService } from '@app/state/organisation';
 
-// import { PermissionsStateService } from '@app/state/orgs';
+import { PermissionsStateService } from '@app/state/organisation';
 
 import { TagsFormFieldComponent } from '@app/elements/forms/form-fields';
 
 import { ChangeProfilePictureComponent } from '../../components/change-profile-picture/change-profile-picture.component';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 
 @Component({
@@ -55,8 +55,8 @@ export class CompaniesEditPageComponent implements OnInit, AfterViewInit {
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_DELETE_COMPANIES = AppClaimDomains.CompanyDelete;
-  // readonly CAN_EDIT_COMPANY = AppClaimDomains.CompanyEdit;
+  readonly CAN_DELETE_COMPANIES = AppClaimDomains.CompanyDelete;
+  readonly CAN_EDIT_COMPANY = AppClaimDomains.CompanyEdit;
 
   constructor(private location: Location,
               private _company$$: ActiveCompanyStore,
@@ -67,7 +67,7 @@ export class CompaniesEditPageComponent implements OnInit, AfterViewInit {
               private _orgsService$$: OrganisationService,
               private _org$$ : ActiveOrgStore,
               private _companiesService: CompaniesService,
-              // private _permissionsService: PermissionsStateService
+              private _permissionsService: PermissionsStateService
   )   
   { }
 
@@ -94,14 +94,13 @@ export class CompaniesEditPageComponent implements OnInit, AfterViewInit {
   }
 
   private _checkPermissions() {
-    return of(true)
-    // this._sbS.sink = this._permissionsService.checkAccessRight((p: any) => p.CompanySettings.CanEditCompanies).pipe(take(1)).subscribe((permissions) => {
-    //   if (!permissions) {
-    //     this.companyForm.disable();
-    //     this.tagsComponent.canEdit = true;
-    //     this._permissionsService.throwInsufficientPermissions();
-    //   }
-    // })
+    this._sbS.sink = this._permissionsService.checkAccessRight((p: any) => p.CompanySettings.CanEditCompanies).pipe(take(1)).subscribe((permissions) => {
+      if (!permissions) {
+        this.companyForm.disable();
+        this.tagsComponent.canEdit = true;
+        this._permissionsService.throwInsufficientPermissions();
+      }
+    })
   }
 
   getPageData() {

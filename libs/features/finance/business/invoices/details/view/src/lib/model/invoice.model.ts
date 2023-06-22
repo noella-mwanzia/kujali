@@ -1,22 +1,21 @@
 import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 import { SubSink } from "subsink";
+import { take, tap } from "rxjs/operators";
 import { combineLatest, Observable, of } from "rxjs";
 
 import { Invoice } from "@app/model/finance/invoices";
+import { Company } from "@app/model/finance/companies";
+import { Contact } from "@app/model/finance/contacts";
+import { KujaliPermissions } from "@app/model/organisation";
 
 import { CompaniesStore } from "@app/state/finance/companies";
 import { ContactsStore } from "@app/state/finance/contacts";
+import { InvoicesService } from "@app/state/finance/invoices";
+import { PermissionsStateService } from "@app/state/organisation";
 
 import { InvoiceFormsService } from "../services/invoice-forms.service";
-
 import { __CreateCompanyForm, __CreateInvoiceMainForm, __CreateCustomerForm } from "./invoice-forms.model";
-import { InvoicesService } from "@app/state/finance/invoices";
-import { take, tap } from "rxjs/operators";
-import { Company } from "@app/model/finance/companies";
-import { Contact } from "@app/model/finance/contacts";
-// import { PermissionsStateService } from "@app/state/orgs";
-import { KujaliPermissions } from "@app/model/organisation";
 
 export class InvoiceModel {
   private _sbS = new SubSink();
@@ -41,7 +40,7 @@ export class InvoiceModel {
               private _contacts$$: ContactsStore,
               private _invoiceService: InvoicesService,
               private _invoiceFormService$$: InvoiceFormsService,
-          // private _permissionsService: PermissionsStateService
+              private _permissionsService: PermissionsStateService
   ) {
     this.companies$ = this._companies$$.get();
     this.contacts$ = this._contacts$$.get();
@@ -91,19 +90,17 @@ export class InvoiceModel {
   }
 
   _checkPermissions() {
-    // this._sbS.sink = this._permissionsService.checkAccessRight((p: kujaliPermissions) => p.InvoicesSettings.CanEditInvoices)
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == false) {
-    //       this.canEditInvoice = permissions;
-    //       this.mainInvoiceFormGroup.disable();
-    //       this.customerFormGroup.disable();
-    //     } else {
-    //       this.canEditInvoice = permissions;
-    //     }
-    //   });
-
-    return of(true)
+    this._sbS.sink = this._permissionsService.checkAccessRight((p: KujaliPermissions) => p.InvoicesSettings.CanEditInvoices)
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == false) {
+          this.canEditInvoice = permissions;
+          this.mainInvoiceFormGroup.disable();
+          this.customerFormGroup.disable();
+        } else {
+          this.canEditInvoice = permissions;
+        }
+      });
   }
 
 

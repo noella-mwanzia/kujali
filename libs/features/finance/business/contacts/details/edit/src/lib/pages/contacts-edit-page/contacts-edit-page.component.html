@@ -3,7 +3,7 @@
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header [editPageName]="'CONTACT.ADDNEWCONTACT.EDIT-CONTACT' | transloco">
-        <button save-button mat-flat-button (click)="updateContact()" class="add-new"> 
+        <button *hasViewAccess="CAN_EDIT_CONTACT" save-button mat-flat-button (click)="updateContact()" class="add-new"> 
           <i style="margin-right: 10px" class="fas fa-file-image"></i> {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
       </kujali-finance-detail-header-edits>
     </kujali-finance-toolbar>
@@ -31,7 +31,7 @@
                     <div>
                       {{contact.fName.charAt(0)}} {{contact.lName.charAt(0)}}
                       <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                        <button class="edit-account" (click)="newProfileImg()">
+                        <button *hasViewAccess="CAN_EDIT_CONTACT" class="edit-account" (click)="newProfileImg()">
                           <i class="fas fa-edit"></i>
                         </button>
                       </div>

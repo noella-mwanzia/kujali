@@ -10,6 +10,7 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 
 import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { InvoicesDetailViewPageComponent } from './pages/invoices-detail-view-page/invoices-detail-view-page.component';
 
@@ -24,7 +25,6 @@ import { InvoiceFormsService } from './services/invoice-forms.service';
 import { InvoiceModelService } from './services/invoice-model.service';
 
 import { InvoicesViewRouterModule } from './invoices-view.router';
-// import { AccessControlElementsModule } from '@app/elements/access-control';
 
 @NgModule({
   imports: [
@@ -41,7 +41,7 @@ import { InvoicesViewRouterModule } from './invoices-view.router';
     ReactiveFormsModule,
     DragDropModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
     iTalPageModule,
     PageHeadersModule,
     InvoicesViewRouterModule

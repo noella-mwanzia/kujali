@@ -1,14 +1,11 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
 import { User } from '@iote/bricks';
 
-import { Organisation } from '@app/model/organisation';
-
-import { OrganisationService } from '@app/state/organisation';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-const.function';
@@ -25,6 +22,13 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   FIRST_SUB_MENUS_BTN: NodeListOf<Element>;
 
+  readonly CAN_VIEW_DASH = AppClaimDomains.CompanyData;
+  readonly CAN_VIEW_COM = AppClaimDomains.CompanyData;
+  readonly CAN_VIEW_CON = AppClaimDomains.ContactData;
+  readonly CAN_VIEW_OPPS = AppClaimDomains.OppsData;
+  readonly CAN_VIEW_INV = AppClaimDomains.InvData;
+  readonly CAN_VIEW_SETTINGS = AppClaimDomains.SettingsData;
+  
   constructor(private _router$$: Router,
               @Inject('ENVIRONMENT') private _env: any)
   { }

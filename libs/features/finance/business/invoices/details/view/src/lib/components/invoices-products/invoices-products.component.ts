@@ -12,6 +12,7 @@ import { round as __round, flatMap as __flatMap, cloneDeep as __cloneDeep } from
 import { __DateFromStorage } from '@iote/time';
 
 import { Invoice } from '@app/model/finance/invoices';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { InvoiceModelService } from '../../services/invoice-model.service';
 import { InvoiceFormsService } from '../../services/invoice-forms.service';
@@ -52,8 +53,8 @@ export class InvoicesProductsComponent implements OnInit, OnChanges {
 
   _page: string[];
 
-  // readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
-  // readonly CAN_EDIT_INVOICES = AppClaimDomains.InvEdit;
+  readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
+  readonly CAN_EDIT_INVOICES = AppClaimDomains.InvEdit;
 
   constructor(private _router$$: Router,
               private _cdf: ChangeDetectorRef,

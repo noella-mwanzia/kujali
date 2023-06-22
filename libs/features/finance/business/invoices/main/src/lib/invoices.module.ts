@@ -14,7 +14,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MatSelectFilterModule } from 'mat-select-filter';
 
 import { iTalPageModule } from '@app/elements/layout/page';
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 
 import { InvoicesFilterComponent } from './components/invoices-filter/invoices-filter.component';
@@ -40,7 +40,7 @@ import { InvoicesRouterModule } from './invoices-main.router';
     PageHeadersModule,
     iTalPageModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
 
     InvoicesRouterModule,
   ],

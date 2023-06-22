@@ -9,7 +9,7 @@ import { filter, tap } from 'rxjs/operators';
 
 import { Contact } from '@app/model/finance/contacts';
 import { Company } from '@app/model/finance/companies';
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { ActiveCompanyStore } from '@app/state/finance/companies';
 import { ContactsStore } from '@app/state/finance/contacts';
@@ -37,7 +37,7 @@ export class CompaniesContactsComponent implements OnInit, OnDestroy {
 
   @Output() contactListLenEvent = new EventEmitter();
 
-  // readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
+  readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
 
   constructor(public dialog: MatDialog,
               private _contacts$$: ContactsStore,

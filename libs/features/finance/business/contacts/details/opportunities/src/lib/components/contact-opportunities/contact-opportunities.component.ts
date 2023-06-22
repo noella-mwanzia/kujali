@@ -13,7 +13,7 @@ import { __DateFromStorage } from '@iote/time';
 import { Opportunity } from '@app/model/finance/opportunities'
 import { Contact } from '@app/model/finance/contacts';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { OpportunitiesService, OpportunitiesStore } from '@app/state/finance/opportunities'
 import { ActiveContactStore } from '@app/state/finance/contacts'
@@ -42,7 +42,7 @@ export class ContactOpportunitiesComponent implements OnInit {
   activeContact: Contact;
   oppsLen: string;
 
-  // readonly CAN_CREATE_OPPS = AppClaimDomains.OppsCreate;
+  readonly CAN_CREATE_OPPS = AppClaimDomains.OppsCreate;
 
   constructor(private dialog: MatDialog,
               private _router$$: Router,

@@ -9,9 +9,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { KujaliFormFieldsModule } from '@app/elements/finance/controls/form-fields'
-// import { ElementsBricksTagsListModule } from '@app/elements/bricks/tags-list'
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { FormFieldsModule } from '@app/elements/forms/form-fields'
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { BusinessContactsCreateModule } from '@app/features/finance/business/contacts/create'
 
@@ -25,7 +24,9 @@ import { AddNewCompanyComponent } from './components/add-new-company/add-new-com
     MatSelectFilterModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
     FormsModule, ReactiveFormsModule,
+    FormFieldsModule,
 
+    AccessControlModule,
     BusinessContactsCreateModule,
 
   ],

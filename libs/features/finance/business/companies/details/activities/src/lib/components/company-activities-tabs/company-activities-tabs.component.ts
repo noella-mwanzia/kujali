@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 
 import { TranslateService } from '@ngfi/multi-lang';
-// import { PermissionsStateService } from '@app/state/orgs';
-// import { AppClaimDomains } from '@app/model/access-control';
+
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { CheckPermissionsService } from '../../services/check-permissions.service';
 
@@ -37,7 +37,7 @@ export class CompaniesActivitiesTabsComponent implements OnInit, OnDestroy {
 
   permissionsChecked: boolean;
 
-  // readonly CAN_VIEW_COMMPANY_ACTIONS = AppClaimDomains.CompanyActionsView;
+  readonly CAN_VIEW_COMMPANY_ACTIONS = AppClaimDomains.CompanyActionsView;
 
   constructor(private _router$$: Router,
               private _translateService: TranslateService,

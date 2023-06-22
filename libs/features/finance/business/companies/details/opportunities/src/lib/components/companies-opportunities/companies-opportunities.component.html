@@ -1,7 +1,7 @@
 <div *ngIf="canViewOpps" class="table-container" fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="20px">
 
   <div class="contact-btn">
-    <a mat-flat-button (click)="openOppsDialog()"><i
+    <a  *hasWriteAccess="CAN_CREATE_OPPS" mat-flat-button (click)="openOppsDialog()"><i
         class="bi bi-plus-circle-fill"></i>{{"OPPORTUNITIES.ADD-NEW-OPPORTUNITY.ADD-NEW-OPPORTUNITY" |
       transloco}}</a>
   </div>

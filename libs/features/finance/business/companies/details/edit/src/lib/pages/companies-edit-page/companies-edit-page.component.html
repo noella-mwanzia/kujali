@@ -3,7 +3,7 @@
 
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header [editPageName]="'COMPANY.ADD-NEW-COMPANY.EDIT-COMPANY' | transloco">
-        <button save-button mat-flat-button (click)="updateCompany()" class="add-new">
+        <button *hasViewAccess="CAN_EDIT_COMPANY" save-button mat-flat-button (click)="updateCompany()" class="add-new">
           <i style="margin-right: 10px" class="fas fa-file-image"></i>{{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}</button>
       </kujali-finance-detail-header-edits >
     </kujali-finance-toolbar>
@@ -30,7 +30,7 @@
                       <div>
                         <i class="fas fa-building"></i>
                           <div class="edit" fxLayout="row" fxLayoutAlign="end">
-                            <button class="edit-account" (click)="newProfileImg()">
+                            <button *hasViewAccess="CAN_EDIT_COMPANY" class="edit-account" (click)="newProfileImg()">
                               <i class="fas fa-edit"></i>
                             </button>
                           </div>
@@ -113,7 +113,7 @@
               <kujali-finance-social-media-field [socialMediaFields]="companyForm"></kujali-finance-social-media-field>
 
               <div>
-                <button mat-raised-button color="warn" class="danger-btn" (click)="deleteCompany(companyData)">Delete Company</button>
+                <button *hasViewAccess="CAN_DELETE_COMPANIES" mat-raised-button color="warn" class="danger-btn" (click)="deleteCompany(companyData)">Delete Company</button>
               </div>
             </div>
           </div>

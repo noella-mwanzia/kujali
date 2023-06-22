@@ -19,11 +19,11 @@ import { Role } from '@app/model/roles';
 import { ActiveContactStore, ContactsService } from '@app/state/finance/contacts';
 import { ContactRolesStore } from '@app/state/roles';
 import { CompaniesService } from '@app/state/finance/companies';
-// import { PermissionsStateService } from '@app/state/organisation';
+import { PermissionsStateService } from '@app/state/organisation';
 
 import { RolesFormFieldComponent, TagsFormFieldComponent } from '@app/elements/forms/form-fields';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { ChangeProfilePictureComponent } from '../../components/change-profile-picture/change-profile-picture.component';
 
@@ -65,8 +65,8 @@ export class ContactsEditPageComponent implements OnInit {
 
   canEditContactDetails: boolean;
 
-  // readonly CAN_DELETE_CONTACTS = AppClaimDomains.ContactDelete;
-  // readonly CAN_EDIT_CONTACT = AppClaimDomains.ContactEdit;
+  readonly CAN_DELETE_CONTACTS = AppClaimDomains.ContactDelete;
+  readonly CAN_EDIT_CONTACT = AppClaimDomains.ContactEdit;
 
   constructor(private _dialog: MatDialog,
               private _fb: FormBuilder,
@@ -75,7 +75,7 @@ export class ContactsEditPageComponent implements OnInit {
               private _translateService: TranslateService,
               private _contactService: ContactsService,
               private _companyService: CompaniesService,
-              // private _permissionsService: PermissionsStateService
+              private _permissionsService: PermissionsStateService
   ) {}
 
   ngOnInit() {
@@ -95,17 +95,17 @@ export class ContactsEditPageComponent implements OnInit {
   }
 
   private _checkPermissions() {
-    // this._sbS.sink = this._permissionsService
-    //   .checkAccessRight((p: any) => p.ContactsSettings.CanEditContacts)
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (!permissions) {
-    //       this.contactForm.disable();
-    //       this.canEditContactDetails = false;
-    //       this.tagsComponent.canEdit = true;
-    //       this._permissionsService.throwInsufficientPermissions();
-    //     }
-    //   });
+    this._sbS.sink = this._permissionsService
+      .checkAccessRight((p: any) => p.ContactsSettings.CanEditContacts)
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (!permissions) {
+          this.contactForm.disable();
+          this.canEditContactDetails = false;
+          this.tagsComponent.canEdit = true;
+          this._permissionsService.throwInsufficientPermissions();
+        }
+      });
   }
 
   getActiveContact() {

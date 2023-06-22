@@ -17,8 +17,7 @@ import { Activity } from '@app/model/finance/activities';
 
 import { ActivityStore } from '@app/state/finance/activities';
 import { KujaliUsersService } from '@app/state/user';
-
-// import { PermissionsStateService } from '@app/state/organisation';
+import { PermissionsStateService } from '@app/state/organisation';
 
 @Component({
   selector: 'activities',
@@ -52,7 +51,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
               private _translateService: TranslateService,
               private _activity$$: ActivityStore,
               private cdref: ChangeDetectorRef,
-              // private _permissionsService: PermissionsStateService,
+              private _permissionsService: PermissionsStateService,
               private _kujaliUsersService: KujaliUsersService
   ) {}
 
@@ -83,14 +82,14 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   }
 
   private _checkPermissions() {
-    // this._sbS.sink = this._permissionsService
-    //   .checkAccessRight(this.getPermissionsDomain())
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == true) {
-    //       this.canEditActions = true;
-    //     }
-    //   });
+    this._sbS.sink = this._permissionsService
+      .checkAccessRight(this.getPermissionsDomain())
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == true) {
+          this.canEditActions = true;
+        }
+      });
   }
 
   getPermissionsDomain(): (p: any) => any {

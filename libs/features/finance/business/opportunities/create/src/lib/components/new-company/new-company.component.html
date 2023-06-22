@@ -19,7 +19,7 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+      <div *hasWriteAccess="CAN_CREATE_COMPANIES" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
         <div>
           <p class="or">{{"COMPANY.ADD-NEW-COMPANY.OR" | transloco}}</p>
         </div>

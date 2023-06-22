@@ -15,7 +15,7 @@ import { CompaniesOpportunitiesModule } from '@app/features/finance/business/com
 
 import { CreateOpportunityModalStateService } from '@app/features/finance/business/opportunities/create';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 import { CompanyInformationComponent } from './components/company-information/company-information.component';
@@ -41,7 +41,7 @@ import { CompaniesViewRouterModule } from './companies-view.router';
     CompaniesActivitiesModule,    
     CompaniesOpportunitiesModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
 
     CompaniesViewRouterModule
   ],

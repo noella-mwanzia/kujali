@@ -4,7 +4,7 @@
     <kujali-finance-toolbar toolbar>
       <kujali-finance-detail-header-edits header
         [editPageName]="'OPPORTUNITIES.ADD-NEW-OPPORTUNITY.EDIT-OPPORTUNITY' | transloco">
-        <button save-button mat-flat-button (click)="updateOpps()" class="add-new">
+        <button *hasViewAccess="CAN_EDIT_OPPS" save-button mat-flat-button (click)="updateOpps()" class="add-new">
           <i style="margin-right: 10px" class="fas fa-file-image"></i>
           {{ 'CONTACT.ADDNEWCONTACT.SAVE' | transloco }}
         </button>
@@ -126,7 +126,7 @@
               <kujali-finance-tags-form-field></kujali-finance-tags-form-field>
 
               <div class="deleteBtn">
-                <button mat-raised-button color="warn" class="danger"
+                <button *hasViewAccess="CAN_DELETE_OPPS" mat-raised-button color="warn" class="danger"
                   (click)="deleteOpportunity(oppsData)">Delete Opportunity</button>
               </div>
 

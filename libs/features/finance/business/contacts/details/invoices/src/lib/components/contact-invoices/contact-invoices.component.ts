@@ -13,7 +13,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Contact } from '@app/model/finance/contacts';
 import { Invoice } from '@app/model/finance/invoices';
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 import { Company } from '@app/model/finance/companies';
 
 import { OpportunitiesService } from '@app/state/finance/opportunities';
@@ -42,7 +42,7 @@ export class ContactInvoicesComponent implements OnInit {
   activeContact: Contact;
   company: Company;
 
-  // readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
+  readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
 
   constructor(private _router$$: Router,
               private _contact$$: ActiveContactStore,

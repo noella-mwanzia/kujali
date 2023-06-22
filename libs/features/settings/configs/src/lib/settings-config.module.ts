@@ -7,7 +7,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { MatSelectFilterModule } from 'mat-select-filter';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { ConfigSettingsComponent } from './pages/config-settings/config-settings.component';
 
@@ -28,7 +28,7 @@ import { ConfigInvoicesService } from './services/config-invoices.service';
     FormsModule,
     ReactiveFormsModule,
 
-    // AccessControlElementsModule
+    AccessControlModule
   ],
   declarations: [
     ConfigSettingsComponent

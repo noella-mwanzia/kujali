@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { CompaniesContactsModule } from "@app/features/finance/business/companies/details/contacts";
 import { CompaniesOpportunitiesModule } from '@app/features/finance/business/companies/details/opportunities';
@@ -31,7 +31,7 @@ import { CompaniesActivitiesTabsComponent } from './components/company-activitie
     CompaniesOpportunitiesModule,
     CompaniesInvoicesModule,
 
-    // AccessControlElementsModule
+    AccessControlModule
   ],
 
   declarations: [

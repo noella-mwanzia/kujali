@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { MatSelectFilterModule } from 'mat-select-filter';
+
 import {
   MaterialDesignModule,
   MaterialBricksModule,
@@ -9,6 +11,7 @@ import {
 } from '@iote/bricks-angular';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { UserMenuModule } from '@app/elements/layout/user-menu';
 
@@ -21,7 +24,6 @@ import { SideMenuFooterComponent } from './components/sidemenu-footer/sidemenu-f
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
 import { SingleDetailInformationCardComponent } from './components/single-information-card/single-information-card.component';
 import { SingleDetailInformationPageComponent } from './components/single-information-page/single-information-page.component';
-import { MatSelectFilterModule } from 'mat-select-filter';
 
 
 /**
@@ -39,6 +41,7 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 
     MatSelectFilterModule,
     UserMenuModule,
+    AccessControlModule
   ],
 
   declarations: [

@@ -53,7 +53,7 @@
               </a>
               <div class="sub-menu-list">
                 <ul>
-                  <li class="menu-item">
+                  <li *hasViewAccess="CAN_VIEW_COM" class="menu-item">
                     <a>
                       <span class="menu-icon">
                         <i class="fas fa-building"></i>
@@ -62,7 +62,7 @@
                         routerLinkActive="active">{{'SIDENAV.NAV.COMPANIES' | transloco}}</span>
                     </a>
                   </li>
-                  <li class="menu-item">
+                  <li *hasViewAccess="CAN_VIEW_CON" class="menu-item">
                     <a>
                       <span class="menu-icon">
                         <i class="far fa-address-book"></i>
@@ -71,7 +71,7 @@
                         routerLinkActive="active">{{'SIDENAV.NAV.CONTACTS' | transloco}}</span>
                     </a>
                   </li>
-                  <li class="menu-item">
+                  <li *hasViewAccess="CAN_VIEW_OPPS" class="menu-item">
                     <a>
                       <span class="menu-icon">
                         <i class="fas fa-file-signature"></i>
@@ -80,7 +80,7 @@
                         routerLinkActive="active">{{'SIDENAV.NAV.OPPORTUNITIES' | transloco}}</span>
                     </a>
                   </li>
-                  <li class="menu-item">
+                  <li *hasViewAccess="CAN_VIEW_INV" class="menu-item">
                     <a>
                       <span class="menu-icon">
                         <i class="fas fa-file-invoice"></i>
@@ -178,7 +178,7 @@
             <li class="menu-header" style="padding-top: 20px">
               <span> General </span>
             </li>
-            <li class="menu-item">
+            <li *hasViewAccess="CAN_VIEW_SETTINGS" class="menu-item">
               <a>
                 <span class="menu-icon">
                   <i class="fas fa-cog"></i>

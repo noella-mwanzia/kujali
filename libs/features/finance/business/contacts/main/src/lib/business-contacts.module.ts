@@ -15,7 +15,7 @@ import { ContactsPageComponent } from './pages/contacts-page.component';
 import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { ContactsFilterComponent } from './components/contacts-filter/contacts-filter.component';
 
@@ -33,6 +33,7 @@ import { ContactsRouterModule } from './contacts.router';
 
     iTalPageModule,
     PageHeadersModule,
+    AccessControlModule,
 
     ContactsRouterModule
   ],
