@@ -41,8 +41,8 @@ export class ConfigModel
       { 
         invoicesPrefix: invoicePrefix.prefix, 
         currentInvoiceNumber: invoicePrefix.number, 
-        extraNote: invoicePrefix.extraNote,
-        termsAndConditionsDocUrl: invoicePrefix.termsAndConditionsDocUrl
+        extraNote: invoicePrefix.extraNote ?? '',
+        termsAndConditionsDocUrl: invoicePrefix.termsAndConditionsDocUrl ?? ''
       });
     this.invoicePrefixGroup.disable();
   }

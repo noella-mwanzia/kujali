@@ -94,7 +94,7 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const features = ['dashboard', 'business', 'operations', 'budgets'];
     const featureIndex = features.indexOf(feature);
     const featureEl = this.FIRST_SUB_MENUS_BTN[featureIndex];
-    slideToggle(featureEl.nextElementSibling);
+    slideToggle(featureEl?.nextElementSibling);
   }
 
   ngOnDestroy() {
