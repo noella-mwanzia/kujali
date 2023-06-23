@@ -85,7 +85,7 @@ export class OrganisationService {
   }
 
   updateOrgPermissions(permissions: FormGroup) {
-    this._permissionsStore.create(permissions.value);
+    return this._permissionsStore.create(permissions.value);
   }
 
   removeUserFromOrg(user: KuUser) {

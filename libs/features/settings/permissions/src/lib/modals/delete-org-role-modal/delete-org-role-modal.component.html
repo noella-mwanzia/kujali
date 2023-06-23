@@ -14,7 +14,11 @@
   </div>
   <div mat-dialog-actions>
     <button mat-dialog-close="true" mat-flat-button>Cancel</button>
-    <button mat-raised-button color="primary" class="submit-button" (click)="deleteRole(org)" cdkFocusInitial> Delete Role
+    <button mat-raised-button color="primary" class="submit-button" (click)="deleteRole(org)" cdkFocusInitial>
+        <span *ngIf="!deletingRole; else loading">Delete Role</span>
+        <ng-template #loading>
+          <mat-spinner diameter="25"></mat-spinner>
+        </ng-template>
     </button>
   </div>
 </div>

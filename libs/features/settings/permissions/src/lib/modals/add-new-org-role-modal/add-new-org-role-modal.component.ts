@@ -18,6 +18,8 @@ export class AddNewOrgRoleModalComponent implements OnInit {
   org: Organisation;
   role: FormControl = new FormControl();
 
+  creatingNewRole: boolean = false;
+
   constructor(private _dialog: MatDialog,
               public dialogRef: MatDialogRef<AddNewOrgRoleModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,11 +36,13 @@ export class AddNewOrgRoleModalComponent implements OnInit {
 
   saveNewRole() {
     if (this.org) {
+      this.creatingNewRole = true;
       this.updateRoleOnObjects(this.data, this.role.value);
 
       let orgRoles = this.org.roles;
       orgRoles.push(this.role.value);
       this.org.roles = orgRoles;
+
       this._orgService$$.updateOrgDetails(this.org);
     }
   }
@@ -55,7 +59,9 @@ export class AddNewOrgRoleModalComponent implements OnInit {
       });
     });
 
-    this._orgService$$.updateOrgPermissions(permissionsFormGroup);
-    this._dialog.closeAll();
+    this._orgService$$.updateOrgPermissions(permissionsFormGroup).subscribe(() => {
+      this.creatingNewRole = false; 
+      this.dialogRef.close();
+    });
   }
 }

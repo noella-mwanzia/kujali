@@ -41,7 +41,7 @@ export class PermissionsStore extends Store<KujaliPermissions>
   create (permissions: any) {
     if(this._activeRepo){
       permissions.id = 'permissions';
-      return this._activeRepo.update(permissions).subscribe((success) => success);
+      return this._activeRepo.update(permissions);
     }
 
     throw new Error('Permissions state not avaialable.');

@@ -19,6 +19,8 @@ export class DeleteOrgRoleModalComponent implements OnInit {
 
   role: FormControl = new FormControl();
 
+  deletingRole: boolean = false;
+
   constructor(private _dialog: MatDialog,
               public dialogRef: MatDialogRef<DeleteOrgRoleModalComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,6 +33,7 @@ export class DeleteOrgRoleModalComponent implements OnInit {
 
   deleteRole(org: Organisation) {
     if (org) {
+      this.deletingRole = true;
       this.updateRoleOnObjects(this.data, this.role.value);
 
       let orgRoles = org.roles;
@@ -58,7 +61,9 @@ export class DeleteOrgRoleModalComponent implements OnInit {
       });
     });    
 
-    this._org$$.updateOrgPermissions(permissionsFormGroup);
-    this._dialog.closeAll();
+    this._org$$.updateOrgPermissions(permissionsFormGroup).subscribe(() => {
+      this.deletingRole = false;
+      this._dialog.closeAll();
+    });
   }
 }
