@@ -71,32 +71,6 @@
         </div>
       </div>
   
-      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
-        <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
-          <h4>{{ 'MODALS.CREATE-EXPENSE.CATEGORY' | transloco }}</h4>
-          <mat-form-field appearance="outline" fxFlex>
-            <mat-select formControlName="category" (selectionChange)="categoryChanged($event)">
-              <mat-option value=""></mat-option>
-              <mat-option *ngFor="let cat of categories" [value]="cat">
-                {{cat.name | transloco}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <div fxLayout="column" fxLayoutAlign="start" fxFlex="50">
-          <h4>{{ 'MODALS.CREATE-EXPENSE.TYPE' | transloco }}</h4>
-          <mat-form-field appearance="outline" fxFlex>
-            <mat-select formControlName="type">
-              <mat-option value=""></mat-option>
-              <mat-option *ngFor="let type of types" [value]="type">
-                {{type.name | transloco}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-  
       <div>
         <div fxLayout="column" fxLayoutAlign="start" fxFlex>
           <h4>{{ 'MODALS.CREATE-EXPENSE.NOTE' | transloco }}</h4>

@@ -67,8 +67,6 @@ export class ExpensesStateService {
       lineId: expense.plan.lineId,
       date: __DateToStorage(moment(expense.date)),
       vat: expense.vat,
-      trCat: expense.category.id,
-      trType: expense.type.id,
       note: expense.note,
     }
   }

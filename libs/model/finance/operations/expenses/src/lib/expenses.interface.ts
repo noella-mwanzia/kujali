@@ -23,12 +23,6 @@ export interface Expenses extends IObject {
   // vat number
   vat: number;
 
-  // trs category
-  trCat: string;
-
-  // trs type
-  trType: string;
-
   // Extra expense information
   note: string
 }
