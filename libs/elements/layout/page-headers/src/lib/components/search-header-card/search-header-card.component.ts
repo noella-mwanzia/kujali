@@ -29,17 +29,20 @@ export class SearchHeaderCardComponent implements OnDestroy {
   ngOnInit() {
     const elements = this._router$$.url.split('/');
     this.page = elements.length >= 0 ? elements[elements.length - 1] : '__noop__';
-    this.setPageName(this.page);
+    this.setPageName(this.page, elements);
   }
 
-  setPageName(page: string) {
+  setPageName(page: string, el: string[]) {
     switch (page) {
       case 'invoices':
         this.page = 'INVOICES.HEADER.INVOICES';
         break;
       case 'budgets':
-        this.page = 'FINANCE.BUDGET-SELECT.TITLE';
-        break;
+        if (el.length == 2)
+          this.page = 'FINANCE.BUDGET-SELECT.TITLE';
+        else
+          this.page = 'Transactions';
+        break
       case 'banking':
         this.page = 'BANKING.HEADER.BANKING';
         break
