@@ -14,6 +14,7 @@ import { CostTypesStore } from '@app/state/finance/cost-types';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
 import { BudgetPlansQuery } from '@app/state/finance/budgetting/rendering';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-expenses-modal',
@@ -30,12 +31,13 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
   plans: TransactionPlan[];
 
   creatingExpense: boolean = false;
+  assignToBudget: boolean = false;
 
   budgetLine: BudgetLine;
   budgetAmountDifference: number = 0;
 
-  activeExpenseDate: moment.Moment = moment();
   activePlan: TransactionPlan;
+  activeExpenseDate: moment.Moment = moment();
 
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
@@ -58,8 +60,13 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
     })
   }
 
+  assignToBudgetChange = (assignToBudget: MatSlideToggleChange) => this.assignToBudget = assignToBudget.checked;
+
   budgetChanged(budget: MatSelectChange) {
-    this._sbS.sink = this._plans$$.getPlans(budget.value).pipe(tap((plans) => { this.plans = plans })).subscribe();
+    this._sbS.sink = this._plans$$.getPlans(budget.value).pipe(
+                        tap((plans) => { 
+                          this.plans = plans.filter((p) => p.mode == -1) 
+                        })).subscribe();
   }
 
   plansSelected(plan: MatSelectChange) {
@@ -99,7 +106,7 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
 
   submitExpense() {
     this.creatingExpense = true;
-    this._expensesStateService.createExpense(this.addNewExpenseFormGroup).subscribe(() => {
+    this._expensesStateService.createExpense(this.addNewExpenseFormGroup, this.assignToBudget).subscribe(() => {
       this.creatingExpense = false;
       this._dialog.closeAll();
     });
@@ -113,7 +120,8 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
       date: [this.activeExpenseDate],
       amount: [0],
       vat: [0],
-      note: ['']
+      note: [''],
+      allocated: [false],
     })
   }
 }

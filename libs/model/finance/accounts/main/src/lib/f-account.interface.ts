@@ -17,7 +17,7 @@ export interface FAccount extends IObject
   accountHolderPhone: string,
   accountHolderEmail: string,
 
-  accountHolderAddress: AccountAddress;
+  accountHolderAddress?: AccountAddress;
 
   type: AccountType;
   trType: TransactionType;

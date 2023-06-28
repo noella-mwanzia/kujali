@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, combineLatest, map, switchMap, tap } from 'rxjs';
 import * as moment from 'moment';
 
 import { __DateFromStorage, __DateToStorage } from '@iote/time';
 
-import { ExpenseAllocs, Expenses } from '@app/model/finance/operations/expenses';
+import { ExpenseAllocs, Expenses, ExpensesAllocation } from '@app/model/finance/operations/expenses';
 
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { ActiveOrgStore } from '@app/state/organisation';
@@ -20,8 +20,8 @@ import { ExpensesAllocsStore } from '../stores/expenses-allocs.store';
 export class ExpensesStateService {
 
   constructor(private _aFF: AngularFireFunctions,
-              private _activeOrg$$: ActiveOrgStore,
               private _expenses$$: ExpensesStore,
+              private _activeOrg$$: ActiveOrgStore,
               private _expensesAllocs$$: ExpensesAllocsStore
   ) { }
 
@@ -29,13 +29,29 @@ export class ExpensesStateService {
     return this._expenses$$.get();
   }
 
-  getAllExpensesAllocs(): Observable<ExpenseAllocs[]> {
+  getAllAlocatedExpenses(): Observable<Expenses[]> {
+    return this._expenses$$.get().pipe(
+      switchMap((expenses) => this._expensesAllocs$$.get().pipe(
+        map((allocs) => expenses.filter((exp) => allocs.some((alloc) => alloc.id === exp.id)))
+      ))
+    );
+  }
+
+  getAllExpensesAllocs(): Observable<ExpensesAllocation[]> {
     return this._expensesAllocs$$.get();
   }
 
-  createExpense(expense: FormGroup) {
-    const expenseObject = this.createExpenseObject(expense.getRawValue());
-    return this._expenses$$.add(expenseObject).pipe(switchMap((exp) => this.allocateExpense(exp)));
+  getExpensesAndAllocs(): Observable<[Expenses[], ExpensesAllocation[]]> {
+    return combineLatest([this.getAllExpenses(), this.getAllExpensesAllocs()])
+  }
+
+  createExpense(expense: FormGroup, allocated: boolean) {
+    const expenseObject = this.createExpenseObject(expense.getRawValue(), allocated);
+
+    if (allocated)
+      return this._expenses$$.add(expenseObject).pipe(switchMap((exp) => this.allocateExpense(exp)));
+
+    return this._expenses$$.add(expenseObject);
   }
 
   allocateExpense(expense: Expenses) {
@@ -58,16 +74,17 @@ export class ExpensesStateService {
     return {orgId: orgId, expenseAlloc: alloc};
   }
 
-  createExpenseObject(expense): Expenses {
+  createExpenseObject(expense, allocated: boolean): Expenses {
     return {
       name: expense.name,
       amount: expense.amount,
-      budgetId: expense.budget.id,
-      planId: expense.plan.id,
-      lineId: expense.plan.lineId,
+      budgetId: allocated ? expense.budget.id : '',
+      planId: allocated ? expense.plan.id : '',
+      lineId: allocated ? expense.plan.lineId : '',
       date: __DateToStorage(moment(expense.date)),
       vat: expense.vat,
       note: expense.note,
+      allocated: allocated,
     }
   }
 }

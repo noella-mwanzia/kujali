@@ -25,4 +25,7 @@ export interface Expenses extends IObject {
 
   // Extra expense information
   note: string
+
+  // has a budget line been allocated to this expense
+  allocated?: boolean;
 }
