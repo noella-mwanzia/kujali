@@ -11,14 +11,14 @@ export function CreateNewBankAccountForm (_fb: FormBuilder): FormGroup {
     bic: [''],
     currency: [''],
 
-    accountHolderAddress: _fb.group({
-      city: [''],
-      country: [''],
-      streetName: [''],
-      physicalAddress: [''],
-      postalAddress: [''],
-      postalCode: [''],
-    }),
+    // accountHolderAddress: _fb.group({
+    //   city: [''],
+    //   country: [''],
+    //   streetName: [''],
+    //   physicalAddress: [''],
+    //   postalAddress: [''],
+    //   postalCode: [''],
+    // }),
 
     bankConnection : [0],
     trType: ['bank']
