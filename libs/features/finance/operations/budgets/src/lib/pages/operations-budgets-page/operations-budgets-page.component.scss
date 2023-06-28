@@ -1,0 +1,97 @@
+table {
+  width: 100%;
+}
+
+h4 {
+  margin-bottom: 5px;
+}
+
+.analysis {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+mat-card {
+  width: 100%;
+  height: 150px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.card-header {
+  font-weight: 400;
+  font-size: 1.1rem;
+} 
+
+.card-detail {
+  padding: 10px 0px 20px 0px;
+}
+
+.nav:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.card-detail span {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.h4 {
+  font-size: 0.7rem;
+}
+
+.mdc-data-table__header-cell {
+  color: var(--kujali-color-primary-blue) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--kujali-color-primary-black);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.red-bg {
+  color: red;
+  background-color: rgba($color: red, $alpha: 0.1);
+}
+.green-bg {
+  color: green;
+  background-color: rgba($color: green, $alpha: 0.1);
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
+}

@@ -11,6 +11,7 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { iTalPageModule } from '@app/elements/layout/page';
+import { PageHeadersModule } from '@app/elements/layout/page-headers';
 
 import { BudgetsPeriodTableComponent } from './components/budgets-period-table/budgets-period-table.component';
 import { OperationsBudgetsRouterModule } from './operations-budgets.router';
@@ -30,6 +31,7 @@ import { AllocateInvoiceToLineModalComponent } from './modals/allocate-invoice-t
     ReactiveFormsModule,
 
     iTalPageModule,
+    PageHeadersModule,
 
     OperationsBudgetsRouterModule,
   ],
