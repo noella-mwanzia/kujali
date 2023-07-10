@@ -1,11 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { User } from '@iote/bricks';
 import { UserService } from '@ngfi/angular';
 import { MetabaseService } from '@app/state/organisation';
 
-// import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
