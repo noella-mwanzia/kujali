@@ -1,7 +1,7 @@
 <app-page>
   <div class="container" *ngIf="user$ | async as user">
 
-    <div class="iframe" *ngIf="!!iframeUrl">
+    <div class="metabase-iframe" *ngIf="!!iframeUrl">
         <iframe [src] = "iframeUrl | safe: 'resourceUrl'"
           frameborder="0"
           allowtransparency>
