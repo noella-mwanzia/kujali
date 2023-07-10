@@ -26,6 +26,7 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
       params: {},
       email: user.email,
       id: user.uid,
+      org_id: user.uid,
       first_name: displayname[0],
       last_name: displayname[1],
       //NB: Group users based orgs which is currently the uid
