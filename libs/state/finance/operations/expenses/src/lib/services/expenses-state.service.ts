@@ -22,7 +22,8 @@ export class ExpensesStateService {
   constructor(private _aFF: AngularFireFunctions,
               private _activeOrg$$: ActiveOrgStore,
               private _expenses$$: ExpensesStore,
-              private _expensesAllocs$$: ExpensesAllocsStore
+              private _expensesAllocs$$: ExpensesAllocsStore,
+              
   ) { }
 
   getAllExpenses(): Observable<Expenses[]> {
@@ -42,11 +43,6 @@ export class ExpensesStateService {
     return this._activeOrg$$.get().pipe(
       map((org) => this.createExpBudgetLineAllocation(org.id!, expense)),
       switchMap((data) => this._aFF.httpsCallable('allocateExpenses')(data)));
-  }
-
-  //Todo: using this for testing. Don't forget to delete.
-  testMetabaseLink(){
-    return this._aFF.httpsCallable('getMetabaseUrl')({})
   }
 
   createExpBudgetLineAllocation(orgId: string, expense: Expenses) {
