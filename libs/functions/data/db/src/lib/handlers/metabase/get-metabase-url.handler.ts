@@ -5,6 +5,9 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { User } from '@angular/fire/auth';
 
+/** This handler is responsible for creating an authenticated jwt token
+ * for the metabase ebedded iframe source.
+ */
 
 export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
 {
@@ -12,23 +15,27 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
   {
     tools.Logger.log(() => `Setting up metabase url for User: ${JSON.stringify(user.uid)}`);
 
+    //TODO: Move to google secrets
     const METABASE_SITE_URL = "https://elewa-group.metabaseapp.com";
-    const METABASE_SECRET_KEY = "b9fa257a1f5c32edd31fe24b45cfdfe1e38b7b4e85c3cf716a277e3eaf42fec5";
+    const METABASE_SECRET_KEY = "f4b04fed137e7d78dd5f669ee4b2d03903097ecca37e1fe0d6870a161e2376ea";
 
-    const displayname = user.displayName!.split('');
-
+    const displayname = user.displayName!.split(' ');
+    
+    //Define user's payload containing user's relevant details.
     const payload = {
-      resource: { dashboard: 3 },
       params: {},
       email: user.email,
+      id: user.uid,
       first_name: displayname[0],
       last_name: displayname[1],
-      groups: ["Engineer", "People"]
+      //NB: Group users based orgs which is currently the uid
+      groups: [`${user.uid}`]
     }
 
+    //Sign the jwt with secret key provided by metabase.
     const token = jwt.sign(payload, METABASE_SECRET_KEY);
 
-    const iframeUrl = METABASE_SITE_URL + "/embed/dashboard/" + token + "#bordered=true&titled=true";
+    const iframeUrl = `${METABASE_SITE_URL}/auth/sso?jwt=${token}&return_to=${encodeURIComponent(METABASE_SITE_URL)}`
 
     return iframeUrl;
   }
