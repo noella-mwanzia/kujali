@@ -50,7 +50,7 @@ export class AllocateBudgetLineService {
       elements: budgetLineElements,
       allocStatus: allocStatus.status,
       allocId: expenseAlloc.id! ?? '',
-      amount: expenseAlloc.amount,
+      amount: budgetLine.amount,
     }
     
     allocStatus.alloc?.balance ? budgetLineAllocation.balance = allocStatus.alloc.balance : null;
