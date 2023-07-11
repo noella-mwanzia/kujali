@@ -40,7 +40,10 @@ export * from './app/api/finance/banking/ponto/set-selected-bank-account.functio
 export * from './app/api/finance/banking/ponto/update-ponto-connection.function';
 
 export * from './app/finance/manage/expenses/allocate-expenses.function';
+export * from './app/finance/manage/expenses/delete-expense-props.function';
+
 export * from './app/finance/manage/common/allocation.function';
 export * from './app/finance/manage/common/deallocation.function';
+
 export * from './app/finance/manage/invoices/allocate-payments-to-invoice.function';
 export * from './app/finance/manage/payments/allocate-invoices-to-payment.function';

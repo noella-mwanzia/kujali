@@ -54,6 +54,17 @@ export class ExpensesStateService {
     return this._expenses$$.add(expenseObject);
   }
 
+  deleteExpense(expense: Expenses) {
+    if (expense.allocated)
+      return this._expenses$$.remove(expense).pipe(switchMap(() => this.removeExpenseAllocation(expense)));
+
+    return this._expenses$$.remove(expense);
+  }
+
+  removeExpenseAllocation(expense: Expenses) {
+    return this._activeOrg$$.get().pipe(switchMap((org) => this._aFF.httpsCallable('deleteExpenseProps')({orgId: org.id!, expense: expense})))
+  }
+
   allocateExpense(expense: Expenses) {
     return this._activeOrg$$.get().pipe(
       map((org) => this.createExpBudgetLineAllocation(org.id!, expense)),
