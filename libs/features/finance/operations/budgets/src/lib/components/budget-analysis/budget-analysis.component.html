@@ -1,0 +1,52 @@
+<div *ngIf="agg$ | async as agg" class="analysis" fxLayout="row" fxLayoutAlign="space-between center"
+  fxLayoutGap="10px">
+  <mat-card>
+    <p class="card-header">
+      Month Balance
+    </p>
+    <span class="card-detail">
+      <span [ngStyle]="{'color':agg.difference < 0 ? 'red' : 'green' }"> {{absolute(agg.difference) | currency: 'EUR'}}
+      </span>
+    </span>
+  </mat-card>
+  <mat-card>
+    <p class="card-header">
+      Allocated Total
+    </p>
+    <span class="card-detail" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+      <span style="color: green;" fxLayout="row" fxLayoutAlign="start center"> 
+        <span>
+          {{ agg.allocatedIncome | currency }} 
+        </span>
+        <span class="percentile-income">
+          {{ (agg.allocatedIncome! / agg.tottalIncome) | percent }}
+        </span>
+      </span>
+
+      <span style="color: red;" fxLayout="row" fxLayoutAlign="start center"> 
+        <span>
+          {{ agg.allocatedCost | currency }}
+        </span> 
+        <span class="percentile-cost">
+          {{ (agg.allocatedCost! / agg.tottalCost) | percent }}
+        </span>
+      </span>
+    </span>
+  </mat-card>
+  <mat-card>
+    <p class="card-header">
+      Total Income
+    </p>
+    <span class="card-detail">
+      <span style="color: green;"> {{agg.tottalIncome | currency: 'EUR' }} </span>
+    </span>
+  </mat-card>
+  <mat-card>
+    <p class="card-header">
+      Total Expenses
+    </p>
+    <span class="card-detail">
+      <span style="color: red;"> {{agg.tottalCost | currency: 'EUR' }} </span>
+    </span>
+  </mat-card>
+</div>
