@@ -20,10 +20,14 @@ import { BudgetPlansQuery } from '@app/state/finance/budgetting/rendering';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
 
+import { AllocateInvoiceToLineModalComponent } from '../../modals/allocate-invoice-to-line-modal/allocate-invoice-to-line-modal.component';
+import { CompareBudgetsModalComponent } from '../../modals/compare-budgets-modal/compare-budgets-modal.component';
+
 import { CALCULATE_ALLOCATED_COSTS, CALCULATE_ALLOCATED_INCOME } from '../../providers/calculate-month-amounts.provider';
 
 import { BudgetLineAllocUI, BudgetLineUI } from '../../model/budget-line-view.interface';
-import { AllocateInvoiceToLineModalComponent } from '../../modals/allocate-invoice-to-line-modal/allocate-invoice-to-line-modal.component';
+import { BudgetAnalysisAggregate, DEFAULT_ANALYSIS_AGGREGATE, resetBudgetAnalysisAggregate } from '../../model/budget-analysis-aggregate.interface';
+
 @Component({
   selector: 'app-operations-budgets-page',
   templateUrl: './operations-budgets-page.component.html',
@@ -35,7 +39,8 @@ export class OperationsBudgetsPageComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
 
-  displayedColumns: string[] = ['budget', 'name', 'total', 'expenses', 'invoices'];
+  displayedColumns: string[] = ['name', 'total', 'expenses', 'invoices'];
+  
   dataSource = new MatTableDataSource();
 
   allMonths: BudgetLineUI[];
@@ -50,6 +55,7 @@ export class OperationsBudgetsPageComponent implements OnInit {
   yearValue$ = new BehaviorSubject(this.currentYear);
 
   budgets: Budget[];
+  filteredBudgets: Budget[];
   activeBudget: Budget;
   budgetValue$ = new Subject();
 
@@ -58,12 +64,14 @@ export class OperationsBudgetsPageComponent implements OnInit {
   expenses: Expenses[];
   expAllocs: ExpensesAllocation[];
 
+  allocatedInvoices: Invoice[] = [];
+  allocatedExpenses: Expenses[] = [];
+
   activeBudgetLine: BudgetLine;
   budgetLineAllocs: BudgetLinesAllocation[];
 
-  allocatedIncome: number;
-  allocatedCost: number;
-  agg: {tottalIncome: number, tottalCost: number, difference: number};
+  agg: BudgetAnalysisAggregate = DEFAULT_ANALYSIS_AGGREGATE;
+  agg$$: BehaviorSubject<BudgetAnalysisAggregate> = new BehaviorSubject(this.agg);
   
   allDataIsReady: boolean = false;
 
@@ -93,7 +101,10 @@ export class OperationsBudgetsPageComponent implements OnInit {
                                         tap(([selectedYear, selectedMonth, selectedBudget, budgets]) => 
                                                 { this.activeBudget = !this.activeBudget?.name ? budgets[0] : this.activeBudget }),
                                         tap(([selectedYear, selectedMonth, selectedBudget, budgets]) => 
-                                                { this.budgets = budgets.filter((budget) => budget.status === 1) }),
+                                                { 
+                                                  this.budgets = budgets.filter((budget) => budget.status === 1);
+                                                  this.filteredBudgets = this.budgets;
+                                                }),
                                         switchMap(([selectedYear, selectedMonth, selectedBudget, budgets]) => 
                                                 this.combineData(Number(selectedYear), selectedMonth.month)))
                                       .subscribe();
@@ -120,29 +131,26 @@ export class OperationsBudgetsPageComponent implements OnInit {
   }
 
   createBudgetLine(budgetLine: BudgetLineAllocUI, plans: TransactionPlan[]): BudgetLineUI {
-    let allocatedInvoices: Invoice[] = [];
-    let allocatedExpenses: Expenses[] = [];
+    this.allocatedExpenses = [];
+    this.allocatedInvoices = [];
 
     const budgetLinePlan = plans.find((plan) => plan.id === budgetLine.lineId);
     const expIds = budgetLine.elements?.filter((el) => el.allocMode == -1).map((element) => element.withId);
     const invIds = budgetLine.elements?.filter((el) => el.allocMode == 1).map((element) => element.withId);
 
     if (expIds?.length > 0)
-      allocatedExpenses = this.expenses?.filter((exp) => expIds?.includes(exp.id!));
+      this.allocatedExpenses = this.expenses?.filter((exp) => expIds?.includes(exp.id!));
 
     if (invIds?.length > 0)
-      allocatedInvoices = this.invoices?.filter((inv) => invIds?.includes(inv.id!));
-    
-    this.allocatedIncome = this.calculateAllocatedIncome(allocatedInvoices);
-    this.allocatedCost = this.calculateAllocatedCosts(allocatedExpenses);
+      this.allocatedInvoices = this.invoices?.filter((inv) => invIds?.includes(inv.id!));
 
     const budgetLineData: BudgetLineUI = {
       amount: budgetLine.amount,
       baseAmount: budgetLine.baseAmount,
       budgetName: this.activeBudget.name,
       lineName: budgetLinePlan?.lineName!,
-      allocatedExpenses: allocatedExpenses,
-      allocatedInvoices: allocatedInvoices,
+      allocatedExpenses: this.allocatedExpenses,
+      allocatedInvoices: this.allocatedInvoices,
       mode: budgetLine.mode as any,
     }
     return budgetLineData;
@@ -155,20 +163,27 @@ export class OperationsBudgetsPageComponent implements OnInit {
     const difference = tottalIncome - Math.abs(tottalCost);
 
     this.agg = {tottalIncome, tottalCost, difference};
+    this.agg.allocatedIncome = this.calculateAllocatedIncome(this.allocatedInvoices);
+    this.agg.allocatedCost = this.calculateAllocatedCosts(this.allocatedExpenses);
+
+    this.agg$$.next(this.agg);
     this.allDataIsReady = true;
   }
 
   budgetChanged(budget: MatSelectChange) {
+    this.agg = resetBudgetAnalysisAggregate();
     this.activeBudget = budget.value;
     this.budgetValue$.next(budget.value);
   }
 
   yearChanged(year: MatSelectChange) {
+    this.agg = resetBudgetAnalysisAggregate();
     this.activeYear = year.value;
     this.yearValue$.next(year.value);
   }
 
   monthChanged(month: MatSelectChange) {
+    this.agg = resetBudgetAnalysisAggregate();
     this.activeMonth = (month.value.month - 1).toString();
     this.month = month.value;
     this.monthValue$.next(month.value);
@@ -192,5 +207,12 @@ export class OperationsBudgetsPageComponent implements OnInit {
       this._router$$.navigate(['business/invoices', id, 'edit']);
     else
       this._router$$.navigate(['operations/expenses', id]);
+  }
+
+  compareBudgets() {
+    this._dialog.open(CompareBudgetsModalComponent, {
+      minWidth: '1000px',
+      minHeight: '800px',
+    });
   }
 }
