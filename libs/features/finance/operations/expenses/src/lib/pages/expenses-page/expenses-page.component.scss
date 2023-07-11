@@ -42,10 +42,9 @@ td.mat-column-imageurl {
   cursor: pointer;
 }
 
-::ng-deep .mat-elevation-z8 {
-  box-shadow: none;
+.delete-btn {
+  background-color: red;
 }
-
 
 .partial-allocate-btn {
   background-color: orange!important;
@@ -59,6 +58,14 @@ td.mat-column-imageurl {
 
 .unallocated-btn {
   border: solid var(--kujali-color-primary-blue) 1px!important;
+}
+
+::ng-deep .mat-elevation-z8 {
+  box-shadow: none;
+}
+
+:host .mat-mdc-fab, .mat-mdc-mini-fab {
+  box-shadow: none;
 }
 
 // Custom Scrollbar
