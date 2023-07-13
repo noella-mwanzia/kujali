@@ -62,7 +62,8 @@
               </div>
 
               <button [disabled]="settingBankAccount" mat-raised-button color="primary" class="select-acc" (click)="setSelectedAccount(bankAcc)">
-                Connect Account
+                <span *ngIf="!settingBankAccount"> Connect Account </span>
+                <mat-spinner *ngIf="settingBankAccount" diameter="20"></mat-spinner>
               </button>
             </div>
           </div>

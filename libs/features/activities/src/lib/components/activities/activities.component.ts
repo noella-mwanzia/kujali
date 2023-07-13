@@ -14,9 +14,10 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { KuUser } from '@app/model/common/user';
 import { Activity } from '@app/model/finance/activities';
+import { KujaliPermissions } from '@app/model/organisation';
 
-import { ActivityStore } from '@app/state/finance/activities';
 import { KujaliUsersService } from '@app/state/user';
+import { ActivityStore } from '@app/state/finance/activities';
 import { PermissionsStateService } from '@app/state/organisation';
 
 @Component({
@@ -59,20 +60,13 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     this.lang = this._translateService.initialise();
     this.activities$ = this._activity$$.get();
 
-    this._page = this._router$$.url.split('/')[1];
+    this._page = this._router$$.url.split('/')[2];
 
-    this.activities$ = combineLatest([
-      this.activities$,
-      this.sorting$$.asObservable(),
-    ]).pipe(
-      map(([acts, sort]) =>
-        _.orderBy(
-          acts,
-          (a) => __DateFromStorage(a.endDate).unix(),
-          sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
-        )
-      )
-    );
+    this.activities$ = combineLatest([this.activities$, this.sorting$$.asObservable(),
+        ]).pipe(map(([acts, sort]) =>
+                  _.orderBy(acts,(a) => __DateFromStorage(a.endDate).unix(),
+                    sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
+                  )));
 
     this._checkPermissions();
   }
@@ -92,19 +86,16 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getPermissionsDomain(): (p: any) => any {
+  getPermissionsDomain() {
     switch (this._page) {
       case 'companies':
-        return (p: any) => p.CompanySettings.CanEditCompanyActions;
-
+        return (p: KujaliPermissions) => p.CompanySettings.CanEditCompanyActions;
       case 'contacts':
-        return (p: any) => p.ContactsSettings.CanEditContactActions;
-
+        return (p: KujaliPermissions) => p.ContactsSettings.CanEditContactActions;
       case 'opportunities':
-        return (p: any) => p.OpportunitiesSettings.CanEditOpportunitiesActions;
-
+        return (p: KujaliPermissions) => p.OpportunitiesSettings.CanEditOpportunitiesActions;
       default:
-        return () => {}
+        return;
     }
   }
 

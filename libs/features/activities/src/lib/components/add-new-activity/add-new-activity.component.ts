@@ -56,7 +56,7 @@ export class AddNewActivityComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._page = this._router$$.url.split('/')[1];
+    this._page = this._router$$.url.split('/')[2];
     this.lang = this._translateService.initialise();
 
     this._getOrgUsers();

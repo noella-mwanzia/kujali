@@ -43,9 +43,7 @@ export class CompaniesActivitiesTabsComponent implements OnInit, OnDestroy {
               private _translateService: TranslateService,
               private _permissionsService: CheckPermissionsService
               
-  ) { 
-
-  }
+  ) { }
 
   ngOnInit() {
     this.lang = this._translateService.initialise();
