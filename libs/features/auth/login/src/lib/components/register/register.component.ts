@@ -1,7 +1,7 @@
 import { Component }    from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { User }                from '@iote/bricks';
+import { User, UserProfile }                from '@iote/bricks';
 import { Logger, EventLogger } from '@iote/bricks-angular';
 import { AuthService }         from '@ngfi/angular';
 
@@ -62,8 +62,8 @@ export class RegisterComponent
         profile: {
           email: frm.email,
           phone: '',
-          buildings: {}
-        },
+          buildings: {},
+        } as UserProfile,
 
         displayName: `${firstName} ${lastName}`,
         roles: {
