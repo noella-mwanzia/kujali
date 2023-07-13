@@ -16,6 +16,9 @@ import { FinancialExplorerStateService } from '@app/state/finance/budgetting/ren
 
 import { LinkBudgetModalComponent } from '../link-budget-modal/link-budget-modal.component';
 import { PromptSaveBudgetChangesComponent } from '../../modals/prompt-save-budget-changes/prompt-save-budget-changes.component';
+import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
+import { Budget } from '@app/model/finance/planning/budgets';
+import { RenderedBudget } from '@app/model/finance/planning/budget-rendering';
 
 @Component({
   selector: 'app-financial-plan-result-table',
@@ -41,7 +44,8 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
   previousState: FinancialExplorerState;
 
   constructor(private _router$$: Router, 
-              private _dialog: MatDialog, 
+              private _dialog: MatDialog,
+              private _budgetStateService: BudgetsStateService,
               private _bs: FinancialExplorerStateService)
   { }
 
@@ -87,6 +91,11 @@ export class  FinancialPlanResultTableComponent implements OnInit, OnDestroy
   activateBudget() {
     this.budgetActivating = true;
     this._bs.activateBudget().subscribe(() => this.budgetActivating = false);
+  }
+
+  deActivateBudget(budget: Budget) {
+    this.budgetActivating = true;    
+    this._budgetStateService.deActivateBudget(budget).subscribe(() => this.budgetActivating = false);
   }
 
   submitBudget() {

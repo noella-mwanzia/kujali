@@ -15,7 +15,7 @@
       </button>
     </div>
 
-    <div>
+    <div *ngIf="state$ | async as state">
       <button [disabled]="budgetSubmitting" style="margin-right: 20px;" mat-raised-button color="primary" (click)="submitBudget()">
         <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
           <i class="fa-solid fa-paper-plane"></i> 
@@ -24,7 +24,8 @@
         </span>
       </button>
 
-      <button [disabled]="budgetActivating" mat-raised-button color="primary" (click)="activateBudget()">
+      <button *ngIf="state.budget.status !== 1; else activateBudgetBtn" 
+      [disabled]="budgetActivating" mat-raised-button color="primary" (click)="activateBudget()">
         <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
           <i class="fa-solid fa-paper-plane"></i> 
           <span>
@@ -33,6 +34,18 @@
           <mat-spinner *ngIf="budgetActivating" diameter="15" ></mat-spinner>
         </span>
       </button>
+
+      <ng-template #activateBudgetBtn>
+        <button [disabled]="budgetActivating" mat-stroked-button color="primary" (click)="deActivateBudget(state.budget)">
+          <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+            <i class="fa-solid fa-paper-plane"></i> 
+            <span>
+              Dectivate Budget
+            </span>
+            <mat-spinner *ngIf="budgetActivating" diameter="15" ></mat-spinner>
+          </span>
+        </button>
+      </ng-template>
     </div>
   </div>
 </div>
