@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, filter, map, Observable, Subscription, 
 
 import { Logger } from "@iote/bricks-angular";
 
-import { Budget } from "@app/model/finance/planning/budgets";
+import { Budget, BudgetStatus } from "@app/model/finance/planning/budgets";
 import { LoadedPlanTrInput, PlanTrInput, TransactionPlan } from "@app/model/finance/planning/budget-items";
 import { RenderedBudget, RenderedChildBudget } from "@app/model/finance/planning/budget-rendering";
 
@@ -211,6 +211,7 @@ export class FinancialExplorerStateService
     return combineLatest(([state$, plans$]))
               .pipe(take(1)).pipe(
                 filter(([state, plans]) => !!state && !!plans),
+                tap(([state, plans]) => state.budget.status == BudgetStatus.InUse ? this.activateBudget(): null),
                 switchMap(([state, plans]) =>  this._budgetPlans$.savePlans(state.budget, plans)));
   }
 
@@ -220,10 +221,9 @@ export class FinancialExplorerStateService
 
     let promoteBudgetData: {budget: FinancialExplorerState, plans: TransactionPlan[]};
 
-    return combineLatest([state$, plans$])
-                      .pipe(filter(([state, plans]) => !!state && !!plans),
-                            tap(([state, plans]) => promoteBudgetData = {budget: state, plans: plans}),
-                            switchMap(() => this._bs.httpsCallable('promoteBudget')(promoteBudgetData)));
+    return combineLatest([state$, plans$]).pipe(take(1),
+                                    filter(([state, plans]) => !!state && !!plans),
+                                    tap(([state, plans]) => promoteBudgetData = {budget: state, plans: plans}),
+                                    switchMap(() => this._bs.httpsCallable('promoteBudget')(promoteBudgetData)));
   }
- 
 }
