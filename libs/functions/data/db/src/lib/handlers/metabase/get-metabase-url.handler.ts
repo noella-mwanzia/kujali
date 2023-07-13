@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 
-import { User } from '@angular/fire/auth';
+import { User } from '@iote/bricks';
 
 /** This handler is responsible for creating an authenticated jwt token
  * for the metabase ebedded iframe source.
@@ -38,6 +38,13 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
     const iframeUrl = `${METABASE_SITE_URL}/auth/sso?jwt=${token}&return_to=${encodeURIComponent(METABASE_SITE_URL)}`
 
     //save the iframe url for each user
+    // const usersRepo = tools.getRepository<User>('users');
+
+    // const userData = await usersRepo.getDocumentById(user.uid);
+
+    // userData.profile.metabaseUrl = iframeUrl;
+
+    // await usersRepo.write(userData,userData.uid)
 
     return iframeUrl;
   }
