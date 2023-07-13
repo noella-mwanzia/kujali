@@ -23,20 +23,21 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
     
     //Define user's payload containing user's relevant details.
     const payload = {
-      params: {},
       email: user.email,
       id: user.uid,
       org_id: user.uid,
       first_name: displayname[0],
       last_name: displayname[1],
-      //NB: Group users based orgs which is currently the uid
-      groups: [`${user.uid}`]
+      groups: ["Kujali"],
+      exp: Math.round(Date.now() / 1000) + (525600 * 60 * 100), // 100 years expiration
     }
 
     //Sign the jwt with secret key provided by metabase.
     const token = jwt.sign(payload, METABASE_SECRET_KEY);
 
     const iframeUrl = `${METABASE_SITE_URL}/auth/sso?jwt=${token}&return_to=${encodeURIComponent(METABASE_SITE_URL)}`
+
+    //save the iframe url for each user
 
     return iframeUrl;
   }
