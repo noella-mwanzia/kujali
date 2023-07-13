@@ -1,4 +1,4 @@
-import { switchMap } from "rxjs";
+import { switchMap, take } from "rxjs";
 
 import { Injectable } from "@angular/core";
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
@@ -16,7 +16,9 @@ export class MetabaseService
 
 	getMetabaseLink()
 	{
-		return this.authService.getUser().pipe(switchMap(user => this._aFF.httpsCallable('getMetabaseUrl')(user)));
+		return this.authService.getUser().pipe(
+																				take(1),
+																				switchMap(user => this._aFF.httpsCallable('getMetabaseUrl')(user)));
 	}
 
 }
