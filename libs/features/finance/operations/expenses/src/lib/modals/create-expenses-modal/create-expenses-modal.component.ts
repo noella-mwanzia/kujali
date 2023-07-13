@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { combineLatest, map, tap } from 'rxjs';
@@ -8,12 +9,12 @@ import * as moment from 'moment';
 
 import { Budget, BudgetLine } from '@app/model/finance/planning/budgets';
 import { TransactionPlan } from '@app/model/finance/planning/budget-items';
-import { LoadedTransactionType, LoadedTransactionTypeCategory } from '@app/model/finance/planning/budget-grouping';
 
 import { CostTypesStore } from '@app/state/finance/cost-types';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
 import { BudgetPlansQuery } from '@app/state/finance/budgetting/rendering';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-create-expenses-modal',
@@ -29,20 +30,17 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
   budgetsList: Budget[];
   plans: TransactionPlan[];
 
-  categories: LoadedTransactionTypeCategory[];
-  types: LoadedTransactionType[];
-
-  activeCategory: LoadedTransactionTypeCategory;
-
   creatingExpense: boolean = false;
+  assignToBudget: boolean = false;
 
   budgetLine: BudgetLine;
   budgetAmountDifference: number = 0;
 
-  activeExpenseDate: moment.Moment = moment();
   activePlan: TransactionPlan;
+  activeExpenseDate: moment.Moment = moment();
 
   constructor(private _fb: FormBuilder,
+              private _dialog: MatDialog,
               private _costTypes$$: CostTypesStore,
               private _plans$$: BudgetPlansQuery,
               private _budgetsStateService$$: BudgetsStateService,
@@ -62,16 +60,17 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
     })
   }
 
+  assignToBudgetChange = (assignToBudget: MatSlideToggleChange) => this.assignToBudget = assignToBudget.checked;
+
   budgetChanged(budget: MatSelectChange) {
-    this._sbS.sink = this._plans$$.getPlans(budget.value).pipe(tap((plans) => { this.plans = plans })).subscribe();
+    this._sbS.sink = this._plans$$.getPlans(budget.value).pipe(
+                        tap((plans) => { 
+                          this.plans = plans.filter((p) => p.mode == -1) 
+                        })).subscribe();
   }
 
   plansSelected(plan: MatSelectChange) {
     this.activePlan = plan.value;
-    const cat = this.categories.find((cat) => cat.id === this.activePlan.trCatId)!;    
-    const type = cat.types.find((type) => type.id === this.activePlan.trTypeId);
-    this.types = cat.types;
-    this.addNewExpenseFormGroup.patchValue({category: cat, type: type});
     this.setBudgetLine();
   }
 
@@ -95,13 +94,11 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
                         .subscribe(([budgets, costTypes]) => {
                           if (budgets) {
                             this.budgetsList = budgets.filter((budget) => budget.status === 1);
-                            this.categories = costTypes;
                           }
                         })
   }
 
-  getAmountDifference() {
-  }
+  getAmountDifference() {}
 
   compareFn(c1: any, c2: any): boolean {
     return c1 && c2 ? c1 === c2.id : c1 === c2.id;
@@ -109,24 +106,22 @@ export class CreateExpensesModalComponent implements OnInit, AfterViewInit {
 
   submitExpense() {
     this.creatingExpense = true;
-    this._expensesStateService.createExpense(this.addNewExpenseFormGroup).subscribe(() => this.creatingExpense = false);
+    this._expensesStateService.createExpense(this.addNewExpenseFormGroup, this.assignToBudget).subscribe(() => {
+      this.creatingExpense = false;
+      this._dialog.closeAll();
+    });
   }
 
   buildExpensesForm(): FormGroup {
     return this._fb.group({
+      name: [''],
       budget: [''],
       plan: [''],
       date: [this.activeExpenseDate],
       amount: [0],
       vat: [0],
-      category: [''],
-      type: [''],
-      note: ['']
+      note: [''],
+      allocated: [false],
     })
-  }
-
-  categoryChanged(category: MatSelectChange) {
-    this.activeCategory = category.value;
-    this.types = this.activeCategory.types;
   }
 }

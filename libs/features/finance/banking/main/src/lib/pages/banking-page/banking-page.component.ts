@@ -13,6 +13,7 @@ import { UserService } from '@ngfi/angular';
 import { KuUser } from '@app/model/common/user';
 import { FAccount } from '@app/model/finance/accounts/main';
 import { Organisation } from '@app/model/organisation';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 import { AccountsStateService } from '@app/state/finance/banking';
@@ -52,6 +53,8 @@ export class BankingPageComponent implements OnInit, AfterViewInit {
   accounts$: Observable<FAccount[]>;
 
   showFilter: boolean = false;
+
+  readonly CAN_VIEW_ACCOUNTS = AppClaimDomains.AccData;
 
   constructor(private _dialog: MatDialog,
               private _router$$: Router,

@@ -19,8 +19,8 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
     const totalBudgetYears: number[] = budgetData.budget.years;
 
     // step 2. get all lines (costs & income)
-    const allCosts = this.applyfilter(budgetData.budget.scopedCosts);
-    const allIncome = this.applyfilter(budgetData.budget.scopedIncome);
+    const allCosts = this.applyfilter(budgetData.budget.scopedCosts, tools);
+    const allIncome = this.applyfilter(budgetData.budget.scopedIncome, tools);
 
     // step 3. merge all lines
     const allPlans = allCosts.concat(allIncome);
@@ -31,20 +31,20 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
 
     tools.Logger.log(() => `[PromoteBudgetHandler].execute: Starting writing lines on the db`);
 
-    allPlans.map((pl) => {
+    const updateAllPlans$ = allPlans.map(async (pl) => {
 
       tools.Logger.log(() => `[PromoteBudgetHandler].execute: Iterating plans ${pl.name}`);
 
       tools.Logger.log(() => `[PromoteBudgetHandler].execute: iterate through all plan years`);
 
-      totalBudgetYears.map((yr) => {
+      const yearWrites$ = totalBudgetYears.map(async (yr) => {
 
         const yearData = pl.amountsYear.find((ay) => ay.year == yr);
 
         tools.Logger.log(() => `[PromoteBudgetHandler].execute: set the data for current year Month`);
         const activeMonthData = yearData?.amountsMonth;
 
-        activeMonthData?.map(async (month, index) => {
+        let months$ = activeMonthData?.map(async (month, index) => {
           tools.Logger.log(() => `[PromoteBudgetHandler].execute: creating lines from months amount ${yearData?.year} year, ${index} month`);
 
           let monthPlan = month['plan']?.id ? month['plan'] : {};
@@ -62,11 +62,16 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
           const lineId = `${yr}-${index}-${month['lineId']}`;
           await linesRepo.write(month, lineId);
         })
+
+        await Promise.all(months$!);
       })
+
+      await Promise.all(yearWrites$);
     })
 
-    // step 5. update budget status
+    const writePlans$ = await Promise.all(updateAllPlans$);
 
+    // step 5. update budget status
     let trimmedBudget = { ...budget } as Budget;
     delete trimmedBudget['income'];
     delete trimmedBudget['incomeTotals'];
@@ -78,11 +83,15 @@ export class PromoteBudgetHandler extends FunctionHandler<any, any>
 
     trimmedBudget.status = 1;
 
-    await tools.getRepository<any>(`orgs/${budget.orgId}/budgets`).write(trimmedBudget, trimmedBudget.id!);
+    const updateBudget$ = await tools.getRepository<any>(`orgs/${budget.orgId}/budgets`).write(trimmedBudget, trimmedBudget.id!);
+
+    return await Promise.all([writePlans$, updateBudget$]);
   }
 
-  applyfilter(data: BudgetRowYear[]): BudgetRowYear[] {
+  applyfilter(data: BudgetRowYear[], tools: HandlerTools): BudgetRowYear[] {
+    tools.Logger.log(() => `[PromoteBudgetHandler].applyfilter: filtering;`);
+
     return data.filter((row) =>
-      row.isHeader === false && (row.name !== 'BUDGETTING.LINES.COST' && row.name !== 'BUDGETTING.LINES.INCOME'))
+      row.isHeader === false && (row?.name !== 'BUDGETTING.LINES.COST' && row?.name !== 'BUDGETTING.LINES.INCOME'))
   }
 }

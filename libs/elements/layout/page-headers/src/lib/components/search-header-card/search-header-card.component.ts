@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 @Component({
   selector: 'kujali-finance-search-header-card',
@@ -14,7 +14,7 @@ export class SearchHeaderCardComponent implements OnDestroy {
 
   private _sbS = new SubSink();
 
-  // readonly CAN_CREATE_DOMAIN_DATA = AppClaimDomains.CanAddMembers;
+  readonly CAN_CREATE_DOMAIN_DATA = AppClaimDomains.CanAddMembers;
 
   page: string = '';
 
@@ -29,17 +29,20 @@ export class SearchHeaderCardComponent implements OnDestroy {
   ngOnInit() {
     const elements = this._router$$.url.split('/');
     this.page = elements.length >= 0 ? elements[elements.length - 1] : '__noop__';
-    this.setPageName(this.page);
+    this.setPageName(this.page, elements);
   }
 
-  setPageName(page: string) {
+  setPageName(page: string, el: string[]) {
     switch (page) {
       case 'invoices':
         this.page = 'INVOICES.HEADER.INVOICES';
         break;
       case 'budgets':
-        this.page = 'FINANCE.BUDGET-SELECT.TITLE';
-        break;
+        if (el.length == 2)
+          this.page = 'FINANCE.BUDGET-SELECT.TITLE';
+        else
+          this.page = 'Transactions';
+        break
       case 'banking':
         this.page = 'BANKING.HEADER.BANKING';
         break

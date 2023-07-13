@@ -5,7 +5,7 @@
   <button [disabled]="deAllocating" mat-stroked-button>
     Cancel
   </button>
-  <button [disabled]="deAllocating" mat-raised-button color="primary" (click)="deAllocateInvoice()" fxLayout="row" fxLayoutAlign="center center">
+  <button [disabled]="deAllocating || selectedPayments.length == 0" mat-raised-button color="primary" (click)="deAllocateInvoice()" fxLayout="row" fxLayoutAlign="center center">
     <span *ngIf="!deAllocating">De-allocate Invoice</span>
     <mat-spinner *ngIf="deAllocating" diameter="20" class="spinner"></mat-spinner>
   </button>

@@ -22,6 +22,9 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["node"],
     "paths": {
+      "@app/elements/access-control": [
+        "libs/elements/access-control/src/index.ts"
+      ],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -159,8 +162,32 @@
         "libs/features/finance/operations/payments/src/index.ts"
       ],
       "@app/features/notes": ["libs/features/notes/src/index.ts"],
+      "@app/features/organisation/main": [
+        "libs/features/organisation/main/src/index.ts"
+      ],
+      "@app/features/settings/configs": [
+        "libs/features/settings/configs/src/index.ts"
+      ],
+      "@app/features/settings/main": [
+        "libs/features/settings/main/src/index.ts"
+      ],
+      "@app/features/settings/organisation-details": [
+        "libs/features/settings/organisation-details/src/index.ts"
+      ],
+      "@app/features/settings/permissions": [
+        "libs/features/settings/permissions/src/index.ts"
+      ],
+      "@app/features/settings/user-profile": [
+        "libs/features/settings/user-profile/src/index.ts"
+      ],
+      "@app/features/settings/users": [
+        "libs/features/settings/users/src/index.ts"
+      ],
       "@app/features/shared/components/modals": [
         "libs/features/shared/components/modals/src/index.ts"
+      ],
+      "@app/functions/api/email-service": [
+        "libs/functions/api/email-service/src/index.ts"
       ],
       "@app/functions/api/finance/banking/ponto-connect": [
         "libs/functions/api/finance/banking/ponto-connect/src/index.ts"
@@ -171,6 +198,18 @@
       "@app/functions/data/db": ["libs/functions/data/db/src/index.ts"],
       "@app/functions/finance/budgeting": [
         "libs/functions/finance/budgeting/src/index.ts"
+      ],
+      "@app/functions/finance/business/companies": [
+        "libs/functions/finance/business/companies/src/index.ts"
+      ],
+      "@app/functions/finance/business/contacts": [
+        "libs/functions/finance/business/contacts/src/index.ts"
+      ],
+      "@app/functions/finance/business/invoices": [
+        "libs/functions/finance/business/invoices/src/index.ts"
+      ],
+      "@app/functions/finance/business/opportunities": [
+        "libs/functions/finance/business/opportunities/src/index.ts"
       ],
       "@app/functions/finance/manage/common": [
         "libs/functions/finance/manage/common/src/index.ts"
@@ -184,7 +223,12 @@
       "@app/functions/finance/manage/payments": [
         "libs/functions/finance/manage/payments/src/index.ts"
       ],
+      "@app/functions/organisation": [
+        "libs/functions/organisation/src/index.ts"
+      ],
       "@app/functions/pubsub": ["libs/functions/pubsub/src/index.ts"],
+      "@app/functions/users": ["libs/functions/users/src/index.ts"],
+      "@app/model/access-control": ["libs/model/access-control/src/index.ts"],
       "@app/model/common/config": ["libs/model/common/config/src/index.ts"],
       "@app/model/common/user": ["libs/model/common/user/src/index.ts"],
       "@app/model/data/db": ["libs/model/data/db/src/index.ts"],
@@ -260,6 +304,7 @@
       "@app/private/state/organisation": [
         "libs/private/state/organisation/src/index.ts"
       ],
+      "@app/state/access-control": ["libs/state/access-control/src/index.ts"],
       "@app/state/data/firebase": ["libs/state/data/firebase/src/index.ts"],
       "@app/state/files": ["libs/state/files/base/src/index.ts"],
       "@app/state/finance/activities": [

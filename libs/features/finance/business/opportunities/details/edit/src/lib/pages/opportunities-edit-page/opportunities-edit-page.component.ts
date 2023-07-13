@@ -9,11 +9,11 @@ import { difference as __difference } from 'lodash';
 import { Opportunity } from '@app/model/finance/opportunities';
 import { KuUser } from '@app/model/common/user';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { OpportunitiesService } from '@app/state/finance/opportunities';
 import { OrganisationService } from '@app/state/organisation';
-// import { PermissionsStateService } from '@app/state/organisation';
+import { PermissionsStateService } from '@app/state/organisation';
 
 import { TagsFormFieldComponent } from '@app/elements/forms/form-fields';
 
@@ -40,15 +40,15 @@ export class OpportunitiesEditPageComponent implements OnInit, OnDestroy, AfterC
 
   canEditOpps: boolean;
 
-  // readonly CAN_DELETE_OPPS = AppClaimDomains.OppsDelete;
-  // readonly CAN_EDIT_OPPS = AppClaimDomains.OppsEdit;
+  readonly CAN_DELETE_OPPS = AppClaimDomains.OppsDelete;
+  readonly CAN_EDIT_OPPS = AppClaimDomains.OppsEdit;
 
   oppsTags: string[];
 
   constructor(private _opportunityEditModelService: OpportunitiesEditModelService,
               private _orgsService$$: OrganisationService,
               private _oppsService: OpportunitiesService,
-              // private _permissionsService: PermissionsStateService
+              private _permissionsService: PermissionsStateService
   ) {}
 
   ngOnInit(): void {
@@ -74,17 +74,17 @@ ngAfterContentChecked(){
  }
 
   private _checkPermissions() {
-    // this._sbS.sink = this._permissionsService
-    //   .checkAccessRight((p: any) => p.OpportunitiesSettings.CanEditOpportunities)
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (!permissions) {
-    //       this.opportunityEditModel.opportunityForm.disable();
-    //       this.canEditOpps = permissions;
-    //       this._permissionsService.throwInsufficientPermissions();
-    //       this.tagsComponent.canEdit = true;
-    //     }
-    //   });
+    this._sbS.sink = this._permissionsService
+      .checkAccessRight((p: any) => p.OpportunitiesSettings.CanEditOpportunities)
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (!permissions) {
+          this.opportunityEditModel.opportunityForm.disable();
+          this.canEditOpps = permissions;
+          this._permissionsService.throwInsufficientPermissions();
+          this.tagsComponent.canEdit = true;
+        }
+      });
   }
 
   companyChanged(company: MatSelectChange) {           

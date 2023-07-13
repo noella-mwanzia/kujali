@@ -17,6 +17,8 @@ import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 import { ExpensesStateService } from '@app/state/finance/operations/expenses';
 import { BudgetsStateService } from '@app/state/finance/budgetting/budgets';
 
+import { DeleteModalComponent } from '@app/elements/modals';
+
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseUI } from '../../model/expense.model';
 import { CreateExpensesModalComponent } from '../../modals/create-expenses-modal/create-expenses-modal.component';
@@ -33,7 +35,7 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['budget', 'date', 'amount' , 'vat', 'note', 'allocatedTo'];
+  displayedColumns: string[] = ['name', 'budget', 'date', 'amount' , 'vat', 'allocatedTo', 'actions'];
 
   dataSource = new MatTableDataSource();
 
@@ -65,7 +67,8 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
                                                         this._expService.combineExpensesAndExpensesAllocs(expenses, expAllocs, budgets)),
                                                   map((ex) => this._expService.findExpenseRecords(ex.expenses, ex.budgets)),
                                                   tap((ex) => this.setExpensesData(ex)),
-                                                  tap(() => this.dataIsReady = true)).subscribe();
+                                                  tap((d) => {this.dataIsReady = true}))
+                                            .subscribe();
   }
 
   ngAfterViewInit(): void {
@@ -80,17 +83,22 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
   }
 
   getPlans(expenses: Expenses[]) {
-    const budgetId = expenses.map((b) => b.budgetId)!;
-    budgetId.map((id) => {
-      this._expService.getPlans(id!).pipe(tap((plans) =>{
-        this.allBudgetPlans.push(...plans);
-      })).subscribe();
-    });
+    const budgetIds = expenses.map((b) => b.budgetId)!;
+    if (budgetIds) {
+      budgetIds.map((id) => {
+        if (id != '') {
+          this._expService.getPlans(id!).pipe(tap((plans) =>{
+            this.allBudgetPlans.push(...plans);
+          })).subscribe();
+        }
+      });
+    }
   }
 
   getPlanName(planId: string) {
     const splitId = planId.split('-');
-    const name = this.allBudgetPlans.find((p) => p.id === splitId[2])?.lineName ?? '';
+    const yearAndMonth =`${splitId[0]}-${splitId[1]}-`
+    const name = this.allBudgetPlans.find((p) => p.id === planId.split(yearAndMonth)[1])?.lineName ?? '';
     return name ? `${name}: ${splitId[0]} - ${this.getMonthName(Number(splitId[1])) }`: '-';
   }
 
@@ -109,6 +117,7 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
 
   createNewExpense() {
     this._matDialog.open(CreateExpensesModalComponent, {
+      disableClose: true,
       minWidth: '700px'
     }).afterClosed();
   }
@@ -117,12 +126,23 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
     return __DateFromStorage(date).format('DD/MM/YYYY');
   }
   
-  viewExpense(expenseId: string) {
+  viewExpense(expenseId: string) {}
 
-  }
+  allocateTransactionEvent(expense: Expenses) {}
 
-  allocateTransactionEvent(expense: Expenses) {
+  editExpense(expense: Expenses) {}
 
+  deleteExpense(expense: Expenses) {
+    let deleteDialogRef = this._matDialog.open(DeleteModalComponent, {
+      data: 'Expense',
+      minWidth: 'fit-content'
+    })
+
+    deleteDialogRef.afterClosed().subscribe((chosenOption) => {
+      if (chosenOption?.event == 'delete') {
+        this._expensesStateService.deleteExpense(expense).subscribe()
+      }
+    })
   }
 
   getMonthName(monthNumber: number) {
@@ -130,5 +150,4 @@ export class ExpensesPageComponent implements OnInit, AfterViewInit {
     date.setMonth(monthNumber);
     return date.toLocaleString('en-US', { month: 'long' });
   }
-  
 }

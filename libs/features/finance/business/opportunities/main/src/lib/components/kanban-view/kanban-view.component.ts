@@ -20,7 +20,7 @@ import { KuUser } from '@app/model/common/user';
 
 import { OpportunitiesService, OpportunitiesStore, OpportunityTypesStore } from '@app/state/finance/opportunities';
 import { KujaliUsersService } from '@app/state/user';
-// import { PermissionsStateService } from '@app/state/orgs';
+import { PermissionsStateService } from '@app/state/organisation';
 
 const DATA: Opportunity[] = []
 
@@ -61,7 +61,7 @@ export class KanbanViewComponent implements OnInit {
               private _ops$$: OpportunitiesStore,
               private _oppsService: OpportunitiesService,
               private _kujaliUsersService: KujaliUsersService,
-              // private _permissionsService: PermissionsStateService,
+              private _permissionsService: PermissionsStateService,
               private _oppstypes$$: OpportunityTypesStore
   ) { }
 
@@ -164,29 +164,29 @@ export class KanbanViewComponent implements OnInit {
   }
 
   goToCompany(companyId: string) {
-    // if (companyId) {
-    //   this._permissionsService
-    //   .checkAccessRight((p: any) => p.CompanySettings.CanViewCompanies)
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == true) {
-    //       this._router$$.navigate(['companies', companyId]);
-    //     }
-    //   });
-    // }
+    if (companyId) {
+      this._permissionsService
+      .checkAccessRight((p: any) => p.CompanySettings.CanViewCompanies)
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == true) {
+          this._router$$.navigate(['companies', companyId]);
+        }
+      });
+    }
   }
 
   goToContact(contactId: string) {
-    // if (contactId) {
-    //   this._permissionsService
-    //   .checkAccessRight((p: any) => p.ContactsSettings.CanViewContacts)
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == true) {
-    //       this._router$$.navigate(['contacts', contactId]);
-    //     }
-    //   });
-    // }
+    if (contactId) {
+      this._permissionsService
+      .checkAccessRight((p: any) => p.ContactsSettings.CanViewContacts)
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == true) {
+          this._router$$.navigate(['contacts', contactId]);
+        }
+      });
+    }
   }
 
   generateColors(label: string) {

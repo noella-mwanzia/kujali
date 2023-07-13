@@ -1,0 +1,44 @@
+.config-page {
+  padding: 30px 20px;
+  padding-bottom: 100px;
+}
+
+.file-upload-label{
+  display: inline-block;
+  background-color: var(--kujali-color-primary-blue);
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 1rem;
+}
+
+.edit-button {
+  color: white!important;
+  // margin-top: 30px;
+  background-color: var(--kujali-color-primary-blue)!important;
+}
+
+.delete-btn {
+  // border: solid #DC4C64 1px;
+}
+
+.delete-btn:hover {
+  background-color: #DC4C64!important;
+  color: white!important;
+}
+
+::ng-deep .config-page .mat-form-field-infix {
+  border-top-width: 2px !important;
+}
+
+::ng-deep .config-page .mat-form-field-wrapper {
+  padding: 0px 0px 15px 0px;
+}

@@ -15,10 +15,9 @@ import { round as __round } from 'lodash';
 import { __DateFromStorage } from '@iote/time';
 
 import { Invoice } from '@app/model/finance/invoices';
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { OpportunitiesService } from '@app/state/finance/opportunities';
-// import { _CheckPermission } from '@app/state/access-control';
 
 import { KujaliUsersService } from '@app/state/user';
 
@@ -53,7 +52,7 @@ export class InvoicesPageComponent implements OnInit {
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
+  readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
   
   constructor(private _router$$: Router,
               private _snackBar: MatSnackBar,

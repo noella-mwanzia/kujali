@@ -8,7 +8,7 @@ import { combineLatest, Observable } from 'rxjs';
 
 import { sortBy as __sortyBy } from 'lodash';
 
-// import { AppClaimDomains } from '@kujali/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 import { Contact } from '@app/model/finance/contacts';
 
 import { ContactsStore } from '@app/state/finance/contacts';
@@ -32,7 +32,7 @@ export class NewContactComponent implements OnInit {
 
   private _page: string;
 
-  // readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
+  readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
 
   constructor(private _router$$: Router, private _contacts$$: ContactsStore) {}
 

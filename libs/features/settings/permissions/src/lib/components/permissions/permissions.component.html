@@ -1,0 +1,65 @@
+<div class="permissions">
+  <div fxLayout="row" fxLayoutAlign="space-between start" class="header">
+    <div *ngIf="usersLoaded; else loading" fxLayout="column" fxLayoutAlign="start start" class="info">
+      <p>Edit all the permissions of your <span class="bolder"> {{users.length}} team members.</span></p>
+      <div>You currently have: <span *ngFor="let role of userRoles"> {{role[1] ? role[1] : ''}} {{role[0] ? role[0] : ''}}</span></div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" class="buttons">
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Edit role name</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="deleteRole()" mat-stroked-button> Delete role</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="addRole()" mat-raised-button color="primary" class="white-btn"> Add role</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updateRolesPermissions()" mat-raised-button color="primary" class="white-btn">
+        <span *ngIf="!isEditMode; else saveRoles"> Edit Roles</span>
+        <ng-template #saveRoles> <span> Save Roles </span></ng-template>
+      </button>
+    </div>
+  </div>
+
+  <div class="app-domains" *ngIf="permissionsLoaded; else loading">
+
+    <div class="set-accordions" [formGroup]="model.permissionsFormGroup">
+
+      <div>
+        <kujali-general-settings [roles]="roles" [generalSettingsFormGroup]="model.permissionsFormGroup"></kujali-general-settings>
+      </div>
+  
+      <div>
+        <kujali-company-settings [roles]="roles" [companiesSettingsFormGroup]="model.permissionsFormGroup"></kujali-company-settings>
+      </div>
+  
+      <div>
+        <kujali-contact-settings [roles]="roles" [contactsSettingsFormGroup]="model.permissionsFormGroup" ></kujali-contact-settings>
+      </div>
+  
+      <div>
+        <kujali-opportunities-settings [roles]="roles" [opportunitiesSettingsFormGroup]="model.permissionsFormGroup"></kujali-opportunities-settings>
+      </div>
+  
+      <div>
+        <kujali-invoices-settings [roles]="roles" [invoicesSettingsFormGroup]="model.permissionsFormGroup" ></kujali-invoices-settings>
+      </div>
+
+      <div>
+        <kujali-accounts-settings [roles]="roles" [accountsSettingsFormGroup]="model.permissionsFormGroup" ></kujali-accounts-settings>
+      </div>
+
+      <div>
+        <kujali-payments-settings [roles]="roles" [paymentsSettingsFormGroup]="model.permissionsFormGroup" ></kujali-payments-settings>
+      </div>
+
+      <div>
+        <kujali-expenses-settings [roles]="roles" [expensesSettingsFormGroup]="model.permissionsFormGroup" ></kujali-expenses-settings>
+      </div>
+
+      <div>
+        <kujali-budgets-settings [roles]="roles" [budgetsSettingsFormGroup]="model.permissionsFormGroup" ></kujali-budgets-settings>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner diameter="25"></mat-spinner>
+  </ng-template>
+</div>

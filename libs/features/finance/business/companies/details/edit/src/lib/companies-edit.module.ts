@@ -24,7 +24,7 @@ import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 import { FormFieldsModule } from '@app/elements/forms/form-fields';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { ChangeProfilePictureComponent } from './components/change-profile-picture/change-profile-picture.component';
 import { CompaniesEditPageComponent } from './pages/companies-edit-page/companies-edit-page.component';
@@ -53,7 +53,7 @@ import { CompaniesEditRouterModule } from './companies-edit.router';
     ReactiveFormsModule,
     FormFieldsModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
 
     CompaniesEditRouterModule
   ],

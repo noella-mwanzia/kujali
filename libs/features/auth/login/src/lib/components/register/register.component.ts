@@ -13,25 +13,32 @@ import { TranslateService } from '@ngfi/multi-lang';
   styleUrls: ['register.component.scss'],
 })
 export class RegisterComponent
-{
-  registerForm: FormGroup;
-  checkForm: FormGroup;
-  confirmPassword: string;
-  phoneFormat: string;
-  lang : 'fr' | 'en' | 'nl';
-  isLoading = false;
-  isValid: boolean;
 
+{
+  checkForm: FormGroup;
+  registerForm: FormGroup;
+
+  phoneFormat: string;
+  confirmPassword: string;
+  lang : 'fr' | 'en' | 'nl';
+
+  isValid: boolean;
+  isLoading = false;
   accountCreationError = false;
 
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
               private _authService: AuthService,
               private _analytics: EventLogger,
-              private _logger: Logger)
-  {
+  ) {
     this._initForm();
     this.lang = this._translateService.initialise();
+  }
+
+
+  setLang(lang: 'en' | 'fr')
+  {
+    this._translateService.setLang(lang);
   }
 
   private _initForm()
@@ -63,8 +70,9 @@ export class RegisterComponent
           email: frm.email,
           phone: '',
           buildings: {},
-        } as UserProfile,
-
+          activeOrg: '',
+          orgIds: []
+        }as UserProfile,
         displayName: `${firstName} ${lastName}`,
         roles: {
           access: true,
@@ -119,33 +127,7 @@ export class RegisterComponent
     return this.registerForm.invalid || !this.registerForm.value.acceptConditions;
   }
 
-  loginGoogle() {
-    return this._authService.loadGoogleLogin();
-  }
+  getTermsLink = () => '';
 
-  /** Facebook Login */
-  loginFacebook() {
-    return this._authService.loadFacebookLogin();
-  }
-
-  /** Microsoft Login */
-  loginMicrosoft() {
-    return this._authService.loadMicrosoftLogin();
-  }
-
-  setLang(lang: 'en' | 'fr')
-  {
-    this._translateService.setLang(lang);
-  }
-
-  getTermsLink()
-  {
-    return '';
-  }
-
-  getPolicyLink()
-  {
-    return '';
-  }
-
+  getPolicyLink = () => '';
 }

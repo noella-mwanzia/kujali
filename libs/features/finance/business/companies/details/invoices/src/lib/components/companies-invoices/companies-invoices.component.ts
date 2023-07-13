@@ -13,7 +13,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Company } from '@app/model/finance/companies';
 import { Invoice } from '@app/model/finance/invoices';
-// import { AppClaimDomains } from '@kujali/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { ActiveCompanyStore } from '@app/state/finance/companies';
 import { OpportunitiesService } from '@app/state/finance/opportunities';
@@ -39,7 +39,7 @@ export class CompaniesInvoicesComponent implements OnInit {
 
   activeCompany: Company;
 
-  // readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
+  readonly CAN_CREATE_INVOICES = AppClaimDomains.InvCreate;
 
   constructor(private _router$$: Router,
               private router: ActivatedRoute,

@@ -12,7 +12,7 @@ import { sortBy as __sortBy, flatMap as __flatMap } from 'lodash';
 
 import { TranslateService } from '@ngfi/multi-lang';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { ContactsService } from '@app/state/finance/contacts'
 import { CompaniesService } from '@app/state/finance/companies';
@@ -56,7 +56,7 @@ export class AddNewCompanyComponent implements OnInit, OnDestroy {
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
+  readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
 
   constructor(private _translateService: TranslateService,
               private _contact$$: ContactsService,

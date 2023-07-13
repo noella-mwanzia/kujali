@@ -25,13 +25,6 @@
     <td mat-cell *matCellDef="let row"> {{row.startYear ? row.startYear : '-'}} </td>
   </ng-container>
 
-  <!-- end year Column -->
-  <ng-container matColumnDef="endYear">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> End Year </th>
-    <td mat-cell *matCellDef="let row"> {{row.startYear ? row.startYear + row.duration - 1: '-'}}
-    </td>
-  </ng-container>
-
   <!-- Duration Column -->
   <ng-container matColumnDef="duration">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration (Years) </th>
@@ -44,20 +37,31 @@
     <td mat-cell *matCellDef="let row">
       <div class="budget-btn-container" fxLayout="row" fxLayoutALign="start center" fxLayoutGap="10px">
 
-        <button mat-stroked-button (click)="openCloneBudgetDialog(row)" *ngIf="access('clone')">
-          {{ 'BUDGET.VIEW-RECORD.ACTIONS.CLONE'| transloco }}
+        <button color="primary" class="secondary-action" mat-mini-fab (click)="openCloneBudgetDialog(row)"
+          matTooltip="{{ 'BUDGET.VIEW-RECORD.ACTIONS.CLONE'| transloco }}" *ngIf="access('clone')">
+          <i class="fas fa-copy fa-sm"></i>
         </button>
 
-        <button mat-stroked-button (click)="goToDetail(row.id!, 'view')" *ngIf="access('view')">
-          {{'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco}}
+        <button color="primary" class="secondary-action" mat-mini-fab
+          matTooltip="{{'BUDGET.VIEW-RECORD.ACTIONS.VIEW' | transloco}}" (click)="goToDetail(row.id!, 'view')"
+          *ngIf="access('view')">
+          <i class="fas fa-eye fa-sm"></i>
         </button>
 
-        <button mat-raised-button color="primary" (click)="goToDetail(row.id!, 'edit')" *ngIf="access('edit')">
-          {{ 'BUDGET.VIEW-RECORD.ACTIONS.EDIT' | transloco }}
+        <button color="primary" mat-mini-fab matTooltip="{{ 'BUDGET.VIEW-RECORD.ACTIONS.EDIT' | transloco }}"
+          color="primary" (click)="goToDetail(row.id!, 'edit')" *ngIf="access('edit')">
+          <i class="fas fa-edit fa-sm"></i>
         </button>
 
-        <button class="share-btn" mat-mini-fab (click)="openShareBudgetDialog(row)">
-          <i class="fas fa-share-alt"></i>
+        <!-- <button color="primary" class="secondary-action"
+          matTooltip="{{ 'BUDGET.VIEW-RECORD.ACTIONS.SHARE' | transloco }}" mat-mini-fab
+          (click)="openShareBudgetDialog(row)">
+          <i class="fas fa-share-alt fa-sm"></i>
+        </button> -->
+
+        <button color="primary" class="delete-btn" matTooltip="Delete" mat-mini-fab
+          (click)="openShareBudgetDialog(row)">
+          <i class="fas fa-trash-alt fa-sm"></i>
         </button>
 
         <!-- Will only be true on parent since does not get cascaded down below. -->
@@ -67,7 +71,7 @@
       </div>
     </td>
   </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>

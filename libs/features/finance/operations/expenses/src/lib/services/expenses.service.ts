@@ -14,7 +14,7 @@ export class ExpensesService {
 
   constructor(private _budgetsStateService: BudgetsStateService) { }
 
-  combineExpensesAndExpensesAllocs(expenses: Expenses[], expensesAllocs: ExpenseAllocs[], budgets: Budget[]) {
+  combineExpensesAndExpensesAllocs(expenses: Expenses[], expensesAllocs: any[], budgets: Budget[]) {
     const ex = expenses.map((exp) => {
       const expAlloc = expensesAllocs.find((alloc) => alloc.id === exp.id);
       return { ...exp, ...expAlloc! };

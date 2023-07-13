@@ -49,7 +49,7 @@
 
           <div class="input-height" fxLayout="column" fxLayoutAlign="space-between start" fxFlex="12%">
             <div class="action">
-              <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
+              <button *hasViewAccess="CAN_EDIT_INVOICES" mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
                 <i class="fas fa-ellipsis-v"></i>
                 <span style="margin-left: 10px;">More</span>
               </button>
@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-    <button mat-stroked-button color="primary" (click)="addInvoiceItem()">
+    <button  *hasViewAccess="CAN_EDIT_INVOICES" mat-stroked-button color="primary" (click)="addInvoiceItem()">
       {{'INVOICES.DETAIL.ADD-ITEM' | transloco}}
     </button>
   </div>

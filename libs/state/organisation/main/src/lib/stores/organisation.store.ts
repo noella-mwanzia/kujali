@@ -37,37 +37,28 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
     this._activeRepo = _repoFac.getRepo<Organisation>('orgs');
 
     const data$ = _userService.getUser()
-                              .pipe(tap((user: KuUser | null) => this._activeUser = user as User),
-                                    switchMap((user: KuUser | null) => 
-                                        user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
-                                    
-                                    // If no organisations are set, set to the default org which is of uid
-                                    tap((orgs: Organisation[]) => this._logger.log(() => `Orgs: ${orgs.length}`)),
-                                    map((orgs: Organisation[]) => orgs.length > 0 ? orgs : [this._getDefaultOrg(this._activeUser)]),
-                                    
+                              .pipe(switchMap((user: KuUser) => user ? this._activeRepo.getDocuments(this._getOrgUsers(user)) : []),
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
+
+    this._sbS.sink = data$.subscribe(properties => {
+      this.set(properties, 'UPDATE - FROM DB');
+    });
 
     this._sbS.sink = data$.subscribe(orgs => {
       this.set(orgs, 'UPDATE - FROM DB');
     });
   }
 
-  private _getDomain(user: KuUser): Query
+  private _getOrgUsers(user: KuUser): Query
   {
     let q = new Query();
-
-
-    // Default org has ID = User ID
-    q = q.where('id', '==', user.id);
-
-    // if(!user.roles.admin)
-    // {
-    //   // Default org has ID = User ID
-    //   q = q.where('id', '==', user.id);
-    // }
-
+    if(user)
+    {
+      q = q.where('users', 'array-contains', user.id);
+    }
     return q;
   }
+
 
   private _getDefaultOrg(u: User) : Organisation | null 
   {
@@ -76,6 +67,10 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
     return {
       id: u.id,
       name: u.displayName ?? 'Unidentified',
+      phone: '',
+      email: '',
+      website: '',
+      vatNo: '',
       contact: {
         name: u.displayName ?? 'Unidentified',
         email: u.email

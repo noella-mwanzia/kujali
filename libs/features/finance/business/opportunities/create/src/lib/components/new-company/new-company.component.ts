@@ -8,7 +8,7 @@ import { combineLatest, Observable } from 'rxjs';
 
 import { sortBy as __sortyBy } from 'lodash';
 
-// import { AppClaimDomains } from '@kujali/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 import { Company } from '@app/model/finance/companies';
 
 import { CompaniesStore } from '@app/state/finance/companies';
@@ -31,7 +31,7 @@ export class NewCompanyComponent implements OnInit {
   isCompanyFilled: boolean;
   showCompany: boolean;
 
-  // readonly CAN_CREATE_COMPANIES = AppClaimDomains.CompanyCreate;
+  readonly CAN_CREATE_COMPANIES = AppClaimDomains.CompanyCreate;
 
   constructor(private _router$$: Router,
               private _companies$$ : CompaniesStore

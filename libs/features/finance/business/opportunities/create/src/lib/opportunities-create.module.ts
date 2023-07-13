@@ -11,7 +11,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { AddNewOpportunityComponent } from './components/add-new-opportunity/add-new-opportunity.component';
 
 import { FormFieldsModule } from '@app/elements/forms/form-fields';
-// import { AccessControlElementsModule } from '@kujali/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { BusinessContactsCreateModule } from '@app/features/finance/business/contacts/create';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
@@ -34,7 +34,7 @@ import { NewCompanyComponent } from './components/new-company/new-company.compon
 
     FormFieldsModule,
     BusinessContactsCreateModule,
-    // AccessControlElementsModule
+    AccessControlModule
 ],
   declarations: [
     AddNewOpportunityComponent,

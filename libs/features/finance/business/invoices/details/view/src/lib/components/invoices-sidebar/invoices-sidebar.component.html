@@ -1,7 +1,7 @@
 <div fxLayout="column" class="quote-actions" fxFlex >
   <div class="buttons">
     <div fxLayout="column" fxLayoutGap="30px">
-      <button [disabled]="disabled" class="white" mat-raised-button color="primary" (click)="sendInvoice()">
+      <button *hasViewAccess="CAN_SEND_INVOICE" [disabled]="disabled" class="white" mat-raised-button color="primary" (click)="sendInvoice()">
         <p class="no-margin"> {{'INVOICES.SIDEBAR.SEND-INVOICE' | transloco}} </p>
       </button>
 

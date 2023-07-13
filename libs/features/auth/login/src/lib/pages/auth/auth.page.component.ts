@@ -9,76 +9,81 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { UserStore } from '@app/state/user';
 
+import { AuthenticationService } from '../../services/authentication.service';
+
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth.page.component.html',
   styleUrls: ['./auth.page.component.scss']
 })
-export class AuthPageComponent implements OnInit, OnDestroy
-{
-  isLoading = true;
+export class AuthPageComponent implements OnInit, OnDestroy {
+  private _userSubscr: Subscription;
   user$: Observable<User>;
+  userHasAccess: boolean = false;
+
   isLogin = true;
+  isLoading = true;
+
   lang = 'en';
 
-  private _userSubscr : Subscription;
-
   constructor(userService: UserStore,
-               private _translateService: TranslateService,
-              private _router: Router)
-  {
+              private _router$$: Router,
+              private _authService: AuthenticationService,
+              private _translateService: TranslateService,
+  ) {
     this.user$ = userService.getUser();
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.lang = this._translateService.initialise();
-    this._userSubscr = this.user$.subscribe(user =>
-    {
-      if(user != null)
-        this._router.navigate(['/home']);
-
-      else
-        this._router.navigate(['/auth', 'login']);
-
-      this.isLoading = false
+    this._userSubscr = this.user$.subscribe(user => {
+      if (user != null) {
+        if (user.roles.access == true) {
+          this.userHasAccess = true;
+          const userDetails: any = user.profile;
+          if (userDetails.activeOrg && userDetails.orgIds && userDetails.activeOrg != '' && userDetails.orgIds.length > 0) {
+            this._router$$.navigate(['/home']);
+          } else {
+            this._router$$.navigate(['/orgs']);
+          }
+        }
+      } else {
+        this._router$$.navigate(['/auth/login']);
+      }
+      this.isLoading = false;
     });
   }
 
-  ngOnDestroy()
-  {
-    if(this._userSubscr)
-      this._userSubscr.unsubscribe();
-  }
-
-  authChanged($event: MatTabChangeEvent){
-    $event.index > 0 ? this.toggleMode() : this.toggleModeLogin();    
-  }
-  
-  toggleMode()
-  {
-    this.isLogin=false;
-
-    if(!this.isLogin)
-    {
-      console.log(this.isLogin);
-      this._router.navigate(['/auth/register']);
-    }
-  }
-
-
-  toggleModeLogin(){
-
-    this.isLogin=true;
-
-    if(this.isLogin){
-      this._router.navigate(['/auth/login']);
-    }
-  }
-
-  setLang(lang: 'en' | 'fr')
-  {
+  setLang(lang: 'en' | 'fr') {
     this._translateService.setLang(lang);
   }
 
+  toggleMode() {
+    this.isLogin = false;
+
+    if (!this.isLogin)
+      this._router$$.navigate(['/auth/register']);
+  }
+
+  logInWithGoogle() {
+    return this._authService.loginGoogle();
+  }
+
+  logInWithMicrosoft() {
+    return this._authService.loginMicrosoft();
+  }
+
+  toggleModeLogin() {
+    this.isLogin = true;
+
+    if (this.isLogin)
+      this._router$$.navigate(['/auth/login']);
+  }
+
+  createAccount = () => this.toggleMode();
+
+  ngOnDestroy() {
+    if (this._userSubscr)
+      this._userSubscr.unsubscribe();
+  }
 }

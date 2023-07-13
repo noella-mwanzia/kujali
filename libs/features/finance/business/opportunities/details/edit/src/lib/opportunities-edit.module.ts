@@ -11,7 +11,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 import { FormFieldsModule } from '@app/elements/forms/form-fields';
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { OpportunitiesEditPageComponent } from './pages/opportunities-edit-page/opportunities-edit-page.component';
 
@@ -38,7 +38,7 @@ import { OpportunitiesEditRouterModule } from './opportunities-edit.router';
     PageHeadersModule,
     FormFieldsModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
 
     OpportunitiesEditRouterModule
   ],

@@ -5,6 +5,8 @@ import { SubSink } from 'subsink';
 
 import { User } from '@iote/bricks';
 
+import { AppClaimDomains } from '@app/model/access-control';
+
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-const.function';
 
@@ -20,11 +22,18 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   FIRST_SUB_MENUS_BTN: NodeListOf<Element>;
 
+  readonly CAN_VIEW_DASH = AppClaimDomains.CompanyData;
+  readonly CAN_VIEW_COM = AppClaimDomains.CompanyData;
+  readonly CAN_VIEW_CON = AppClaimDomains.ContactData;
+  readonly CAN_VIEW_OPPS = AppClaimDomains.OppsData;
+  readonly CAN_VIEW_INV = AppClaimDomains.InvData;
+  readonly CAN_VIEW_SETTINGS = AppClaimDomains.SettingsData;
+  
   constructor(private _router$$: Router,
               @Inject('ENVIRONMENT') private _env: any)
   { }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     const featureName = this._router$$.url.split('/')[1];
@@ -85,7 +94,7 @@ export class SideMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const features = ['dashboard', 'business', 'operations', 'budgets'];
     const featureIndex = features.indexOf(feature);
     const featureEl = this.FIRST_SUB_MENUS_BTN[featureIndex];
-    slideToggle(featureEl.nextElementSibling);
+    slideToggle(featureEl?.nextElementSibling);
   }
 
   ngOnDestroy() {

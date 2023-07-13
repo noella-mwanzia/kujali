@@ -14,11 +14,10 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { Company } from '@app/model/finance/companies';
 import { Opportunity } from '@app/model/finance/opportunities';
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { CompaniesStore } from '@app/state/finance/companies';
 import { OpportunitiesStore } from '@app/state/finance/opportunities';
-// import { _CheckPermission } from '@app/state/access-control';
 
 import { AddNewCompanyComponent } from '@app/features/finance/business/companies/create';
 
@@ -51,7 +50,7 @@ export class CompanyPageComponent implements OnInit, OnDestroy {
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_CREATE_COMPANIES = AppClaimDomains.CompanyCreate;
+  readonly CAN_CREATE_COMPANIES = AppClaimDomains.CompanyCreate;
 
   constructor(private router: Router,
               public dialog: MatDialog,

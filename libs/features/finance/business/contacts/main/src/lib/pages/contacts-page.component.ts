@@ -15,11 +15,10 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { Contact } from '@app/model/finance/contacts';
 import { Company } from '@app/model/finance/companies';
 
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { OpportunitiesService } from '@app/state/finance/opportunities';
 import { ContactsStore } from '@app/state/finance/contacts';
-// import { _CheckPermission } from '@app/state/access-control';
 
 import { __NullContactsFilter } from '../components/contacts-filter/contacts-filter.interface';
 
@@ -52,7 +51,7 @@ export class ContactsPageComponent implements OnInit, AfterViewInit, OnDestroy
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
+  readonly CAN_CREATE_CONTACTS = AppClaimDomains.ContactCreate;
 
   constructor(private router: Router, 
               public dialog: MatDialog,

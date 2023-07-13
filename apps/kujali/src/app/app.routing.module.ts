@@ -18,6 +18,11 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'orgs',
+    loadChildren: () => import('libs/features/organisation/main/src/lib/organisation.module').then(m => m.OrganisationModule),
+  },
+
+  {
     path: 'home',
     loadChildren: () => import('@app/features/dashboard/main').then(m => m.DashboardModule),
     canActivate: [IsLoggedInGuard]
@@ -36,6 +41,12 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'budgets',
     loadChildren: () => import('@app/features/budgetting/budgets').then(m => m.FinancialPlanningModule),
+    canActivate: [IsLoggedInGuard]
+  },
+
+  {
+    path: 'settings',
+    loadChildren: () => import('@app/features/settings/main').then(m => m.SettingsModule),
     canActivate: [IsLoggedInGuard]
   },
 ];

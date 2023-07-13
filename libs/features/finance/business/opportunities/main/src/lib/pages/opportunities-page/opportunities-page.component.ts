@@ -18,11 +18,10 @@ import { __DateFromStorage } from '@iote/time';
 import { Contact } from '@app/model/finance/contacts';
 import { Company } from '@app/model/finance/companies';
 import { Opportunity } from '@app/model/finance/opportunities';
-// import { AppClaimDomains } from '@app/model/access-control';
+import { AppClaimDomains } from '@app/model/access-control';
 
 import { OpportunitiesService } from '@app/state/finance/opportunities';
 import { KujaliUsersService } from '@app/state/user';
-// import { _CheckPermission } from '@app/state/access-control';
 
 import { AddNewOpportunityComponent } from '@app/features/finance/business/opportunities/create';
 
@@ -58,7 +57,7 @@ export class OpportunitiesPageComponent implements OnInit, AfterViewInit, OnDest
 
   lang: 'fr' | 'en' | 'nl';
 
-  // readonly CAN_CREATE_OPPORTUNITIES = AppClaimDomains.OppsCreate;
+  readonly CAN_CREATE_OPPORTUNITIES = AppClaimDomains.OppsCreate;
 
   constructor(private cdref: ChangeDetectorRef,
               private dialog: MatDialog,

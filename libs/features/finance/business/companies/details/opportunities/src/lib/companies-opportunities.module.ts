@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { CompaniesOpportunitiesComponent } from './components/companies-opportunities/companies-opportunities.component';
 
@@ -20,7 +20,7 @@ import { CompaniesOpportunitiesComponent } from './components/companies-opportun
     FormsModule,
     ReactiveFormsModule,
 
-    // AccessControlElementsModule
+    AccessControlModule
   ],
   declarations: [
     CompaniesOpportunitiesComponent

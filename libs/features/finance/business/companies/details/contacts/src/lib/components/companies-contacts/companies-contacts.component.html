@@ -1,6 +1,6 @@
 <div *ngIf="canViewContacts" fxLayout="column" fxLayoutAlign="start end">
     <div class="contact-btn">
-        <a mat-flat-button (click)="openContactDialog()"><i class="bi bi-plus-circle-fill"></i>{{"COMPANY.ADD-NEW-COMPANY.NEW-CONTACT" |
+        <a *hasWriteAccess="CAN_CREATE_CONTACTS" mat-flat-button (click)="openContactDialog()"><i class="bi bi-plus-circle-fill"></i>{{"COMPANY.ADD-NEW-COMPANY.NEW-CONTACT" |
             transloco}}</a>
     </div>
 

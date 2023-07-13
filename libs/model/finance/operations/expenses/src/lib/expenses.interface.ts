@@ -3,6 +3,8 @@ import { Timestamp } from "@firebase/firestore-types";
 import { IObject } from "@iote/bricks";
 
 export interface Expenses extends IObject {
+  // Name of the expense
+  name: string;
   // The amount of the expense.
   amount: number;
 
@@ -21,12 +23,9 @@ export interface Expenses extends IObject {
   // vat number
   vat: number;
 
-  // trs category
-  trCat: string;
-
-  // trs type
-  trType: string;
-
   // Extra expense information
   note: string
+
+  // has a budget line been allocated to this expense
+  allocated?: boolean;
 }

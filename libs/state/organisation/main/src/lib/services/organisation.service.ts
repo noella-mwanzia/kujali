@@ -49,15 +49,7 @@ export class OrganisationService {
 
   createOrg(org: Organisation) {
     const id = this._db.createId();
-    const orgWithId = { 
-      ...org, 
-      id: id,
-      logoUrl: '',
-      vatNo: '',
-      bankAccounts: [],
-      email: '',
-      phone: '',
-     };
+    const orgWithId = { ...org, id: id, logoUrl: ''};
     this._sbS.sink = this._orgs$$.add(orgWithId, id)
       .pipe(take(1))
       .subscribe(o => this._afterCreateOrg(o),
@@ -93,7 +85,7 @@ export class OrganisationService {
   }
 
   updateOrgPermissions(permissions: FormGroup) {
-    this._permissionsStore.create(permissions.value);
+    return this._permissionsStore.create(permissions.value);
   }
 
   removeUserFromOrg(user: KuUser) {

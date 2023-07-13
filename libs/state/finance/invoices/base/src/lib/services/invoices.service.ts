@@ -14,7 +14,7 @@ import { Moment } from 'moment';
 import { __DateFromStorage, __DateToStorage } from '@iote/time';
 import { ToastService } from '@iote/bricks-angular';
 
-import { Invoice, InvoicesPrefix } from '@app/model/finance/invoices';
+import { Invoice, InvoiceAllocation, InvoicesPrefix } from '@app/model/finance/invoices';
 
 import { OrganisationService } from '@app/state/organisation';
 import { ContactsStore } from '@app/state/finance/contacts';
@@ -25,6 +25,7 @@ import { DeleteModalComponent } from '@app/elements/modals';
 import { InvoicesStore } from '../stores/invoices.store';
 import { ActiveInvoiceStore } from '../stores/active-invoice.store';
 import { InvoicesPrefixStore } from '../stores/invoice-prefix.store';
+import { InvoicesAllocationsStore } from 'libs/state/finance/allocations/src/lib/stores/invoices-allocations.store';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,7 @@ export class InvoicesService {
               private _toastService: ToastService,
               private _bs: AngularFireFunctions,
               private _invoices$$: InvoicesStore,
+              private _invoicesAllocs$$: InvoicesAllocationsStore,
               private _invoicesPrefix$$: InvoicesPrefixStore,
               private _activeInvoice$$: ActiveInvoiceStore,
               private _orgService: OrganisationService,
@@ -60,6 +62,10 @@ export class InvoicesService {
 
   getAllInvoices(): Observable<Invoice[]> {
     return this._invoices$$.get();
+  }
+
+  getInvoicesAndAllocations(): Observable<[Invoice[], InvoiceAllocation[]]> {
+    return combineLatest([this._invoices$$.get(), this._invoicesAllocs$$.get()]);
   }
 
   getActiveInvoice(): Observable<Invoice> {

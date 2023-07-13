@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, map, switchMap, take, tap } from 'rxjs';
 
 import { DataService } from '@ngfi/angular';
 
-import { Budget, BudgetLine, BudgetLinesAllocation } from '@app/model/finance/planning/budgets';
+import { Budget, BudgetLine, BudgetLinesAllocation, BudgetStatus } from '@app/model/finance/planning/budgets';
 import { TransactionPlan } from '@app/model/finance/planning/budget-items';
 
 import { ActiveOrgStore } from '@app/state/organisation';
@@ -12,6 +12,7 @@ import { ActiveOrgStore } from '@app/state/organisation';
 import { BudgetsStore } from '../stores/budgets.store';
 import { BudgetLinesStore } from '../stores/budget-lines.store';
 import { BudgetLinesAllocsStore } from '../stores/budget-lines-allocs.store';
+import { ActiveBudgetStore } from '../stores/active-budget.store';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class BudgetsStateService {
   constructor(private _dataService: DataService,
               private _activeOrg$$: ActiveOrgStore,
               private _budgets$$: BudgetsStore,
+              private _activeBudget$$: ActiveBudgetStore,
               private _budgetLinesStore$$: BudgetLinesStore,
               private _budgetLinesAllocsStore$$: BudgetLinesAllocsStore
   ) { }
@@ -48,5 +50,12 @@ export class BudgetsStateService {
   getPlans$$(orgId: string, budgetId: string): Observable<TransactionPlan[]> {
     const plansRepo = this._dataService.getRepo<TransactionPlan>(`orgs/${orgId}/budgets/${budgetId}/plans`);
     return plansRepo.getDocuments();
+  }
+
+  deActivateBudget(budget: Budget): Observable<Budget> {
+    return this.getAllBudgets().pipe(take(1),
+                                    map((activeBudgets) => activeBudgets.find((activeBudget) => activeBudget.id === budget.id)!),
+                                    map((activeBudget) => {activeBudget.status = BudgetStatus.Open; return activeBudget}),
+                                    switchMap((activeBudget) => this._budgets$$.update(activeBudget)));
   }
 }

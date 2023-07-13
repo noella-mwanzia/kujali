@@ -1,0 +1,104 @@
+<div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" class="config-page">
+  <div fxLayout="column" fxFlex>
+    <p class="label">Opportunity Types</p>
+
+    <div [formGroup]="configModel.opportunityTypesForm" fxLayout="column" fxLayoutAlign="start" fxFlex>
+      <div fxLayout="column" formArrayName="opportuniTypesArray" fxFlex>
+        <div *ngFor="let account of configModel.getOpportunityTypesArray().controls; let i = index" fxFlex>
+
+        <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" [formGroupName]="i" fxFlex>
+          <mat-form-field appearance="outline" fxFlex="40">
+            <input formControlName="label" matInput placeholder="Enter name">
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" fxFlex="40">
+            <input formControlName="color" matInput placeholder="Enter color">
+          </mat-form-field>
+  
+          <button [disabled]="!isEditOppsMode" color="primary" class="delete-btn" mat-mini-fab (click)="removeOpportunityType(i)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <button style="margin-bottom: 20px;" [disabled]="!isEditOppsMode" mat-stroked-button (click)="addOpportunityType()" class="add-acc-btn">
+      Add opportunity
+    </button>
+
+    <button mat-stroked-button (click)="toggleEditMode('opps')" class="edit-button" color="primary">
+      <span *ngIf="!isEditOppsMode; else saveOpps"> Edit Opportunity Types </span>
+      <ng-template #saveOpps>
+        <span>Save Opportunity Types</span>
+      </ng-template>
+    </button>
+
+  </div>
+
+  <div [formGroup]="configModel.invoicePrefixGroup" fxLayout="column" fxFlex>
+    <p class="label">Invoices Configs</p>
+
+    <div class="" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlex>
+        <div class="" fxLayout="column" fxFlex>
+          <label for="invoicesPrefix">Prefix : </label>
+          <mat-form-field appearance="outline">
+            <input formControlName="invoicesPrefix" matInput placeholder="Enter name">
+          </mat-form-field>
+        </div>
+  
+        <div class="" fxLayout="column" fxFlex>
+          <label for="currentNumber">Current number : </label>
+          <mat-form-field appearance="outline">
+            <input formControlName="currentInvoiceNumber" matInput placeholder="Current number" type="number" name="" id="">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="40px" fxFlex>
+        <div class="" fxLayout="column" fxFlex>
+          <label for="extraNote">Note : </label>
+          <mat-form-field appearance="outline">
+            <textarea formControlName="extraNote" matInput placeholder="Note"></textarea>
+          </mat-form-field>
+        </div>
+  
+        <div fxLayout="column" fxFlex>
+          <label for="extraNote">Terms & conditions document : </label>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" fxFlex>
+
+            <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="20px">
+              <div>
+                <input type="file" id="upload" hidden (change)="onFileSelected($event)"/>
+                <label class="file-upload-label" for="upload">
+                  {{configModel.invoicePrefixGroup.value.termsAndConditionsDocUrl == '' ? 'Choose file' : 'Change file'}}
+                </label>
+              </div>
+  
+              <p style="margin-bottom: 0!important;"> Current File is: <a [href]="configModel.invoicePrefixGroup.value.termsAndConditionsDocUrl">
+                {{configModel.invoicePrefixGroup.value.termsAndConditionsDocUrl == '' ? '' : 'here'}}</a>
+              </p>
+
+            </div>
+
+            <button class="delete-btn" mat-stroked-button (click)="removeTermsDoc()">
+              Remove File
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button mat-stroked-button (click)="toggleEditMode('invoices')" class="edit-button">
+          <span *ngIf="!isEditInvoicesMode; else saveInvoice"> Edit Invoice Configs </span>
+          <ng-template #saveInvoice>
+            <span>Save Invoice Configs</span>
+          </ng-template>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

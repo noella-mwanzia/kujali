@@ -47,19 +47,46 @@ export interface KujaliPermissions extends IObject
     CanDeleteInvoices: KujaliFeaturePermission,
     CanSendInvoice: KujaliFeaturePermission
   },
-  QuotesSettings: {
-    CanViewQuotes: KujaliFeaturePermission,
-    CanCreateQuotes: KujaliFeaturePermission,
-    CanEditQuotes: KujaliFeaturePermission,
-    CanSendQuotes: KujaliFeaturePermission,
-    CanDeleteQuotes: KujaliFeaturePermission,
+  AccountsSettings: {
+    CanViewAccounts: KujaliFeaturePermission,
+    CanCreateAccounts: KujaliFeaturePermission,
+    CanEditAccounts: KujaliFeaturePermission,
+    CanEditAccountsActions: KujaliFeaturePermission,
+    CanDeleteAccounts: KujaliFeaturePermission,
+    CanViewAccountsActions: KujaliFeaturePermission,
+    CanCreateAccountsActions: KujaliFeaturePermission,
+    CanDeleteAccountsActions: KujaliFeaturePermission
   },
-  OrdersSettings: {
-    CanViewOrders: KujaliFeaturePermission,
-    CanEditOrders: KujaliFeaturePermission,
-    CanCreateOrders: KujaliFeaturePermission,
-    CanDeleteOrders: KujaliFeaturePermission,
-  }
+  PaymentsSettings: {
+    CanViewPayments: KujaliFeaturePermission,
+    CanCreatePayments: KujaliFeaturePermission,
+    CanEditPayments: KujaliFeaturePermission,
+    CanEditPaymentsActions: KujaliFeaturePermission,
+    CanDeletePayments: KujaliFeaturePermission,
+    CanViewPaymentsActions: KujaliFeaturePermission,
+    CanCreatePaymentsActions: KujaliFeaturePermission,
+    CanDeletePaymentsActions: KujaliFeaturePermission
+  },
+  ExpensesSettings: {
+    CanViewExpenses: KujaliFeaturePermission,
+    CanCreateExpenses: KujaliFeaturePermission,
+    CanEditExpenses: KujaliFeaturePermission,
+    CanEditExpensesActions: KujaliFeaturePermission,
+    CanDeleteExpenses: KujaliFeaturePermission,
+    CanViewExpensesActions: KujaliFeaturePermission,
+    CanCreateExpensesActions: KujaliFeaturePermission,
+    CanDeleteExpensesActions: KujaliFeaturePermission
+  },
+  BudgetsSettings: {
+    CanViewBudgets: KujaliFeaturePermission,
+    CanCreateBudgets: KujaliFeaturePermission,
+    CanEditBudgets: KujaliFeaturePermission,
+    CanEditBudgetsActions: KujaliFeaturePermission,
+    CanDeleteBudgets: KujaliFeaturePermission,
+    CanViewBudgetsActions: KujaliFeaturePermission,
+    CanCreateBudgetsActions: KujaliFeaturePermission,
+    CanDeleteBudgetsActions: KujaliFeaturePermission
+  },
 }
 
 /** Permission setting on a single feature/claim/.. */

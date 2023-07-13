@@ -8,9 +8,7 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { Contact } from '@app/model/finance/contacts';
 import { ActiveContactStore } from '@app/state/finance/contacts';
 import { OpportunitiesService } from '@app/state/finance/opportunities';
-
-// import { PermissionsStateService } from '@app/state/organisation';
-
+import { PermissionsStateService } from '@app/state/organisation';
 
 @Component({
   selector: 'contact-information-card',
@@ -24,7 +22,7 @@ export class ContactInformationCardComponent {
   lang: 'fr' | 'en' | 'nl';
 
   constructor(private _translateService: TranslateService,
-              // private _permissionsService: PermissionsStateService,
+              private _permissionsService: PermissionsStateService,
               private _contact$$: ActiveContactStore,
               private _oppsService: OpportunitiesService,
               private _router: Router
@@ -43,16 +41,16 @@ export class ContactInformationCardComponent {
   }
 
   goToCompany(companyId: string) {
-    // this._permissionsService
-    //   .checkAccessRight(
-    //     (p: any) => p.CompanySettings.CanViewCompanies
-    //   )
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == true) {
-    //       this._router.navigate(['companies', companyId]);
-    //     }
-    //   });
+    this._permissionsService
+      .checkAccessRight(
+        (p: any) => p.CompanySettings.CanViewCompanies
+      )
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == true) {
+          this._router.navigate(['companies', companyId]);
+        }
+      });
   }
 
   goToEdit(contactId: string) {

@@ -66,7 +66,7 @@ export class AllocateExpensesHandler extends FunctionHandler<{ orgId: string, ex
     const _budgetLineAllocsService = new AllocateBudgetLineService(tools.Logger);
 
     const budgetLinesAllocsRepo =  tools.getRepository<BudgetLinesAllocation>(BUDGET_LINES_ALLOCS_REPO(data.orgId));
-    const budgetLineAlloc = _budgetLineAllocsService.createBudgetLineAllocation(expense, budgetLine, data.expenseAlloc);
+    const budgetLineAlloc = await _budgetLineAllocsService.createBudgetLineAllocation(expense, budgetLine, data.expenseAlloc, budgetLinesAllocsRepo);
 
     await budgetLinesAllocsRepo.write(budgetLineAlloc, budgetLineAlloc.id!);
 

@@ -40,6 +40,7 @@ import { TagsStateModule } from '@app/state/tags';
 import { RolesStateModule } from '@app/state/roles';
 import { FilesStateModule } from '@app/state/files';
 
+import { AccessControlStateModule } from '@app/state/access-control';
 
 import { environment } from '../environments/environment';
 
@@ -94,6 +95,8 @@ import { AppRoutingModule } from './app.routing.module';
     TagsStateModule.forRoot(),
     RolesStateModule.forRoot(),
     FilesStateModule.forRoot(),
+
+    AccessControlStateModule.forRoot(),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

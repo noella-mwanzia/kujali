@@ -17,7 +17,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { iTalPageModule } from '@app/elements/layout/page';
 import { PageHeadersModule } from '@app/elements/layout/page-headers';
 import { FormFieldsModule } from '@app/elements/forms/form-fields';
-// import { AccessControlElementsModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { ContactsEditPageComponent } from './pages/contacts-edit-page/contacts-edit-page.component';
 import { ChangeProfilePictureComponent } from '../lib/components/change-profile-picture/change-profile-picture.component';
@@ -47,7 +47,7 @@ import { ContactsEditRouterModule } from './contacts-edit.router';
     iTalPageModule,
     PageHeadersModule,
 
-    // AccessControlElementsModule,
+    AccessControlModule,
 
     ContactsEditRouterModule
   ],

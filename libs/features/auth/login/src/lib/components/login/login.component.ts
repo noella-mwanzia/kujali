@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
 
 import { AuthService } from '@ngfi/angular';
-import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
+import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +14,13 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 export class LoginComponent
 {
 
-  isLoading = false;
+  @Output() createAccount = new EventEmitter()
+
   email     = '';
   password  = '';
 
-  // isLoading: boolean;
   isLogin = true;
-
+  isLoading = false;
   showLoginError = false;
 
   constructor( private _authService: AuthService,
@@ -56,19 +56,5 @@ export class LoginComponent
 
   toggleMode = () => this.isLogin = ! this.isLogin;
 
-
-  loginGoogle() {
-    return this._authService.loadGoogleLogin();
-  }
-
-  /** Facebook Login */
-  loginFacebook() {
-    return this._authService.loadFacebookLogin();
-  }
-
-  /** Microsoft Login */
-  loginMicrosoft() {
-    return this._authService.loadMicrosoftLogin();
-  }
-
+  navigateToCreateAccount = () => this.createAccount.emit();
 }

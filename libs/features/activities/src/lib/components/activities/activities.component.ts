@@ -14,11 +14,11 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { KuUser } from '@app/model/common/user';
 import { Activity } from '@app/model/finance/activities';
+import { KujaliPermissions } from '@app/model/organisation';
 
-import { ActivityStore } from '@app/state/finance/activities';
 import { KujaliUsersService } from '@app/state/user';
-
-// import { PermissionsStateService } from '@app/state/organisation';
+import { ActivityStore } from '@app/state/finance/activities';
+import { PermissionsStateService } from '@app/state/organisation';
 
 @Component({
   selector: 'activities',
@@ -52,7 +52,7 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
               private _translateService: TranslateService,
               private _activity$$: ActivityStore,
               private cdref: ChangeDetectorRef,
-              // private _permissionsService: PermissionsStateService,
+              private _permissionsService: PermissionsStateService,
               private _kujaliUsersService: KujaliUsersService
   ) {}
 
@@ -60,20 +60,13 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
     this.lang = this._translateService.initialise();
     this.activities$ = this._activity$$.get();
 
-    this._page = this._router$$.url.split('/')[1];
+    this._page = this._router$$.url.split('/')[2];
 
-    this.activities$ = combineLatest([
-      this.activities$,
-      this.sorting$$.asObservable(),
-    ]).pipe(
-      map(([acts, sort]) =>
-        _.orderBy(
-          acts,
-          (a) => __DateFromStorage(a.endDate).unix(),
-          sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
-        )
-      )
-    );
+    this.activities$ = combineLatest([this.activities$, this.sorting$$.asObservable(),
+        ]).pipe(map(([acts, sort]) =>
+                  _.orderBy(acts,(a) => __DateFromStorage(a.endDate).unix(),
+                    sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
+                  )));
 
     this._checkPermissions();
   }
@@ -83,29 +76,26 @@ export class ActivitiesComponent implements OnInit, AfterViewInit {
   }
 
   private _checkPermissions() {
-    // this._sbS.sink = this._permissionsService
-    //   .checkAccessRight(this.getPermissionsDomain())
-    //   .pipe(take(1))
-    //   .subscribe((permissions) => {
-    //     if (permissions == true) {
-    //       this.canEditActions = true;
-    //     }
-    //   });
+    this._sbS.sink = this._permissionsService
+      .checkAccessRight(this.getPermissionsDomain())
+      .pipe(take(1))
+      .subscribe((permissions) => {
+        if (permissions == true) {
+          this.canEditActions = true;
+        }
+      });
   }
 
-  getPermissionsDomain(): (p: any) => any {
+  getPermissionsDomain() {
     switch (this._page) {
       case 'companies':
-        return (p: any) => p.CompanySettings.CanEditCompanyActions;
-
+        return (p: KujaliPermissions) => p.CompanySettings.CanEditCompanyActions;
       case 'contacts':
-        return (p: any) => p.ContactsSettings.CanEditContactActions;
-
+        return (p: KujaliPermissions) => p.ContactsSettings.CanEditContactActions;
       case 'opportunities':
-        return (p: any) => p.OpportunitiesSettings.CanEditOpportunitiesActions;
-
+        return (p: KujaliPermissions) => p.OpportunitiesSettings.CanEditOpportunitiesActions;
       default:
-        return () => {}
+        return;
     }
   }
 

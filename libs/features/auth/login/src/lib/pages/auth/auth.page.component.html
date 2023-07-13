@@ -1,50 +1,99 @@
 <div *ngIf="user$ | async; else showLogin">
 
-    <app-navbar [backButton]="false">
-        <!-- <app-user-menu></app-user-menu> -->
-    </app-navbar>
+	<div *ngIf="!userHasAccess">
+		<user-not-authorized></user-not-authorized>
+	</div>
 
-    <app-spinner></app-spinner>
+	<app-spinner></app-spinner>
 
 </div>
 
 <ng-template #showLogin>
-    <div class="auth-page">
-        <div class="auth-card" fxLayout="row" fxLayoutAlign="start start">
-            <div class="login-info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex="40">
-                <img class="logo" src="assets/images/kujali-logo.png" alt="">
+	<div class="auth-page">
+		<div class="auth-card" fxLayout="row" fxLayoutAlign="start start">
 
-                <p class="title">
-                    A financial budgeting application, the ultimate tool for managing your finances and
-                    reaching your financial goals.
-                </p>
+			<div class="login-form" fxLayout="column" fxLayoutAlign="start" fxFlex>
 
-                <p class="sub-title">
-                    Our user-friendly interface makes it easy to track your income and expenses, set budgets, and
-                    monitor your spending in real-time. Automatic categorization of transactions ensures that your data
-                    is always accurate and up-to-date. The app also allows you to create customized budgeting categories
-                    and set savings goals, so you can stay on track and achieve your financial objectives.
-                </p>
+				<img class="kujali" src="assets/images/kujali.png">
 
-                <!-- <img class="fin-img" src="https://img.freepik.com/free-vector/finance-financial-performance-concept-illustration_53876-43398.jpg?w=2000" alt=""> -->
-            </div>
+				<div class="actions" fxLayout="column" fxLayoutAlign="start">
+					<span *ngIf="isLogin" class="action-title"> {{ 'LOGIN.MESSAGE.WELCOME' | transloco}} </span>
+					<span *ngIf="!isLogin" class="action-title"> {{ 'LOGIN.CREATE-ACC-FORM.MESSAGE.WELCOME' | transloco}} </span>
+					<span *ngIf="isLogin" class="action-desc">{{ 'LOGIN.MESSAGE.LOGIN-TO-CONTINUE' | transloco}}</span>
+					<span *ngIf="!isLogin" class="action-desc">{{ 'LOGIN.CREATE-ACC-FORM.MESSAGE.CREATE-ACC-CONTINUE' | transloco}}</span>
+				</div>
 
-            <div class="login-form" fxLayout="column" fxLayoutAlign="start center" fxFlex>
-                <div fxFlex="80">
-                    <mat-tab-group (selectedTabChange)="authChanged($event)">
-                        <mat-tab (click)="toggleModeLogin()" label="Log In">
-                            <span *ngIf="isLogin" fxFlex>
-                                <app-login fxFlex></app-login>
-                            </span>
-                        </mat-tab>
-                        <mat-tab (click)="toggleMode()" label="Create Account">
-                            <span *ngIf="!isLogin" fxFlex>
-                                <app-register></app-register>
-                            </span>
-                        </mat-tab>
-                    </mat-tab-group>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="action-buttons" fxLayout="row" fxLayoutAlign="space-between center">
+					<button mat-stroked-button color="primary" fxFlex="48" (click)="logInWithGoogle()">
+						<mat-icon>
+							<img src="assets/images/google-logo.png">
+						</mat-icon>
+						<span *ngIf="isLogin">{{ 'LOGIN.MESSAGE.WITH-GOOGLE' | transloco}}</span>
+						<span *ngIf="!isLogin">{{ 'LOGIN.CREATE-ACC-FORM.MESSAGE.WITH-GOOGLE' | transloco}} </span>
+					</button>
+					<button mat-stroked-button color="primary" fxFlex="48" (click)="logInWithMicrosoft()">
+						<mat-icon>
+							<img src="assets/images/microsoft.png">
+						</mat-icon>
+						<span *ngIf="isLogin"> {{ 'LOGIN.MESSAGE.WITH-MICROSOFT' | transloco}} </span>
+						<span *ngIf="!isLogin"> {{ 'LOGIN.CREATE-ACC-FORM.MESSAGE.WITH-MICROSOFT' | transloco}} </span>
+					</button>
+				</div>
+
+				<div fxFlex>
+					<div label="Log In">
+						<span *ngIf="isLogin; else registerPage" fxFlex>
+							<app-login (createAccount)="createAccount()" fxFlex></app-login>
+						</span>
+					</div>
+					<div label="Create Account">
+						<ng-template #registerPage>
+							<span fxFlex>
+								<app-register></app-register>
+							</span>
+						</ng-template>
+					</div>
+				</div>
+
+				<div *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+					<span>
+						{{ 'LOGIN.MESSAGE.NO-ACCOUNT' | transloco}}
+					</span>
+					<button style="margin-left: 20px;" mat-button color="primary" (click)="toggleMode()">
+						{{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco}}
+					</button>
+				</div>
+
+				<ng-template #registerNav>
+					<div style="margin-top: 10px;" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+						<span>
+							{{ 'LOGIN.MESSAGE.HAVE-ACCOUNT' | transloco}}
+						</span>
+						<button style="margin-left: 20px;" mat-button color="primary" (click)="toggleModeLogin()">
+							{{ 'LOGIN.LOGIN-FORM.LOGIN' | transloco }}
+						</button>
+					</div>
+				</ng-template>
+			</div>
+
+			<div class="login-page-info" fxFlex="50">
+				<div class="login-info" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
+					<p class="title">
+						The simplest way to manage your finances
+					</p>
+
+					<p class="sub-title">
+						Our user-friendly interface makes it easy to track your income and expenses, set budgets, and
+						monitor your spending in real-time.
+					</p>
+
+					<div class="auth-images">
+						<img class="table-login" src="assets/images/login-table.png" alt="">
+						<img class="table-login-rel" src="assets/images/login-table.png" alt="">
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 </ng-template>

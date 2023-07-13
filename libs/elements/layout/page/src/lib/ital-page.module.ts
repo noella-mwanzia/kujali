@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { MatSelectFilterModule } from 'mat-select-filter';
+
 import {
   MaterialDesignModule,
   MaterialBricksModule,
@@ -9,6 +11,7 @@ import {
 } from '@iote/bricks-angular';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { AccessControlModule } from '@app/elements/access-control';
 
 import { UserMenuModule } from '@app/elements/layout/user-menu';
 
@@ -35,7 +38,10 @@ import { SingleDetailInformationPageComponent } from './components/single-inform
     MaterialDesignModule,
     MaterialBricksModule,
     FlexLayoutModule,
+
+    MatSelectFilterModule,
     UserMenuModule,
+    AccessControlModule
   ],
 
   declarations: [

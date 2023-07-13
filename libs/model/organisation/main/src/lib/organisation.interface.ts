@@ -16,6 +16,10 @@ export interface Organisation extends IObject
   address?: Address;
   contact?: Contact;
 
+  email: string;
+  phone: string;
+  website: string;
+
   bankingInfo : OrgBankingInfo;
 
   activatedBankAccount?: number;
@@ -24,6 +28,8 @@ export interface Organisation extends IObject
 
   roles: string[];
   permissions: {};
+
+  vatNo: string;
 }
 
 export interface OrgBankingInfo

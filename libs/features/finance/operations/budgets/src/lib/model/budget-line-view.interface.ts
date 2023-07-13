@@ -1,3 +1,5 @@
+import { Invoice } from "@app/model/finance/invoices";
+import { Expenses } from "@app/model/finance/operations/expenses";
 import { BudgetLine, BudgetLinesAllocation } from "@app/model/finance/planning/budgets";
 
 export interface BudgetLineAllocUI extends BudgetLine, BudgetLinesAllocation {}
@@ -7,5 +9,7 @@ export interface BudgetLineUI {
   baseAmount: number;
   budgetName: string;
   lineName: string;
-  aloocationName?: string;
+  mode: 1 | -1;
+  allocatedInvoices?: Invoice[];
+  allocatedExpenses?: Expenses[];
 }
